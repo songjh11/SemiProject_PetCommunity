@@ -11,7 +11,7 @@
 	Hello world!  
 </h1>
 
-<a href="./board/list">공지사항</a>
+<a href="./notice/list">공지사항</a>
 
 <P>  The time on the server is ${serverTime}. </P>
 </body>

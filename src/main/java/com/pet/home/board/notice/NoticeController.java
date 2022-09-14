@@ -18,11 +18,12 @@ public class NoticeController {
 	private NoticeService noticeService;
 	
 	@GetMapping("list")
-	public String getList(ModelAndView mv) throws Exception {
+	public ModelAndView getList(ModelAndView mv) throws Exception {
 		List<BoardDTO> ar = noticeService.getList();
-		mv.addObject("dto", ar);
+		mv.addObject("list", ar);
+		mv.setViewName("board/list");
 		
-		return "board/list";
+		return mv;
 	}
 	
 }

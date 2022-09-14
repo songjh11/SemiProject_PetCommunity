@@ -8,6 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<%= request.getAttribute("list") %>
+<h3>${requestScope.dto}</h3>
 <table>
 	<thead>
 		<tr>
@@ -15,9 +18,9 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach items="${dto}" var="aaa">
+		<c:forEach items="${requestScope.list}" var="dto">
 		<tr>
-			<td>${aaa.num}</td><td>${aaa.writer}</td><td>${aaa.contents}</td>
+			<td>${pageScope.dto.num}</td><td>${pageScope.dto.writer}</td><td>${pageScope.dto.contents}</td>
 		</tr>
 		</c:forEach>
 	</tbody>

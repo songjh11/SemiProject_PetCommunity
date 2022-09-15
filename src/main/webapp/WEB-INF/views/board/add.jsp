@@ -108,34 +108,33 @@
       <div class="container" data-aos="fade-up">
 
         <div class="row">
-	<table class="table">
-		<thead>
-			<tr>
-				<th>번호</th><th>제목</th><th>작성자</th><th>작성일자</th><th>조회수</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${requestScope.list}" var="dto">
-			<tr>
-				<td>${pageScope.dto.num}</td>
-				<td>
-				<%-- for(int i = begin; i<= end; i++ --%>
-				<c:catch>
-				<c:forEach begin="1" end="${dto.depth}">&ensp;</c:forEach>
-				</c:catch>
-				<a href="./detail.iu?num=${pageScope.dto.num}">${pageScope.dto.title}</a>
-				</td>
-				<td>${pageScope.dto.writer}</td>
-				<td>${pageScope.dto.regDate}</td>
-				<td>${pageScope.dto.hit}</td>
-			</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-	</div>
-	<div class="mb-3">
-		<a href="./add" class="btn btn-primary">Add</a>
-	</div>
+			<form action="add" method="post" enctype="multipart/form-data">
+				 
+			<div class="mb-3">
+		  		<label for="writer" class="form-label">작성자</label>
+		  		<input type="text" class="form-control" id="writer" name="writer" placeholder="작성자 입력">
+			</div>
+			<div class="mb-3">
+		  		<label for="title" class="form-label">제목</label>
+		  		<input type="text" class="form-control" id="title" name="title" placeholder="제목 입력">
+			</div>
+			
+			
+			<div class="mb-3">
+		  		<label for="contents" class="form-label">내용</label>
+		  		<textarea class="form-control" id="contents" rows="3" name="contents" placeholder="내용 입력"></textarea>
+			</div>
+			
+		
+			<!-- <div id="addFiles">
+				<button type="button" class="btn btn-danger" id="fileAdd">파일 추가</button>
+			</div>
+		 -->
+			
+			
+			<button class="btn btn-primary btn-lg btn-block" type="submit">Add</button>
+			</form>
+		</div>
 
       </div>
     </section>

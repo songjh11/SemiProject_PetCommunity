@@ -9,8 +9,15 @@ public class BoardDTO {
 	private String writer;
 	private String contents;
 	private Date regDate;
+	private Long hit;
 	
 	
+	public Long getHit() {
+		return hit;
+	}
+	public void setHit(Long hit) {
+		this.hit = hit;
+	}
 	public Long getNum() {
 		return num;
 	}

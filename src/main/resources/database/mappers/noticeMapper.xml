@@ -6,4 +6,9 @@
 	<select id="getList" resultType="NoticeDTO">
 		SELECT * FROM NOTICE
 	</select>
+	
+	<insert id="setAdd" parameterType="NoticeDTO">
+		INSERT INTO NOTICE(NUM, TITLE, WRITER, REGDATE, HIT, CONTENTS)
+		VALUES(NOTICE_SEQ.NEXTVAL, #{title}, #{writer}, SYSDATE, 0, #{contents})
+	</insert>
 </mapper>

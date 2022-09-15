@@ -7,5 +7,5 @@ public interface BoardDAO {
 	
 	public List<BoardDTO> getList() throws Exception;
 	
-	
+	public int setAdd(BoardDTO boardDTO) throws Exception;
 }

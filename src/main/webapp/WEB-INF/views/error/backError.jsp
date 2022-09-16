@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>agree page</h1>
+<h1>서버 에러 입니다....</h1>
 </body>
 </html>

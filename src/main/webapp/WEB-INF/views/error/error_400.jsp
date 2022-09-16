@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>agree page</h1>
+<h1>권한이 틀림</h1>
 </body>
 </html>

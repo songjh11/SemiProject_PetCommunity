@@ -3,4 +3,11 @@
 		    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		    
-		 <mapper namespace="sample"></mapper>
+		 <mapper namespace="com.pet.home.member.MemberDAO">
+
+<insert id="setjoin" parameterType="MemberDTO">	 
+INSERT INTO member (USERID,ROLENUM,USERNAME,PASSWORD,EMAIL,PHONE,ADDRESS,BLOCK,AGMAIL,AGVALUE,AGMES)
+VALUES (#{userId},3,#{userName},#{password},#{email},#{phone},#{address},0,1,1,1);
+</insert>			 
+		 	 
+</mapper>

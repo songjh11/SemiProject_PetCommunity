@@ -12,6 +12,8 @@
 </h1>
 
 <a href="./notice/list">공지사항</a>
+<a href="./sell/add">상품 등록</a>
+
 
 <P>  The time on the server is ${serverTime}. </P>
 </body>

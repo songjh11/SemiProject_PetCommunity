@@ -30,6 +30,17 @@ public class NoticeDAO implements BoardDAO {
 		return sqlSession.insert(NAMESPACE+"setAdd", boardDTO);
 	}
 	
+	@Override
+	public BoardDTO getDetail(BoardDTO boardDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(NAMESPACE+"getDetail", boardDTO);
+	}
+	
+	@Override
+	public int setUpdate(BoardDTO boardDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.update(NAMESPACE+"setUpdate", boardDTO);
+	}
 	
 	
 }

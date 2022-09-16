@@ -43,4 +43,21 @@ public class NoticeController {
 		
 	}
 	
+	@GetMapping("detail")
+	public ModelAndView getDetail(ModelAndView mv, BoardDTO boardDTO) throws Exception{
+		boardDTO = noticeService.getDetail(boardDTO);
+		
+		mv.addObject("dto", boardDTO);
+		mv.setViewName("board/detail");
+		
+		return mv;
+		
+	}
+	
+	@GetMapping("update")
+	public void setUpdate(ModelAndView mv, BoardDTO boardDTO) throws Exception{
+		
+	}
+	
+	
 }

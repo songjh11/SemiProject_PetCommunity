@@ -107,34 +107,45 @@
     <section class="sample-page">
       <div class="container" data-aos="fade-up">
 
-        <div class="row">
-			<form action="add" method="post">
-				 
-			<div class="mb-3">
-		  		<label for="writer" class="form-label">작성자</label>
-		  		<input type="text" class="form-control" id="writer" name="writer" placeholder="작성자 입력">
-			</div>
-			<div class="mb-3">
-		  		<label for="title" class="form-label">제목</label>
-		  		<input type="text" class="form-control" id="title" name="title" placeholder="제목 입력">
-			</div>
-			
-			
-			<div class="mb-3">
-		  		<label for="contents" class="form-label">내용</label>
-		  		<textarea class="form-control" id="contents" rows="3" name="contents" placeholder="내용 입력"></textarea>
-			</div>
-			
+       <table class="table">
+	
+		<thead>
+			<tr>
+				<th>번호</th><th>제목</th><th>작성자</th><th>조회수</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>${requestScope.dto.num}</td>
+				<td>${requestScope.dto.title}</td>
+				<td>${requestScope.dto.writer}</td>
+				<td>${requestScope.dto.hit}</td>
+				
+			</tr>
+		</tbody>
+		</table>
 		
-			<!-- <div id="addFiles">
-				<button type="button" class="btn btn-danger" id="fileAdd">파일 추가</button>
-			</div>
-		 -->
-			
-			
-			<button class="btn btn-primary btn-lg btn-block" type="submit">Add</button>
-			</form>
-		</div>
+		<%-- <div class="row">
+			<c:forEach items="${requestScope.boardDTO.boardFileDTOs}" var="fileDTO">
+				<p>
+				<a href="../resources/upload/${requestScope.board}/${fileDTO.fileName}">${fileDTO.oriName}</a>
+				</p>
+			</c:forEach>
+		</div> --%>
+		
+				<div class="form-floating">
+	  			<textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 200px"></textarea>
+	  			<label for="floatingTextarea2">${boardDTO.contents}</label>
+				</div>
+		
+	
+		<a href="./reply?num=${dto.num}" class="btn btn-danger">reply</a>
+	
+	
+		<a href="./update?num=${requestScope.dto.num}" class="btn btn-primary">수정</a>
+	
+	
+		<a href="./delete?num=${requestScope.dto.num}" class="btn btn-primary">삭제</a>
 
       </div>
     </section>
@@ -219,7 +230,7 @@
   <script src="/resources/assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="/resources/assets/vendor/purecounter/purecounter_vanilla.js"></script>
   <script src="/resources/assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="/resources//assets/vendor/php-email-form/validate.js"></script>
+  <script src="/resources/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
   <script src="/resources/assets/js/main.js"></script>

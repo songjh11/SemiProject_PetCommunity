@@ -108,21 +108,21 @@
       <div class="container" data-aos="fade-up">
 
         <div class="row">
-			<form action="add" method="post">
+			<form action="update" method="post">
 				 
 			<div class="mb-3">
 		  		<label for="writer" class="form-label">작성자</label>
-		  		<input type="text" class="form-control" id="writer" name="writer" placeholder="작성자 입력">
+		  		<input type="text" class="form-control" id="writer" name="writer" placeholder="${dto.writer}">
 			</div>
 			<div class="mb-3">
 		  		<label for="title" class="form-label">제목</label>
-		  		<input type="text" class="form-control" id="title" name="title" placeholder="제목 입력">
+		  		<input type="text" class="form-control" id="title" name="title" placeholder="${dto.title}">
 			</div>
 			
 			
 			<div class="mb-3">
 		  		<label for="contents" class="form-label">내용</label>
-		  		<textarea class="form-control" id="contents" rows="3" name="contents" placeholder="내용 입력"></textarea>
+		  		<textarea class="form-control" id="contents" rows="3" name="contents" placeholder="${dto.contents}"></textarea>
 			</div>
 			
 		

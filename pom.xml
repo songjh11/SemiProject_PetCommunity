@@ -37,7 +37,7 @@
 		
 		<!-- ojdbc -->
 		<dependency>
-	      <groupId>com.oracle</groupId>
+	      <groupId>com.oracle.database.jdbc</groupId>
 	      
 	      <artifactId>ojdbc10</artifactId>
 	      

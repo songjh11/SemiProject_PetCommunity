@@ -135,7 +135,7 @@
 		
 				<div class="form-floating">
 	  			<textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 200px"></textarea>
-	  			<label for="floatingTextarea2">${boardDTO.contents}</label>
+	  			<label for="floatingTextarea2">${dto.contents}</label>
 				</div>
 		
 	

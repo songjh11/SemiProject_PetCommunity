@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pet.home.board.impl.BoardDAO;
 import com.pet.home.board.impl.BoardDTO;
+import com.pet.home.util.Pager;
 
 @Repository
 public class NoticeDAO implements BoardDAO {
@@ -18,9 +19,15 @@ public class NoticeDAO implements BoardDAO {
 	
 	
 	@Override
-	public List<BoardDTO> getList() throws Exception {
+	public List<BoardDTO> getList(Pager pager) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(NAMESPACE+"getList");
+		return sqlSession.selectList(NAMESPACE+"getList",pager);
+	}
+	
+	@Override
+	public Long getCount() throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(NAMESPACE+"getCount");
 	}
 
 
@@ -42,5 +49,10 @@ public class NoticeDAO implements BoardDAO {
 		return sqlSession.update(NAMESPACE+"setUpdate", boardDTO);
 	}
 	
+	@Override
+	public int setDelete(BoardDTO boardDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.delete(NAMESPACE+"setDelete", boardDTO);
+	}
 	
 }

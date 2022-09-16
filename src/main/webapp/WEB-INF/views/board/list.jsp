@@ -94,10 +94,10 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Sample Inner Page</h2>
+          <h2>공지사항</h2>
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li>Sample Inner Page</li>
+            <li>공지사항</li>
           </ol>
         </div>
 
@@ -132,6 +132,22 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	
+	<nav aria-label="Page navigation example">
+	  <ul class="pagination justify-content-center">
+	    
+	    <li class="page-item ${pager.pre?'':'disabled'}">
+	      <a class="page-link" href="./list?page=${pager.startNum-1}">Previous</a>
+	    </li>
+	    <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+	    <li class="page-item"><a class="page-link" href="./list?page=${i}">${i}</a></li>
+	   </c:forEach>
+	    <li class="page-item ${pager.next?'':'disabled'}">
+	      <a class="page-link" href="#">Next</a>
+	    </li>
+	  </ul>
+	</nav>
+	
 	</div>
 	<div class="mb-3">
 		<a href="./add" class="btn btn-primary">Add</a>

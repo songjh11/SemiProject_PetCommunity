@@ -109,14 +109,18 @@
 
         <div class="row">
 			<form action="update" method="post">
+			
+			<div class="mb-3">
+		  		<input type="text" class="form-control" id="num" name="num" readonly value="${dto.num}">
+			</div>
 				 
 			<div class="mb-3">
 		  		<label for="writer" class="form-label">작성자</label>
-		  		<input type="text" class="form-control" id="writer" name="writer" placeholder="${dto.writer}">
+		  		<input type="text" class="form-control" id="writer" name="writer" readonly value="${dto.writer}">
 			</div>
 			<div class="mb-3">
 		  		<label for="title" class="form-label">제목</label>
-		  		<input type="text" class="form-control" id="title" name="title" placeholder="${dto.title}">
+		  		<input type="text" class="form-control" id="title" name="title" value="${dto.title}">
 			</div>
 			
 			
@@ -132,7 +136,7 @@
 		 -->
 			
 			
-			<button class="btn btn-primary btn-lg btn-block" type="submit">Add</button>
+			<button class="btn btn-primary btn-lg btn-block" type="submit">Update</button>
 			</form>
 		</div>
 

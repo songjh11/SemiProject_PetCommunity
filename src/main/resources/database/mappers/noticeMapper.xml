@@ -6,4 +6,18 @@
 	<select id="getList" resultType="NoticeDTO">
 		SELECT * FROM NOTICE
 	</select>
+	
+	<insert id="setAdd" parameterType="BoardDTO">
+		INSERT INTO NOTICE(NUM, TITLE, WRITER, REGDATE, HIT, CONTENTS)
+		VALUES(NOTICE_SEQ.NEXTVAL, #{title}, #{writer}, SYSDATE, 0, #{contents})
+	</insert>
+	
+	<select id="getDetail" parameterType="BoardDTO" resultType="BoardDTO">
+		SELECT * FROM NOTICE WHERE NUM = #{num}
+	</select>
+	
+	<update id="setUpdate" parameterType="BoardDTO">
+		UPDATE NOTICE SET TITLE = #{title}, CONTENTS = #{contents}
+		WHERE NUM = #{num}
+	</update>
 </mapper>

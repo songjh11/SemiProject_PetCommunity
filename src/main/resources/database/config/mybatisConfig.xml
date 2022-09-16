@@ -5,6 +5,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.pet.home.board.notice.NoticeDTO" alias="NoticeDTO"/>
+		<typeAlias type="com.pet.home.board.impl.BoardDTO" alias="BoardDTO"/>
 	</typeAliases>
 
 </configuration>

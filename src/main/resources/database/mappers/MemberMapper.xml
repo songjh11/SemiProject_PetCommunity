@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-		<!DOCTYPE mapper
+<!DOCTYPE mapper
 		    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-		    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		    "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
 		    
 		 <mapper namespace="com.pet.home.member.MemberDAO">
 
-<insert id="setjoin" parameterType="MemberDTO">	 
+<insert id="setJoin" parameterType="MemberDTO">	 
 INSERT INTO member (USERID,ROLENUM,USERNAME,PASSWORD,EMAIL,PHONE,ADDRESS,BLOCK,AGMAIL,AGVALUE,AGMES)
-VALUES (#{userId},3,#{userName},#{password},#{email},#{phone},#{address},0,1,1,1);
+VALUES (#{userId},3,#{userName},#{password},#{email},#{phone},#{address},0,1,1,1)
 </insert>			 
 		 	 
+<select id="getLogin" parameterType="MemberDTO" resultMap="getLoginResult">
+SELECT M.USERNAME, M.USERID, R.ROLENUM, R.ROLENAME
+		FROM MEMBER M
+    		INNER JOIN
+    		ROLE R
+    		ON M.ROLENUM = R.ROLENUM
+		WHERE M.USERID =#{userId} and M.PASSWORD =#{password}
+		ORDER BY R.ROLENUM ASC
+</select>
+
+<resultMap type="MemberDTO" id="getLoginResult">
+		<id column="USERID" property="userId" />
+		<result column="USERNAME" property="userName" />
+		<collection property="roleDTOs" javaType="List" ofType="RoleDTO">
+			<id column="ROLENUM" property="roleNum" />
+			<result column="ROLENAME" property="roleName" />
+		</collection>
+	</resultMap>
+ 
 </mapper>

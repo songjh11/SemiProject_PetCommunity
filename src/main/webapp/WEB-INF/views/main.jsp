@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -78,7 +79,9 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav><!-- .navbar -->
-
+      <h5>${sessionScope.member.userName} 님 환영합니다!</h5>
+	  <a class="btn-book-a-table" href="/member/login">Login</a>
+	  <a class="btn-book-a-table" href="/member/join">Join</a>
       <a class="btn-book-a-table" href="#book-a-table">Book a Table</a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>

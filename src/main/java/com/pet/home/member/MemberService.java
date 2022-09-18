@@ -9,12 +9,14 @@ public class MemberService {
 	@Autowired
 	private MemberDAO memberDAO;
 	
+	public MemberDTO getLogin(MemberDTO memberDTO)throws Exception{
+		return memberDAO.getLogin(memberDTO);
+	}
 	
-	public int setJoin(MemberDTO memberDTO){
+	
+	public int setJoin(MemberDTO memberDTO)throws Exception{
 		
-		int result = memberDAO.setJoin(memberDTO);
-		
-		return result;
+		return memberDAO.setJoin(memberDTO);
 	}
 	
 

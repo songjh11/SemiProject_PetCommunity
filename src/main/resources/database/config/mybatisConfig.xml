@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration
 				  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-				  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+				  "http://www.mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.pet.home.board.notice.NoticeDTO" alias="NoticeDTO"/>
 		<typeAlias type="com.pet.home.board.impl.BoardDTO" alias="BoardDTO"/>
 		
 		<typeAlias type="com.pet.home.member.MemberDTO" alias="MemberDTO"/>
+		<typeAlias type="com.pet.home.member.RoleDTO" alias="RoleDTO"/>
 		<typeAlias type="com.pet.home.member.MemberFileDTO" alias="MemberFileDTO"/>
 	</typeAliases>
 

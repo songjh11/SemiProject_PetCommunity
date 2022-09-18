@@ -21,9 +21,10 @@ public class NoticeService implements BoardService {
 		pager.getRowNum();
 		System.out.println(pager.getStartRow());
 		System.out.println(pager.getLastRow());
-		
-		System.out.println(noticeDAO.getCount());
-		pager.getNum(noticeDAO.getCount());
+		System.out.println(noticeDAO.getCount(pager));
+		pager.getNum(noticeDAO.getCount(pager));
+		System.out.println(pager.getStartNum());
+		System.out.println(pager.getLastNum());
 		
 		return noticeDAO.getList(pager);
 	}

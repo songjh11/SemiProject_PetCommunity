@@ -8,9 +8,21 @@ import javax.servlet.ServletContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pet.home.file.FileDTO;
+
 @Component
 public class FileManager {
 	
+	//file 삭제
+	public boolean deleteFile(ServletContext servletContext, FileDTO fileDTO, String path) throws Exception{
+		//1. 실제경로 받아오기
+		String realPath = servletContext.getRealPath(path);
+		System.out.println(realPath);
+		//2. 파일 객체 생성
+		File file = new File(realPath, fileDTO.getFileName());
+		
+		return file.delete();
+	}
 	
 	//saver 파일 저장
 	public String saveFile(ServletContext servletContext, String path,MultipartFile multipartFile) throws Exception{

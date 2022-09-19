@@ -45,7 +45,7 @@
 	<select id="getDetail" parameterType="BoardDTO" resultMap="getDetailResult">
 		SELECT N.*, NF.*
 		FROM NOTICE N 
-		INNER JOIN NOTICEFILE NF
+		LEFT JOIN NOTICEFILE NF
 		ON N.NUM = NF.NUM
 		WHERE N.NUM = #{num}
 	</select>
@@ -73,4 +73,13 @@
 	<delete id="setDelete" parameterType="BoardDTO">
 		DELETE NOTICE WHERE NUM = #{num}
 	</delete>
+	
+	<select id="getFileDetail" parameterType="BoardFileDTO" resultType="BoardFileDTO">
+		SELECT * FROM NOTICEFILE WHERE FILENUM = #{fileNum}
+	</select>
+	
+	<delete id="setFileDelete">
+		DELETE NOTICEFILE WHERE FILENUM = #{fileNum}
+	</delete>
+	
 </mapper>

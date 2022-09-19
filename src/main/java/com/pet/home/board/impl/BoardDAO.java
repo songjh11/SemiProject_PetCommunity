@@ -20,5 +20,9 @@ public interface BoardDAO {
 	public Long getCount(Pager pager) throws Exception;
 	//파일 추가하기
 	public int setFileAdd(BoardFileDTO boardFileDTO) throws Exception;
+	//파일 삭제
+	public int setFileDelete(BoardFileDTO boardFileDTO) throws Exception;
+	//파일 세부정보 불러오기
+	public BoardFileDTO getFileDetail(BoardFileDTO boardFileDTO) throws Exception;
 	
 }

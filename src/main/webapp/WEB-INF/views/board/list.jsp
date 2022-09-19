@@ -107,7 +107,7 @@
     <section class="sample-page">
       <div class="container" data-aos="fade-up">
 		<div class="row">
-		<form action="./list.iu?" class="row row-cols-lg-auto g-3 align-items-center">
+		<form action="./list?" class="row row-cols-lg-auto g-3 align-items-center">
 		
 		  <div class="col-12">
 		    <label class="visually-hidden" for="kind">Preference</label>

@@ -23,6 +23,23 @@ public class NoticeService implements BoardService {
 	private FileManager fileManager;
 	
 	@Override
+	public int setFileDelete(BoardFileDTO boardFileDTO, ServletContext servletContext) throws Exception {
+		// TODO Auto-generated method stub
+		boardFileDTO = noticeDAO.getFileDetail(boardFileDTO);
+		
+		int result = noticeDAO.setFileDelete(boardFileDTO);
+		
+		String path = "resources/upload/notice";
+		
+		if(result > 0) {
+			fileManager.deleteFile(servletContext, boardFileDTO, path);
+		}
+		
+		return result;
+	}
+	
+	
+	@Override
 	public List<BoardDTO> getList(Pager pager) throws Exception {
 		// TODO Auto-generated method stub
 		pager.getRowNum();

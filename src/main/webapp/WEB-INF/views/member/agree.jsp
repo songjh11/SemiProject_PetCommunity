@@ -25,13 +25,14 @@
 <h1>개인정보 동의 페이지</h1>
 <h4 id="po">필수항목에 동의하셔야 로그인 페이지로 이동합니다.</h4>
 
+<form id="frm" action="./join">
 
   <div>
 
   <h5><strong>전체동의 <input type="checkbox" id="all"></strong></h5>
   <div></div>
 
-  약관(필수)<input type="checkbox" class="cb req" >
+  개인정보 동의 약관(필수)<input type="checkbox" class="cb req" name="agValue" value="1">
   <div class="col">
     제 1 조 (목적)
     본 약관은 문화체육관광부 대표누리집 (이하 "누리집")이 제공하는 모든 서비스(이하 "서비스")의 이용조건 및 절차, 이용자와 누리집의 권리, 의무, 책임사항과 기타 제반 사항을 규정함을 목적으로 합니다.
@@ -55,7 +56,8 @@
     2. 본 약관에서 정의하지 않은 용어는 개별서비스에 대한 별도약관 및 이용규정에서 정의합니다.
 
   </div>
-  약관(필수) <input type="checkbox" class="cb req" >
+
+  이메일 동의 약관(필수) <input type="checkbox" class="cb req" name="agMail" value="1">
 
   
   <div class="col">
@@ -79,7 +81,7 @@
     이용자는 동의를 거부할 권리가 있습니다. 동의를 거부할 경우에는 서비스 이용에 제한됨을 알려드립니다.
 
   </div>
-  약관(필수) <input type="checkbox" class="cb req" >
+  메시지 동의 약관(선택) <input type="checkbox" class="cb" name="agMes" value="1">
   
   <div class="col">
     제 9 조 (서비스 이용시간)
@@ -101,10 +103,11 @@
 
 
   </div>
-  약관(선택) <input type="checkbox" class="cb" >
-</div>
+  
+ </div>
 
-<form id="frm" action="./join">
+
+
   <button type="button" id="join">회원가입</button>
 
 </form>

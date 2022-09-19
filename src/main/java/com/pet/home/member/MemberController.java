@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.xml.xpath.XPathEvaluationResult.XPathResultType;
 
+import org.springframework.aop.support.StaticMethodMatcherPointcutAdvisor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,17 @@ public class MemberController {
 		return "member/agree";
 	}
 	
+	@PostMapping("agree")
+	public String getAgree(MemberDTO memberDTO, HttpServletRequest request){
+		
+		// request에 있는 파라미터를 session에 넣음
+		HttpSession session = request.getSession();
+		// DB에서 가져온 DTO데이터를 JSP로 속성만들어서 보내기
+		session.setAttribute("ag", memberDTO);
+		
+		return "member/join";
+	}
+	
 	@GetMapping("login")
 	public String login() throws Exception {
 		System.out.println("로그인 접속 (GET)");
@@ -63,7 +75,9 @@ if (memberDTO!=null) {
 	}
 	
 	@GetMapping("join")
-	public String join() throws Exception{
+	public String join(MemberDTO memberDTO, HttpServletRequest request) throws Exception{
+		
+		//request.getParameter()
 		return "member/join";
 	}
 	
@@ -72,11 +86,17 @@ if (memberDTO!=null) {
 		
 		System.out.println("join post 실행");
 		
+		//파라미터로 동의값 넘기기 해야함
+		//String ag = request.getParameter("agMail");
+		//System.out.println(ag);
+		
+		
 
 		int result = memberService.setJoin(memberDTO);
 		System.out.println("유저아이디"+memberDTO.getUserId());
 		System.out.println(memberDTO.getPhone());
 		System.out.println(memberDTO.getUserName());
+		System.out.println("메시지동의값"+memberDTO.getAgMes());
 		  
 		  
 		  if(result>0) {

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,10 +14,12 @@
 <h1>✿회원가입✿( ღ'ᴗ'ღ )</h1>
 
 <hr>
-
+<input type="hidden" name="agMes" value="${ag.agMes}">
+<input type="hidden" name="agMail" value="${ag.agMail}">
+<input type="hidden" name="agValue" value="${ag.agValue}">
 <div>
-사업자 <input type="checkbox">
-개인회원 <input type="checkbox">
+사업자 <input type="radio" name="roleNum" value="1">
+개인회원 <input type="radio" name="roleNum" value="2">
 </div>
 
 <div>

@@ -1,94 +1,117 @@
 package com.pet.home.sell;
 
 import java.sql.Date;
+import java.util.List;
+
+import com.pet.home.sell.file.SellFileDTO;
 
 public class SellItemDTO {
 
 	private Long itemNum;
 	private String userId;
 	private String itemName;
-	private String itemPrice;
+	private Long itemPrice;
 	private String itemContents;
 	private Date itemSellDate;
-	private Date itemStartDate;
-	private Date itemEndDate;
-	private Double itemLatitude;
-	private Double itemLongtitude;
-	private Integer itemCount;
+	private Long itemZipCode;
+	private String itemAddress;
+	private String itemDeAddress;
 	private String itemCatg;
 	
+	private List<SellFileDTO> fileDTOs;
+
 	public Long getItemNum() {
 		return itemNum;
 	}
+
 	public void setItemNum(Long itemNum) {
 		this.itemNum = itemNum;
 	}
+
 	public String getUserId() {
 		return userId;
 	}
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
 	public String getItemName() {
 		return itemName;
 	}
+
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
-	public String getItemPrice() {
+
+	public Long getItemPrice() {
 		return itemPrice;
 	}
-	public void setItemPrice(String itemPrice) {
+
+	public void setItemPrice(Long itemPrice) {
 		this.itemPrice = itemPrice;
 	}
+
 	public String getItemContents() {
 		return itemContents;
 	}
+
 	public void setItemContents(String itemContents) {
 		this.itemContents = itemContents;
 	}
+
 	public Date getItemSellDate() {
 		return itemSellDate;
 	}
+
 	public void setItemSellDate(Date itemSellDate) {
 		this.itemSellDate = itemSellDate;
 	}
-	public Date getItemStartDate() {
-		return itemStartDate;
+
+	public Long getItemZipCode() {
+		return itemZipCode;
 	}
-	public void setItemStartDate(Date itemStartDate) {
-		this.itemStartDate = itemStartDate;
+
+	public void setItemZipCode(Long itemZipCode) {
+		this.itemZipCode = itemZipCode;
 	}
-	public Date getItemEndDate() {
-		return itemEndDate;
+
+	public String getItemAddress() {
+		return itemAddress;
 	}
-	public void setItemEndDate(Date itemEndDate) {
-		this.itemEndDate = itemEndDate;
+
+	public void setItemAddress(String itemAddress) {
+		this.itemAddress = itemAddress;
 	}
-	public Double getItemLatitude() {
-		return itemLatitude;
+
+	public String getItemDeAddress() {
+		return itemDeAddress;
 	}
-	public void setItemLatitude(Double itemLatitude) {
-		this.itemLatitude = itemLatitude;
+
+	public void setItemDeAddress(String itemDeAddress) {
+		this.itemDeAddress = itemDeAddress;
 	}
-	public Double getItemLongtitude() {
-		return itemLongtitude;
-	}
-	public void setItemLongtitude(Double itemLongtitude) {
-		this.itemLongtitude = itemLongtitude;
-	}
-	public Integer getItemCount() {
-		return itemCount;
-	}
-	public void setItemCount(Integer itemCount) {
-		this.itemCount = itemCount;
-	}
+
 	public String getItemCatg() {
 		return itemCatg;
 	}
+
 	public void setItemCatg(String itemCatg) {
 		this.itemCatg = itemCatg;
 	}
+
+	public List<SellFileDTO> getFileDTOs() {
+		return fileDTOs;
+	}
+
+	public void setFileDTOs(List<SellFileDTO> fileDTOs) {
+		this.fileDTOs = fileDTOs;
+	}
+	
+
+
+	
+	
 	
 	
 }

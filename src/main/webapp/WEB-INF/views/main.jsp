@@ -53,9 +53,9 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="#hero">Home</a></li>
-          <li><a href="#about">호텔링</a></li>
-          <li><a href="#menu">One Day 클래스</a></li>
-          <li><a href="#events">트레이닝</a></li>
+          <li><a href="../sell/list/h">호텔링</a></li>
+          <li><a href="../sell/list/o">One Day 클래스</a></li>
+          <li><a href="../sell/list/t">트레이닝</a></li>
           <li><a href="#chefs">Pet Taxi</a></li>
           <li><a href="#gallery">여행해요</a></li>
           <li class="dropdown"><a href="#"><span>커뮤니티</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
@@ -1084,6 +1084,7 @@
 
   <!-- Template Main JS File -->
   <script src="resources/assets/js/main.js"></script>
+
 
 </body>
 

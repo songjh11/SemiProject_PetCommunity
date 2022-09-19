@@ -3,8 +3,62 @@
 		    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pet.home.sell.SellItemDAO">
-	<insert id="setItemAdd">
-		INSERT INTO SELLITEM VALUES 
-		(2, #{userId}, #{itemName}, #{itemPrice}, #{itemContents}, SYSDATE, #{itemStartDate}, #{itemEndDate}, #{itemLatitude}, #{itemLongtitude}, #{itemCount}, #{itemCatg})
+	<insert id="setItemAdd" parameterType="SellItemDTO">
+		<selectKey keyProperty="itemNum" order="BEFORE" resultType="Long">
+		 			SELECT SELLITEM_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO SELLITEM 
+		VALUES 
+		(#{itemNum}, #{userId}, #{itemName}, #{itemPrice}, #{itemContents}, SYSDATE, #{itemZipCode}, #{itemAddress}, #{itemDeAddress}, #{itemCatg})
 	</insert>
+	
+	<insert id="setAddSellFile" parameterType="SellFileDTO">
+		INSERT INTO SELLFILE 
+		(PHOTONUM, ITEMNUM, ORINAME, FILENAME)
+		VALUES (SELLFILE_SEQ.NEXTVAL, #{itemNum}, #{oriName}, #{fileName})
+	</insert>
+	
+	<select id="getItemList" parameterType="String" resultType="SellItemDTO">
+		SELECT * FROM SELLITEM WHERE ITEMCATG=#{itemKind} ORDER BY ITEMNUM DESC
+	</select>
+	
+	<select id="getDetailOne" parameterType="SellItemDTO" resultMap="SellItemDTOResult">
+		SELECT SI.*, FILENAME 
+			FROM SELLITEM SI
+			LEFT JOIN
+			SELLFILE SF 
+			ON SI.ITEMNUM = SF.ITEMNUM
+			WHERE SI.ITEMNUM=#{itemNum}
+		ORDER BY SI.ITEMNUM DESC
+	</select>
+	
+	<update id="setItemUpdate">
+		UPDATE SELLITEM SET 
+		ITEMNAME=#{itemName}, ITEMPRICE=#{itemPrice}, ITEMCONTENTS=#{itemContents}, ITEMCATG=#{itemCatg} WHERE ITEMNUM=#{itemNum} 
+	</update>
+	
+	<select id="getItemOne" parameterType="SellItemDTO" resultType="SellItemDTO">
+		SELECT * FROM SELLITEM WHERE USERID=#{userId}
+	</select>
+	
+	<delete id="setItemDelete" parameterType="SellItemDTO">
+		DELETE SELLITEM WHERE ITEMNUM = #{itemNum}
+	</delete>
+	
+	<resultMap type="SellItemDTO" id="SellItemDTOResult">
+		<id column="ITEMNUM" property="itemNum"/>
+		<result column="USERID" property="userId"/>
+		<result column="ITEMNAME" property="itemName"/>
+		<result column="ITEMPRICE" property="itemPrice"/>
+		<result column="ITEMCONTENTS" property="itemContents"/>
+		<result column="ITEMSELLDATE" property="itemSellDate"/>
+		<result column="ITEMZIPCODE" property="itemZipCode"/>
+		<result column="ITEMADDRESS" property="itemAddress"/>
+		<result column="ITEMDEADDRESS" property="itemDeAddress"/>
+		<result column="ITEMCATG" property="itemCatg"/>
+		<collection property="fileDTOs" javaType="List" ofType="SellFileDTO">
+			<id column="FILENUM" property="fileNum"></id>
+			<result column="FILENAME" property="fileName"/>
+		</collection>
+	</resultMap>
 </mapper>

@@ -108,7 +108,7 @@
       <div class="container" data-aos="fade-up">
 
         <div class="row">
-			<form action="add" method="post">
+			<form action="add" method="post" enctype="multipart/form-data">
 				 
 			<div class="mb-3">
 		  		<label for="writer" class="form-label">작성자</label>
@@ -125,11 +125,16 @@
 		  		<textarea class="form-control" id="contents" rows="3" name="contents" placeholder="내용 입력"></textarea>
 			</div>
 			
+			<div class="mb-3">
+  				<label for="formFile" class="form-label">Default file input example</label>
+  				<input class="form-control" type="file" id="formFile" name="multipartFiles">
+			</div>
+			
 		
-			<!-- <div id="addFiles">
+			<div id="addFiles">
 				<button type="button" class="btn btn-danger" id="fileAdd">파일 추가</button>
 			</div>
-		 -->
+	
 			
 			
 			<button class="btn btn-primary btn-lg btn-block" type="submit">Add</button>

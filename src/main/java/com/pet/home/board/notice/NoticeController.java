@@ -2,11 +2,15 @@ package com.pet.home.board.notice;
 
 import java.util.List;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.home.board.impl.BoardDTO;
@@ -36,8 +40,8 @@ public class NoticeController {
 	}
 	
 	@PostMapping("add")
-	public ModelAndView setAdd(ModelAndView mv, NoticeDTO noticeDTO) throws Exception{
-		int result = noticeService.setAdd(noticeDTO);
+	public ModelAndView setAdd(ModelAndView mv, NoticeDTO noticeDTO,MultipartFile [] multipartFiles, HttpSession session) throws Exception{
+		int result = noticeService.setAdd(noticeDTO, multipartFiles, session.getServletContext());
 		
 		mv.setViewName("redirect:./list");
 		

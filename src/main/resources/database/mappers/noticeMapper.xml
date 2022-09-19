@@ -29,13 +29,41 @@
 	</select>
 	
 	<insert id="setAdd" parameterType="BoardDTO">
+		<selectKey keyProperty="num" order="BEFORE" resultType="Long">
+			SELECT NOTICE_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
 		INSERT INTO NOTICE(NUM, TITLE, WRITER, REGDATE, HIT, CONTENTS)
-		VALUES(NOTICE_SEQ.NEXTVAL, #{title}, #{writer}, SYSDATE, 0, #{contents})
+		VALUES(#{num}, #{title}, #{writer}, SYSDATE, 0, #{contents})
 	</insert>
 	
-	<select id="getDetail" parameterType="BoardDTO" resultType="BoardDTO">
-		SELECT * FROM NOTICE WHERE NUM = #{num}
+	
+	<insert id="setFileAdd" parameterType="BoardFileDTO">
+		INSERT INTO NOTICEFILE(FILENUM, NUM, FILENAME, ORINAME)
+		VALUES(NOTICEFILE_SEQ.NEXTVAL, #{num}, #{fileName}, #{oriName})
+	</insert>
+	
+	<select id="getDetail" parameterType="BoardDTO" resultMap="getDetailResult">
+		SELECT N.*, NF.*
+		FROM NOTICE N 
+		INNER JOIN NOTICEFILE NF
+		ON N.NUM = NF.NUM
+		WHERE N.NUM = #{num}
 	</select>
+	
+	<resultMap type="NoticeDTO" id="getDetailResult">
+		<id column="NUM" property="num"></id>
+		<result column="TITLE" property="title"/>
+		<result column="CONTENTS" property="contents"/>
+		<result column="WRITER" property="writer"/>
+		<result column="REGDATE" property="regDate"/>
+		<result column="HIT" property="hit"/>
+		
+		<collection property="boardFileDTOs" javaType="List" ofType="BoardFileDTO">
+			<id column="FILENUM" property="fileNum"/>
+			<result column="FILENAME" property="fileName"/>
+			<result column="oriName" property="oriName"/>
+		</collection>
+	</resultMap>
 	
 	<update id="setUpdate" parameterType="BoardDTO">
 		UPDATE NOTICE SET TITLE = #{title}, CONTENTS = #{contents}

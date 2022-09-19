@@ -84,15 +84,14 @@ public class Pager {
 	
 	//2. JSP로 넘겨줄 파라미터 값
 	public void getNum(Long totalCount) throws Exception{
-		System.out.println("현재 페이지:"+ this.getPage());
-		System.out.println("총 글 개수: "+totalCount);
+
 		//1. totalCount로 totalPage 구하기
 		Long totalPage = totalCount/this.getPerPage();
 		if(totalCount%this.getPerPage() != 0) {
 			totalPage++;
 		}
 		
-		System.out.println("총 페이지 수 : " + totalPage);
+
 		
 		//1.1 totalPage보다 page가 더 클경우
 		if(this.getPage() > totalPage) {
@@ -105,7 +104,7 @@ public class Pager {
 			totalBlock++;
 		}
 		
-		System.out.println("총 블럭 수:"+totalBlock);
+
 		
 		//3. page번호로 현재 block 번호 찾기
 		Long curBlock = this.getPage()/this.getPerBlock();
@@ -114,15 +113,13 @@ public class Pager {
 			curBlock++;
 		}
 		
-		System.out.println("현재 블럭:"+curBlock);
+
 		
 		//4. curBlock 으로 시작번호와 끝 번호 알아오기
 		
 		this.startNum = (curBlock-1)*this.getPerBlock() + 1;
 		this.lastNum = curBlock*this.getPerBlock();
-		
-		System.out.println(this.getStartNum());
-		System.out.println(this.getLastNum());
+
 		
 		//5. curBlock이 totalBlock 과 같을 때
 		if(curBlock == totalBlock) {

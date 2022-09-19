@@ -15,6 +15,11 @@
 <hr>
 
 <div>
+사업자 <input type="checkbox">
+개인회원 <input type="checkbox">
+</div>
+
+<div>
 아이디 <input type="text" name=userId> <input type="button" value="중복확인"><br>
 비밀번호 <input type="password" name="password"> <input type="button" value="비밀번호 확인"><br>
 </div>

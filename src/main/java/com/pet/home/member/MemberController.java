@@ -30,6 +30,12 @@ public class MemberController {
 //		return;
 //	}
 	
+	@GetMapping("agree")
+	public String getAgree(){
+		
+		return "member/agree";
+	}
+	
 	@GetMapping("login")
 	public String login() throws Exception {
 		System.out.println("로그인 접속 (GET)");

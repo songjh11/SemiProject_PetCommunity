@@ -19,7 +19,7 @@ public class MemberInterceptor extends HandlerInterceptorAdapter{
 		HttpSession session = request.getSession();
 		Object obj = session.getAttribute("member");
 		
-		if(!obj = null) {
+		if(obj != null) {
 			System.out.println("로그인 성공");
 			return true;
 			

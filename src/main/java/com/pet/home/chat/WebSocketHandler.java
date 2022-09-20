@@ -25,7 +25,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		// TODO Auto-generated method stub
 		String payload = message.getPayload();
-		log.info("payload {}",payload);
+//		log.info("payload {}",payload);
 		
 		ChatMessageDTO chatMessageDTO = objectMapper.readValue(payload, ChatMessageDTO.class);
 		ChatRoomDTO chatRoomDTO = chatService.findRoomById(chatMessageDTO.getRoomId());

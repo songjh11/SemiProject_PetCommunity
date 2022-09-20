@@ -21,24 +21,14 @@ public class SellItemController {
 	@Autowired
 	private SellItemService itemService;
 	
-	@GetMapping("list/h")
-	public ModelAndView getHotelList() throws Exception {
+	@GetMapping("list")
+	public ModelAndView getItemList() throws Exception {
 	  System.out.println("listh");
 	  String itemKind = "Hotel";
 	  List<SellItemDTO> ar	= itemService.getItemList(itemKind);
 	  ModelAndView mv = new ModelAndView();
 	  mv.addObject("list",ar);
 	  return mv;
-	}
-	
-	@GetMapping("list/o")
-	public void getOnedayList(SellItemDTO dto) {
-			
-	}
-	
-	@GetMapping("list/t")
-	public void getTrainningList() {
-		
 	}
 	
 	@GetMapping("list/detail")

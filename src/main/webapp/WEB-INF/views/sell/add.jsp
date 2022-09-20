@@ -108,6 +108,14 @@
                   <input type="text" name="itemCatg" class="form-control" id="itemCatg" placeholder="itemCatg">
                   <div class="validate"></div>
                 </div>
+
+                <li class="dropdown"><span>상품 카테고리 선택</span> <i class="bi bi-chevron-down dropdown-indicator"></i>
+                  <ul>
+                    <li name="itemCatg" value="H">호텔링</li>
+                    <li name="itemCatg" value="O">원데이클래스</li>
+                    <li name="itemCatg" value="T">트레이닝</li>
+
+
               </div>
               <br>
              <div class="text-center">

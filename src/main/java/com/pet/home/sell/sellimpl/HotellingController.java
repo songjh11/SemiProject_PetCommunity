@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +24,11 @@ public class HotellingController {
 	@Autowired
 	private SellItemService itemService;
 	
+	@ModelAttribute("hotel")
+	public String getBoard() {
+		return "Hotel";
+	}
+	
 	@GetMapping("list")
 	public ModelAndView getItemList() throws Exception {
 	  System.out.println("Hotel");
@@ -35,20 +41,20 @@ public class HotellingController {
 	}
 	
 	@GetMapping("detail")
-	public Model getDetailOne(SellItemDTO dto, Model model) throws Exception {
+	public ModelAndView getDetailOne(SellItemDTO dto) throws Exception {
 		dto = itemService.getDetailOne(dto);
-		model.addAttribute("dto", dto);
-		return model;
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("dto", dto);
+		mv.setViewName("sell/sellimpl/detail");
+		return mv;
 	}
-	
-	
 	
 	@GetMapping("add")
-	public void setItemAdd() throws Exception {
+	public String setItemAdd() throws Exception {
 		System.out.println("add Get");
+		return "sell/sellimpl/add";
 	}
-	
-	
+		
 	@PostMapping("add")
 	public ModelAndView setItemAddResult(SellItemDTO itemDTO, MultipartFile [] files, HttpSession session) throws Exception {
 		System.out.println("add Post");
@@ -58,7 +64,7 @@ public class HotellingController {
 		System.out.println(files.length);
 		int result = itemService.setItemAdd(itemDTO, files, session.getServletContext());
 		if(result>0) {
-			view.setViewName("redirect: /hotel/list");
+			view.setViewName("redirect:/hotel/list");
 			
 		} else {
 			view.setViewName("../");
@@ -68,18 +74,18 @@ public class HotellingController {
 	
 	
 	
-	@GetMapping("list/update")
+	@GetMapping("update")
 	public Model setItemUpdate(SellItemDTO dto, Model model) throws Exception {
 		dto = itemService.getDetailOne(dto);
 		model.addAttribute("dto", dto);
 		return model;		
 	}
 	
-	@PostMapping("list/update")
+	@PostMapping("update")
 	public ModelAndView setItemUpdateResult(SellItemDTO dto) throws Exception {
 		int result = itemService.setItemUpdate(dto);
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/sell/list/h");
+		mv.setViewName("redirect:/hotel/list");
 		return mv;
 				}
 	
@@ -87,7 +93,7 @@ public class HotellingController {
 	public ModelAndView setItemDelete(SellItemDTO itemDTO) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		int result = itemService.setItemDelete(itemDTO);
-		mv.setViewName("redirect:/sell/list/h");
+		mv.setViewName("redirect:/hotel/list");
 		return mv;
 	}
 	

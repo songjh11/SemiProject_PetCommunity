@@ -4,14 +4,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.xml.xpath.XPathEvaluationResult.XPathResultType;
 
-import org.springframework.aop.support.StaticMethodMatcherPointcutAdvisor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.servlet.ModelAndView;
-
+ 
 @Controller
 @RequestMapping(value= "/member/*")
 public class MemberController {
@@ -26,27 +26,33 @@ public class MemberController {
 //	}
 //	
 //	@PostMapping("login")
-//	public void login() {
+//	public void login() 
 //		
 //		return;
 //	}
 	
 	@GetMapping("agree")
-	public String getAgree(){
+	public String getAgree()throws Exception{
 		
 		return "member/agree";
-	}
+	} 
 	
 	@PostMapping("agree")
-	public String getAgree(MemberDTO memberDTO, HttpServletRequest request){
+	public ModelAndView  getAgree(MemberDTO memberDTO)throws Exception{
 		
-		// request에 있는 파라미터를 session에 넣음
-		HttpSession session = request.getSession();
-		// DB에서 가져온 DTO데이터를 JSP로 속성만들어서 보내기
-		session.setAttribute("ag", memberDTO);
+		ModelAndView mv = new ModelAndView();
 		
-		return "member/join";
-	}
+		mv.addObject("ag",memberDTO);
+		mv.setViewName("member/join");
+		
+		return mv;
+		
+		
+	} 
+	
+	
+	
+	
 	
 	@GetMapping("login")
 	public String login() throws Exception {
@@ -75,34 +81,34 @@ if (memberDTO!=null) {
 	}
 	
 	@GetMapping("join")
-	public String join(MemberDTO memberDTO, HttpServletRequest request) throws Exception{
-		
-		//request.getParameter()
+	public String join(HttpServletRequest request) throws Exception{
+	
 		return "member/join";
 	}
 	
 	@PostMapping("join")
-	public String join(MemberDTO memberDTO) throws Exception{
+	public ModelAndView join(MemberDTO memberDTO) throws Exception{
 		
 		System.out.println("join post 실행");
 		
-		//파라미터로 동의값 넘기기 해야함
-		//String ag = request.getParameter("agMail");
-		//System.out.println(ag);
-		
+		ModelAndView mv = new ModelAndView();
 		
 
 		int result = memberService.setJoin(memberDTO);
+		
+		System.out.println("ㅇㅇ"+memberDTO.getAgValue());
 		System.out.println("유저아이디"+memberDTO.getUserId());
 		System.out.println(memberDTO.getPhone());
 		System.out.println(memberDTO.getUserName());
-		System.out.println("메시지동의값"+memberDTO.getAgMes());
 		  
 		  
 		  if(result>0) {
 		  System.out.println("회원가입 성공!"); }else { System.out.println("회원가입 실패.."); }
+		  
+			mv.addObject("ag",memberDTO);
+			mv.setViewName("redirect:../");
 		
-		return "redirect:../";
+		return mv;
 		
 	}
 

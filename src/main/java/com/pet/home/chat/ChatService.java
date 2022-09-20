@@ -55,7 +55,7 @@ public class ChatService {
         try {
             session.sendMessage(new TextMessage(objectMapper.writeValueAsString(message)));
         } catch (IOException e) {
-            log.error(e.getMessage(), e);
+//            log.error(e.getMessage(), e);
         }
     }
 }

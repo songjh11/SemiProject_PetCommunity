@@ -99,7 +99,6 @@ imgDiv.addEventListener("click", function(event){
     remId.remove();  
     
     df.parentNode.remove();//버튼
-    console.log(inputDiv.children);   
    
     count--;    
 });

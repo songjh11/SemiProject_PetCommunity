@@ -12,12 +12,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RequiredArgsConstructor
 @Component
 public class WebSocketHandler extends TextWebSocketHandler {
 	
-	private final ObjectMapper objectMapper;
-	private final ChatService chatService;
+	@Autowired
+	private ObjectMapper objectMapper;
+	@Autowired
+	private ChatService chatService;
 	
 	
 	@Override

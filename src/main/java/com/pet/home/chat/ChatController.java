@@ -23,8 +23,8 @@ public class ChatController {
 	
 	@PostMapping
 	@ResponseBody
-	public ChatRoomDTO createRoom(@RequestParam String name) {
-		return chatService.createRoom("abc");
+	public void createRoom(@RequestParam String name) {
+//		return chatService.createRoom("abc");
 	}
 	
 	@GetMapping

@@ -10,19 +10,35 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter
 public class ChatRoomDTO {
 	private String roomId;
 	private String name;
 	private Set<WebSocketSession> sessions = new HashSet<WebSocketSession>();
 	
-	@Builder
-	public ChatRoomDTO(String roomId, String name) {
-		// TODO Auto-generated constructor stub
+	public String getRoomId() {
+		return roomId;
+	}
+
+	public void setRoomId(String roomId) {
 		this.roomId = roomId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
 		this.name = name;
 	}
-	
+
+	public Set<WebSocketSession> getSessions() {
+		return sessions;
+	}
+
+	public void setSessions(Set<WebSocketSession> sessions) {
+		this.sessions = sessions;
+	}
+
 	public void handleActions(WebSocketSession session, ChatMessageDTO chatMessageDTO, ChatService chatService) {
 		if(chatMessageDTO.getType().equals(ChatMessageDTO.MessageType.ENTER)) {
 			sessions.add(session);

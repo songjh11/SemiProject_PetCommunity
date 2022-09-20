@@ -79,9 +79,15 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav><!-- .navbar -->
+      <c:if test="${not empty sessionScope.member}">
       <h5>${sessionScope.member.userName} 님 환영합니다!</h5>
+       <a class="btn-book-a-table" href="/member/mypage">Mypage</a>
+       <a class="btn-book-a-table" href="/member/logout">Logout</a>
+      </c:if>
+      <c:if test="${empty sessionScope.member}">
 	  <a class="btn-book-a-table" href="/member/login">Login</a>
 	  <a class="btn-book-a-table" href="/member/agree">Join</a>
+	  </c:if>
       <a class="btn-book-a-table" href="#book-a-table">Book a Table</a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>

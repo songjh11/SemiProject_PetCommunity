@@ -40,15 +40,16 @@ public class ChatService {
         return chatRooms.get(roomId);
     }
 
-    public void createRoom(String name) {
+    public ChatRoomDTO createRoom(String name) {
         System.out.println("채팅방 이름:" + name);
         
     	String randomId = UUID.randomUUID().toString();
-//        ChatRoomDTO chatRoomDTO = ChatRoomDTO.builder()
-//                .roomId(randomId)
-//                .name(name)
-//                .build();
-//        chatRooms.put(randomId, chatRoomDTO);
+        ChatRoomDTO chatRoomDTO = ChatRoomDTO.builder()
+                .roomId(randomId)
+                .name(name)
+                .build();
+        chatRooms.put(randomId, chatRoomDTO);
+        return chatRoomDTO;
     }
 
     public <T> void sendMessage(WebSocketSession session, T message) {

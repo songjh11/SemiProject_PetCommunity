@@ -3,6 +3,7 @@ package com.pet.home.chat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.core.MessageSendingOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,12 +20,12 @@ import lombok.RequiredArgsConstructor;
 public class ChatController {
 	
 	@Autowired
-	private ChatService chatService;
+	private Simplemessage
 	
 	@PostMapping
 	@ResponseBody
-	public void createRoom(@RequestParam String name) {
-//		return chatService.createRoom("abc");
+	public ChatRoomDTO createRoom(@RequestParam String name) {
+		return chatService.createRoom(name);
 	}
 	
 	@GetMapping

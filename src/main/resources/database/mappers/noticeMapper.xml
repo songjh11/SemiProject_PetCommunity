@@ -3,21 +3,83 @@
 		    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pet.home.board.notice.NoticeDAO">
-	<select id="getList" resultType="NoticeDTO">
-		SELECT * FROM NOTICE
+	<sql id="search">
+		(SELECT ROWNUM R, N.* FROM
+		(SELECT * FROM NOTICE 
+			WHERE
+				<choose>
+					<when test="kind == 'title'">TITLE</when>
+					<when test="kind == 'writer'">WRITER</when>
+					<otherwise>CONTENTS</otherwise>
+				</choose>
+			LIKE '%'||#{search}||'%'
+		 ORDER BY NUM DESC) N)
+	</sql>
+	
+	
+	<select id="getList" parameterType="Pager" resultType="NoticeDTO">
+		SELECT * FROM
+		<include refid="search"></include>
+		WHERE R BETWEEN #{startRow} and #{lastRow}
+	</select>
+	
+	<select id="getCount" parameterType="Pager" resultType="Long">
+		SELECT COUNT(ROWNUM) FROM 
+		<include refid="search"></include>
 	</select>
 	
 	<insert id="setAdd" parameterType="BoardDTO">
+		<selectKey keyProperty="num" order="BEFORE" resultType="Long">
+			SELECT NOTICE_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
 		INSERT INTO NOTICE(NUM, TITLE, WRITER, REGDATE, HIT, CONTENTS)
-		VALUES(NOTICE_SEQ.NEXTVAL, #{title}, #{writer}, SYSDATE, 0, #{contents})
+		VALUES(#{num}, #{title}, #{writer}, SYSDATE, 0, #{contents})
 	</insert>
 	
-	<select id="getDetail" parameterType="BoardDTO" resultType="BoardDTO">
-		SELECT * FROM NOTICE WHERE NUM = #{num}
+	
+	<insert id="setFileAdd" parameterType="BoardFileDTO">
+		INSERT INTO NOTICEFILE(FILENUM, NUM, FILENAME, ORINAME)
+		VALUES(NOTICEFILE_SEQ.NEXTVAL, #{num}, #{fileName}, #{oriName})
+	</insert>
+	
+	<select id="getDetail" parameterType="BoardDTO" resultMap="getDetailResult">
+		SELECT N.*, NF.*
+		FROM NOTICE N 
+		LEFT JOIN NOTICEFILE NF
+		ON N.NUM = NF.NUM
+		WHERE N.NUM = #{num}
 	</select>
+	
+	<resultMap type="NoticeDTO" id="getDetailResult">
+		<id column="NUM" property="num"></id>
+		<result column="TITLE" property="title"/>
+		<result column="CONTENTS" property="contents"/>
+		<result column="WRITER" property="writer"/>
+		<result column="REGDATE" property="regDate"/>
+		<result column="HIT" property="hit"/>
+		
+		<collection property="boardFileDTOs" javaType="List" ofType="BoardFileDTO">
+			<id column="FILENUM" property="fileNum"/>
+			<result column="FILENAME" property="fileName"/>
+			<result column="oriName" property="oriName"/>
+		</collection>
+	</resultMap>
 	
 	<update id="setUpdate" parameterType="BoardDTO">
 		UPDATE NOTICE SET TITLE = #{title}, CONTENTS = #{contents}
 		WHERE NUM = #{num}
 	</update>
+	
+	<delete id="setDelete" parameterType="BoardDTO">
+		DELETE NOTICE WHERE NUM = #{num}
+	</delete>
+	
+	<select id="getFileDetail" parameterType="BoardFileDTO" resultType="BoardFileDTO">
+		SELECT * FROM NOTICEFILE WHERE FILENUM = #{fileNum}
+	</select>
+	
+	<delete id="setFileDelete">
+		DELETE NOTICEFILE WHERE FILENUM = #{fileNum}
+	</delete>
+	
 </mapper>

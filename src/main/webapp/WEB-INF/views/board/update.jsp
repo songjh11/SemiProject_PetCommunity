@@ -108,15 +108,19 @@
       <div class="container" data-aos="fade-up">
 
         <div class="row">
-			<form action="update" method="post">
+			<form action="update" method="post" enctype="multipart/form-data">
+			
+			<div class="mb-3">
+		  		<input type="text" class="form-control" id="num" name="num" readonly value="${dto.num}" style="display : none;">
+			</div>
 				 
 			<div class="mb-3">
 		  		<label for="writer" class="form-label">작성자</label>
-		  		<input type="text" class="form-control" id="writer" name="writer" placeholder="${dto.writer}">
+		  		<input type="text" class="form-control" id="writer" name="writer" readonly value="${dto.writer}">
 			</div>
 			<div class="mb-3">
 		  		<label for="title" class="form-label">제목</label>
-		  		<input type="text" class="form-control" id="title" name="title" placeholder="${dto.title}">
+		  		<input type="text" class="form-control" id="title" name="title" value="${dto.title}">
 			</div>
 			
 			
@@ -125,14 +129,20 @@
 		  		<textarea class="form-control" id="contents" rows="3" name="contents" placeholder="${dto.contents}"></textarea>
 			</div>
 			
-		
-			<!-- <div id="addFiles">
+			<c:forEach items="${dto.boardFileDTOs}" var="fileDTO">
+				<div class="mb-3">
+					<span class="form-control">${fileDTO.oriName}</span>
+					<button type="button" class="fileDelete" data-file-num = "${fileDTO.fileNum}">삭제</button>
+				</div>
+			</c:forEach>
+			
+			<div id="addFiles">
 				<button type="button" class="btn btn-danger" id="fileAdd">파일 추가</button>
 			</div>
-		 -->
+		 
 			
 			
-			<button class="btn btn-primary btn-lg btn-block" type="submit">Add</button>
+			<button class="btn btn-primary btn-lg btn-block" type="submit">Update</button>
 			</form>
 		</div>
 
@@ -223,7 +233,10 @@
 
   <!-- Template Main JS File -->
   <script src="/resources/assets/js/main.js"></script>
-
+  <script src="/resources/js/board_file.js"></script>
+  <script>
+    setCount(${dto.boardFileDTOs.size()});
+  </script>
 </body>
 
 </html>

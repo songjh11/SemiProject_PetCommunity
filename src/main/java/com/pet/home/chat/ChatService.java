@@ -20,11 +20,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RequiredArgsConstructor
 @Service
 public class ChatService {
 	
-    private final ObjectMapper objectMapper;
+	@Autowired
+    private ObjectMapper objectMapper;
     private Map<String, ChatRoomDTO> chatRooms;
 
     @PostConstruct
@@ -41,7 +41,9 @@ public class ChatService {
     }
 
     public ChatRoomDTO createRoom(String name) {
-        String randomId = UUID.randomUUID().toString();
+        System.out.println("채팅방 이름:" + name);
+        
+    	String randomId = UUID.randomUUID().toString();
         ChatRoomDTO chatRoomDTO = ChatRoomDTO.builder()
                 .roomId(randomId)
                 .name(name)

@@ -9,11 +9,11 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 import lombok.RequiredArgsConstructor;
 
 @EnableWebSocket
-@RequiredArgsConstructor
 @Configuration
 public class WebSocketConfig implements WebSocketConfigurer {
 	
-	private final WebSocketHandler webSocketHandler;
+	@Autowired
+	private WebSocketHandler webSocketHandler;
 	
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {

@@ -57,13 +57,13 @@ public class SellItemController {
 	
 	
 	@PostMapping("add")
-	public ModelAndView setItemAddResult(SellItemDTO itemDTO, MultipartFile [] mf, HttpSession session) throws Exception {
+	public ModelAndView setItemAddResult(SellItemDTO itemDTO, MultipartFile [] files, HttpSession session) throws Exception {
 		System.out.println("add Post");
 		ModelAndView view = new ModelAndView();
 		System.out.println(itemDTO.getUserId());
 		System.out.println(itemDTO.getItemAddress());
-		System.out.println(mf.length);
-		int result = itemService.setItemAdd(itemDTO, mf, session.getServletContext());
+		System.out.println(files.length);
+		int result = itemService.setItemAdd(itemDTO, files, session.getServletContext());
 		if(result>0) {
 			view.setViewName("/sell/list");
 			

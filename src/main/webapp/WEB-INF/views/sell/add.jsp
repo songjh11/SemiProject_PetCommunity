@@ -30,7 +30,7 @@
   <link href="/resources/assets/css/main.css" rel="stylesheet">
 
 	<style type="text/css">
-    .imageDiv{
+    .newDiv{
       position: relative;
       display: inline;
     }
@@ -40,9 +40,12 @@
 		} 
     .imgDeleteBtn {
       position: absolute;
-      top: 5px;
-      right : 5px; 
-      padding-top: 0%;
+      top: 0px;
+      right: 0px;
+    }
+
+    #inputDiv{
+      display: none;
     }
 	</style>
   
@@ -69,11 +72,12 @@
                   <div class="validate"></div>
                 </div>
                 <div class="col-lg-4 col-md-6">
-                   <button type="button" id="sellfileAdd" onclick="imgFileAdd();">상품 사진 추가</button>
+                   <button type="button" id="sellfileAdd">상품 사진 추가</button>
                   </div>
                 <div class="col-lg-4 col-md-6">  
                 <div id="sellFileImages">
-                  <input type="file" id="realsellfileAdd" accept="image/*" style="display: none;" onchange="imageChange(event);">
+                  <div id= "inputDiv"></div>
+                  <div id = "imgDiv"></div>
                 </div>
                 </div>
                              
@@ -186,9 +190,6 @@
 
 <script src="/resources/JS/sell.js"></script>
 
-<script>
-    realsellfileAdd.addEventListener("change", imgFileAdd);
-</script>
   
 </body>
 </html>

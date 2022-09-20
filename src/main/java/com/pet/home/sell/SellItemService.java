@@ -1,6 +1,7 @@
 package com.pet.home.sell;
 
 import java.io.File;
+import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,22 +24,23 @@ public class SellItemService {
 		int result = itemDAO.setItemAdd(itemDTO);
 		System.out.println(itemDTO.getItemNum());
 		
-		String realPath = servletContext.getRealPath("resources/upload/sellfile");
-		
-		File file = new File(realPath);
-		
-		if(mf.length>0) {
-				if(!file.exists()) {
-				file.mkdir();
-			}
-			
 			for(MultipartFile m: mf) {
 				if(m.isEmpty()) {
 					continue;
+				}				
+				
+				String realPath = servletContext.getRealPath("resources/upload/sellfile");
+				
+				File file = new File(realPath);
+				
+				if(!file.exists()) {
+					file.mkdirs();
 				}
 				
-				String fileName = UUID.randomUUID().toString();
-				fileName = fileName+"_"+m.getOriginalFilename();
+				Calendar ca = Calendar.getInstance();
+				Long l = ca.getTimeInMillis();
+				String oriName = m.getOriginalFilename();
+				String fileName = l+"_"+oriName;
 				file = new File(file, fileName);
 				
 				System.out.println(realPath);
@@ -50,9 +52,8 @@ public class SellItemService {
 				fileDTO.setOriName(m.getOriginalFilename());
 				fileDTO.setItemNum(itemDTO.getItemNum());
 				itemDAO.setAddSellFile(fileDTO);
+				System.out.println("저장");
 			}//for end
-		}//if end
-		
 		return result;
 	}
 	

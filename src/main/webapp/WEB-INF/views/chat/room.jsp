@@ -25,8 +25,8 @@
         </div>
         <ul class="list-group">
             <c:forEach items="${list}" var="entry">
-    			<li class="list-group-item list-group-item-action">
-                	Key = ${entry.key}, value = ${entry.value.name}
+    			<li class="list-group-item list-group-item-action" onclick="window.open('/room/enter?roomId=${entry.key}')">
+                	방이름  ${entry.value.name}
             	</li>
 			</c:forEach>
         </ul>

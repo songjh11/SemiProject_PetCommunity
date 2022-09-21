@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,9 +54,9 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="#hero">Home</a></li>
-          <li><a href="/sell/list">호텔링</a></li>
-          <li><a href="/sell/list?itemCatg=2">One Day 클래스</a></li>
-          <li><a href="/sell/list?itemCatg=3">트레이닝</a></li>
+          <li><a href="#about">호텔링</a></li>
+          <li><a href="#menu">One Day 클래스</a></li>
+          <li><a href="#events">트레이닝</a></li>
           <li><a href="#chefs">Pet Taxi</a></li>
           <li><a href="#gallery">여행해요</a></li>
           <li class="dropdown"><a href="#"><span>커뮤니티</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
@@ -78,8 +79,16 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav><!-- .navbar -->
-
-      <a class="btn-book-a-table" href="/sell/add">Add Items</a>
+      <c:if test="${not empty sessionScope.member}">
+      <h5>${sessionScope.member.userName} 님 환영합니다!</h5>
+       <a class="btn-book-a-table" href="/member/mypage">Mypage</a>
+       <a class="btn-book-a-table" href="/member/logout">Logout</a>
+      </c:if>
+      <c:if test="${empty sessionScope.member}">
+	  <a class="btn-book-a-table" href="/member/login">Login</a>
+	  <a class="btn-book-a-table" href="/member/agree">Join</a>
+	  </c:if>
+      <a class="btn-book-a-table" href="#book-a-table">Book a Table</a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
@@ -1084,7 +1093,6 @@
 
   <!-- Template Main JS File -->
   <script src="resources/assets/js/main.js"></script>
-
 
 </body>
 

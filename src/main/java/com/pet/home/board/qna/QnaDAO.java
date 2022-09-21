@@ -1,4 +1,4 @@
-package com.pet.home.board.notice;
+package com.pet.home.board.qna;
 
 import java.util.List;
 
@@ -12,25 +12,17 @@ import com.pet.home.board.impl.BoardFileDTO;
 import com.pet.home.util.Pager;
 
 @Repository
-public class NoticeDAO implements BoardDAO {
+public class QnaDAO implements BoardDAO {
 	
 	@Autowired
 	private SqlSession sqlSession;
-	private final String NAMESPACE = "com.pet.home.board.notice.NoticeDAO.";
-	
+	private final String NAMESPACE = "com.pet.home.board.qnaDAO.";
 	
 	@Override
 	public List<BoardDTO> getList(Pager pager) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(NAMESPACE+"getList",pager);
+		return sqlSession.selectList(NAMESPACE+"getList", pager);
 	}
-	
-	@Override
-	public Long getCount(Pager pager) throws Exception {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne(NAMESPACE+"getCount", pager);
-	}
-
 
 	@Override
 	public int setAdd(BoardDTO boardDTO) throws Exception {
@@ -61,17 +53,25 @@ public class NoticeDAO implements BoardDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(NAMESPACE+"getDetail", boardDTO);
 	}
-	
+
 	@Override
 	public int setUpdate(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.update(NAMESPACE+"setUpdate", boardDTO);
 	}
-	
+
 	@Override
 	public int setDelete(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.delete(NAMESPACE+"setDelete", boardDTO);
 	}
+
+	@Override
+	public Long getCount(Pager pager) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(NAMESPACE+"getCount", pager);
+	}
+	
+	
 	
 }

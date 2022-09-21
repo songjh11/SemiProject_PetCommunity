@@ -94,10 +94,10 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Sample Inner Page</h2>
+          <h2>공지사항</h2>
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li>Sample Inner Page</li>
+            <li>공지사항</li>
           </ol>
         </div>
 
@@ -106,8 +106,33 @@
 
     <section class="sample-page">
       <div class="container" data-aos="fade-up">
-
-        <div class="row">
+		<div class="row">
+		<form action="./list?" class="row row-cols-lg-auto g-3 align-items-center">
+		
+		  <div class="col-12">
+		    <label class="visually-hidden" for="kind">Preference</label>
+		    <select name="kind" class="form-select" id="kind">
+		      <option class="kinds" value="contents">내용</option>
+		      <option class="kinds" value="title">제목</option>
+		      <option class="kinds" value="writer">작성자</option>
+		    </select>
+		  </div>
+		
+		  <div class="col-12">
+		    <label class="visually-hidden" for="search">검색어 입력</label>
+		    <div class="input-group">
+		      <input type="text" name="search" value="${pager.search}" class="form-control" id="search" placeholder="검색어 입력">
+		    </div>
+		  </div>
+	
+		  <div class="col-12">
+		    <button type="submit" class="btn btn-primary">검색</button>
+		  </div>
+		</form>
+		</div>
+     
+     
+      <div class="row">
 	<table class="table">
 		<thead>
 			<tr>
@@ -132,9 +157,25 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	
+	<nav aria-label="Page navigation example">
+	  <ul class="pagination justify-content-center">
+	    
+	    <li class="page-item ${pager.pre?'':'disabled'}">
+	      <a class="page-link" href="./list?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}">이전</a>
+	    </li>
+	    <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+	    <li class="page-item"><a class="page-link" href="./list?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
+	   </c:forEach>
+	    <li class="page-item ${pager.next?'':'disabled'}">
+	      <a class="page-link" href="./list?page=${pager.lastNum+1}&kind=${pager.kind}&search=${pager.search}">다음</a>
+	    </li>
+	  </ul>
+	</nav>
+	
 	</div>
 	<div class="mb-3">
-		<a href="./add" class="btn btn-primary">Add</a>
+		<a href="./add" class="btn btn-primary">새 글 작성하기</a>
 	</div>
 
       </div>
@@ -224,6 +265,19 @@
 
   <!-- Template Main JS File -->
   <script src="/resources/assets/js/main.js"></script>
+
+<script>
+	const kinds = document.querySelectorAll(".kinds")
+	let k = '${pager.kind}';
+	
+		for(let i = 0; i<kinds.length ; i++){
+			if(kinds[i].value == k){
+				kinds[i].selected = true;
+				break;
+			}
+		}
+</script>
+
 
 </body>
 

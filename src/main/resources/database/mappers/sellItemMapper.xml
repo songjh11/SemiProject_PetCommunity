@@ -34,7 +34,7 @@
 			INNER JOIN
 			SELLFILE SF
 			ON SI.ITEMNUM = SF.ITEMNUM
-		WHERE SI.ITEMCATG=#{itemCatg} ORDER BY SI.ITEMNUM DESC
+		WHERE SI.ITEMCATG=#{itemCatg} ORDER BY SI.ITEMNUM DESC,SF.PHOTONUM ASC
 	</select>
 	
 	<select id="getDetailOne" parameterType="SellItemDTO" resultMap="SellItemDTOResult">
@@ -44,12 +44,12 @@
 			SELLFILE SF 
 			ON SI.ITEMNUM = SF.ITEMNUM
 			WHERE SI.ITEMNUM=#{itemNum}
-		ORDER BY SI.ITEMNUM DESC
+		ORDER BY SI.ITEMNUM DESC, SF.PHOTONUM ASC
 	</select>
 	
 	<update id="setItemUpdate">
 		UPDATE SELLITEM SET 
-		ITEMNAME=#{itemName}, ITEMPRICE=#{itemPrice}, ITEMCONTENTS=#{itemContents}, ITEMCATG=#{itemCatg} WHERE ITEMNUM=#{itemNum} 
+		ITEMNAME=#{itemName}, ITEMPRICE=#{itemPrice}, ITEMCONTENTS=#{itemContents} WHERE ITEMNUM=#{itemNum} 
 	</update>
 	
 	<select id="getItemOne" parameterType="SellItemDTO" resultType="SellItemDTO">

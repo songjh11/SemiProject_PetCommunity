@@ -81,7 +81,7 @@
     이용자는 동의를 거부할 권리가 있습니다. 동의를 거부할 경우에는 서비스 이용에 제한됨을 알려드립니다.
 
   </div>
-  메시지 동의 약관(선택) <input type="checkbox" class="cb" name="agMes" value="1">
+  메시지 동의 약관(선택) <input type="checkbox" class="cb" name="agMes" value="">
   
   <div class="col">
     제 9 조 (서비스 이용시간)

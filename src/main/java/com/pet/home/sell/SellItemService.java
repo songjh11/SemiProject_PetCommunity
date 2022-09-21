@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pet.home.sell.file.SellFileDTO;
+import com.pet.home.sell.sellcategory.CategoryDTO;
+import com.pet.home.sell.sellcategory.SellCategoryDTO;
 
 @Service
 public class SellItemService {
@@ -23,6 +25,10 @@ public class SellItemService {
 		System.out.println("service");
 		int result = itemDAO.setItemAdd(itemDTO);
 		System.out.println(itemDTO.getItemNum());
+		SellCategoryDTO categoryDTO = new SellCategoryDTO();
+		categoryDTO.setItemNum(itemDTO.getItemNum());
+		categoryDTO.setCategoryNum(itemDTO.getItemCatg());
+		itemDAO.setCategory(categoryDTO);
 		
 			for(MultipartFile m: mf) {
 				if(m.isEmpty()) {
@@ -54,11 +60,16 @@ public class SellItemService {
 				itemDAO.setAddSellFile(fileDTO);
 				System.out.println("저장");
 			}//for end
+			
 		return result;
 	}
 	
-	public List<SellItemDTO> getItemList(String itemKind) throws Exception {
-		return itemDAO.getItemList(itemKind);
+	public List<SellItemDTO> getItemList(SellItemDTO dto) throws Exception {
+		return itemDAO.getItemList(dto);
+	}
+	
+	public CategoryDTO getCategory(Long itemCatg) throws Exception{
+		return itemDAO.getCategory(itemCatg);
 	}
 	
 	public SellItemDTO getDetailOne(SellItemDTO dto) throws Exception{
@@ -70,6 +81,9 @@ public class SellItemService {
 	}
 	
 	public int setItemDelete(SellItemDTO itemDTO) throws Exception {
+		SellFileDTO fileDTO = new SellFileDTO();
+		fileDTO.setItemNum(itemDTO.getItemNum());
+		int result = itemDAO.setFileDelete(fileDTO);
 		return itemDAO.setItemDelete(itemDTO);
 	}
 

@@ -24,15 +24,15 @@ public class HotellingController {
 	@Autowired
 	private SellItemService itemService;
 	
-	@ModelAttribute("hotel")
-	public String getBoard() {
+	@ModelAttribute("category")
+	public String getItemCatg() {
 		return "Hotel";
 	}
 	
 	@GetMapping("list")
 	public ModelAndView getItemList() throws Exception {
 	  System.out.println("Hotel");
-	  String itemKind = "Hotel";
+	  String itemKind = "H";
 	  List<SellItemDTO> ar	= itemService.getItemList(itemKind);
 	  ModelAndView mv = new ModelAndView();
 	  mv.addObject("list",ar);
@@ -41,10 +41,10 @@ public class HotellingController {
 	}
 	
 	@GetMapping("detail")
-	public ModelAndView getDetailOne(SellItemDTO dto) throws Exception {
-		dto = itemService.getDetailOne(dto);
+	public ModelAndView getDetailOne(SellItemDTO sellItemDTO) throws Exception {
+		sellItemDTO = itemService.getDetailOne(sellItemDTO);
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("dto", dto);
+		mv.addObject("sellItemDTO", sellItemDTO);
 		mv.setViewName("sell/sellimpl/detail");
 		return mv;
 	}
@@ -75,9 +75,10 @@ public class HotellingController {
 	
 	
 	@GetMapping("update")
-	public Model setItemUpdate(SellItemDTO dto, Model model) throws Exception {
+	public ModelAndView setItemUpdate(SellItemDTO dto, ModelAndView model) throws Exception {
 		dto = itemService.getDetailOne(dto);
-		model.addAttribute("dto", dto);
+		model.addObject("dto", dto);
+		model.setViewName("sell/sellimpl/update");
 		return model;		
 	}
 	
@@ -89,7 +90,7 @@ public class HotellingController {
 		return mv;
 				}
 	
-	@GetMapping("list/delete")
+	@GetMapping("delete")
 	public ModelAndView setItemDelete(SellItemDTO itemDTO) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		int result = itemService.setItemDelete(itemDTO);

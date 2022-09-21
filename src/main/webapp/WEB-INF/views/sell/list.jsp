@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Hotel</title>
+  <title>${category.categoryName}</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -53,10 +53,10 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="#hero">Home</a></li>
-          <li><a href="/hotel/list">호텔링</a></li>
-          <li><a href="/oneday/list">One Day 클래스</a></li>
-          <li><a href="/training/list">트레이닝</a></li>
+          <li><a href="../">Home</a></li>
+          <li><a href="/sell/list">호텔링</a></li>
+          <li><a href="/sell/list?itemCatg=2">One Day 클래스</a></li>
+          <li><a href="/sell/list?itemCatg=3">트레이닝</a></li>
           <li><a href="#">Pet Taxi</a></li>
           <li><a href="#gallery">여행해요</a></li>
           <li class="dropdown"><a href="#"><span>커뮤니티</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
@@ -93,7 +93,7 @@
                 <div class="container" data-aos="fade-up">
                    
                    <div class="section-header">
-                    <p><span>Hotel</span><p>
+                    <p><span>${category.categoryName}</span><p>
                    </div>
                    
 					<div class="row gy-4">

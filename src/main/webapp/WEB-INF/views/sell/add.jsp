@@ -116,13 +116,12 @@
                 <div class="col-lg-4 col-md-6">
                   <select name="itemCatg" class="form-control" id="itemCatg">
                     <option value='' selected>-- 상품 카테고리 선택 --</option>
-                    <option value="H">호텔링</option>
-                    <option value="O">원데이클래스</option>
-                    <option value="T">트레이닝</option>
+                    <option value="1">호텔링</option>
+                    <option value="2">원데이클래스</option>
+                    <option value="3">트레이닝</option>
                   </select>
                   <div class="validate"></div>
                 </div>
-                
               </div>
               <br>
              <div class="text-center">

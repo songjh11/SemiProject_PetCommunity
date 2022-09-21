@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pet.home.sell.sellcategory.CategoryDTO;
+
 @Controller
 @RequestMapping(value="/sell/*")
 public class SellItemController {
@@ -21,20 +23,25 @@ public class SellItemController {
 	@Autowired
 	private SellItemService itemService;
 	
+	
+	
 	@GetMapping("list")
-	public ModelAndView getItemList() throws Exception {
-	  System.out.println("listh");
-	  String itemKind = "Hotel";
-	  List<SellItemDTO> ar	= itemService.getItemList(itemKind);
+	public ModelAndView getItemList(SellItemDTO dto) throws Exception {
+	  List<SellItemDTO> ar	= itemService.getItemList(dto);
+	  System.out.println(dto.getItemCatg());
+	  CategoryDTO categoryDTO = itemService.getCategory(dto.getItemCatg());
 	  ModelAndView mv = new ModelAndView();
 	  mv.addObject("list",ar);
+	  mv.addObject("category", categoryDTO);
 	  return mv;
 	}
 	
-	@GetMapping("list/detail")
-	public Model getDetailOne(SellItemDTO dto, Model model) throws Exception {
-		dto = itemService.getDetailOne(dto);
-		model.addAttribute("dto", dto);
+	@GetMapping("detail")
+	public ModelAndView getDetailOne(SellItemDTO sellItemDTO, ModelAndView model) throws Exception {
+		sellItemDTO = itemService.getDetailOne(sellItemDTO);
+		CategoryDTO categoryDTO = itemService.getCategory(sellItemDTO.getItemCatg());
+		model.addObject("sellItemDTO", sellItemDTO);
+		model.addObject("category", categoryDTO);
 		return model;
 	}
 	
@@ -55,7 +62,7 @@ public class SellItemController {
 		System.out.println(files.length);
 		int result = itemService.setItemAdd(itemDTO, files, session.getServletContext());
 		if(result>0) {
-			view.setViewName("/sell/list");
+			view.setViewName("redirect:/sell/list?itemCatg="+itemDTO.getItemCatg());
 			
 		} else {
 			view.setViewName("../");
@@ -65,26 +72,26 @@ public class SellItemController {
 	
 	
 	
-	@GetMapping("list/update")
+	@GetMapping("update")
 	public Model setItemUpdate(SellItemDTO dto, Model model) throws Exception {
 		dto = itemService.getDetailOne(dto);
 		model.addAttribute("dto", dto);
 		return model;		
 	}
 	
-	@PostMapping("list/update")
-	public ModelAndView setItemUpdateResult(SellItemDTO dto) throws Exception {
-		int result = itemService.setItemUpdate(dto);
+	@PostMapping("update")
+	public ModelAndView setItemUpdateResult(SellItemDTO itemDTO) throws Exception {
+		int result = itemService.setItemUpdate(itemDTO);
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/sell/list/h");
+		mv.setViewName("redirect:/sell/list?itemCatg="+itemDTO.getItemCatg());
 		return mv;
 				}
 	
-	@GetMapping("list/delete")
+	@GetMapping("delete")
 	public ModelAndView setItemDelete(SellItemDTO itemDTO) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		int result = itemService.setItemDelete(itemDTO);
-		mv.setViewName("redirect:/sell/list/h");
+		mv.setViewName("redirect:/sell/list?itemCatg="+itemDTO.getItemCatg());
 		return mv;
 	}
 	

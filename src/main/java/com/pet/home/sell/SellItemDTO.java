@@ -1,9 +1,9 @@
 package com.pet.home.sell;
 
-import java.sql.Date;
 import java.util.List;
 
 import com.pet.home.sell.file.SellFileDTO;
+import com.pet.home.sell.sellcategory.CategoryDTO;
 
 public class SellItemDTO {
 
@@ -12,13 +12,24 @@ public class SellItemDTO {
 	private String itemName;
 	private Long itemPrice;
 	private String itemContents;
-	private Date itemSellDate;
 	private Long itemZipCode;
 	private String itemAddress;
 	private String itemDeAddress;
-	private String itemCatg;
+	private Long itemCatg;
 	
 	private List<SellFileDTO> fileDTOs;
+	private CategoryDTO categoryDTO;
+	
+	
+	
+
+	public CategoryDTO getCategoryDTO() {
+		return categoryDTO;
+	}
+
+	public void setCategoryDTO(CategoryDTO categoryDTO) {
+		this.categoryDTO = categoryDTO;
+	}
 
 	public Long getItemNum() {
 		return itemNum;
@@ -60,14 +71,6 @@ public class SellItemDTO {
 		this.itemContents = itemContents;
 	}
 
-	public Date getItemSellDate() {
-		return itemSellDate;
-	}
-
-	public void setItemSellDate(Date itemSellDate) {
-		this.itemSellDate = itemSellDate;
-	}
-
 	public Long getItemZipCode() {
 		return itemZipCode;
 	}
@@ -92,11 +95,14 @@ public class SellItemDTO {
 		this.itemDeAddress = itemDeAddress;
 	}
 
-	public String getItemCatg() {
+	public Long getItemCatg() {
+		if(this.itemCatg==null) {
+			itemCatg = 1L;
+		}
 		return itemCatg;
 	}
 
-	public void setItemCatg(String itemCatg) {
+	public void setItemCatg(Long itemCatg) {
 		this.itemCatg = itemCatg;
 	}
 
@@ -107,10 +113,7 @@ public class SellItemDTO {
 	public void setFileDTOs(List<SellFileDTO> fileDTOs) {
 		this.fileDTOs = fileDTOs;
 	}
-	
 
-
-	
 	
 	
 	

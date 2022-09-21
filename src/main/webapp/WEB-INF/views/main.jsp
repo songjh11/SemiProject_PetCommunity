@@ -53,9 +53,9 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="#hero">Home</a></li>
-          <li><a href="../hotel/list">호텔링</a></li>
-          <li><a href="../oneday/list">One Day 클래스</a></li>
-          <li><a href="../training/list">트레이닝</a></li>
+          <li><a href="/sell/list">호텔링</a></li>
+          <li><a href="/sell/list?itemCatg=2">One Day 클래스</a></li>
+          <li><a href="/sell/list?itemCatg=3">트레이닝</a></li>
           <li><a href="#chefs">Pet Taxi</a></li>
           <li><a href="#gallery">여행해요</a></li>
           <li class="dropdown"><a href="#"><span>커뮤니티</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
@@ -79,7 +79,7 @@
         </ul>
       </nav><!-- .navbar -->
 
-      <a class="btn-book-a-table" href="#book-a-table">Book a Table</a>
+      <a class="btn-book-a-table" href="/sell/add">Add Items</a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 

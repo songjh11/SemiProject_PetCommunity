@@ -30,5 +30,17 @@ public class SellItemTest extends MyAbstractTest{
 		sellItemDAO.setItemAdd(dto);		
 	}
 	
+	@Test
+	public void getDetailOne() throws Exception{
+		SellItemDTO dto = new SellItemDTO();
+		dto.setItemNum(461L);
+		dto = sellItemDAO.getDetailOne(dto);
+		
+		
+		System.out.println(dto.getFileDTOs().size());
+		assertNotEquals(0, dto);
+		
+	}
+	
 
 }

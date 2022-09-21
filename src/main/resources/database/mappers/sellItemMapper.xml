@@ -9,8 +9,18 @@
 		</selectKey>
 		INSERT INTO SELLITEM 
 		VALUES 
-		(#{itemNum}, #{userId}, #{itemName}, #{itemPrice}, #{itemContents}, SYSDATE, #{itemZipCode}, #{itemAddress}, #{itemDeAddress}, #{itemCatg})
+		(#{itemNum}, #{userId}, #{itemName}, #{itemPrice}, #{itemContents}, #{itemZipCode}, #{itemAddress}, #{itemDeAddress}, #{itemCatg})
 	</insert>
+	
+	<insert id="setCategory" parameterType="SellCategoryDTO">
+		INSERT INTO SELLCATEGORY VALUES (SELLITEM_SEQ.NEXTVAL, #{itemNum}, #{categoryNum})
+	</insert>
+	
+	<select id="getCategory" parameterType="Long" resultType="CategoryDTO">
+			SELECT CATEGORYNAME
+				FROM CATEGORY
+			WHERE CATEGORYNUM = #{itemCatg}
+	</select>
 	
 	<insert id="setAddSellFile" parameterType="SellFileDTO">
 		INSERT INTO SELLFILE 
@@ -18,8 +28,8 @@
 		VALUES (SELLFILE_SEQ.NEXTVAL, #{itemNum}, #{oriName}, #{fileName})
 	</insert>
 	
-	<select id="getItemList" parameterType="String" resultType="SellItemDTO">
-		SELECT * FROM SELLITEM WHERE ITEMCATG=#{itemKind} ORDER BY ITEMNUM DESC
+	<select id="getItemList" parameterType="SellItemDTO" resultType="SellItemDTO">
+		SELECT * FROM SELLITEM WHERE ITEMCATG=#{itemCatg} ORDER BY ITEMNUM DESC
 	</select>
 	
 	<select id="getDetailOne" parameterType="SellItemDTO" resultMap="SellItemDTOResult">
@@ -45,6 +55,10 @@
 		DELETE SELLITEM WHERE ITEMNUM = #{itemNum}
 	</delete>
 	
+	<delete id="setFileDelete" parameterType="SellFileDTO">
+		DELETE SELLFILE WHERE ITEMNUM = #{itemNum}
+	</delete>
+	
 	<resultMap type="SellItemDTO" id="SellItemDTOResult">
 		<id column="ITEMNUM" property="itemNum"/>
 		<result column="USERID" property="userId"/>
@@ -56,9 +70,25 @@
 		<result column="ITEMADDRESS" property="itemAddress"/>
 		<result column="ITEMDEADDRESS" property="itemDeAddress"/>
 		<result column="ITEMCATG" property="itemCatg"/>
-		<collection property="fileDTOs" javaType="List" ofType="SellFileDTO">
+		<collection property="fileDTOs" javaType="List" ofType="sellFileDTO">
 			<id column="FILENUM" property="fileNum"></id>
 			<result column="FILENAME" property="fileName"/>
 		</collection>
+	</resultMap>
+	
+	<resultMap type="SellItemDTO" id="getCategoryResult">
+		<id column="ITEMNUM" property="itemNum"/>
+		<result column="USERID" property="userId"/>
+		<result column="ITEMNAME" property="itemName"/>
+		<result column="ITEMPRICE" property="itemPrice"/>
+		<result column="ITEMCONTENTS" property="itemContents"/>
+		<result column="ITEMSELLDATE" property="itemSellDate"/>
+		<result column="ITEMZIPCODE" property="itemZipCode"/>
+		<result column="ITEMADDRESS" property="itemAddress"/>
+		<result column="ITEMDEADDRESS" property="itemDeAddress"/>
+		<result column="ITEMCATG" property="itemCatg"/>
+		<association property="categoryDTO" javaType="CategoryDTO">
+			<result column="CATEGORYNAME" property="categoryName"/>
+		</association>
 	</resultMap>
 </mapper>

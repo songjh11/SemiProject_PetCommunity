@@ -7,12 +7,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="update", method="post">
+	<form action="update" method="post">
 	<input type="hidden" name="itemNum" value="${dto.itemNum}">
 상품명: <input type="text" name="itemName" value="${dto.itemName}">
 상품가격: <input type="text" name="itemPrice" value="${dto.itemPrice}">
 상품설명: <input type="text" name="itemContents" value="${dto.itemContents}">
-카테고리: <input type="text" name="itemCatg" value="${dto.itemCatg}">
+카테고리: <select name="itemCatg" class="form-control" id="itemCatg">
+                    <option value='' selected>-- 상품 카테고리 선택 --</option>
+                    <option value="H">호텔링</option>
+                    <option value="O">원데이클래스</option>
+                    <option value="T">트레이닝</option>
+                  </select>
 	<button>수정</button>
 	</form>
 </body>

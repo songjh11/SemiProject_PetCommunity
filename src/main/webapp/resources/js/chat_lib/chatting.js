@@ -1,8 +1,6 @@
-//chatting.js -> detail.jsp
-
 // 채팅 서버 주소
-// let url = "ws://localhost/chatserver";
-let sock = new SockJS("/ws");   		
+let url = "ws://localhost/chatserver";
+   		
 // 웹 소켓
 let ws;
 
@@ -12,8 +10,7 @@ $('#btnConnect').click(function() {
 	// 유저명 확인
    	if ($('#user').val().trim() != '') {
    		// 연결
-	   	
-        ws = new Stomp.over(sock);
+	   	ws = new WebSocket(url);
 	   			
 	   	// 소켓 이벤트 매핑
 	   	ws.onopen = function (evt) {

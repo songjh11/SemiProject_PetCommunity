@@ -32,7 +32,7 @@ public class ChatRoomDAO {
 	
 	public ChatRoomDTO addChatRoom(String name) {
 		ChatRoomDTO chatRoomDTO = ChatRoomDTO.create(name);
-		chatRoomMap.put(chatRoomDTO.getRoomId(), chatRoomDTO);
+//		chatRoomMap.put(chatRoomDTO.getRoomId(), chatRoomDTO);
 		return chatRoomDTO;
 	}
 	

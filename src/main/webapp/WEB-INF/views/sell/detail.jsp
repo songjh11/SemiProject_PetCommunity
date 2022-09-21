@@ -22,6 +22,7 @@
 
 <div>
     <c:forEach items="${sellItemDTO.fileDTOs}" var="ar">
+        <span>${ar.oriName}</span>
         <a href="../resources/upload/sellfile/${ar.fileName}">
             <img width=200 height=200 src="../resources/upload/sellfile/${ar.fileName}" class="rounded" alt="...">
             </a>

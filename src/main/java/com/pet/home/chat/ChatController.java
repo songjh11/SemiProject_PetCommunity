@@ -36,11 +36,11 @@ public class ChatController {
 
 
 
-	@MessageMapping("/chat/message")
-	public void message(ChatMessageDTO chatMessageDTO) {
-		if(ChatMessageDTO.MessageType.JOIN.equals(chatMessageDTO.getMessage())) {
-			chatMessageDTO.setMessage(chatMessageDTO.getSender()+"님이 입장하셨습니다");
-			messagingTemplate.convertAndSend("/sub/chat/room"+chatMessageDTO.getRoomId(), chatMessageDTO);
-		}
-	}
+//	@MessageMapping("/chat/message")
+//	public void message(ChatMessageDTO chatMessageDTO) {
+//		if(ChatMessageDTO.MessageType.JOIN.equals(chatMessageDTO.getMessage())) {
+//			chatMessageDTO.setMessage(chatMessageDTO.getSender()+"님이 입장하셨습니다");
+//			messagingTemplate.convertAndSend("/sub/chat/room"+chatMessageDTO.getRoomId(), chatMessageDTO);
+//		}
+//	}
 }

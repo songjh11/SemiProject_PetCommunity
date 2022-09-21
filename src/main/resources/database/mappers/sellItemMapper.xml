@@ -28,7 +28,7 @@
 		VALUES (SELLFILE_SEQ.NEXTVAL, #{itemNum}, #{oriName}, #{fileName})
 	</insert>
 	
-	<select id="getItemList" parameterType="SellItemDTO" resultMap="getItemListResult">
+	<select id="getItemList" parameterType="SellItemDTO" resultMap="getItemResult">
 		SELECT SI.ITEMNUM, SI.ITEMPRICE, SI.ITEMNAME, SF.FILENAME
 			FROM SELLITEM SI
 			INNER JOIN
@@ -37,8 +37,8 @@
 		WHERE SI.ITEMCATG=#{itemCatg} ORDER BY SI.ITEMNUM DESC,SF.PHOTONUM ASC
 	</select>
 	
-	<select id="getDetailOne" parameterType="SellItemDTO" resultMap="SellItemDTOResult">
-		SELECT SI.*, FILENAME 
+	<select id="getDetailOne" parameterType="SellItemDTO" resultMap="getItemResult">
+		SELECT SI.*, FILENAME, ORINAME 
 			FROM SELLITEM SI
 			LEFT JOIN
 			SELLFILE SF 
@@ -60,28 +60,15 @@
 		DELETE SELLITEM WHERE ITEMNUM = #{itemNum}
 	</delete>
 	
-	<delete id="setFileDelete" parameterType="SellFileDTO">
+	<delete id="setFileDelete" parameterType="Long">
 		DELETE SELLFILE WHERE ITEMNUM = #{itemNum}
 	</delete>
 	
-	<resultMap type="SellItemDTO" id="SellItemDTOResult">
-		<id column="ITEMNUM" property="itemNum"/>
-		<result column="USERID" property="userId"/>
-		<result column="ITEMNAME" property="itemName"/>
-		<result column="ITEMPRICE" property="itemPrice"/>
-		<result column="ITEMCONTENTS" property="itemContents"/>
-		<result column="ITEMSELLDATE" property="itemSellDate"/>
-		<result column="ITEMZIPCODE" property="itemZipCode"/>
-		<result column="ITEMADDRESS" property="itemAddress"/>
-		<result column="ITEMDEADDRESS" property="itemDeAddress"/>
-		<result column="ITEMCATG" property="itemCatg"/>
-		<collection property="fileDTOs" javaType="List" ofType="sellFileDTO">
-			<id column="FILENUM" property="fileNum"></id>
-			<result column="FILENAME" property="fileName"/>
-		</collection>
-	</resultMap>
+	<delete id="setCategoryDelete" parameterType="Long">
+		DELETE SELLCATEGORY WHERE ITEMNUM = #{itemNum}
+	</delete>
 	
-	<resultMap type="SellItemDTO" id="getItemListResult">
+	<resultMap type="SellItemDTO" id="getItemResult">
 		<id column="ITEMNUM" property="itemNum"/>
 		<result column="USERID" property="userId"/>
 		<result column="ITEMNAME" property="itemName"/>
@@ -95,6 +82,7 @@
 		<collection property="fileDTOs" javaType="List" ofType="sellFileDTO">
 			<id column="FILENUM" property="fileNum"></id>
 			<result column="FILENAME" property="fileName"/>
+			<result column="ORINAME" property="oriName"/>
 		</collection>
 	</resultMap>
 </mapper>

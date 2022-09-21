@@ -26,6 +26,7 @@ function check(){
         }else{
             alert("필수 약관에 동의하셔야합니다.")
         }
+
     })
 
 
@@ -46,11 +47,14 @@ function check(){
             for(let j=0;j<cb.length;j++){
                 if(!cb[j].checked){
                     result=false;
+                    
                     break;
                 }
             }
 
             all.checked=result;
+
+            
         })
     }
 

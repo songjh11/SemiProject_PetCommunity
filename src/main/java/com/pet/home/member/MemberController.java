@@ -19,36 +19,24 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
-//	@GetMapping("login")
-//	public String login(){
-//		System.out.println("login get접속");
-//		return "member/login";
-//	}
-//	
-//	@PostMapping("login")
-//	public void login() 
-//		
-//		return;
-//	}
-	
 	@GetMapping("agree")
 	public String getAgree()throws Exception{
 		
 		return "member/agree";
 	} 
 	
-	@PostMapping("agree")
-	public ModelAndView  getAgree(MemberDTO memberDTO)throws Exception{
-		
-		ModelAndView mv = new ModelAndView();
-		
-		mv.addObject("ag",memberDTO);
-		mv.setViewName("member/join");
-		
-		return mv;
-		
-		
-	} 
+//	@PostMapping("agree")
+//	public ModelAndView  getAgree(MemberDTO memberDTO)throws Exception{
+//		
+//		ModelAndView mv = new ModelAndView();
+//		
+//		mv.addObject("ag",memberDTO);
+//		mv.setViewName("member/join");
+//		
+//		return mv;
+//		
+//		
+//	} 
 	
 	
 	
@@ -87,28 +75,26 @@ if (memberDTO!=null) {
 	}
 	
 	@PostMapping("join")
-	public ModelAndView join(MemberDTO memberDTO) throws Exception{
+	public String join(MemberDTO memberDTO) throws Exception{
 		
 		System.out.println("join post 실행");
 		
-		ModelAndView mv = new ModelAndView();
+		//선택 약관동의값 세팅 
+		if(memberDTO.getAgMes()==null) {
+			memberDTO.setAgMes(0);
+		}else {memberDTO.setAgMes(1);
+		}
 		
 
 		int result = memberService.setJoin(memberDTO);
-		
-		System.out.println("ㅇㅇ"+memberDTO.getAgValue());
-		System.out.println("유저아이디"+memberDTO.getUserId());
-		System.out.println(memberDTO.getPhone());
-		System.out.println(memberDTO.getUserName());
+
 		  
 		  
 		  if(result>0) {
 		  System.out.println("회원가입 성공!"); }else { System.out.println("회원가입 실패.."); }
-		  
-			mv.addObject("ag",memberDTO);
-			mv.setViewName("redirect:../");
+
 		
-		return mv;
+		return "redirect:../";
 		
 	}
 

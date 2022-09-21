@@ -12,7 +12,7 @@ public class MemberDTO {
 	private String phone;
 	private String address;
 	private Integer block;
-	private Integer agEmail;
+	private Integer agMail;
 	private Integer agValue;
 	private Integer agMes;
 	private List<RoleDTO> roleDTOs;
@@ -65,11 +65,12 @@ public class MemberDTO {
 	public void setBlock(Integer block) {
 		this.block = block;
 	}
-	public Integer getAgEmail() {
-		return agEmail;
+
+	public Integer getAgMail() {
+		return agMail;
 	}
-	public void setAgEmail(Integer agEmail) {
-		this.agEmail = agEmail;
+	public void setAgMail(Integer agMail) {
+		this.agMail = agMail;
 	}
 	public Integer getAgValue() {
 		return agValue;

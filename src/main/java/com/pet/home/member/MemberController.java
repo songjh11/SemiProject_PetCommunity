@@ -1,5 +1,7 @@
 package com.pet.home.member;
 
+import java.util.Calendar;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.xml.xpath.XPathEvaluationResult.XPathResultType;
@@ -19,28 +21,11 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
-	@GetMapping("agree")
+	@GetMapping("role")
 	public String getAgree()throws Exception{
 		
-		return "member/agree";
+		return "member/role";
 	} 
-	
-//	@PostMapping("agree")
-//	public ModelAndView  getAgree(MemberDTO memberDTO)throws Exception{
-//		
-//		ModelAndView mv = new ModelAndView();
-//		
-//		mv.addObject("ag",memberDTO);
-//		mv.setViewName("member/join");
-//		
-//		return mv;
-//		
-//		
-//	} 
-	
-	
-	
-	
 	
 	@GetMapping("login")
 	public String login() throws Exception {
@@ -68,6 +53,15 @@ if (memberDTO!=null) {
 		return "redirect:../";
 	}
 	
+	@GetMapping("logout")
+	public String logout (HttpSession session) throws Exception{
+		
+		session.invalidate(); //세션 비우기 
+		
+		return "redirect:../"; 
+	}
+	
+	
 	@GetMapping("join")
 	public String join(HttpServletRequest request) throws Exception{
 	
@@ -77,25 +71,41 @@ if (memberDTO!=null) {
 	@PostMapping("join")
 	public String join(MemberDTO memberDTO) throws Exception{
 		
+		Calendar ca = Calendar.getInstance();
+		
 		System.out.println("join post 실행");
 		
 		//선택 약관동의값 세팅 
+		// 체크되지 않으면 0 , 선택되면 1로 설정 
 		if(memberDTO.getAgMes()==null) {
 			memberDTO.setAgMes(0);
 		}else {memberDTO.setAgMes(1);
 		}
-		
 
+		//공통 member테이블 먼저 생성 
 		int result = memberService.setJoin(memberDTO);
+		
+	
+		
+		//사업자 회원일 때 
+		if(memberDTO.getRoleNum()==1){ 
+			memberDTO.setBizNum(ca.getTimeInMillis()); //사업자번호 밀리세컨즈로 설정 
+		    memberService.setBiz(memberDTO); //bizmem 테이블 생성 
+		}else {
+			//게스트 회원일 때 
+			memberDTO.setGuestId(ca.getTimeInMillis()); //guestId 밀리세즈로 설정 
+			memberService.setGuest(memberDTO); //guest 테이블 생성 
+		}
 
 		  
 		  
 		  if(result>0) {
-		  System.out.println("회원가입 성공!"); }else { System.out.println("회원가입 실패.."); }
+		  System.out.println("회원가입 성공!"); }else { System.out.println("회원가입 실패"); }
 
 		
 		return "redirect:../";
 		
 	}
-
+	
 }
+	

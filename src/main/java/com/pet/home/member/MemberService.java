@@ -21,5 +21,17 @@ public class MemberService {
 		return memberDAO.setJoin(memberDTO);
 	}
 	
+	public int setGuest(MemberDTO memberDTO)throws Exception{
+		
+		return memberDAO.setGuest(memberDTO);
+	}
+	
+	
+	public int setBiz(MemberDTO memberDTO)throws Exception{
+		
+		return memberDAO.setBiz(memberDTO);
+	}
+	
+	
 
 }

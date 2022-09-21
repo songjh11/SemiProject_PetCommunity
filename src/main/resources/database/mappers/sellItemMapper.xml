@@ -28,8 +28,13 @@
 		VALUES (SELLFILE_SEQ.NEXTVAL, #{itemNum}, #{oriName}, #{fileName})
 	</insert>
 	
-	<select id="getItemList" parameterType="SellItemDTO" resultType="SellItemDTO">
-		SELECT * FROM SELLITEM WHERE ITEMCATG=#{itemCatg} ORDER BY ITEMNUM DESC
+	<select id="getItemList" parameterType="SellItemDTO" resultMap="getItemListResult">
+		SELECT SI.ITEMNUM, SI.ITEMPRICE, SI.ITEMNAME, SF.FILENAME
+			FROM SELLITEM SI
+			INNER JOIN
+			SELLFILE SF
+			ON SI.ITEMNUM = SF.ITEMNUM
+		WHERE SI.ITEMCATG=#{itemCatg} ORDER BY SI.ITEMNUM DESC
 	</select>
 	
 	<select id="getDetailOne" parameterType="SellItemDTO" resultMap="SellItemDTOResult">
@@ -76,7 +81,7 @@
 		</collection>
 	</resultMap>
 	
-	<resultMap type="SellItemDTO" id="getCategoryResult">
+	<resultMap type="SellItemDTO" id="getItemListResult">
 		<id column="ITEMNUM" property="itemNum"/>
 		<result column="USERID" property="userId"/>
 		<result column="ITEMNAME" property="itemName"/>
@@ -87,8 +92,9 @@
 		<result column="ITEMADDRESS" property="itemAddress"/>
 		<result column="ITEMDEADDRESS" property="itemDeAddress"/>
 		<result column="ITEMCATG" property="itemCatg"/>
-		<association property="categoryDTO" javaType="CategoryDTO">
-			<result column="CATEGORYNAME" property="categoryName"/>
-		</association>
+		<collection property="fileDTOs" javaType="List" ofType="sellFileDTO">
+			<id column="FILENUM" property="fileNum"></id>
+			<result column="FILENAME" property="fileName"/>
+		</collection>
 	</resultMap>
 </mapper>

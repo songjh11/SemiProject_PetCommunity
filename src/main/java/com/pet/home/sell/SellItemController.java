@@ -45,8 +45,6 @@ public class SellItemController {
 		return model;
 	}
 	
-	
-	
 	@GetMapping("add")
 	public void setItemAdd() throws Exception {
 		System.out.println("add Get");

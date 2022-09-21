@@ -102,7 +102,7 @@
                     	<div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
 	                      <div class="chef-member">
 		                          <div class="member-img">
-		                            <img src="/resources/images/다운로드.jpg" class="img-fluid" alt="">
+		                            <img src="/resources/upload/sellfile/${ar.fileDTOs[0].fileName}" class="img-fluid" alt="">
 			                            <div class="social">
 			                              <a href=""><i class="bi bi-twitter"></i></a>
 			                              <a href=""><i class="bi bi-facebook"></i></a>

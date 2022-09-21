@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pet.home.chat.ChatRoomDAO">
+	<select id="findAllRoom" resultType="ChatRoomDTO">
+		SELECT * FROM CHATROOM
+	</select>
+	
+	<insert id="createChatRoom" parameterType="ChatRoomDTO">
+		INSERT INTO CHATROOM(ROOMNUM, NAME)
+		VALUES(CHATROOM_SEQ.NEXTVAL, #{name})
+	</insert>
+	
+	<select id="findRoomById" parameterType="ChatRoomDTO" resultType="ChatRoomDTO">
+		SELECT * FROM CHATROOM WHERE ROOMNUM = #{roomNum}
+	</select>
+	
+</mapper>

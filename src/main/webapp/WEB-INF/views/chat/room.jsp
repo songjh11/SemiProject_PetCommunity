@@ -24,15 +24,14 @@
             <button class="btn btn-primary" type="button" id="btn">채팅방 개설</button>
         </div>
         <ul class="list-group">
-            <c:forEach items="${list}" var="entry">
-    			<li class="list-group-item list-group-item-action" onclick="window.open('/room/enter?roomId=${entry.key}')">
-                	방이름  ${entry.value.name}
+            <c:forEach items="${requestScope.rooms}" var="dto">
+    			<li class="list-group-item list-group-item-action" onclick="window.open('/room/enter?roomNum=${dto.roomNum}')">
+                	방이름 ${dto.name}
             	</li>
 			</c:forEach>
         </ul>
     </div>
 
-<script src="/resources/js/chat.js"></script>
-
+<script src="/resources/js/chat_lib/chat.js"></script>
 </body>
 </html>

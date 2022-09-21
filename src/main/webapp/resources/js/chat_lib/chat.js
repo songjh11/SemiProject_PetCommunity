@@ -11,24 +11,17 @@ btn.addEventListener("click", function(){
 
     const xhttp = new XMLHttpRequest();
 
-    xhttp.open("POST","/chat/add");
+    xhttp.open("POST","/chat/room");
 
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-    xhttp.send("name="+name)
+    xhttp.send("name="+name);
 
     xhttp.onreadystatechange = function(){
         if(this.readyState==4 && this.status==200){
-            let result = xhttp.responseText.trim();
-            console.log(result);
-            result = JSON.parse(result);
-            console.log(result);
-            console.log(result.name);
+            location.reload();
         }
     }
 
 })
 
-function getChatRoomList(){
-
-}

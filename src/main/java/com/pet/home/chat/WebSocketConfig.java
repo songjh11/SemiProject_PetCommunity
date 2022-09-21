@@ -19,7 +19,7 @@ public abstract class WebSocketConfig implements WebSocketMessageBrokerConfigure
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
 		// TODO Auto-generated method stub
-		registry.addEndpoint("/ws-stomp").setAllowedOrigins("*");
+		registry.addEndpoint("/ws").addInterceptors(new HttpHandShakeInterceptor()).withSockJS();
 		
 	}
 
@@ -27,7 +27,7 @@ public abstract class WebSocketConfig implements WebSocketMessageBrokerConfigure
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
 		// TODO Auto-generated method stub
 		registry.enableSimpleBroker("/sub");
-		registry.setApplicationDestinationPrefixes("pub");
+		registry.setApplicationDestinationPrefixes("/pub");
 	}
 	
 	

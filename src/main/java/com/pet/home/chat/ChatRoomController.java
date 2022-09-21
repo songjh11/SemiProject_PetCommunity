@@ -12,42 +12,35 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/chat/*")
+@RequestMapping("/chat")
 public class ChatRoomController {
 
 	@Autowired
 	private ChatRoomDAO chatRoomDAO;
 	
-	@GetMapping("room")
-	public String room(Model model) {
-		Map<String, ChatRoomDTO> ar = chatRoomDAO.getListAllRoom();
-		model.addAttribute("list", ar);
-		return "/chat/room";
+	@GetMapping("/room")
+	public ModelAndView rooms(ModelAndView mv) {
+		List<ChatRoomDTO> rooms = chatRoomDAO.findAllRoom();
+		mv.addObject("rooms", rooms);
+		mv.setViewName("/chat/room");
+		return mv;
 	}
 	
-	@GetMapping("list")
-	public Map<String, ChatRoomDTO> getRoomList() {
-		return chatRoomDAO.getListAllRoom();
-	} 
-	
-	@PostMapping("add")
+	@PostMapping("/room")
 	@ResponseBody
-	public ChatRoomDTO addRoom(@RequestParam String name) {
-		return chatRoomDAO.addChatRoom(name);
+	public void createRoom(ChatRoomDTO chatRoomDTO) {
+		int result = chatRoomDAO.createChatRoom(chatRoomDTO);
+		
 	}
 	
-	@GetMapping("room/enter/{roomId}")
-	public String getRoomDetail(Model model, @PathVariable String roomId) {
-		model.addAttribute("roomId",roomId);
+	@GetMapping("/room/enter")
+	public String roomDetail(Model model, ChatRoomDTO chatRoomDTO) {
+		chatRoomDTO = chatRoomDAO.findRoomById(chatRoomDTO);
+		model.addAttribute("dto",chatRoomDTO);
 		return "/chat/detail";
-	}
-	
-	@GetMapping("room/{roomId}")
-	@ResponseBody
-	public ChatRoomDTO getRoomInfo(@PathVariable String roomId) {
-		return chatRoomDAO.getRoomById(roomId);
 	}
 	
 }

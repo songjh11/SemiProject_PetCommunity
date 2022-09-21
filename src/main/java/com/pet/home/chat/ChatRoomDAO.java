@@ -8,32 +8,28 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class ChatRoomDAO {
 
-	private Map<String, ChatRoomDTO> chatRoomMap;
+	@Autowired
+	private SqlSession sqlSession;
+	private final String NAMESPACE = "com.pet.home.chat.ChatRoomDAO.";
 	
-	@PostConstruct
-	private void init() {
-		chatRoomMap = new LinkedHashMap<String, ChatRoomDTO>();
+	
+	public List<ChatRoomDTO> findAllRoom(){
+		return sqlSession.selectList(NAMESPACE+"findAllRoom");
 	}
 	
-	public Map<String, ChatRoomDTO> getListAllRoom(){
-//		List<ChatRoomDTO> chatRoomDTOs = new ArrayList<ChatRoomDTO>();
-//		Collections.reverse(chatRoomDTOs);
-		return chatRoomMap;
+	public ChatRoomDTO findRoomById(ChatRoomDTO chatRoomDTO) {
+		return sqlSession.selectOne(NAMESPACE+"findRoomById", chatRoomDTO);
 	}
 	
-	public ChatRoomDTO getRoomById(String id) {
-		return chatRoomMap.get(id);
-	}
-	
-	public ChatRoomDTO addChatRoom(String name) {
-		ChatRoomDTO chatRoomDTO = ChatRoomDTO.create(name);
-		chatRoomMap.put(chatRoomDTO.getRoomId(), chatRoomDTO);
-		return chatRoomDTO;
+	public int createChatRoom(ChatRoomDTO chatRoomDTO) {
+		return sqlSession.insert(NAMESPACE+"createChatRoom", chatRoomDTO);
 	}
 	
 }

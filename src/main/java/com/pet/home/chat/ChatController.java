@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,9 +22,20 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/chat")
 public class ChatController {
 	
-	@Autowired
-	private SimpMessageSendingOperations messagingTemplate;
+	private SimpMessagingTemplate messagingTemplate;
 	
+	
+	public SimpMessagingTemplate getMessagingTemplate() {
+		return messagingTemplate;
+	}
+
+	public void setMessagingTemplate(SimpMessagingTemplate messagingTemplate) {
+		this.messagingTemplate = messagingTemplate;
+	}
+
+
+
+
 	@MessageMapping("/chat/message")
 	public void message(ChatMessageDTO chatMessageDTO) {
 		if(ChatMessageDTO.MessageType.JOIN.equals(chatMessageDTO.getMessage())) {

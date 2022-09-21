@@ -20,10 +20,10 @@ public class ChatRoomDAO {
 		chatRoomMap = new LinkedHashMap<String, ChatRoomDTO>();
 	}
 	
-	public List<ChatRoomDTO> getListAllRoom(){
-		List chatRoomDTOs = new ArrayList<ChatRoomDTO>();
-		Collections.reverse(chatRoomDTOs);
-		return chatRoomDTOs;
+	public Map<String, ChatRoomDTO> getListAllRoom(){
+//		List<ChatRoomDTO> chatRoomDTOs = new ArrayList<ChatRoomDTO>();
+//		Collections.reverse(chatRoomDTOs);
+		return chatRoomMap;
 	}
 	
 	public ChatRoomDTO getRoomById(String id) {

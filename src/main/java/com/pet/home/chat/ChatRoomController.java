@@ -1,6 +1,7 @@
 package com.pet.home.chat;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,16 +21,18 @@ public class ChatRoomController {
 	private ChatRoomDAO chatRoomDAO;
 	
 	@GetMapping("room")
-	public String room() {
+	public String room(Model model) {
+		Map<String, ChatRoomDTO> ar = chatRoomDAO.getListAllRoom();
+		model.addAttribute("list", ar);
 		return "/chat/room";
 	}
 	
 	@GetMapping("list")
-	public List<ChatRoomDTO> getRoomList() {
+	public Map<String, ChatRoomDTO> getRoomList() {
 		return chatRoomDAO.getListAllRoom();
 	} 
 	
-	@PostMapping("room")
+	@PostMapping("add")
 	@ResponseBody
 	public ChatRoomDTO addRoom(@RequestParam String name) {
 		return chatRoomDAO.addChatRoom(name);

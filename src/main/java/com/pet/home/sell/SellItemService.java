@@ -4,6 +4,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.pet.home.sell.file.SellFileDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
 import com.pet.home.sell.sellcategory.SellCategoryDTO;
+import com.pet.home.util.Pager;
 
 @Service
 public class SellItemService {
@@ -137,8 +139,8 @@ public class SellItemService {
 		return result;
 	}
 
-	public SellItemDTO getItemOne(SellItemDTO dto) throws Exception {
-		return itemDAO.getItemOne(dto);
+	public List<SellItemDTO> getItems(Map<String, Object> map) throws Exception {
+		return itemDAO.getItems(map);
 	}
 	
 

@@ -56,8 +56,9 @@
 		ITEMNAME=#{itemName}, ITEMPRICE=#{itemPrice}, ITEMCONTENTS=#{itemContents} WHERE ITEMNUM=#{itemNum} 
 	</update>
 	
-	<select id="getItemOne" parameterType="SellItemDTO" resultType="SellItemDTO">
-		SELECT * FROM SELLITEM WHERE USERID=#{userId}
+	<select id="getItems" parameterType="Map" resultType="SellItemDTO">
+		SELECT SI.* FROM (SELECT * FROM SELLITEM WHERE ITEMCATG = #{kind}) SI WHERE ITEMNAME LIKE '%'||#{search}||'%' 
+		ORDER BY SI.ITEMNUM DESC    
 	</select>
 	
 	<delete id="setItemDelete" parameterType="SellItemDTO">

@@ -1,6 +1,7 @@
 package com.pet.home.sell;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.pet.home.sell.file.SellFileDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
 import com.pet.home.sell.sellcategory.SellCategoryDTO;
+import com.pet.home.util.Pager;
 
 @Repository
 public class SellItemDAO {
@@ -65,8 +67,8 @@ public class SellItemDAO {
 		return session.delete(NAMESPACE+"setCategoryDelete", itemNum);
 	}
 	
-	public SellItemDTO getItemOne(SellItemDTO dto) throws Exception {
-		return session.selectOne(NAMESPACE+"getItemOne", dto);
+	public List<SellItemDTO> getItems(Map<String, Object> map) throws Exception {
+		return session.selectList(NAMESPACE+"getItems", map);
 	}
 	
 }

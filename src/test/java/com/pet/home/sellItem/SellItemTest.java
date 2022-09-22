@@ -25,7 +25,7 @@ public class SellItemTest extends MyAbstractTest{
 		dto.setItemZipCode(58L);
 		dto.setItemAddress("sdfa");
 		dto.setItemDeAddress("afaf");
-		dto.setItemCatg("Hotel");
+//		dto.setItemCatg("Hotel");
 		
 		sellItemDAO.setItemAdd(dto);		
 	}

@@ -9,6 +9,7 @@ function check(){
     const join = document.getElementById("join"); //조인페이지로
     const frm = document.getElementById("frm"); //form
 
+
 //약관동의 필수값 체크
 
     join.addEventListener("click", function(){
@@ -23,6 +24,7 @@ function check(){
 
         if(result){
             frm.submit();
+          
         }else{
             alert("필수 약관에 동의하셔야합니다.")
         }

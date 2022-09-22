@@ -24,6 +24,13 @@
 	</beans:bean>
 	
 	
+	<websocket:handlers>
+		<websocket:mapping handler="chatHandler" path="/chat" />
+		<websocket:sockjs />
+	</websocket:handlers>
+    
+	<beans:bean id="chatHandler" class="com.pet.home.chat.ChatHandler"></beans:bean>
+	
 	
 	
 	<context:component-scan base-package="com.pet.home" />

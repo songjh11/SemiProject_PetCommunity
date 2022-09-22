@@ -81,9 +81,8 @@ public class SellItemService {
 	}
 	
 	public int setItemDelete(SellItemDTO itemDTO) throws Exception {
-		SellFileDTO fileDTO = new SellFileDTO();
-		fileDTO.setItemNum(itemDTO.getItemNum());
-		int result = itemDAO.setFileDelete(fileDTO);
+		int result = itemDAO.setFileDelete(itemDTO.getItemNum());
+		result = itemDAO.setCategoryDelete(itemDTO.getItemNum());
 		return itemDAO.setItemDelete(itemDTO);
 	}
 

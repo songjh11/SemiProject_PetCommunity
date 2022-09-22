@@ -1,6 +1,8 @@
 package com.pet.home.sell;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.home.sell.file.SellFileDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
+import com.pet.home.util.Pager;
 
 @Controller
 @RequestMapping(value="/sell/*")
@@ -101,17 +104,29 @@ public class SellItemController {
 	
 	
 	@GetMapping("search")
-	public void getItemOne(String search, String itemCatg) throws Exception {
-		System.out.println(search);
-		System.out.println(itemCatg);
-	}
+	public ModelAndView getItemOne(String search, String kind) throws Exception {
+		System.out.println("search: "+search);
+		System.out.println("kind: "+kind);
+		Pager pager = new Pager();
+		pager.setKind(kind);
+		pager.setSearch(search);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("kind", kind);
+		map.put("search", search);
+		List<SellItemDTO> ar = itemService.getItems(map);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("list", ar);
+		return mv;
+		}
 	
 	@PostMapping("search")
-	public void getItemOneResult(String search) throws Exception {
-		SellItemDTO dto = new SellItemDTO();
-		dto.setUserId(search);
-		dto = itemService.getItemOne(dto);
-		System.out.println(dto.getItemNum());
+	public void getItemOneResult(String search, String kind) throws Exception {
+		Pager pager = new Pager();
+		pager.setKind(kind);
+		pager.setSearch(search);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("kind", kind);
+		map.put("search", search);
 	}
 	
 	@GetMapping("pettx")

@@ -100,16 +100,22 @@ public class SellItemController {
 	}
 	
 	
-//	@GetMapping("search")
-//	public void getItemOne() {
-//		String search = "m1";
-//	}
-//	
-//	@PostMapping("search")
-//	public void getItemOneResult(String search) {
-//		SellItemDTO dto = new SellItemDTO();
-//		dto.setUserId(search);
-//		dto = itemService.getItemOne(dto);
-//		System.out.println(dto.getItemNum());
-//	}
+	@GetMapping("search")
+	public void getItemOne(String search, String itemCatg) throws Exception {
+		System.out.println(search);
+		System.out.println(itemCatg);
+	}
+	
+	@PostMapping("search")
+	public void getItemOneResult(String search) throws Exception {
+		SellItemDTO dto = new SellItemDTO();
+		dto.setUserId(search);
+		dto = itemService.getItemOne(dto);
+		System.out.println(dto.getItemNum());
+	}
+	
+	@GetMapping("pettx")
+	public void getPetTaxi () {
+		
+	}
 }

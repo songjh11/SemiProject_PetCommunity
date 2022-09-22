@@ -139,3 +139,35 @@ uFileDelete.forEach(function(f){
     })
 
 });
+//파일 삭제 끝=================================================
+
+//detail page: 파일 폴더에서 삭제=============================================================
+deleteItem.addEventListener("click", function(event){
+    console.log(f.parentNode);
+    let result = window.confirm("삭제하시겠습니까?");
+    if(!result){
+        return;
+    }
+
+    let photoNum = deleteItem.getAttribute("data-photo-num");
+    console.log(photoNum);
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("post","./filedelete");
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("photoNum="+photoNum);
+
+    xhttp.onreadystatechange=function(){
+        if(xhttp.readyState==4&&xhttp.status==200){
+            let result = xhttp.responseText.trim();
+            if(result>0){
+                console.log("삭제완");
+                f.parentNode.remove();
+            } else{
+                console.log("삭제 실패");
+            }
+        }
+    }
+
+})
+})

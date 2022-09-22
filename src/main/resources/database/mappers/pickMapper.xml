@@ -10,5 +10,9 @@
 		  		<select id="getPickCheck" parameterType="PickDTO" resultType="PickDTO">
 		  			SELECT ITEMNUM FROM PICK WHERE ITEMNUM=#{itemNum}
 		  		</select>
+		  		
+		  		<delete id="setPickDelete" parameterType="PickDTO">
+		  			DELETE PICK WHERE ITEMNUM=#{itemNum}
+		  		</delete>
 		    
 		    </mapper>

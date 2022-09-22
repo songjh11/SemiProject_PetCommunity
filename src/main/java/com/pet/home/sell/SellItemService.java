@@ -100,6 +100,10 @@ public class SellItemService {
 		return pickDAO.getPickCheck(pickDTO);
 	}
 	
+	public int setPickDelete(PickDTO pickDTO) throws Exception{
+		return pickDAO.setPickDelete(pickDTO);
+	}
+	
 	public SellItemDTO getMap() throws Exception{
 		return itemDAO.getMap();
 	}

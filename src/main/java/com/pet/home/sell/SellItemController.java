@@ -111,6 +111,13 @@ public class SellItemController {
 		return 0;
 	}
 	
+	@PostMapping("pickdelete")
+	public String setPickDelete(PickDTO pickDTO) throws Exception{
+		int result = itemService.setPickDelete(pickDTO);
+		System.out.println(result);
+		return "redirect:/member/test";
+	}
+	
 	@GetMapping("map")
 	public ModelAndView getMap(SellItemDTO itemDTO) throws Exception{
 		ModelAndView mv = new ModelAndView();

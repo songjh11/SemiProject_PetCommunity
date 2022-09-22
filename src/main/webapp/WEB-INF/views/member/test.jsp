@@ -13,20 +13,20 @@
 	<table border="1">
 		<thead>
 			<tr>
-				<th>아이디</th><th>상품번호</th><th>상품이름</th><th>상품가격</th><th>상품내용</th><th>상품사진</th>
+				<th>아이디</th><th>상품번호</th><th>상품이름</th><th>상품가격</th><th>상품내용</th><th>상품사진</th><th>찜 해제</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${list }" var="dto">
+			<c:forEach items="${list.itemDTOs }" var="dto">
 			 <tr>
-				<td>${dto.userId }</td>
-				<td>${dto.itemDTOs[0].itemNum }</td>
-				<td>${dto.itemDTOs[0].itemName }</td>
-				<td>${dto.itemDTOs[0].itemPrice }</td>
-				<td>${dto.itemDTOs[0].itemContents }</td>
-				<td>${dto.fileDTOs[0].fileName }</td>
+				<td>${list.userId }</td>
+				<td>${dto.itemNum }</td>
+				<td>${dto.itemName }</td>
+				<td>${dto.itemPrice }</td>
+				<td>${dto.itemContents }</td>
+				<td><img src="/resources/upload/sellfile/${dto.fileDTOs[0].fileName}" class="img-fluid" alt=""></td>
 				<form action="../sell/pickdelete" method="post">
-				<td><input type="submit" value="찜 해제"></td>
+				<td><input type="submit" value="${dto.itemNum }" name="itemNum"></td>
 				</form>
 			 </tr>
 			</c:forEach>

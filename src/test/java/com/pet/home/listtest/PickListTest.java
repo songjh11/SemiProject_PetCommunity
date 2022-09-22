@@ -25,9 +25,8 @@ public class PickListTest extends MyAbstractTest {
 			System.out.println(ar.size());
 			for(int i=0; i<ar.size(); i++) {
 				MemberDTO memberDTO2 = ar.get(i);
-				System.out.println(memberDTO2.getItemDTOs());
+				System.out.println(memberDTO2.getItemDTOs().size());
 				SellItemDTO sellItemDTO = ar.get(i).getItemDTOs().get(i); 
-				System.out.println(sellItemDTO.getf);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

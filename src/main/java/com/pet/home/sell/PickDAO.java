@@ -20,4 +20,8 @@ public class PickDAO {
 	public PickDTO getPickCheck(PickDTO pickDTO) throws Exception{
 		return session.selectOne(NAMESPACE+"getPickCheck", pickDTO);
 	}
+	
+	public int setPickDelete(PickDTO pickDTO) throws Exception{
+		return session.delete(NAMESPACE+"setPickDelete", pickDTO);
+	}
 }

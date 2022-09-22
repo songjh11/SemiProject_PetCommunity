@@ -110,8 +110,7 @@ if (memberDTO!=null) {
 	
 	@GetMapping("test")
 	public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
-		List<MemberDTO> ar = memberService.getPickList(memberDTO);
-		System.out.println(ar.size());
+		MemberDTO ar = memberService.getPickList(memberDTO);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("list", ar);
 		mv.setViewName("member/test");

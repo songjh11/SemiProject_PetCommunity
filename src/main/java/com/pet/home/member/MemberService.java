@@ -34,7 +34,7 @@ public class MemberService {
 		return memberDAO.setBiz(memberDTO);
 	}
 	
-	public List<MemberDTO> getPickList(MemberDTO memberDTO) throws Exception{
+	public MemberDTO getPickList(MemberDTO memberDTO) throws Exception{
 		return memberDAO.getPickList(memberDTO);
 	}
 	

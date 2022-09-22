@@ -30,7 +30,7 @@ public class MemberDAO {
 		return sqlSession.insert(NAMESPACE+"setBiz", memberDTO);
 	}
 	
-	public List<MemberDTO> getPickList(MemberDTO memberDTO) throws Exception{
-		return sqlSession.selectList(NAMESPACE+"getPickList", memberDTO);
+	public MemberDTO getPickList(MemberDTO memberDTO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getPickList", memberDTO);
 	}
 }

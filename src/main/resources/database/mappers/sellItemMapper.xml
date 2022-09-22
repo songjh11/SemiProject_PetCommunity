@@ -22,6 +22,10 @@
 			WHERE CATEGORYNUM = #{itemCatg}
 	</select>
 	
+	<select id="getSellFileDTO" parameterType="SellFileDTO" resultType="SellFileDTO">
+		SELECT * FROM SELLFILE WHERE PHOTONUM=#{photoNum}
+	</select>
+	
 	<insert id="setAddSellFile" parameterType="SellFileDTO">
 		INSERT INTO SELLFILE 
 		(PHOTONUM, ITEMNUM, ORINAME, FILENAME)
@@ -38,7 +42,7 @@
 	</select>
 	
 	<select id="getDetailOne" parameterType="SellItemDTO" resultMap="getItemResult">
-		SELECT SI.*, FILENAME, ORINAME 
+		SELECT SI.*, FILENAME, ORINAME, PHOTONUM
 			FROM SELLITEM SI
 			LEFT JOIN
 			SELLFILE SF 
@@ -64,6 +68,10 @@
 		DELETE SELLFILE WHERE ITEMNUM = #{itemNum}
 	</delete>
 	
+	<delete id="setUpdateFileDelete" parameterType="Long">
+		DELETE SELLFILE WHERE PHOTONUM = #{photoNum}
+	</delete>
+	
 	<delete id="setCategoryDelete" parameterType="Long">
 		DELETE SELLCATEGORY WHERE ITEMNUM = #{itemNum}
 	</delete>
@@ -80,7 +88,7 @@
 		<result column="ITEMDEADDRESS" property="itemDeAddress"/>
 		<result column="ITEMCATG" property="itemCatg"/>
 		<collection property="fileDTOs" javaType="List" ofType="sellFileDTO">
-			<id column="FILENUM" property="fileNum"></id>
+			<id column="PHOTONUM" property="photoNum"></id>
 			<result column="FILENAME" property="fileName"/>
 			<result column="ORINAME" property="oriName"/>
 		</collection>

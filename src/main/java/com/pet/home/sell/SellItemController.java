@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,9 +23,7 @@ public class SellItemController {
 	//아이템 등록, 수정, 삭제
 	
 	@Autowired
-	private SellItemService itemService;
-	
-	
+	private SellItemService itemService;	
 	
 	@GetMapping("list")
 	public ModelAndView getItemList(SellItemDTO dto) throws Exception {
@@ -56,9 +55,6 @@ public class SellItemController {
 	public ModelAndView setItemAddResult(SellItemDTO itemDTO, MultipartFile [] files, HttpSession session) throws Exception {
 		System.out.println("add Post");
 		ModelAndView view = new ModelAndView();
-		System.out.println(itemDTO.getUserId());
-		System.out.println(itemDTO.getItemAddress());
-		System.out.println(files.length);
 		int result = itemService.setItemAdd(itemDTO, files, session.getServletContext());
 		if(result>0) {
 			view.setViewName("redirect:/sell/list?itemCatg="+itemDTO.getItemCatg());
@@ -67,35 +63,39 @@ public class SellItemController {
 			view.setViewName("../");
 		}
 		return view;
-	}
-	
-	
+	}	
 	
 	@GetMapping("update")
 	public Model setItemUpdate(SellItemDTO dto, Model model) throws Exception {
+		System.out.println("update");
+		List<SellFileDTO> ar = dto.getFileDTOs();
 		dto = itemService.getDetailOne(dto);
 		model.addAttribute("dto", dto);
-		List<SellFileDTO> ar = dto.getFileDTOs();
-		for(SellFileDTO a: ar) {
-			System.out.println(a.getFileName());
-			System.out.println(a.getOriName());
-			}
 		return model;		
 	}
 	
 	@PostMapping("update")
-	public ModelAndView setItemUpdateResult(SellItemDTO itemDTO) throws Exception {
-		int result = itemService.setItemUpdate(itemDTO);
+	public ModelAndView setItemUpdateResult(SellItemDTO itemDTO, MultipartFile [] files, HttpSession session) throws Exception {
+		System.out.println("updatepost");
+		int result = itemService.setItemUpdate(itemDTO, files, session.getServletContext());
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/sell/list?itemCatg="+itemDTO.getItemCatg());
 		return mv;
 				}
 	
+	@PostMapping("filedelete")
+	@ResponseBody
+	public int setFileDelete(SellFileDTO fileDTO, HttpSession session) throws Exception {
+		int result = itemService.setUpdateFileDelete(fileDTO, session.getServletContext());
+		return result;
+	}
+	
 	@GetMapping("delete")
-	public ModelAndView setItemDelete(SellItemDTO itemDTO) throws Exception {
+	public ModelAndView setItemDelete(SellItemDTO itemDTO, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		int result = itemService.setItemDelete(itemDTO);
 		mv.setViewName("redirect:/sell/list?itemCatg="+itemDTO.getItemCatg());
+		int result = itemService.setItemDelete(itemDTO, session.getServletContext());
+		
 		return mv;
 	}
 	

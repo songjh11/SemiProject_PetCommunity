@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pet.home.sell.file.SellFileDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
 
 @Controller
@@ -74,6 +75,11 @@ public class SellItemController {
 	public Model setItemUpdate(SellItemDTO dto, Model model) throws Exception {
 		dto = itemService.getDetailOne(dto);
 		model.addAttribute("dto", dto);
+		List<SellFileDTO> ar = dto.getFileDTOs();
+		for(SellFileDTO a: ar) {
+			System.out.println(a.getFileName());
+			System.out.println(a.getOriName());
+			}
 		return model;		
 	}
 	

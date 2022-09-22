@@ -53,10 +53,10 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="#hero">Home</a></li>
-          <li><a href="#about">호텔링</a></li>
-          <li><a href="#menu">One Day 클래스</a></li>
-          <li><a href="#events">트레이닝</a></li>
+          <li><a href="../">Home</a></li>
+          <li><a href="/sell/list?itemCatg=1">호텔링</a></li>
+          <li><a href="/sell/list?itemCatg=2">One Day 클래스</a></li>
+          <li><a href="/sell/list?itemCatg=3">트레이닝</a></li>
           <li><a href="#chefs">Pet Taxi</a></li>
           <li><a href="#gallery">여행해요</a></li>
           <li class="dropdown"><a href="#"><span>커뮤니티</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
@@ -79,10 +79,9 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav><!-- .navbar -->
-      <h5>${sessionScope.member.userName} 님 환영합니다!</h5>
 	  <a class="btn-book-a-table" href="/member/login">Login</a>
 	  <a class="btn-book-a-table" href="/member/agree">Join</a>
-      <a class="btn-book-a-table" href="#book-a-table">Book a Table</a>
+      <a class="btn-book-a-table" href="./add">Add Items</a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 

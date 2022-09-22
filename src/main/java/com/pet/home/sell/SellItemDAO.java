@@ -49,8 +49,12 @@ public class SellItemDAO {
 		return session.delete(NAMESPACE+"setItemDelete", itemDTO);
 	}
 	
-	public int setFileDelete(SellFileDTO fileDTO) throws Exception {
-		return session.delete(NAMESPACE+"setFileDelete", fileDTO);
+	public int setFileDelete(Long itemNum) throws Exception {
+		return session.delete(NAMESPACE+"setFileDelete", itemNum);
+	}
+	
+	public int setCategoryDelete(Long itemNum) throws Exception {
+		return session.delete(NAMESPACE+"setCategoryDelete", itemNum);
 	}
 	
 	public SellItemDTO getItemOne(SellItemDTO dto) throws Exception {

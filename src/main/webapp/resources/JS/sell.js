@@ -170,4 +170,4 @@ deleteItem.addEventListener("click", function(event){
     }
 
 })
-})
+

@@ -5,7 +5,7 @@ import java.util.List;
 public class MemberDTO {   
 	
 	private String userId;
-	private Long roleNum;
+	private Integer roleNum;
 	private String userName;
 	private String password;
 	private String email;
@@ -15,18 +15,26 @@ public class MemberDTO {
 	private Integer agMail;
 	private Integer agValue;
 	private Integer agMes;
-private List<RoleDTO> roleDTOs;
+	private RoleDTO roleDTO;
+	private MemberFileDTO memberFileDTO;
 	
+	public MemberFileDTO getMemberFileDTO() {
+		return memberFileDTO;
+	}
+	public void setMemberFileDTO(MemberFileDTO memberFileDTO) {
+		this.memberFileDTO = memberFileDTO;
+	}
 	public String getUserId() {
 		return userId;
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public Long getRoleNum() {
+	
+	public Integer getRoleNum() {
 		return roleNum;
 	}
-	public void setRoleNum(Long roleNum) {
+	public void setRoleNum(Integer roleNum) {
 		this.roleNum = roleNum;
 	}
 	public String getUserName() {
@@ -84,14 +92,15 @@ private List<RoleDTO> roleDTOs;
 	public void setAgMes(Integer agMes) {
 		this.agMes = agMes;
 	}
-	public List<RoleDTO> getRoleDTOs() {
-		return roleDTOs;
-	}
-	public void setRoleDTOs(List<RoleDTO> roleDTOs) {
-		this.roleDTOs = roleDTOs;
-	}
+
 	
 	
+	public RoleDTO getRoleDTO() {
+		return roleDTO;
+	}
+	public void setRoleDTO(RoleDTO roleDTO) {
+		this.roleDTO = roleDTO;
+	}
 	public String getItemCatg() {
 		return itemCatg;
 	}

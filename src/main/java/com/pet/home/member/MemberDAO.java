@@ -32,5 +32,19 @@ public class MemberDAO {
 		return sqlSession.insert(NAMESPACE+"setAddFile", memberFileDTO);
 	}
 	
+	public MemberDTO getGuestPage(MemberDTO memberDTO) {
+		return sqlSession.selectOne(NAMESPACE+"getGuestPage", memberDTO);
+		
+	}
+	
+	public MemberDTO getBizPage(MemberDTO memberDTO) {
+		return sqlSession.selectOne(NAMESPACE+"getBizPage", memberDTO);
+		
+	}
+	
+	public MemberDTO getAdmPage(MemberDTO memberDTO) {
+		return sqlSession.selectOne(NAMESPACE+"getAdmPage", memberDTO);
+		
+	}
 	
 }

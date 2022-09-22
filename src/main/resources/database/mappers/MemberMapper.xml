@@ -25,7 +25,7 @@ INSERT INTO BIZMEM (BIZNUM,USERID,ROLENUM,ITEMCATG,ITEMID)
 VALUES (#{bizNum},#{userId},#{roleNum},#{itemCatg},ITEM_SEQ.NEXTVAL)
 </insert>
 
-<select id="getGpage" parameterType="MemberDTO" resultMap="myPageResult">
+<select id="getGuestPage" parameterType="MemberDTO" resultMap="myPageResult">
     SELECT M.USERID, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, G.PETCATG, G.PETNAME, MF.FILENAME, MF.ORINAME
       FROM MEMBER M
       INNER JOIN
@@ -38,10 +38,10 @@ VALUES (#{bizNum},#{userId},#{roleNum},#{itemCatg},ITEM_SEQ.NEXTVAL)
       INNER JOIN
            MEMFILE MF
       ON M.USERID = MF.USERID
-WHERE M.USERID=#{userId};
+WHERE M.USERID=#{userId}
 </select>
 
-<select id="getBpage" parameterType="MemberDTO" resultMap="myPageResult">
+<select id="getBizPage" parameterType="MemberDTO" resultMap="myPageResult">
 SELECT M.USERID, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, B.ITEMCATG, B.ITEMID
       FROM MEMBER M
       INNER JOIN
@@ -50,8 +50,18 @@ SELECT M.USERID, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS,
       INNER JOIN 
         BIZMEM B
       ON M.USERID = B.USERID
-WHERE M.USERID=#{userId};
+WHERE M.USERID=#{userId}
 </select>
+
+<select id="getAdmPage" parameterType="MemberDTO" resultMap="myPageResult">
+SELECT M.USERID, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES
+      FROM MEMBER M
+      INNER JOIN
+       ROLE R
+      ON M.ROLENUM =R.ROLENUM
+WHERE M.USERID=#{userId}
+</select>
+
 	 	 
 <select id="getLogin" parameterType="MemberDTO" resultMap="getLoginResult">
 SELECT M.USERNAME, M.USERID, R.ROLENUM, R.ROLENAME
@@ -66,7 +76,7 @@ SELECT M.USERNAME, M.USERID, R.ROLENUM, R.ROLENAME
 <resultMap type="MemberDTO" id="getLoginResult">
 		<id column="USERID" property="userId" />
 		<result column="USERNAME" property="userName" />
-		<collection property="roleDTOs" javaType="List" ofType="RoleDTO">
+		<collection property="roleDTO" javaType="RoleDTO" ofType="RoleDTO">
 			<id column="ROLENUM" property="roleNum" />
 			<result column="ROLENAME" property="roleName" />
 		</collection>
@@ -90,13 +100,12 @@ SELECT M.USERNAME, M.USERID, R.ROLENUM, R.ROLENAME
       <result column="ITEMCATG" property="itemCatg"/>
       <result column="ITEMID" property="itemId"/>
                               
-      
-      <association property="MemberFileDTO" javaType="MemberFileDTO">
+      <association property="memberFileDTO" javaType="MemberFileDTO">
       <result column="FILENAME" property="fileName"/>
       <result column="ORINAME" property="oriName"/>
       </association>
       
-	  <association property="RoleDTO" javaType="RoleDTO">
+	  <association property="roleDTO" javaType="RoleDTO">
       <result column="ROLENAME" property="roleName"/>
       </association>
       

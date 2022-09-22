@@ -67,6 +67,17 @@ public class MemberService {
 		return memberDAO.setBiz(memberDTO);
 	}
 	
+	public MemberDTO getGuestPage(MemberDTO memberDTO) {
+		return memberDAO.getGuestPage(memberDTO);
+	}
+	
+	public MemberDTO getBizPage(MemberDTO memberDTO) {
+		return memberDAO.getBizPage(memberDTO);
+	}
+	
+	public MemberDTO getAdmPage(MemberDTO memberDTO) {
+		return memberDAO.getAdmPage(memberDTO);
+	}
 	
 
 }

@@ -111,10 +111,29 @@ if (memberDTO!=null) {
 		
 	}
 	
-	@RequestMapping("mypage")
-	public String mypage(HttpSession session)throws Exception {
+	@GetMapping("mypage")
+	public ModelAndView mypage(HttpSession session)throws Exception {
+		ModelAndView mv = new ModelAndView();
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
 		
-		return "member/mypage";
+		memberDTO = memberService.getAdmPage(memberDTO);
+		System.out.println("롤2"+memberDTO.getRoleNum());
+		
+		if(memberDTO.getRoleNum()==1){ 
+		memberDTO = memberService.getBizPage(memberDTO); //역할번호가 1번일 때 판매자 마이페이지 
+		}else if(memberDTO.getRoleNum()==2){
+		memberDTO = memberService.getGuestPage(memberDTO); //역할번호가 2번일 때 회원 마이페이지 
+		}else {
+		memberDTO = memberService.getAdmPage(memberDTO); // 그 외 관리자 마이페이지  
+		}
+		
+	System.out.println(memberDTO.getEmail());
+	System.out.println(memberDTO.getUserName());
+		
+		mv.addObject("dto", memberDTO);
+		mv.setViewName("member/mypage");
+		
+		return mv;
 	}
 	
 }

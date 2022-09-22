@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,12 +27,12 @@
             <form action="forms/book-a-table.php" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
               <div class="row gy-4">
                 <div class="col-lg-4 col-md-6">
-                  <input type="text" name="userId" class="form-control" id="userId" placeholder="Your ID" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                  <input type="text" name="userId" value="jw1" class="form-control" id="userId" placeholder="Your ID" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
                   <div class="validate"></div>
                 </div>
                 
                 <div class="col-lg-4 col-md-6">
-                  <input type="text" class="form-control" name="password" id="password" placeholder="Your Password" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                  <input type="text" value="wldnjs" class="form-control" name="password" id="password" placeholder="Your Password" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
                   <div class="validate"></div>
                 </div>
                
@@ -46,4 +47,5 @@
       </div>
     </section><!-- End Book A Table Section -->
 </body>
+
 </html>

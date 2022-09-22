@@ -19,4 +19,12 @@ public class MemberDAO {
 	public int setJoin(MemberDTO memberDTO)throws Exception{
 		return sqlSession.insert(NAMESPACE+"setJoin", memberDTO);
 	}
+	
+	public int setGuest(MemberDTO memberDTO)throws Exception{
+		return sqlSession.insert(NAMESPACE+"setGuest", memberDTO);
+	}
+	
+	public int setBiz(MemberDTO memberDTO)throws Exception{
+		return sqlSession.insert(NAMESPACE+"setBiz", memberDTO);
+	}
 }

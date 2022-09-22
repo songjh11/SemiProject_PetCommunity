@@ -7,8 +7,21 @@
 
 <insert id="setJoin" parameterType="MemberDTO">	 
 INSERT INTO member (USERID,ROLENUM,USERNAME,PASSWORD,EMAIL,PHONE,ADDRESS,BLOCK,AGMAIL,AGVALUE,AGMES)
-VALUES (#{userId},2,#{userName},#{password},#{email},#{phone},#{address},0,#{agMail},#{agValue},#{agMes})
-</insert>			 
+VALUES (#{userId},#{roleNum},#{userName},#{password},#{email},#{phone},#{address},0,#{agMail},#{agValue},#{agMes})
+
+</insert>
+
+<insert id="setGuest" parameterType="MemberDTO">	 
+INSERT INTO GUEST (GUESTID,USERID,ROLENUM,PETCATG,PETNAME)
+VALUES (#{guestId},#{userId},#{roleNum},#{petCatg},#{petName})
+</insert>
+
+<insert id="setBiz" parameterType="MemberDTO">	 
+INSERT INTO BIZMEM (BIZNUM,USERID,ROLENUM,ITEMCATG,ITEMID)
+VALUES (#{bizNum},#{userId},#{roleNum},#{itemCatg},ITEM_SEQ.NEXTVAL)
+</insert>
+
+			 
 		 	 
 <select id="getLogin" parameterType="MemberDTO" resultMap="getLoginResult">
 SELECT M.USERNAME, M.USERID, R.ROLENUM, R.ROLENAME

@@ -15,7 +15,7 @@ public class MemberDTO {
 	private Integer agMail;
 	private Integer agValue;
 	private Integer agMes;
-	private List<RoleDTO> roleDTOs;
+private List<RoleDTO> roleDTOs;
 	
 	public String getUserId() {
 		return userId;
@@ -90,6 +90,52 @@ public class MemberDTO {
 	public void setRoleDTOs(List<RoleDTO> roleDTOs) {
 		this.roleDTOs = roleDTOs;
 	}
+	
+	
+	public String getItemCatg() {
+		return itemCatg;
+	}
+	public void setItemCatg(String itemCatg) {
+		this.itemCatg = itemCatg;
+	}
+	public String getItemId() {
+		return itemId;
+	}
+	public void setItemId(String itemId) {
+		this.itemId = itemId;
+	}
+	public Long getBizNum() {
+		return bizNum;
+	}
+	public void setBizNum(Long bizNum) {
+		this.bizNum = bizNum;
+	}
+	public String getPetCatg() {
+		return petCatg;
+	}
+	public void setPetCatg(String petCatg) {
+		this.petCatg = petCatg;
+	}
+	public String getPetName() {
+		return petName;
+	}
+	public void setPetName(String petName) {
+		this.petName = petName;
+	}
+	public Long getGuestId() {
+		return guestId;
+	}
+	public void setGuestId(Long guestId) {
+		this.guestId = guestId;
+	}
+	private String itemCatg;
+	private String itemId;
+	private Long bizNum;
+	
+	private String petCatg;
+	private String petName;
+	private Long guestId;
+	
 	
 
 }

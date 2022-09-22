@@ -5,7 +5,9 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.pet.home.board.impl.BoardDTO" alias="BoardDTO"/>
-
+		
+		<typeAlias type="com.pet.home.member.GuestDTO" alias="GuestDTO"/>
+		<typeAlias type="com.pet.home.member.BizmemDTO" alias="BizmemDTO"/>
 		<typeAlias type="com.pet.home.member.MemberDTO" alias="MemberDTO"/>
 		<typeAlias type="com.pet.home.member.RoleDTO" alias="RoleDTO"/>
 		<typeAlias type="com.pet.home.member.MemberFileDTO" alias="MemberFileDTO"/>

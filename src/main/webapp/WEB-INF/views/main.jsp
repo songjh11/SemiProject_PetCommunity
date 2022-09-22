@@ -86,7 +86,7 @@
       </c:if>
       <c:if test="${empty sessionScope.member}">
 	  <a class="btn-book-a-table" href="/member/login">Login</a>
-	  <a class="btn-book-a-table" href="/member/agree">Join</a>
+	  <a class="btn-book-a-table" href="/member/role">Join</a>
 	  </c:if>
       <a class="btn-book-a-table" href="#book-a-table">Book a Table</a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>

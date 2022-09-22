@@ -27,6 +27,7 @@
 		<typeAlias type="com.pet.home.sell.file.SellFileDTO" alias="SellFileDTO"/>
       	<typeAlias type="com.pet.home.sell.sellcategory.SellCategoryDTO" alias="SellCategoryDTO"/>
       	<typeAlias type="com.pet.home.sell.sellcategory.CategoryDTO" alias="CategoryDTO"/>
+      	<typeAlias type="com.pet.home.sell.PickDTO" alias="PickDTO"/>
       
 		<typeAlias type="com.pet.home.util.Pager" alias="Pager"/>
 		<typeAlias type="java.lang.Long" alias="Long"/>

@@ -61,4 +61,8 @@ public class SellItemDAO {
 		return session.selectOne(NAMESPACE+"getItemOne", dto);
 	}
 	
+	public SellItemDTO getMap() throws Exception{
+		return session.selectOne(NAMESPACE+"getMap");
+	}
+	
 }

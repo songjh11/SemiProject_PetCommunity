@@ -41,5 +41,32 @@ SELECT M.USERNAME, M.USERID, R.ROLENUM, R.ROLENAME
 			<result column="ROLENAME" property="roleName" />
 		</collection>
 	</resultMap>
+	
+<select id="getPickList" parameterType="MemberDTO" resultMap="getPickListResult">
+SELECT M.USERID,P.PICKNUM,SI.ITEMNUM,SI.ITEMNAME,SI.ITEMPRICE,SI.ITEMCONTENTS,SF.FILENAME
+FROM MEMBER M
+     INNER JOIN
+     PICK P
+     ON M.USERID = P.USERID
+     INNER JOIN
+     SELLITEM SI
+     ON P.ITEMNUM = SI.ITEMNUM
+     INNER JOIN
+     SELLFILE SF
+     ON SI.ITEMNUM = SF.ITEMNUM
+WHERE M.USERID = 'guest'
+</select>
+<resultMap type="MemberDTO" id="getPickListResult">
+	<id column="USERID" property="userId"/>
+	<collection property="itemDTOs" javaType="List" ofType="SellItemDTO">
+		<id column="ITEMNUM" property="itemNum"/>
+		<result column="ITEMNAME" property="itemName"/>
+		<result column="ITEMPRICE" property="itemPrice"/>
+		<result column="ITEMCONTENTS" property="itemContents"/>
+		<collection property="fileDTOs" javaType="List" ofType="sellFileDTO">
+			<result column="FILENAME" property="fileName"/>
+		</collection>
+	</collection>
+</resultMap>
  
 </mapper>

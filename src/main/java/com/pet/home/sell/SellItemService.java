@@ -20,6 +20,8 @@ public class SellItemService {
 	
 	@Autowired
 	private SellItemDAO itemDAO;
+	@Autowired
+	private PickDAO pickDAO;
 	
 	public int setItemAdd(SellItemDTO itemDTO, MultipartFile [] mf, ServletContext servletContext) throws Exception {
 		System.out.println("service");
@@ -88,6 +90,18 @@ public class SellItemService {
 
 	public SellItemDTO getItemOne(SellItemDTO dto) throws Exception {
 		return itemDAO.getItemOne(dto);
+	}
+	
+	public int setPickAdd(PickDTO pickDTO) throws Exception{
+		return pickDAO.setPickAdd(pickDTO);
+	}
+	
+	public PickDTO getPickCheck(PickDTO pickDTO) throws Exception{
+		return pickDAO.getPickCheck(pickDTO);
+	}
+	
+	public SellItemDTO getMap() throws Exception{
+		return itemDAO.getMap();
 	}
 	
 

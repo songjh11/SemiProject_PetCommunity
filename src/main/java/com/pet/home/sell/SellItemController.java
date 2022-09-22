@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -96,6 +97,26 @@ public class SellItemController {
 		ModelAndView mv = new ModelAndView();
 		int result = itemService.setItemDelete(itemDTO);
 		mv.setViewName("redirect:/sell/list?itemCatg="+itemDTO.getItemCatg());
+		return mv;
+	}
+	
+	@PostMapping("pickadd")
+	@ResponseBody
+	public int setPickAdd(PickDTO pickDTO) throws Exception{
+		PickDTO pickDTO2 = itemService.getPickCheck(pickDTO);
+		if(pickDTO2 == null) {
+			int result = itemService.setPickAdd(pickDTO);
+			return result;
+		}
+		return 0;
+	}
+	
+	@GetMapping("map")
+	public ModelAndView getMap(SellItemDTO itemDTO) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		itemDTO = itemService.getMap();
+		mv.addObject("address", itemDTO);
+		mv.setViewName("sell/map");
 		return mv;
 	}
 	

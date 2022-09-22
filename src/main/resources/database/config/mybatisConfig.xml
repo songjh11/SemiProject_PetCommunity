@@ -13,7 +13,12 @@
 		<typeAlias type="com.pet.home.board.impl.BoardFileDTO" alias="BoardFileDTO"/>
 		<typeAlias type="com.pet.home.board.notice.NoticeDTO" alias="NoticeDTO"/>
 		
-		
+		<typeAlias type="com.pet.home.sell.SellItemDTO" alias="SellItemDTO"/>
+		<typeAlias type="com.pet.home.sell.file.FileDTO" alias="FileDTO"/>
+		<typeAlias type="com.pet.home.sell.file.RvFileDTO" alias="RvFileDTO"/>
+		<typeAlias type="com.pet.home.sell.file.SellFileDTO" alias="sellFileDTO"/>
+		<typeAlias type="com.pet.home.sell.sellcategory.SellCategoryDTO" alias="SellCategoryDTO"/>
+		<typeAlias type="com.pet.home.sell.sellcategory.CategoryDTO" alias="CategoryDTO"/>
 		<typeAlias type="com.pet.home.board.qna.QnaDTO" alias="QnaDTO"/>
 		<typeAlias type="com.pet.home.util.Pager" alias="Pager"/>
 		<typeAlias type="java.lang.Long" alias="Long"/>

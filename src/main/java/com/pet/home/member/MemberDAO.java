@@ -27,4 +27,10 @@ public class MemberDAO {
 	public int setBiz(MemberDTO memberDTO)throws Exception{
 		return sqlSession.insert(NAMESPACE+"setBiz", memberDTO);
 	}
+	
+	public int setAddFile(MemberFileDTO memberFileDTO)throws Exception{
+		return sqlSession.insert(NAMESPACE+"setAddFile", memberFileDTO);
+	}
+	
+	
 }

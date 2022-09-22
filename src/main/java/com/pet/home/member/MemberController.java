@@ -2,6 +2,7 @@ package com.pet.home.member;
 
 import java.util.Calendar;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.xml.xpath.XPathEvaluationResult.XPathResultType;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.method.support.ModelAndViewContainer;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
  
 @Controller
@@ -69,11 +71,13 @@ if (memberDTO!=null) {
 	}
 	
 	@PostMapping("join")
-	public String join(MemberDTO memberDTO) throws Exception{
+	public String join(MemberDTO memberDTO, MultipartFile photo, HttpSession session) throws Exception{
 		
 		Calendar ca = Calendar.getInstance();
 		
 		System.out.println("join post 실행");
+		
+		System.out.println("photo: "+photo);
 		
 		//선택 약관동의값 세팅 
 		// 체크되지 않으면 0 , 선택되면 1로 설정 
@@ -83,7 +87,7 @@ if (memberDTO!=null) {
 		}
 
 		//공통 member테이블 먼저 생성 
-		int result = memberService.setJoin(memberDTO);
+		int result = memberService.setJoin(memberDTO, photo, session.getServletContext());
 		
 	
 		
@@ -105,6 +109,12 @@ if (memberDTO!=null) {
 		
 		return "redirect:../";
 		
+	}
+	
+	@RequestMapping("mypage")
+	public String mypage(HttpSession session)throws Exception {
+		
+		return "member/mypage";
 	}
 	
 }

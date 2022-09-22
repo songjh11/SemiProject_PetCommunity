@@ -8,7 +8,11 @@
 <insert id="setJoin" parameterType="MemberDTO">	 
 INSERT INTO member (USERID,ROLENUM,USERNAME,PASSWORD,EMAIL,PHONE,ADDRESS,BLOCK,AGMAIL,AGVALUE,AGMES)
 VALUES (#{userId},#{roleNum},#{userName},#{password},#{email},#{phone},#{address},0,#{agMail},#{agValue},#{agMes})
+</insert>
 
+<insert id="setAddFile" parameterType="MemberFileDTO">
+INSERT INTO MEMFILE (FILENUM,FILENAME,ORINAME,USERID)
+VALUES (file_seq.NEXTVAL,#{fileName},#{oriName},#{userId})
 </insert>
 
 <insert id="setGuest" parameterType="MemberDTO">	 
@@ -21,8 +25,34 @@ INSERT INTO BIZMEM (BIZNUM,USERID,ROLENUM,ITEMCATG,ITEMID)
 VALUES (#{bizNum},#{userId},#{roleNum},#{itemCatg},ITEM_SEQ.NEXTVAL)
 </insert>
 
-			 
-		 	 
+<select id="getGpage" parameterType="MemberDTO" resultMap="myPageResult">
+    SELECT M.USERID, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, G.PETCATG, G.PETNAME, MF.FILENAME, MF.ORINAME
+      FROM MEMBER M
+      INNER JOIN
+      GUEST G
+      ON M.USERID = G.USERID
+      INNER JOIN 
+      ROLE R
+      ON M.ROLENUM =R.ROLENUM
+      
+      INNER JOIN
+           MEMFILE MF
+      ON M.USERID = MF.USERID
+WHERE M.USERID=#{userId};
+</select>
+
+<select id="getBpage" parameterType="MemberDTO" resultMap="myPageResult">
+SELECT M.USERID, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, B.ITEMCATG, B.ITEMID
+      FROM MEMBER M
+      INNER JOIN
+       ROLE R
+      ON M.ROLENUM =R.ROLENUM
+      INNER JOIN 
+        BIZMEM B
+      ON M.USERID = B.USERID
+WHERE M.USERID=#{userId};
+</select>
+	 	 
 <select id="getLogin" parameterType="MemberDTO" resultMap="getLoginResult">
 SELECT M.USERNAME, M.USERID, R.ROLENUM, R.ROLENAME
 		FROM MEMBER M
@@ -41,5 +71,56 @@ SELECT M.USERNAME, M.USERID, R.ROLENUM, R.ROLENAME
 			<result column="ROLENAME" property="roleName" />
 		</collection>
 	</resultMap>
+	
+	
+<!-- Guest My page Result Map -->
+	 <resultMap type="MemberDTO" id="myPageResult">
+      <id column="USERID" property="userId"/>
+      <result column="ROLENUM" property="roleNum"/>
+      <result column="USERNAME" property="userName"/>
+      <result column="EMAIL" property="email"/>
+      <result column="PHONE" property="phone"/>
+      <result column="ADDRESS" property="address"/>
+      <result column="BLOCK" property="block"/>
+      <result column="AGMES" property="agMes"/>
+      <result column="AGVALUE" property="agValue"/>
+      <result column="AGMAIL" property="agMail"/>
+      <result column="PETCATG" property="petCatg"/>
+      <result column="PETNAME" property="petName"/>
+      <result column="ITEMCATG" property="itemCatg"/>
+      <result column="ITEMID" property="itemId"/>
+                              
+      
+      <association property="MemberFileDTO" javaType="MemberFileDTO">
+      <result column="FILENAME" property="fileName"/>
+      <result column="ORINAME" property="oriName"/>
+      </association>
+      
+	  <association property="RoleDTO" javaType="RoleDTO">
+      <result column="ROLENAME" property="roleName"/>
+      </association>
+      
+   </resultMap>
+   
+   <!-- Bizmem My page Result Map 
+	 <resultMap type="MemberDTO" id="GpageResult">
+      <id column="USERID" property="userId"/>
+      <result column="ROLENUM" property="roleNum"/>
+      <result column="USERNAME" property="userName"/>
+      <result column="EMAIL" property="email"/>
+      <result column="PHONE" property="phone"/>
+      <result column="ADDRESS" property="address"/>
+      <result column="BLOCK" property="block"/>
+      <result column="AGMES" property="agMes"/>
+      <result column="AGVALUE" property="agValue"/>
+      <result column="AGMAIL" property="agMail"/>
+      <result column="ITEMCATG" property="itemCatg"/>
+      <result column="ITEMID" property="itemId"/>
+      
+	  <association property="RoleDTO" javaType="RoleDTO">
+      <result column="ROLENAME" property="roleName"/>
+      </association>
+      
+   </resultMap> -->
  
 </mapper>

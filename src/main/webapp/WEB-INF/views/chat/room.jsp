@@ -82,7 +82,7 @@
 </body>
 <script type="text/javascript">
 //채팅 서버 주소
-let url = "ws://localhost/chatserver";
+let url = "ws://192.168.7.113/chatserver";
    		
 // 웹 소켓
 let ws;

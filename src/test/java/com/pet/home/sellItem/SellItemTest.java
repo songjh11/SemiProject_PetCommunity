@@ -9,6 +9,7 @@ import com.pet.home.MyAbstractTest;
 import com.pet.home.sell.SellItemDAO;
 import com.pet.home.sell.SellItemDTO;
 import com.pet.home.sell.file.SellFileDTO;
+import com.pet.home.sell.sellcategory.SellCategoryDTO;
 
 
 public class SellItemTest extends MyAbstractTest{
@@ -22,17 +23,22 @@ public class SellItemTest extends MyAbstractTest{
 			
 			SellItemDTO dto = new SellItemDTO();
 			dto.setUserId("m1");
-			dto.setItemPrice(20000L);
-			dto.setItemName("암거나");
-			dto.setItemContents("암거나");
-			dto.setItemZipCode(58L);
-			dto.setItemAddress("sdfa");
-			dto.setItemDeAddress("afaf");
+			dto.setItemPrice(20000L+i);
+			dto.setItemName("호텔링"+i);
+			dto.setItemContents("상품상세설명");
+			dto.setItemZipCode(63534L);
+			dto.setItemAddress("제주특별자치도 서귀포시 가가로 14 (상예동)");
+			dto.setItemDeAddress("구디아카데미");
 			dto.setItemCatg(1L);
-			sellItemDAO.setItemAdd(dto);		
+			sellItemDAO.setItemAdd(dto);	
+			
+			SellCategoryDTO categoryDTO = new SellCategoryDTO();
+			categoryDTO.setItemNum(dto.getItemNum());
+			categoryDTO.setCategoryNum(dto.getItemCatg());
+			sellItemDAO.setCategory(categoryDTO);
 			
 			SellFileDTO fileDTO = new SellFileDTO();
-			fileDTO.setFileName("이미지 수정 ("+i+")");
+			fileDTO.setFileName("이미지 수정 ("+i+")"+".png");
 			fileDTO.setItemNum(dto.getItemNum());
 			fileDTO.setOriName("이미지 수정 ("+i+")"+".png");
 			sellItemDAO.setAddSellFile(fileDTO);

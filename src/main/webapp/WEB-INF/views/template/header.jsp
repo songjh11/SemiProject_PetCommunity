@@ -48,7 +48,7 @@
         <div class="container-fluid">
           <form class="d-flex" action="search" method="get">
             <div>
-              <select name="kind" class="form-control" id="kind" value="${param.kind}">
+              <select name="itemCatg" class="form-control" id="itemCatg" value="${param.itemCatg}">
                 <option value='' selected>-- 상품 카테고리 선택 --</option>
                 <option value="1">호텔링</option>
                 <option value="2">원데이클래스</option>

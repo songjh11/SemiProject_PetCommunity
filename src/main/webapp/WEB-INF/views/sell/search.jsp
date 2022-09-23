@@ -42,38 +42,40 @@
 
   
     <!-- ======= Menu Section ======= -->
-              <section id="chefs" class="chefs section-bg">
-                <div class="container" data-aos="fade-up">
-                   
-                   <div class="section-header">
-                    <p><span>Search</span><p>
-                   </div>
-                   
-					<div class="row gy-4">
-					
-                    <c:forEach items="${list}" var="ar">
-                    	<div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-	                      <div class="chef-member">
-		                          <div class="member-img">
-		                            <img src="/resources/images/다운로드.jpg" class="img-fluid" alt="">
-			                            <div class="social">
-			                              <a href=""><i class="bi bi-twitter"></i></a>
-			                              <a href=""><i class="bi bi-facebook"></i></a>
-			                              <a href=""><i class="bi bi-instagram"></i></a>
-			                              <a href=""><i class="bi bi-linkedin"></i></a>
-			                            </div>
-		                           </div>
-		                          <div class="member-info">
-		                            <h4><a href="./detail?itemNum=${ar.itemNum}">${ar.itemName}</a></h4>
-		                            <span>${ar.itemPrice}</span>
-		                          </div>
-	                         </div>
-                         </div>
-                    </c:forEach>
-                    </div><!-- End Chefs Member -->
-                    
+    <section id="chefs" class="chefs section-bg">
+      <div class="container" data-aos="fade-up">
+                 
+                 <div class="section-header">
+                  <p><span>Search</span><p>
+                 </div>
+                 
+        <div class="row gy-1">	
+          
+            <c:forEach items="${list}" var="ar">
+              <div class="col-lg-3 col-md-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 10px;">
+                  <div class="member-img" style="width: 100%;">
+                    <img src="/resources/upload/sellfile/${ar.fileDTOs[0].fileName}" class="img-fluid" alt="">
+                    <div class="social">
+                      <a href=""><i class="bi bi-twitter"></i></a>
+                      <a href=""><i class="bi bi-facebook"></i></a>
+                      <a href=""><i class="bi bi-instagram"></i></a>
+                      <a href=""><i class="bi bi-linkedin"></i></a>
                     </div>
-              </section>    
+                  </div>
+                  <div class="member-info" style="width: 100%; height: 115px;">
+                    <h4><a href="./detail?itemNum=${ar.itemNum}">${ar.itemName}</a></h4>
+                    <p>${ar.itemAddress}</p>
+                    <span>${ar.itemPrice}</span>
+                  </div>
+                </div>
+              </div>
+            </c:forEach>
+    
+      </div>
+      <!-- End grid1div -->
+      </div>
+    </section> 
 
    
 

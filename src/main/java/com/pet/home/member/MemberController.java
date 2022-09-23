@@ -1,6 +1,7 @@
 package com.pet.home.member;
 
 import java.util.Calendar;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -110,6 +111,7 @@ if (memberDTO!=null) {
 		
 	}
 	
+
 	@GetMapping("mypage")
 	public ModelAndView mypage(HttpSession session)throws Exception {
 		ModelAndView mv = new ModelAndView();
@@ -134,6 +136,17 @@ if (memberDTO!=null) {
 		mv.addObject("dto", memberDTO);
 		mv.setViewName("member/mypage");
 		
+		return mv;
+	}
+		
+
+	@GetMapping("test")
+	public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
+		MemberDTO ar = memberService.getPickList(memberDTO);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("list", ar);
+		mv.setViewName("member/test");
+
 		return mv;
 	}
 	

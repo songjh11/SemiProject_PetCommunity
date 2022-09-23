@@ -1,10 +1,12 @@
 package com.pet.home.member;
 
+
 import java.io.File;
 import java.util.Calendar;
 import java.util.UUID;
-
 import javax.servlet.ServletContext;
+import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,6 +67,7 @@ public class MemberService {
 		return memberDAO.setBiz(memberDTO);
 	}
 	
+
 	public MemberDTO getGuestPage(MemberDTO memberDTO) {
 		return memberDAO.getGuestPage(memberDTO);
 	}
@@ -75,6 +78,12 @@ public class MemberService {
 	
 	public MemberDTO getAdmPage(MemberDTO memberDTO) {
 		return memberDAO.getAdmPage(memberDTO);
+		
+	}
+
+	public MemberDTO getPickList(MemberDTO memberDTO) throws Exception{
+		return memberDAO.getPickList(memberDTO);
+
 	}
 	
 

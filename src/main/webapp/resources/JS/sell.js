@@ -4,12 +4,14 @@ const sellFileImages = document.getElementById("sellFileImages");
 const realsellfileAdd = document.getElementById("realsellfileAdd");
 const inputDiv = document.getElementById("inputDiv");
 const imgDiv = document.getElementById("imgDiv");
+const uFileDelete = document.querySelectorAll(".uFileDelete");
 
 let count=0;
 let idx=0;
 
 // <input type="file" id="realsellfileAdd" accept="image/*" style="display: none;" onchange="imageChange(event);">
 
+// add page: 이벤트 전달-------------------------------------------------------------
 sellfileAdd.addEventListener("click", function(){
     console.log("fileAdd");
     if(count>4){
@@ -38,12 +40,12 @@ sellfileAdd.addEventListener("click", function(){
     const child = document.getElementById(input.id);
     console.log("child : ", child);
     child.click();
-   
-
 });
+//이벤트 전달 끝----------------------------------------------
+
 
 //------------------------------------------------
-//이벤트 전달
+// add page: 파일 추가 및 썸네일 이미지 생성 시작
 sellFileImages.addEventListener("change", function(event){
     console.log("e",event.target);
     const reader = new FileReader();
@@ -80,17 +82,17 @@ sellFileImages.addEventListener("change", function(event){
         idx++;
         count++;
         };
-
         reader.readAsDataURL(event.target.files[0]);
 });
+//파일 추가 및 썸네일 이미지 생성 끝
+//===================================================
 
-
-//=======================================================삭제
+// add page: 파일 삭제=======================================================
 imgDiv.addEventListener("click", function(event){
     console.log(event.target);
     const df = event.target;
     console.log(df.id);
-    let result = window.confirm("삭제?")
+    let result = window.confirm("삭제하시겠습니까?")
       if(!result){
                return;
         }
@@ -103,4 +105,69 @@ imgDiv.addEventListener("click", function(event){
     count--;    
 });
 
-//------------------------------------------------
+//삭제 끝------------------------------------------------
+
+//update page: 파일 삭제
+uFileDelete.forEach(function(f){
+    f.addEventListener("click", function(event){
+        console.log(f.parentNode);
+        let result = window.confirm("삭제하시겠습니까?");
+        if(!result){
+            return;
+        }
+
+        let photoNum = f.getAttribute("data-photo-num");
+        console.log(photoNum);
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("post","./filedelete");
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("photoNum="+photoNum);
+
+        xhttp.onreadystatechange=function(){
+            if(xhttp.readyState==4&&xhttp.status==200){
+                let result = xhttp.responseText.trim();
+                if(result>0){
+                    console.log("삭제완");
+                    f.parentNode.remove();
+                } else{
+                    console.log("삭제 실패");
+                }
+            }
+        }
+  
+    })
+
+});
+//파일 삭제 끝=================================================
+
+//detail page: 파일 폴더에서 삭제=============================================================
+deleteItem.addEventListener("click", function(event){
+    console.log(f.parentNode);
+    let result = window.confirm("삭제하시겠습니까?");
+    if(!result){
+        return;
+    }
+
+    let photoNum = deleteItem.getAttribute("data-photo-num");
+    console.log(photoNum);
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("post","./filedelete");
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("photoNum="+photoNum);
+
+    xhttp.onreadystatechange=function(){
+        if(xhttp.readyState==4&&xhttp.status==200){
+            let result = xhttp.responseText.trim();
+            if(result>0){
+                console.log("삭제완");
+                f.parentNode.remove();
+            } else{
+                console.log("삭제 실패");
+            }
+        }
+    }
+
+})
+

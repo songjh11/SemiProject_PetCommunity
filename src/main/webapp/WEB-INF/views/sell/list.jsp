@@ -62,10 +62,12 @@
 		                          <div class="member-img">
 		                            <img src="/resources/upload/sellfile/${ar.fileDTOs[0].fileName}" class="img-fluid" alt="">
 			                            <div class="social">
-			                              <a href=""><i class="bi bi-twitter"></i></a>
-			                              <a href=""><i class="bi bi-facebook"></i></a>
-			                              <a href=""><i class="bi bi-instagram"></i></a>
-			                              <a href=""><i class="bi bi-linkedin"></i></a>
+			                              <i class="bi bi-twitter btnPick" data-item-num="${ar.itemNum}">찜</i>
+                                    <p>
+                                      <i class="bi bi-facebook" id="btnShopCart">장바구니</i></a>
+                                    </p>
+			                              <i class="bi bi-instagram"></i>
+			                              <i class="bi bi-linkedin"></i>
 			                            </div>
 		                           </div>
 		                          <div class="member-info">
@@ -80,7 +82,23 @@
                     </div>
               </section>    
 
-   
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
 
 
        
@@ -167,7 +185,7 @@
 
   <!-- Template Main JS File -->
   <script src="/resources/assets/js/main.js"></script>
-
+  <script src="/resources/JS/pick&shopcart.js"></script>
 </body>
 
 </html>

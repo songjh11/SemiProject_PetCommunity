@@ -21,13 +21,13 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// TODO Auto-generated method stub
 		sessionList.add(session);
-		log.info("{} 연결됨", session.getId());
+		//log.info("{} 연결됨", session.getId());
 	}
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		// TODO Auto-generated method stub
-		log.info("{}로부터 {} 받음", session.getId(), message.getPayload());
+		//log.info("{}로부터 {} 받음", session.getId(), message.getPayload());
 		
 		for(WebSocketSession webSocketSession : sessionList) {
 			webSocketSession.sendMessage(new TextMessage(message.getPayload()));
@@ -38,6 +38,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		// TODO Auto-generated method stub
 		sessionList.remove(session);
-		log.info("{} 연결 끊김", session.getId());
+		//log.info("{} 연결 끊김", session.getId());
 	}
 }

@@ -95,10 +95,12 @@
                     <div class="member-img" style="width: 100%;">
                       <img src="/resources/upload/sellfile/${ar.fileDTOs[0].fileName}" class="img-fluid" alt="">
                       <div class="social">
-                        <a href=""><i class="bi bi-twitter"></i></a>
-                        <a href=""><i class="bi bi-facebook"></i></a>
-                        <a href=""><i class="bi bi-instagram"></i></a>
-                        <a href=""><i class="bi bi-linkedin"></i></a>
+                        <i class="bi bi-twitter btnPick" data-item-num="${ar.itemNum}">찜</i>
+                        <p>
+                          <i class="bi bi-facebook" id="btnShopCart">장바구니</i></a>
+                        </p>
+                        <i class="bi bi-instagram"></i>
+                        <i class="bi bi-linkedin"></i>
                       </div>
                     </div>
                     <div class="member-info" style="width: 100%; height: 115px;">
@@ -223,6 +225,7 @@
   <!-- Template Main JS File -->
   <script src="/resources/assets/js/main.js"></script>
   <script src="/resources/JS/sellHeader.js"></script>
+  <script src="/resources/JS/pick&shopcart.js"></script>
 </body>
 
 </html>

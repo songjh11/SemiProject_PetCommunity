@@ -12,7 +12,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint("/chatserver")
+//@ServerEndpoint("/chatserver")
 public class ChatServer {
 	// 현재 채팅 서버에 접속한 클라이언트(WebSocket Session) 목록
 		// static 붙여야함!!

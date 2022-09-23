@@ -104,6 +104,33 @@ public class SellItemController {
 		return mv;
 	}
 	
+	@PostMapping("pickadd")
+	@ResponseBody
+	public int setPickAdd(PickDTO pickDTO) throws Exception{
+		PickDTO pickDTO2 = itemService.getPickCheck(pickDTO);
+		if(pickDTO2 == null) {
+			int result = itemService.setPickAdd(pickDTO);
+			return result;
+		}
+		return 0;
+	}
+	
+	@PostMapping("pickdelete")
+	public String setPickDelete(PickDTO pickDTO) throws Exception{
+		int result = itemService.setPickDelete(pickDTO);
+		System.out.println(result);
+		return "redirect:/member/test";
+	}
+	
+	@GetMapping("map")
+	public ModelAndView getMap(SellItemDTO itemDTO) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		itemDTO = itemService.getMap();
+		mv.addObject("address", itemDTO);
+		mv.setViewName("sell/map");
+		return mv;
+	}
+	
 	
 	@GetMapping("search")
 	public ModelAndView getItemOne(SellPager sellPager) throws Exception {

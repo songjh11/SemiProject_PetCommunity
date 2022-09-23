@@ -25,6 +25,8 @@ public class SellItemService {
 	
 	@Autowired
 	private SellItemDAO itemDAO;
+	@Autowired
+	private PickDAO pickDAO;
 	
 	public int setItemAdd(SellItemDTO itemDTO, MultipartFile [] files, ServletContext servletContext) throws Exception {
 		int result = itemDAO.setItemAdd(itemDTO);
@@ -144,6 +146,22 @@ public class SellItemService {
 
 	public List<SellItemDTO> getItems(Map<String, Object> map) throws Exception {
 		return itemDAO.getItems(map);
+	}
+	
+	public int setPickAdd(PickDTO pickDTO) throws Exception{
+		return pickDAO.setPickAdd(pickDTO);
+	}
+	
+	public PickDTO getPickCheck(PickDTO pickDTO) throws Exception{
+		return pickDAO.getPickCheck(pickDTO);
+	}
+	
+	public int setPickDelete(PickDTO pickDTO) throws Exception{
+		return pickDAO.setPickDelete(pickDTO);
+	}
+	
+	public SellItemDTO getMap() throws Exception{
+		return itemDAO.getMap();
 	}
 	
 

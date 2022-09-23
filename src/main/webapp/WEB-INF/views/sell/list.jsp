@@ -185,7 +185,7 @@
 
   <!-- Template Main JS File -->
   <script src="/resources/assets/js/main.js"></script>
-
+  <script src="/resources/JS/pick&shopcart.js"></script>
 </body>
 
 </html>

@@ -5,13 +5,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Controller
 public class ChatController {
 	
 	@GetMapping("/chatting")
 	public String getChat() {
-		log.info("@ChatController, chat GET()");
+		System.out.println("@ChatController, chat GET()");
 		return "chat/room";
 	}
+	
+	
 }

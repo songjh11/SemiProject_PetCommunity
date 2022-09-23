@@ -95,6 +95,10 @@
 		DELETE SELLCATEGORY WHERE ITEMNUM = #{itemNum}
 	</delete>
 	
+	<select id="getMap" resultType="SellItemDTO">
+		SELECT ITEMADDRESS FROM SELLITEM WHERE ITEMNUM = 61
+	</select>
+	
 	<resultMap type="SellItemDTO" id="getItemResult">
 		<id column="ITEMNUM" property="itemNum"/>
 		<result column="USERID" property="userId"/>

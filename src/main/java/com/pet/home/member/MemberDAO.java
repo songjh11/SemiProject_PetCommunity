@@ -1,5 +1,7 @@
 package com.pet.home.member;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,5 +28,28 @@ public class MemberDAO {
 	
 	public int setBiz(MemberDTO memberDTO)throws Exception{
 		return sqlSession.insert(NAMESPACE+"setBiz", memberDTO);
+	}
+
+	public int setAddFile(MemberFileDTO memberFileDTO)throws Exception{
+		return sqlSession.insert(NAMESPACE+"setAddFile", memberFileDTO);
+	}
+	
+	public MemberDTO getGuestPage(MemberDTO memberDTO) {
+		return sqlSession.selectOne(NAMESPACE+"getGuestPage", memberDTO);
+		
+	}
+	
+	public MemberDTO getBizPage(MemberDTO memberDTO) {
+		return sqlSession.selectOne(NAMESPACE+"getBizPage", memberDTO);
+		
+	}
+	
+	public MemberDTO getAdmPage(MemberDTO memberDTO) {
+		return sqlSession.selectOne(NAMESPACE+"getAdmPage", memberDTO);
+		
+	}
+		
+	public MemberDTO getPickList(MemberDTO memberDTO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getPickList", memberDTO);
 	}
 }

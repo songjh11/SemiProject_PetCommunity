@@ -16,7 +16,7 @@ public class QnaDAO implements BoardDAO {
 	
 	@Autowired
 	private SqlSession sqlSession;
-	private final String NAMESPACE = "com.pet.home.board.qnaDAO.";
+	private final String NAMESPACE = "com.pet.home.board.qna.QnaDAO.";
 	
 	@Override
 	public List<BoardDTO> getList(Pager pager) throws Exception {

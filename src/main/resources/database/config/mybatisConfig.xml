@@ -6,6 +6,9 @@
 	<typeAliases>
 		<typeAlias type="com.pet.home.board.impl.BoardDTO" alias="BoardDTO"/>
 		
+		<typeAlias type="com.pet.home.chat.ChatRoomDTO" alias="ChatRoomDTO"/>
+		<typeAlias type="com.pet.home.chat.ChatMessageDTO" alias="ChatMessageDTO"/>
+		
 		<typeAlias type="com.pet.home.member.GuestDTO" alias="GuestDTO"/>
 		<typeAlias type="com.pet.home.member.BizmemDTO" alias="BizmemDTO"/>
 		<typeAlias type="com.pet.home.member.MemberDTO" alias="MemberDTO"/>
@@ -26,6 +29,7 @@
 		<typeAlias type="com.pet.home.sell.file.SellFileDTO" alias="SellFileDTO"/>
       	<typeAlias type="com.pet.home.sell.sellcategory.SellCategoryDTO" alias="SellCategoryDTO"/>
       	<typeAlias type="com.pet.home.sell.sellcategory.CategoryDTO" alias="CategoryDTO"/>
+      	<typeAlias type="com.pet.home.sell.PickDTO" alias="PickDTO"/>
       
 		<typeAlias type="com.pet.home.util.Pager" alias="Pager"/>
 		<typeAlias type="com.pet.home.util.SellPager" alias="SellPager"/>

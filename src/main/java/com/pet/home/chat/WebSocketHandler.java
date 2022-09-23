@@ -12,8 +12,8 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RequestMapping("/ehco")
-public class ChatHandler extends TextWebSocketHandler {
+@RequestMapping("/chat")
+public class WebSocketHandler extends TextWebSocketHandler {
 
 	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
 	

@@ -42,7 +42,8 @@ public class NoticeController {
 	
 	
 	@GetMapping("list")
-	public ModelAndView getList(ModelAndView mv, Pager pager) throws Exception {
+	public ModelAndView getList(ModelAndView mv) throws Exception {
+		Pager pager = new Pager(10L, 5L);
 		List<BoardDTO> ar = noticeService.getList(pager);
 		mv.addObject("list", ar);
 		mv.addObject("pager",pager);

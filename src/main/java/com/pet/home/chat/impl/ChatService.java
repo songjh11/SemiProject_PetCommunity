@@ -28,7 +28,7 @@ public interface ChatService {
 	public List<ChatRoomDTO> getChatRoomList(String userEmail);
 	
 	//읽지않은 메세지 수 출력
-	public int getUnReadCount(ChatMessageDTO chatMessageDTO);
+	public Long getUnReadCount(ChatMessageDTO chatMessageDTO);
 	
 	//읽지않은 메세지 숫자 0으로 바꿈
 	public int setCount(ChatMessageDTO chatMessageDTO);

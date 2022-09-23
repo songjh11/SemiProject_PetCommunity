@@ -8,7 +8,41 @@
 		SELECT * FROM CHATROOM WHERE ROOMNUM = #{roomNum}
 	</select>
 	<insert id="setSaveMessage" parameterType="ChatMessageDTO">
-		
+		<if test="sessionCount == 1">
+			INSERT INTO CHATMESSAGE(ROOMNUM, MESSAGEID, MESSAGE, USERNAME, EMAIL, UNREADCOUNT)
+			VALUES(#{roomNum}, CHATMESSAGE_SEQ.NEXTVAL, #{message}, #{userName}, #{email}, 1)
+		</if>
+		<if test="sessionCount == 2">
+			INSERT INTO CHATMESSAGE(ROOMNUM, MESSAGEID, MESSAGE, USERNAME, EMAIL, UNREADCOUNT)
+			VALUES(#{roomNum}, CHATMESSAGE_SEQ.NEXTVAL, #{message}, #{userName}, #{email}, 0)
+		</if>
 	</insert>
+	
+	<insert id="addRoom" parameterType="ChatRoomDTO">
+		INSERT INTO CHATROOM(ROOMNUM, USEREMAIL, USERNAME, USERPIC, MASTEREMAIL, MASTERNAME, MASTERPIC, UNREADCOUNT)
+		VALUES(CHATROOM_SEQ.NEXTVAL, '#{userEmail}','#{userName}','#{userPic}','#{masterEmail}','#{masterName}','#{masterPic}',0)
+	</insert>
+	
+	<select id="getMessageList" parameterType="String" resultType="ChatMessageDTO">
+		SELECT * FROM CHATMESSAGE WHERE ROOMNUM = #{roomNUM}
+	</select>
+	
+	<select id="getSearchChatRoom" parameterType="ChatRoomDTO" resultType="ChatRoomDTO">
+		SELECT * FROM CHATROOM WHERE USEREMAIL = #{userEmail} AND MASTEREMAIL = #{masterEmail}
+	</select>
+	
+	<select id="getChatRoomList" parameterType="String" resultType="ChatRoomDTO">
+		SELECT * FROM CHATROOM WHERE USEREMAIL = #{userEmail}
+	</select>
+	
+	<select id="getUnReadCount" parameterType="ChatMessageDTO" resultType="Long">
+		SELECT SELECT(*) FROM CHATMESSAGE 
+		WEHRE ROOMNUM = #{roomNUM} AND EMAIL != #{email} AND UNREADCOUNT = 1
+	</select>
+	
+	<update id="setCount" parameterType="ChatMessageDTO">
+		UPDATE CHATMESSAGE SET UNREADCOUNT = 0
+		WHERE ROOMNUM = #{roomNum} AND EMAIL !=#{email} AND UNREADCOUNT = 1
+	</update>
 	
 </mapper>

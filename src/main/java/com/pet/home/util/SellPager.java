@@ -15,16 +15,30 @@ public class SellPager {
 		private String search;
 		
 		
-		
+
+
 		public Long getItemCatg() {
-			if(this.itemCatg==null) {
-				this.itemCatg = 1L;
-			}
 			return itemCatg;
 		}
 
 		public void setItemCatg(Long itemCatg) {
 			this.itemCatg = itemCatg;
+		}
+
+		public boolean isPre() {
+			return pre;
+		}
+
+		public void setPre(boolean pre) {
+			this.pre = pre;
+		}
+
+		public boolean isNext() {
+			return next;
+		}
+
+		public void setNext(boolean next) {
+			this.next = next;
 		}
 
 		public String getSearch() {
@@ -140,9 +154,8 @@ public class SellPager {
 		 if(this.getPage()%this.getPerBlock()!=0) {
 			 curBlock++;
 		 }
-		 
-		 
-		 this.startNum = (curBlock-1)*this.getPerBlock();
+		 		 
+		 this.startNum = (curBlock-1)*this.getPerBlock()+1;
 		 this.lastNum = curBlock*this.getPerBlock();
 		 
 		 if(curBlock==totalBlock) {

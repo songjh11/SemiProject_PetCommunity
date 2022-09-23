@@ -9,7 +9,6 @@ const uFileDelete = document.querySelectorAll(".uFileDelete");
 let count=0;
 let idx=0;
 
-// <input type="file" id="realsellfileAdd" accept="image/*" style="display: none;" onchange="imageChange(event);">
 
 // add page: 이벤트 전달-------------------------------------------------------------
 sellfileAdd.addEventListener("click", function(){
@@ -100,8 +99,7 @@ imgDiv.addEventListener("click", function(event){
     remId = document.getElementById("realsellfileAdd"+df.id);//인풋아이디
     remId.remove();  
     
-    df.parentNode.remove();//버튼
-   
+    df.parentNode.remove();//버튼   
     count--;    
 });
 
@@ -130,6 +128,7 @@ uFileDelete.forEach(function(f){
                 if(result>0){
                     console.log("삭제완");
                     f.parentNode.remove();
+                    count--;
                 } else{
                     console.log("삭제 실패");
                 }

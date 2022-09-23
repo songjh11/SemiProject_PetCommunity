@@ -7,7 +7,7 @@
  <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Add Item</title>
+  <title>Search</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -48,9 +48,13 @@
                  <div class="section-header">
                   <p><span>Search</span><p>
                  </div>
-                 
-        <div class="row gy-1">	
-          
+
+          <c:if test="${empty list}">
+            <div class="section-header">
+              <p><span>검색 결과가 없습니다</span></p>
+            </div>
+          </c:if>
+          <div class="row gy-1">	
             <c:forEach items="${list}" var="ar">
               <div class="col-lg-3 col-md-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                 <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 10px;">
@@ -71,7 +75,7 @@
                 </div>
               </div>
             </c:forEach>
-    
+          </div>
       </div>
       <!-- End grid1div -->
       </div>
@@ -154,7 +158,7 @@
    }//kakao api 끝
 </script>
 
-<script src="/resources/JS/sell.js"></script>
+
 
 </body>
 

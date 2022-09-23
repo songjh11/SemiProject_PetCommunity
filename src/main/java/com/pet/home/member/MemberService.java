@@ -32,29 +32,27 @@ public class MemberService {
 		
 		int result = memberDAO.setJoin(memberDTO);
 		
-		System.out.println("photo ser:"+photo);
+		System.out.println("롤 "+memberDTO.getRoleNum());
 		
-		//저장 경로 설정 
-		String path = servletContext.getRealPath("resources/upload/member");
-		String fileName = fileManager.saveFile(servletContext, path, photo);
-		
-		if(!photo.isEmpty()) {
-		
+		if(memberDTO.getRoleNum()==2){ 
+			//저장 경로 설정 
+			String path = servletContext.getRealPath("resources/upload/member");
+			String fileName = fileManager.saveFile(servletContext, path, photo);
 			
-			MemberFileDTO memberFileDTO = new MemberFileDTO();
-			memberFileDTO.setFileName(fileName);
-			memberFileDTO.setOriName(photo.getOriginalFilename());
-			memberFileDTO.setUserId(memberDTO.getUserId());
-			memberDAO.setAddFile(memberFileDTO);
+			if(!photo.isEmpty()) {
 			
+				
+				MemberFileDTO memberFileDTO = new MemberFileDTO();
+				memberFileDTO.setFileName(fileName);
+				memberFileDTO.setOriName(photo.getOriginalFilename());
+				memberFileDTO.setUserId(memberDTO.getUserId());
+				memberDAO.setAddFile(memberFileDTO);
+				
+			}
 		}
-		
-		
-		
-		
 		return result;
 		
-	}
+		}
 	
 	public int setGuest(MemberDTO memberDTO)throws Exception{
 		

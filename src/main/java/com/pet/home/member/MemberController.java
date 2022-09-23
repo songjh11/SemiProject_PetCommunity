@@ -89,7 +89,6 @@ if (memberDTO!=null) {
 		//공통 member테이블 먼저 생성 
 		int result = memberService.setJoin(memberDTO, photo, session.getServletContext());
 		
-	
 		
 		//사업자 회원일 때 
 		if(memberDTO.getRoleNum()==1){ 
@@ -126,9 +125,11 @@ if (memberDTO!=null) {
 		}else {
 		memberDTO = memberService.getAdmPage(memberDTO); // 그 외 관리자 마이페이지  
 		}
-		
-	System.out.println(memberDTO.getEmail());
-	System.out.println(memberDTO.getUserName());
+		System.out.println("ddddddd");
+		System.out.println(memberDTO.getRoleNum());
+   System.out.println(memberDTO.getUserName());
+	System.out.println(memberDTO.getPhone());
+
 		
 		mv.addObject("dto", memberDTO);
 		mv.setViewName("member/mypage");

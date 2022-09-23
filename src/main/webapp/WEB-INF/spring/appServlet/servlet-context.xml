@@ -24,12 +24,12 @@
 	</beans:bean>
 	
 	
-	<websocket:handlers>
+	<!-- <websocket:handlers>
 		<websocket:mapping handler="myHandler" path="/chat" />
 		<websocket:sockjs />
 	</websocket:handlers>
     
-	<beans:bean id="myHandler" class="com.pet.home.chat.WebSocketHandler"></beans:bean>
+	<beans:bean id="myHandler" class="com.pet.home.chat.WebSocketHandler"></beans:bean> -->
 	
 	
 	

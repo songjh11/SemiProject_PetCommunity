@@ -18,6 +18,15 @@ public class SellItemDTO {
 	private Long itemCatg;
 	
 	private List<SellFileDTO> fileDTOs;
+	private List<ShopCartDTO> shopCartDTOs;
+	public List<ShopCartDTO> getShopCartDTOs() {
+		return shopCartDTOs;
+	}
+
+	public void setShopCartDTOs(List<ShopCartDTO> shopCartDTOs) {
+		this.shopCartDTOs = shopCartDTOs;
+	}
+
 	private CategoryDTO categoryDTO;
 	
 	

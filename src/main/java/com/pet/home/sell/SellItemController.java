@@ -118,10 +118,35 @@ public class SellItemController {
 	}
 	
 	@PostMapping("pickdelete")
-	public String setPickDelete(PickDTO pickDTO) throws Exception{
+	@ResponseBody
+	public int setPickDelete(PickDTO pickDTO) throws Exception{
 		int result = itemService.setPickDelete(pickDTO);
-		System.out.println(result);
-		return "redirect:/member/test";
+		return result;
+	}
+	
+	@PostMapping("shopcartadd")
+	@ResponseBody
+	public int setShopCartAdd(ShopCartDTO shopCartDTO) throws Exception{
+		ShopCartDTO shopCartDTO2 = itemService.getShopCartCheck(shopCartDTO);
+		if(shopCartDTO2 == null) {
+			int result = itemService.setShopCartAdd(shopCartDTO);
+			return result;
+		}
+		return 0;
+	}
+	
+	@PostMapping("shopcartdelete")
+	@ResponseBody
+	public int setShopCartDelete(ShopCartDTO shopCartDTO) throws Exception{
+		int result = itemService.setShopCartDelete(shopCartDTO);
+		return result;
+	}
+	
+	@PostMapping("shopcartupdate")
+	@ResponseBody
+	public int setShopCartUpdate(ShopCartDTO shopCartDTO) throws Exception{
+		int result = itemService.setShopCartUpdate(shopCartDTO);
+		return result;
 	}
 	
 	@GetMapping("map")

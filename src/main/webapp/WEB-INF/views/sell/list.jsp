@@ -37,6 +37,17 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+    <style>
+      .pagination{
+        justify-content: center;
+      }
+
+      .pagination > li > a {
+        float: none;
+      }
+
+    </style>
+
 </head>
 
 <body>
@@ -46,7 +57,7 @@
   <!-- header end -->
 
   
-    <!-- ======= Menu Section ======= -->
+    <!-- ======= List Section ======= -->
       <section id="chefs" class="chefs section-bg">
         <div class="container" data-aos="fade-up">
                    
@@ -55,10 +66,9 @@
                    </div>
                    
 					<div class="row gy-1">	
-
               <c:forEach items="${list}" var="ar">
                 <div class="col-lg-3 col-md-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-                  <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 10px;">
+                  <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 15px;">
                     <div class="member-img" style="width: 100%;">
                       <img src="/resources/upload/sellfile/${ar.fileDTOs[0].fileName}" class="img-fluid" alt="">
                       <div class="social">
@@ -76,33 +86,33 @@
                   </div>
                 </div>
               </c:forEach>
-			
         </div>
         <!-- End grid1div -->
-        </div>
-      </section> 
-      
-      <!-- pagination start -->
-      <div row align-items-center>
-        <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item ${sellPager.pre?'':'disabled'}">
-              <a class="page-link" href="./list?page=${sellPager.startNum-1}&itemCatg=${sellPager.itemCatg}&search=${sellPager.search}" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <c:forEach begin="${sellPager.startNum}" end="${sellPager.lastNum}" var="i">
-              <li class="page-item"><a class="page-link" href="./list?page=${i}&itemCatg=${sellPager.itemCatg}&search=${sellPager.search}"> ${i}</a> </li>
-            </c:forEach>
-						<li class="page-item ${pager.next?'':'disabled'}">
-              <a class="page-link" href="./list.do?page=${sellPager.lastNum+1}&itemCatg=${sellPager.itemCatg}&search=${sellPager.search}" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
+
       </div>
-      <!-- pagination end -->        
+    </section> 
+    
+    <!-- pagination start -->
+    <div class="chefs section-bg" style="padding-bottom: 10px;">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item ${sellPager.pre?'':'disabled'}">
+            <a class="page-link" href="./list?page=${sellPager.startNum-1}&itemCatg=${sellPager.itemCatg}&search=${sellPager.search}" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <c:forEach begin="${sellPager.startNum}" end="${sellPager.lastNum}" var="i">
+            <li class="page-item"><a class="page-link" href="./list?page=${i}&itemCatg=${sellPager.itemCatg}&search=${sellPager.search}"> ${i}</a> </li>
+          </c:forEach>
+          <li class="page-item ${pager.next?'':'disabled'}">
+            <a class="page-link" href="./list.do?page=${sellPager.lastNum+1}&itemCatg=${sellPager.itemCatg}&search=${sellPager.search}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- pagination end -->        
 
 
        

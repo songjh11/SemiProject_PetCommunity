@@ -45,7 +45,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
       <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
+        <div class="container-fluid row align-items-start">
           <form class="d-flex" action="search" method="get" id="searchFrm">
             <div>
               <select name="itemCatg" class="form-control" id="searchItemCatg" value="${param.itemCatg}">

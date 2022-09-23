@@ -46,6 +46,29 @@
         float: none;
       }
 
+
+    .page-link {
+      color: rgb(98, 91, 91); 
+      background-color: #fff;
+      border: 1px solid #ccc; 
+    }
+
+    .page-item.active .page-link {
+    z-index: 1;
+    color: rgb(228, 145, 145);
+    font-weight:bold;
+    background-color: #f1f1f1;
+    border-color: #ccc;
+    
+    }
+
+    .page-link:focus, .page-link:hover {
+      color: rgb(238, 8, 8);
+      background-color: #fafafa; 
+      border-color: #ccc;
+    }
+
+
     </style>
 
 </head>

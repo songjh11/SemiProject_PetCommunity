@@ -9,7 +9,7 @@ import com.pet.home.sell.file.SellFileDTO;
 public class MemberDTO {   
 	
 	private String userId;
-	private Long roleNum;
+	private Integer roleNum;
 	private String userName;
 	private String password;
 	private String email;
@@ -19,6 +19,7 @@ public class MemberDTO {
 	private Integer agMail;
 	private Integer agValue;
 	private Integer agMes;
+
 	private Long totalPrice;
 	private List<ShopCartDTO> shopCartDTOs;
     public List<ShopCartDTO> getShopCartDTOs() {
@@ -33,7 +34,11 @@ public class MemberDTO {
 	public void setTotalPrice(Long totalPrice) {
 		this.totalPrice = totalPrice;
 	}
-	public List<SellItemDTO> getItemDTOs() {
+
+	private RoleDTO roleDTO;
+	private MemberFileDTO memberFileDTO;
+
+    public List<SellItemDTO> getItemDTOs() {
 		return itemDTOs;
 	}
 	public void setItemDTOs(List<SellItemDTO> itemDTOs) {
@@ -49,16 +54,23 @@ public class MemberDTO {
     private List<SellItemDTO> itemDTOs;
     private List<SellFileDTO> fileDTOs;
 	
+	public MemberFileDTO getMemberFileDTO() {
+		return memberFileDTO;
+	}
+	public void setMemberFileDTO(MemberFileDTO memberFileDTO) {
+		this.memberFileDTO = memberFileDTO;
+	}
 	public String getUserId() {
 		return userId;
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public Long getRoleNum() {
+	
+	public Integer getRoleNum() {
 		return roleNum;
 	}
-	public void setRoleNum(Long roleNum) {
+	public void setRoleNum(Integer roleNum) {
 		this.roleNum = roleNum;
 	}
 	public String getUserName() {
@@ -116,14 +128,15 @@ public class MemberDTO {
 	public void setAgMes(Integer agMes) {
 		this.agMes = agMes;
 	}
-	public List<RoleDTO> getRoleDTOs() {
-		return roleDTOs;
-	}
-	public void setRoleDTOs(List<RoleDTO> roleDTOs) {
-		this.roleDTOs = roleDTOs;
-	}
+
 	
 	
+	public RoleDTO getRoleDTO() {
+		return roleDTO;
+	}
+	public void setRoleDTO(RoleDTO roleDTO) {
+		this.roleDTO = roleDTO;
+	}
 	public String getItemCatg() {
 		return itemCatg;
 	}

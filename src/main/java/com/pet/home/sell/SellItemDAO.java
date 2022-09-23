@@ -1,6 +1,7 @@
 package com.pet.home.sell;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.pet.home.sell.file.SellFileDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
 import com.pet.home.sell.sellcategory.SellCategoryDTO;
+import com.pet.home.util.Pager;
+import com.pet.home.util.SellPager;
 
 @Repository
 public class SellItemDAO {
@@ -29,8 +32,12 @@ public class SellItemDAO {
 		return session.insert(NAMESPACE+"setAddSellFile", fileDTO);
 	}
 	
-	public List<SellItemDTO> getItemList(SellItemDTO dto) throws Exception{
-		return session.selectList(NAMESPACE+"getItemList", dto);
+	public List<SellItemDTO> getItemList(SellPager sellPager) throws Exception{
+		return session.selectList(NAMESPACE+"getItemList", sellPager);
+	}
+	
+	public Long getItemCount(SellPager sellPager) throws Exception{
+		return session.selectOne(NAMESPACE+"getItemCount", sellPager);
 	}
 	
 	public CategoryDTO getCategory(Long itemCatg) throws Exception{
@@ -39,6 +46,10 @@ public class SellItemDAO {
 	
 	public SellItemDTO getDetailOne(SellItemDTO dto) throws Exception{
 		return session.selectOne(NAMESPACE+"getDetailOne", dto);
+	}
+	
+	public SellFileDTO getSellFileDTO(SellFileDTO fileDTO) throws Exception{
+		return session.selectOne(NAMESPACE+"getSellFileDTO", fileDTO);
 	}
 	
 	public int setItemUpdate(SellItemDTO itemDTO) throws Exception {
@@ -53,12 +64,16 @@ public class SellItemDAO {
 		return session.delete(NAMESPACE+"setFileDelete", itemNum);
 	}
 	
+	public int setUpdateFileDelete(SellFileDTO fileDTO) throws Exception {
+		return session.delete(NAMESPACE+"setUpdateFileDelete", fileDTO);
+	}
+	
 	public int setCategoryDelete(Long itemNum) throws Exception {
 		return session.delete(NAMESPACE+"setCategoryDelete", itemNum);
 	}
 	
-	public SellItemDTO getItemOne(SellItemDTO dto) throws Exception {
-		return session.selectOne(NAMESPACE+"getItemOne", dto);
+	public List<SellItemDTO> getItems(Map<String, Object> map) throws Exception {
+		return session.selectList(NAMESPACE+"getItems", map);
 	}
 	
 	public SellItemDTO getMap() throws Exception{

@@ -25,7 +25,7 @@
     <div class="row">
 <h1>join page</h1>
 
-<form action="join" method="POST" id="frm">
+<form action="join" method="POST" id="frm" enctype="multipart/form-data">
 
 <h1>✿회원가입✿( ღ'ᴗ'ღ )</h1>
 
@@ -42,6 +42,7 @@
     번호 <input type="number" name="phone"><br>
     이메일 <input type="email" name="email"><br>
     주소 <input type="text" name="address"><br>
+	  
  <br>
 </div>
 
@@ -55,6 +56,7 @@
     <div>   
         펫종류 <input type="text" name="petCatg"><br>
         펫이름 <input type="text" name="petName"><br>
+        사진 <input type="file" name="photo" id="files"><br>
     </div>
 </c:if>
 
@@ -115,7 +117,7 @@
       이용자는 동의를 거부할 권리가 있습니다. 동의를 거부할 경우에는 서비스 이용에 제한됨을 알려드립니다.
   
     </div>
-    메시지 동의 약관(선택) <input type="checkbox" class="cb" name="agMes" value="">
+    메시지 동의 약관(선택) <input type="checkbox" class="cb" name="agMes" value="" id="mes"> 
     
     <div class="col">
       제 9 조 (서비스 이용시간)

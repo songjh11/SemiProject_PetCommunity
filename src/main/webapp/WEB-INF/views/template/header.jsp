@@ -44,22 +44,39 @@
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
-
-      <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0">
+      <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid row align-items-start">
+          <form class="d-flex" action="search" method="get" id="searchFrm">
+            <div>
+              <select name="itemCatg" class="form-control" id="searchItemCatg" value="${param.itemCatg}">
+                <option value="" selected>-- 상품 카테고리 선택 --</option>
+                <option value="1">호텔링</option>
+                <option value="2">원데이클래스</option>
+                <option value="3">트레이닝</option>
+              </select>
+            </div>
+            <input class="form-control me-2" type="text" name="search" placeholder="검색어 입력" aria-label="Search" value="${param.search}">
+            <button class="btn btn-outline-success" id="searchBtn" type="button">Search</button>
+          </form>
+        </div>
+      </nav>
+      <a href="/" class="logo d-flex align-items-center me-auto me-lg-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1>Yummy<span>.</span></h1>
+        <h1>WALWAL<span>.</span></h1>
       </a>
 
       <nav id="navbar" class="navbar">
         <ul>
-
           <li><a href="../">Home</a></li>
-
-          <li><a href="/sell/list?itemCatg=1">호텔링</a></li>
-          <li><a href="/sell/list?itemCatg=2">One Day 클래스</a></li>
-          <li><a href="/sell/list?itemCatg=3">트레이닝</a></li>
-          <li><a href="#chefs">Pet Taxi</a></li>
+          <li class="dropdown"><a href="#"><span>예약 서비스</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+                  <li><a href="/sell/list?itemCatg=1">호텔링</a></li>
+                  <li><a href="/sell/list?itemCatg=2">One Day 클래스</a></li>
+                  <li><a href="/sell/list?itemCatg=3">트레이닝</a></li>
+                  <li><a href="/sell/pettx">Pet-Taxi</a></li>
+            </ul>
+          </li>
           <li><a href="#gallery">여행해요</a></li>
           <li class="dropdown"><a href="#"><span>커뮤니티</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
@@ -81,11 +98,9 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav><!-- .navbar -->
-
-     <a class="btn-book-a-table" href="/member/login">Login</a>
-     <a class="btn-book-a-table" href="/member/agree">Join</a>
-
-      <a class="btn-book-a-table" href="./add">Add Items</a>
+	  <a class="btn-book-a-table" href="/member/login">Login</a>
+	  <a class="btn-book-a-table" href="/member/agree">Join</a>
+    <a href="./add"><button class="btn btn-outline-success me-2" type="button">Add Items</button></a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
@@ -93,5 +108,6 @@
   </header><!-- End Header -->
 <body>
 
+  <script src="/resources/JS/sellHeader.js"></script>
 </body>
 </html>

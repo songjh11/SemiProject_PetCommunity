@@ -32,11 +32,13 @@ public class SellItemController {
 	@GetMapping("list")
 	public ModelAndView getItemList(SellPager sellPager) throws Exception {
 		System.out.println(sellPager.getItemCatg());
+		ModelAndView mv = new ModelAndView();
+
 	  List<SellItemDTO> ar	= itemService.getItemList(sellPager);
-	  ModelAndView mv = new ModelAndView();
 	  CategoryDTO categoryDTO = itemService.getCategory(sellPager.getItemCatg());
 	  
 	  mv.addObject("list", ar);
+	  mv.addObject("pager",sellPager);
 	  mv.addObject("category", categoryDTO);
 	  return mv;
 	}
@@ -108,9 +110,11 @@ public class SellItemController {
 	@GetMapping("search")
 	public ModelAndView getItemOne(SellPager sellPager) throws Exception {
 		System.out.println(sellPager.getItemCatg());
+		System.out.println(sellPager.getSearch());
 		  List<SellItemDTO> ar	= itemService.getItemList(sellPager);
 		  ModelAndView mv = new ModelAndView();
 		  mv.addObject("list", ar);
+		  mv.addObject("pager",sellPager);
 		  return mv;
 		}
 

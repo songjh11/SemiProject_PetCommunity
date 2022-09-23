@@ -81,24 +81,28 @@
         <!-- End grid1div -->
         </div>
       </section> 
-              
-              <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+      
+      <!-- pagination start -->
+      <div row align-items-center>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item ${sellPager.pre?'':'disabled'}">
+              <a class="page-link" href="./list?page=${sellPager.startNum-1}&itemCatg=${sellPager.itemCatg}&search=${sellPager.search}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <c:forEach begin="${sellPager.startNum}" end="${sellPager.lastNum}" var="i">
+              <li class="page-item"><a class="page-link" href="./list?page=${i}&itemCatg=${sellPager.itemCatg}&search=${sellPager.search}"> ${i}</a> </li>
+            </c:forEach>
+						<li class="page-item ${pager.next?'':'disabled'}">
+              <a class="page-link" href="./list.do?page=${sellPager.lastNum+1}&itemCatg=${sellPager.itemCatg}&search=${sellPager.search}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <!-- pagination end -->        
 
 
        
@@ -185,7 +189,7 @@
 
   <!-- Template Main JS File -->
   <script src="/resources/assets/js/main.js"></script>
-
+  <script src="/resources/JS/sellHeader.js"></script>
 </body>
 
 </html>

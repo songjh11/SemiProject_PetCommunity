@@ -106,7 +106,7 @@
 				</div>
 			  </div>						   
 			  <div class="form-group mt-3">
-				  <textarea class="form-control" name="itemContents" rows="5" value="${dto.itemContents}"></textarea>
+				  <textarea class="form-control" name="itemContents" rows="5" value="${dto.itemContents}">${dto.itemContents}</textarea>
 				  <div class="validate"></div>
 			  </div>
 			  

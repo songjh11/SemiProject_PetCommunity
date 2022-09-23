@@ -3,6 +3,22 @@
 		    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pet.home.sell.SellItemDAO">
+
+	<sql id="search">
+		(SELECT ROWNUM R, SITEM.* FROM 
+			(SELECT SII.* 
+			FROM 
+				(SELECT SI.ITEMNUM, SI.ITEMPRICE, SI.ITEMNAME, SI.ITEMCATG, SI.ITEMADDRESS, SF.FILENAME
+					FROM SELLITEM SI
+					INNER JOIN
+					SELLFILE SF
+					ON SI.ITEMNUM = SF.ITEMNUM
+					WHERE SI.ITEMCATG= #{itemCatg}					
+					ORDER BY SI.ITEMNUM DESC,SF.PHOTONUM ASC) SII 
+			WHERE SII.ITEMNAME LIKE '%'||#{search}||'%' 
+		ORDER BY SII.ITEMNUM DESC) SITEM)
+	</sql>
+
 	<insert id="setItemAdd" parameterType="SellItemDTO">
 		<selectKey keyProperty="itemNum" order="BEFORE" resultType="Long">
 		 			SELECT SELLITEM_SEQ.NEXTVAL FROM DUAL
@@ -32,13 +48,15 @@
 		VALUES (SELLFILE_SEQ.NEXTVAL, #{itemNum}, #{oriName}, #{fileName})
 	</insert>
 	
-	<select id="getItemList" parameterType="SellItemDTO" resultMap="getItemResult">
-		SELECT SI.ITEMNUM, SI.ITEMPRICE, SI.ITEMNAME, SF.FILENAME
-			FROM SELLITEM SI
-			INNER JOIN
-			SELLFILE SF
-			ON SI.ITEMNUM = SF.ITEMNUM
-		WHERE SI.ITEMCATG=#{itemCatg} ORDER BY SI.ITEMNUM DESC,SF.PHOTONUM ASC
+	<select id="getItemList" parameterType="SellPager" resultMap="getItemResult">
+		SELECT * FROM
+			<include refid="search"></include>
+		WHERE R BETWEEN #{startRow} and #{lastRow}
+	</select>
+	
+	<select id="getItemCount" parameterType="SellPager" resultType="Long">
+		SELECT COUNT(ROWNUM) FROM
+			<include refid="search"></include>	
 	</select>
 	
 	<select id="getDetailOne" parameterType="SellItemDTO" resultMap="getItemResult">
@@ -92,10 +110,10 @@
 		<result column="ITEMADDRESS" property="itemAddress"/>
 		<result column="ITEMDEADDRESS" property="itemDeAddress"/>
 		<result column="ITEMCATG" property="itemCatg"/>
-		<collection property="fileDTOs" javaType="List" ofType="sellFileDTO">
-			<id column="PHOTONUM" property="photoNum"></id>
-			<result column="FILENAME" property="fileName"/>
-			<result column="ORINAME" property="oriName"/>
-		</collection>
+			<collection property="fileDTOs" javaType="List" ofType="sellFileDTO">
+				<id column="PHOTONUM" property="photoNum"></id>
+				<result column="FILENAME" property="fileName"/>
+				<result column="ORINAME" property="oriName"/>
+			</collection>
 	</resultMap>
 </mapper>

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.pet.home.sell.file.SellFileDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
 import com.pet.home.util.Pager;
+import com.pet.home.util.SellPager;
 
 @Controller
 @RequestMapping(value="/sell/*")
@@ -29,12 +30,15 @@ public class SellItemController {
 	private SellItemService itemService;	
 	
 	@GetMapping("list")
-	public ModelAndView getItemList(SellItemDTO dto) throws Exception {
-	  List<SellItemDTO> ar	= itemService.getItemList(dto);
-	  System.out.println(dto.getItemCatg());
-	  CategoryDTO categoryDTO = itemService.getCategory(dto.getItemCatg());
-	  ModelAndView mv = new ModelAndView();
-	  mv.addObject("list",ar);
+	public ModelAndView getItemList(SellPager sellPager) throws Exception {
+		System.out.println(sellPager.getItemCatg());
+		ModelAndView mv = new ModelAndView();
+
+	  List<SellItemDTO> ar	= itemService.getItemList(sellPager);
+	  CategoryDTO categoryDTO = itemService.getCategory(sellPager.getItemCatg());
+	  
+	  mv.addObject("list", ar);
+	  mv.addObject("pager",sellPager);
 	  mv.addObject("category", categoryDTO);
 	  return mv;
 	}
@@ -131,30 +135,16 @@ public class SellItemController {
 	
 	
 	@GetMapping("search")
-	public ModelAndView getItemOne(String search, String kind) throws Exception {
-		System.out.println("search: "+search);
-		System.out.println("kind: "+kind);
-		Pager pager = new Pager();
-		pager.setKind(kind);
-		pager.setSearch(search);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("kind", kind);
-		map.put("search", search);
-		List<SellItemDTO> ar = itemService.getItems(map);
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("list", ar);
-		return mv;
+	public ModelAndView getItemOne(SellPager sellPager) throws Exception {
+		System.out.println(sellPager.getItemCatg());
+		System.out.println(sellPager.getSearch());
+		  List<SellItemDTO> ar	= itemService.getItemList(sellPager);
+		  ModelAndView mv = new ModelAndView();
+		  mv.addObject("list", ar);
+		  mv.addObject("pager",sellPager);
+		  return mv;
 		}
-	
-	@PostMapping("search")
-	public void getItemOneResult(String search, String kind) throws Exception {
-		Pager pager = new Pager();
-		pager.setKind(kind);
-		pager.setSearch(search);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("kind", kind);
-		map.put("search", search);
-	}
+
 	
 	@GetMapping("pettx")
 	public void getPetTaxi () {

@@ -45,18 +45,18 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
       <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-          <form class="d-flex" action="search" method="get">
+        <div class="container-fluid row align-items-start">
+          <form class="d-flex" action="search" method="get" id="searchFrm">
             <div>
-              <select name="kind" class="form-control" id="kind" value="${param.kind}">
-                <option value='' selected>-- 상품 카테고리 선택 --</option>
+              <select name="itemCatg" class="form-control" id="searchItemCatg" value="${param.itemCatg}">
+                <option value="" selected>-- 상품 카테고리 선택 --</option>
                 <option value="1">호텔링</option>
                 <option value="2">원데이클래스</option>
                 <option value="3">트레이닝</option>
               </select>
             </div>
             <input class="form-control me-2" type="text" name="search" placeholder="검색어 입력" aria-label="Search" value="${param.search}">
-            <a href="/sell/search"><button class="btn btn-outline-success" id="searchBtn" type="submit">Search</button></a>
+            <button class="btn btn-outline-success" id="searchBtn" type="button">Search</button>
           </form>
         </div>
       </nav>
@@ -108,5 +108,6 @@
   </header><!-- End Header -->
 <body>
 
+  <script src="/resources/JS/sellHeader.js"></script>
 </body>
 </html>

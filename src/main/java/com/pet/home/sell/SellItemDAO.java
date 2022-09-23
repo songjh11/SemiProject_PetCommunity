@@ -11,6 +11,7 @@ import com.pet.home.sell.file.SellFileDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
 import com.pet.home.sell.sellcategory.SellCategoryDTO;
 import com.pet.home.util.Pager;
+import com.pet.home.util.SellPager;
 
 @Repository
 public class SellItemDAO {
@@ -31,8 +32,12 @@ public class SellItemDAO {
 		return session.insert(NAMESPACE+"setAddSellFile", fileDTO);
 	}
 	
-	public List<SellItemDTO> getItemList(SellItemDTO dto) throws Exception{
-		return session.selectList(NAMESPACE+"getItemList", dto);
+	public List<SellItemDTO> getItemList(SellPager sellPager) throws Exception{
+		return session.selectList(NAMESPACE+"getItemList", sellPager);
+	}
+	
+	public Long getItemCount(SellPager sellPager) throws Exception{
+		return session.selectOne(NAMESPACE+"getItemCount", sellPager);
 	}
 	
 	public CategoryDTO getCategory(Long itemCatg) throws Exception{

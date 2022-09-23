@@ -18,6 +18,7 @@ import com.pet.home.sell.file.SellFileDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
 import com.pet.home.sell.sellcategory.SellCategoryDTO;
 import com.pet.home.util.Pager;
+import com.pet.home.util.SellPager;
 
 @Service
 public class SellItemService {
@@ -68,8 +69,10 @@ public class SellItemService {
 		return result;
 	}
 	
-	public List<SellItemDTO> getItemList(SellItemDTO dto) throws Exception {
-		return itemDAO.getItemList(dto);
+	public List<SellItemDTO> getItemList(SellPager sellPager) throws Exception {
+		sellPager.getRowNum();
+		sellPager.getNum(itemDAO.getItemCount(sellPager));
+		return itemDAO.getItemList(sellPager);
 	}
 	
 	public CategoryDTO getCategory(Long itemCatg) throws Exception{

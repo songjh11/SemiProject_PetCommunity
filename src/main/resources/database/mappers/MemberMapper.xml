@@ -54,7 +54,7 @@ FROM MEMBER M
      INNER JOIN
      SELLFILE SF
      ON SI.ITEMNUM = SF.ITEMNUM
-WHERE M.USERID = 'guest'
+WHERE M.USERID = 'guest' ORDER BY P.PICKNUM DESC
 </select>
 <resultMap type="MemberDTO" id="getPickListResult">
 	<id column="USERID" property="userId"/>
@@ -68,5 +68,44 @@ WHERE M.USERID = 'guest'
 		</collection>
 	</collection>
 </resultMap>
- 
+
+<select id="getShopCartList" parameterType="MemberDTO" resultMap="getShopCartListResult">
+SELECT M.USERID,S.SHOPNUM,S.TOTALCOUNT,SI.ITEMNUM,SI.ITEMNAME,SI.ITEMPRICE,SI.ITEMCONTENTS,SF.FILENAME
+FROM MEMBER M
+     INNER JOIN
+     SHOPCART S
+     ON M.USERID = S.USERID
+     INNER JOIN
+     SELLITEM SI
+     ON S.ITEMNUM = SI.ITEMNUM
+     INNER JOIN
+     SELLFILE SF
+     ON SI.ITEMNUM = SF.ITEMNUM
+WHERE M.USERID = 'guest' ORDER BY S.SHOPNUM DESC
+</select>
+<resultMap type="MemberDTO" id="getShopCartListResult">
+	<id column="USERID" property="userId"/>
+	<collection property="itemDTOs" javaType="List" ofType="SellItemDTO">
+		<id column="ITEMNUM" property="itemNum"/>
+		<result column="ITEMNAME" property="itemName"/>
+		<result column="ITEMPRICE" property="itemPrice"/>
+		<result column="ITEMCONTENTS" property="itemContents"/>
+		<collection property="shopCartDTOs" javaType="List" ofType="ShopCartDTO">
+		<result column="TOTALCOUNT" property="totalCount"/>
+		</collection>
+		<collection property="fileDTOs" javaType="List" ofType="sellFileDTO">
+			<result column="FILENAME" property="fileName"/>
+		</collection>
+	</collection>
+</resultMap>
+
+<select id="getTotalPrice" parameterType="MemberDTO" resultType="MemberDTO">
+SELECT SUM(S.TOTALPRICE*S.TOTALCOUNT) AS TOTALPRICE
+FROM MEMBER M
+     INNER JOIN
+     SHOPCART S
+     ON M.USERID = S.USERID
+WHERE M.USERID = 'guest'
+</select>
+
 </mapper>

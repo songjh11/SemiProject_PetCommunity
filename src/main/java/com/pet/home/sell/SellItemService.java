@@ -22,6 +22,8 @@ public class SellItemService {
 	private SellItemDAO itemDAO;
 	@Autowired
 	private PickDAO pickDAO;
+	@Autowired
+	private ShopCartDAO shopCartDAO;
 	
 	public int setItemAdd(SellItemDTO itemDTO, MultipartFile [] mf, ServletContext servletContext) throws Exception {
 		System.out.println("service");
@@ -104,9 +106,27 @@ public class SellItemService {
 		return pickDAO.setPickDelete(pickDTO);
 	}
 	
+	public int setShopCartAdd(ShopCartDTO shopCartDTO) throws Exception{
+		return shopCartDAO.setShopCartAdd(shopCartDTO);
+	}
+	
+	public ShopCartDTO getShopCartCheck(ShopCartDTO shopCartDTO) throws Exception{
+		return shopCartDAO.getShopCartCheck(shopCartDTO);
+	}
+	
+	public int setShopCartDelete(ShopCartDTO shopCartDTO) throws Exception{
+		return shopCartDAO.setShopCartDelete(shopCartDTO);
+	}
+	
+	public int setShopCartUpdate(ShopCartDTO shopCartDTO) throws Exception{
+		return shopCartDAO.setShopCartUpdate(shopCartDTO);
+	}
+	
 	public SellItemDTO getMap() throws Exception{
 		return itemDAO.getMap();
 	}
+	
+	
 	
 
 }

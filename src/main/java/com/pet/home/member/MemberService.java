@@ -38,5 +38,13 @@ public class MemberService {
 		return memberDAO.getPickList(memberDTO);
 	}
 	
+	public MemberDTO getShopCartList(MemberDTO memberDTO) throws Exception{
+		return memberDAO.getShopCartList(memberDTO);
+	}
+	
+	public MemberDTO getTotalPrice(MemberDTO memberDTO) throws Exception{
+		return memberDAO.getTotalPrice(memberDTO);
+	}
+	
 
 }

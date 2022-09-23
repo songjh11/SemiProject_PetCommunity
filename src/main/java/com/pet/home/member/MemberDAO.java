@@ -33,4 +33,12 @@ public class MemberDAO {
 	public MemberDTO getPickList(MemberDTO memberDTO) throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getPickList", memberDTO);
 	}
+	
+	public MemberDTO getShopCartList(MemberDTO memberDTO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getShopCartList", memberDTO);
+	}
+	
+	public MemberDTO getTotalPrice(MemberDTO memberDTO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getTotalPrice", memberDTO);
+	}
 }

@@ -64,7 +64,7 @@
 			                            <div class="social">
 			                              <i class="bi bi-twitter btnPick" data-item-num="${ar.itemNum}">찜</i>
                                     <p>
-                                      <i class="bi bi-facebook" id="btnShopCart">장바구니</i></a>
+                                      <i class="bi bi-facebook btnShopCart" data-item-num="${ar.itemNum }" data-item-price="${ar.itemPrice}">장바구니</i></a>
                                     </p>
 			                              <i class="bi bi-instagram"></i>
 			                              <i class="bi bi-linkedin"></i>

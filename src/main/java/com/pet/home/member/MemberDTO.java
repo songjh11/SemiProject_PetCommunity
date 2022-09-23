@@ -2,6 +2,9 @@ package com.pet.home.member;
 
 import java.util.List;
 
+import com.pet.home.sell.SellItemDTO;
+import com.pet.home.sell.file.SellFileDTO;
+
 public class MemberDTO {   
 	
 	private String userId;
@@ -15,7 +18,21 @@ public class MemberDTO {
 	private Integer agMail;
 	private Integer agValue;
 	private Integer agMes;
-private List<RoleDTO> roleDTOs;
+    public List<SellItemDTO> getItemDTOs() {
+		return itemDTOs;
+	}
+	public void setItemDTOs(List<SellItemDTO> itemDTOs) {
+		this.itemDTOs = itemDTOs;
+	}
+	public List<SellFileDTO> getFileDTOs() {
+		return fileDTOs;
+	}
+	public void setFileDTOs(List<SellFileDTO> fileDTOs) {
+		this.fileDTOs = fileDTOs;
+	}
+	private List<RoleDTO> roleDTOs;
+    private List<SellItemDTO> itemDTOs;
+    private List<SellFileDTO> fileDTOs;
 	
 	public String getUserId() {
 		return userId;

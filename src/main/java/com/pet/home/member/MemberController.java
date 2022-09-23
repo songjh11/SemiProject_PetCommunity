@@ -1,6 +1,7 @@
 package com.pet.home.member;
 
 import java.util.Calendar;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -105,6 +106,15 @@ if (memberDTO!=null) {
 		
 		return "redirect:../";
 		
+	}
+	
+	@GetMapping("test")
+	public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
+		MemberDTO ar = memberService.getPickList(memberDTO);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("list", ar);
+		mv.setViewName("member/test");
+		return mv;
 	}
 	
 }

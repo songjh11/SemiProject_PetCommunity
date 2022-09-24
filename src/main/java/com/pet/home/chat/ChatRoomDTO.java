@@ -9,7 +9,7 @@ public class ChatRoomDTO {
 	private String masterEmail;
 	private String masterName;
 	private String masterPic;
-	private int unReadCount;
+	private Long unReadCount;
 	
 	public ChatRoomDTO() {
 		// TODO Auto-generated constructor stub
@@ -17,7 +17,7 @@ public class ChatRoomDTO {
 	}
 	
 	public ChatRoomDTO(String roomNum, String userEmail, String userName, String userPic, String masterEmail,
-            String masterName, String masterPic, int unReadCount) {
+            String masterName, String masterPic, Long unReadCount) {
 			super();
 	        this.roomNum = roomNum;
 	        this.userEmail = userEmail;
@@ -73,11 +73,11 @@ public class ChatRoomDTO {
 	public void setMasterPic(String masterPic) {
 		this.masterPic = masterPic;
 	}
-	public int getUnReadCount() {
+	public Long getUnReadCount() {
 		return unReadCount;
 	}
-	public void setUnReadCount(int unReadCount) {
-		this.unReadCount = unReadCount;
+	public void setUnReadCount(Long count) {
+		this.unReadCount = count;
 	}
 	
 	@Override

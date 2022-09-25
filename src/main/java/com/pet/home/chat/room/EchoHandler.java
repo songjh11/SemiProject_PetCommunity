@@ -1,8 +1,12 @@
-package com.pet.home.chat;
+package com.pet.home.chat.room;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+
+import javax.websocket.OnClose;
+import javax.websocket.OnMessage;
+import javax.websocket.OnOpen;
 
 import org.mybatis.logging.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;

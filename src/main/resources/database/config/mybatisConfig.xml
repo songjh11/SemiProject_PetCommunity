@@ -6,9 +6,6 @@
 	<typeAliases>
 		<typeAlias type="com.pet.home.board.impl.BoardDTO" alias="BoardDTO"/>
 		
-		<typeAlias type="com.pet.home.chat.ChatRoomDTO" alias="ChatRoomDTO"/>
-		<typeAlias type="com.pet.home.chat.ChatMessageDTO" alias="ChatMessageDTO"/>
-		
 		<typeAlias type="com.pet.home.member.GuestDTO" alias="GuestDTO"/>
 		<typeAlias type="com.pet.home.member.BizmemDTO" alias="BizmemDTO"/>
 		<typeAlias type="com.pet.home.member.MemberDTO" alias="MemberDTO"/>

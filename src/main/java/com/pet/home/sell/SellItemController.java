@@ -29,6 +29,10 @@ public class SellItemController {
 	@Autowired
 	private SellItemService itemService;	
 	
+	@GetMapping("Test")
+	public void detailTest() {
+	}
+	
 	@GetMapping("list")
 	public ModelAndView getItemList(SellPager sellPager) throws Exception {
 		System.out.println(sellPager.getItemCatg());

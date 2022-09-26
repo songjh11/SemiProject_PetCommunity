@@ -118,7 +118,6 @@ if (memberDTO!=null) {
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
 		
 		memberDTO = memberService.getAdmPage(memberDTO);
-		System.out.println("롤2"+memberDTO.getRoleNum());
 		
 		if(memberDTO.getRoleNum()==1){ 
 		memberDTO = memberService.getBizPage(memberDTO); //역할번호가 1번일 때 판매자 마이페이지 
@@ -127,7 +126,6 @@ if (memberDTO!=null) {
 		}else {
 		memberDTO = memberService.getAdmPage(memberDTO); // 그 외 관리자 마이페이지  
 		}
-		System.out.println("ddddddd");
 		System.out.println(memberDTO.getRoleNum());
    System.out.println(memberDTO.getUserName());
 	System.out.println(memberDTO.getPhone());
@@ -138,6 +136,20 @@ if (memberDTO!=null) {
 		
 		return mv;
 	}
+	
+	
+	@GetMapping("search")
+	public String search()throws Exception {
+		
+		return "member/search";
+	}
+	
+	@PostMapping("search")
+	public ModelAndView search(MemberDTO memberDTO)throws Exception {
+		ModelAndView mv = new ModelAndView();
+		return mv;
+	}
+
 		
 
 	@GetMapping("test")

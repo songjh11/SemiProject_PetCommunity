@@ -8,11 +8,8 @@ function check(){
     const req = document.getElementsByClassName("req"); //필수
     const join = document.getElementById("join"); //조인페이지로
     const frm = document.getElementById("frm"); //form
-    const mes = document.getElementById("mes"); //선택값1
-    const mes_hd = document.getElementById("mes_hd"); //선택값2
     
 
-//선택 동의값 세팅
 
 
 

@@ -44,6 +44,8 @@
         
         </form>
 
+        <a href="./search">아이디찾기</a>
+
       </div>
     </section><!-- End Book A Table Section -->
 </body>

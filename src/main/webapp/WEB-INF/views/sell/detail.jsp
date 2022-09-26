@@ -30,6 +30,15 @@
   <!-- Template Main CSS File -->
   <link href="/resources/assets/css/main.css" rel="stylesheet">
 
+  <style>
+    .crq{
+        justify-content: center;
+      }
+    
+    .mainContents{
+      display: flex;
+    }  
+  </style>
 </head>
 <body>
 <div>
@@ -37,162 +46,144 @@
     <c:import url="/WEB-INF/views/template/header.jsp"></c:import>
     <!-- header end -->
 </div>
-
-<!-- main contents -->
-<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="display: block;">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <c:forEach items="${sellItemDTO.fileDTOs}" var="ar">
-                    <div class="carousel-item">
-                        <img width="300px" height="300px" src="../resources/upload/sellfile/${ar.fileName}" class="d-block w-100" alt="...">
-                    </div>
-            </c:forEach>  
-        </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-</div>
-
-  <!-- carousel를 구성할 영역 설정 -->  
-  <div style="width: 300px;margin: 100px;">    
-    <!-- carousel를 사용하기 위해서는 class에 carousel와 slide 설정한다. -->    
-    <!-- carousel는 특이하게 id를 설정해야 한다.-->    
-    <div id="carousel-example-generic" class="carousel slide" >      
-        <!-- carousel의 지시자 -->      
-        <!-- 지시자라고는 하는데 ol태그의 class에 carousel-indicators를 넣는다. -->      
-        <ol class="carousel-indicators">        
-            <!-- li는 이미지 개수만큼 추가하고 data-target은 carousel id를 가르킨다. -->        
-            <!-- data-slide-to는 순서대로 0부터 올라가고 0은 active를 설정한다. -->        
-            <!-- 딱히 이 부분은 옵션별로 설정하게 없다. -->        
-            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>        
-            <li data-target="#carousel-example-generic" data-slide-to="1"></li>      
-        </ol>      
-        <!-- 실제 이미지 아이템 -->      
-        <!-- class는 carousel-inner로 설정하고 role은 listbox에서 설정한다. -->      
-        <div class="carousel-inner" role="listbox">        
-            <!-- 이미지의 개수만큼 item을 만든다. 중요한 포인트는 carousel-indicators의 li 태그 개수와 item의 개수는 일치해야 한다. -->        
-            <div class="item active">          
-                <!-- 아미지 설정- -->          
-                <img src="https://tistory2.daumcdn.net/tistory/1041549/skin/images/nowonbuntistory.png" style="width:100%">          
-            </div>       
-            <div class="item">          
-                <img src="https://www.nowonbun.com/img/nowonbuntistory1.png" style="width:100%">          
-            </div>     
-        </div>      
-                     <!-- 왼쪽 화살표 버튼 -->      
-                     <!-- href는 carousel의 id를 가르킨다. -->      
-                     <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">        
-                        <!-- 왼쪽 화살표 -->        
-                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>      
-                    </a>      
-                    <!-- 오른쪽 화살표 버튼 -->      
-                    <!-- href는 carousel의 id를 가르킨다. -->      
-                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">        
-                        <!-- 오른쪽 화살표 -->        
-                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>    
-    </div>  
-  </div>
-
-
-<!-- reservation section -->
-<div>
-    <div class="block-32 aos-init aos-animate" data-aos="fade-up" data-aos-offset="-200">
-        <form action="#">
-          <div class="row">
-            <div class="col-md-6 mb-3 mb-lg-0 col-lg-3">
-              <label for="checkin_date" class="font-weight-bold text-black">Check In</label>
-              <div class="field-icon-wrap">
-                <div class="icon"><span class="icon-calendar"></span></div>
-                <input type="date" id="checkin_date" class="form-control">
-              </div>
-            </div>
-            <div class="col-md-6 mb-3 mb-lg-0 col-lg-3">
-              <label for="checkout_date" class="font-weight-bold text-black">Check Out</label>
-              <div class="field-icon-wrap">
-                <div class="icon"><span class="icon-calendar"></span></div>
-                <input type="date" id="checkout_date" class="form-control">
-              </div>
-            </div>
-            <div class="col-md-6 mb-3 mb-md-0 col-lg-3">
-              <div class="row">
-                <div class="col-md-6 mb-3 mb-md-0">
-                  <label for="adults" class="font-weight-bold text-black">Adults</label>
-                  <div class="field-icon-wrap">
-                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                    <select name="" id="adults" class="form-control">
-                      <option value="">1</option>
-                      <option value="">2</option>
-                      <option value="">3</option>
-                      <option value="">4+</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-3 mb-md-0">
-                  <label for="children" class="font-weight-bold text-black">Children</label>
-                  <div class="field-icon-wrap">
-                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                    <select name="" id="children" class="form-control">
-                      <option value="">1</option>
-                      <option value="">2</option>
-                      <option value="">3</option>
-                      <option value="">4+</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6 col-lg-3 align-self-end">
-              <button class="btn btn-primary btn-block text-white">Check Availabilty</button>
-            </div>
-          </div>
-        </form>
-      </div>
-</div>
-
+<div style="margin-top: 100px;">  
 <a href="./update?itemNum=${sellItemDTO.itemNum}"><button>수정</button></a>
 <a href="./delete?itemNum=${sellItemDTO.itemNum}"><button id="deleteItem">삭제</button></a>
+</div>
 
-<ul class="nav nav-tabs" role="tablist">
-    <li class="nav-item" role="presentation">
-      <a class="nav-link active" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Home</a>
-    </li>
-    <li class="nav-item" role="presentation">
-      <a class="nav-link" data-bs-toggle="tab" href="#profile" aria-selected="false" role="tab" tabindex="-1">Profile</a>
-    </li>
-    <li class="nav-item" role="presentation">
-      <a class="nav-link disabled" href="#" aria-selected="false" tabindex="-1" role="tab">Disabled</a>
-    </li>
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-      <div class="dropdown-menu" style="">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Separated link</a>
+<!-- main contents -->
+<section>
+  <div class="mainContents">
+    <!-- image 영역 -->
+    <div class="col-lg-6 col-md-6 d-flex">
+      <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="width:100%; height:100%; display: block;">
+          <div class="carousel-inner">
+              <div class="carousel-item active">
+                <c:forEach items="${sellItemDTO.fileDTOs}" var="ar" end="0">
+                              <img width="100%" height="100%" src="../resources/upload/sellfile/${ar.fileName}" class="d-block w-100" alt="...">
+                </c:forEach>  
+              </div>  
+                  <c:forEach items="${sellItemDTO.fileDTOs}" var="ar" begin="1">
+                          <div class="carousel-item">
+                              <img width="100%" height="100%" src="../resources/upload/sellfile/${ar.fileName}" class="d-block w-100" alt="...">
+                          </div>
+                  </c:forEach>  
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
       </div>
-    </li>
-  </ul>
-  <div id="myTabContent" class="tab-content">
-    <div class="tab-pane fade" id="home" role="tabpanel">
-      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
     </div>
-    <div class="tab-pane fade active show" id="profile" role="tabpanel">
-      <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
-    </div>
-    <div class="tab-pane fade" id="dropdown1">
-      <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</p>
-    </div>
-    <div class="tab-pane fade" id="dropdown2">
-      <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater.</p>
+    <!-- text 영역 -->
+    <div class="col-lg-6 col-md-6 d-flex">
+      <table class="table table-striped">
+        <tbody>
+          <tr>
+            <td>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase" viewBox="0 0 16 16">
+              <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z"></path>
+              </svg>
+              ${sellItemDTO.userId}</td>
+          </tr>
+          <tr>
+            <td>${sellItemDTO.itemName}</td>
+          </tr>
+          <tr>
+            <td>${sellItemDTO.itemPrice}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
+<!-- main contents end -->
+
+<!-- reservation section -->
+  <div>
+      <div class="block-32 aos-init aos-animate" data-aos="fade-up" data-aos-offset="-200">
+          <form action="#">
+            <div class="row">
+              <div class="col-md-6 mb-3 mb-lg-0 col-lg-3">
+                <label for="checkin_date" class="font-weight-bold text-black">Check In</label>
+                <div class="field-icon-wrap">
+                  <div class="icon"><span class="icon-calendar"></span></div>
+                  <input type="date" id="checkin_date" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-6 mb-3 mb-lg-0 col-lg-3">
+                <label for="checkout_date" class="font-weight-bold text-black">Check Out</label>
+                <div class="field-icon-wrap">
+                  <div class="icon"><span class="icon-calendar"></span></div>
+                  <input type="date" id="checkout_date" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-6 mb-3 mb-md-0 col-lg-3">
+                <div class="row">
+                  <div class="col-md-6 mb-3 mb-md-0">
+                    <label for="adults" class="font-weight-bold text-black">Adults</label>
+                    <div class="field-icon-wrap">
+                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                      <select name="" id="adults" class="form-control">
+                        <option value="">1</option>
+                        <option value="">2</option>
+                        <option value="">3</option>
+                        <option value="">4+</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3 mb-md-0">
+                    <label for="Dog" class="font-weight-bold text-black">Dog</label>
+                    <div class="field-icon-wrap">
+                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                      <select name="" id="children" class="form-control">
+                        <option value="">1</option>
+                        <option value="">2</option>
+                        <option value="">3</option>
+                        <option value="">4+</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-3 align-self-end">
+                <button class="btn btn-primary btn-block text-white">Check Availabilty</button>
+              </div>
+            </div>
+          </form>
+        </div>
+  </div>
+</section>
+<!-- reservation section end -->
+
+<!-- contents, review, qna -->
+<div class="crq">
+  <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active" data-bs-toggle="tab" href="#iContents" aria-selected="true" role="tab">상세 설명</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" data-bs-toggle="tab" href="#review" aria-selected="false" role="tab" tabindex="-1">리뷰</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" data-bs-toggle="tab" href="#qna" aria-selected="false" role="tab" tabindex="-1">문의</a>
+      </li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+      <div class="tab-pane fade show active" id="iContents" role="tabpanel">
+        <p>${sellItemDTO.itemContents}</p>
+      </div>
+      <div class="tab-pane fade" id="review" role="tabpanel">
+        <p>리뷰</p>
+      </div>
+      <div class="tab-pane fade" id="qna" role="tabpanel">
+        <p>문의</p>
+      </div>
+    </div>
+</div>
 
  <!-- footer start -->
  <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>

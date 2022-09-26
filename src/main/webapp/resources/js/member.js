@@ -3,17 +3,18 @@ function pwCheck(){
 
 
 
-    const del = document.getElementById("delete");
-    const deleteform = document.getElementById("deleteform");
+    const del = document.getElementById("del");
+    const delfrm = document.getElementById("delfrm");
     const inputpw = document.getElementById("inputpw");
     const pw = document.getElementById("pw");
 
     del.addEventListener("click",function(){
 
-        console.log("pw"+pw.value);
+        console.log(pw.value);
         console.log(inputpw.value);
+        console.log(pw.value==inputpw.value);
         if(pw.value==inputpw.value){
-            deleteform.submit();
+            delfrm.submit();
         }else{
             alert("비밀번호가 부적합합니다.");
             return;

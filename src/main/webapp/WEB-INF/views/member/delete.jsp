@@ -86,10 +86,12 @@ height: 80px;
 
 
       <div class="col-lg-8 align-items-center">
-        <form action="delete" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data"  id="deleteform">
+        <form action="./delete" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data"  id="delfrm">
             <input type="hidden" value="${dto.password}" id="pw">
+            <input type="hidden" value="${dto.userId}" name="userId">
             <div class="row gy-4">
             <div class="col-lg-8 col-md-12">
+              ${dto.userId}
               <input type="text" name="password" class="form-control" placeholder="password" value="wldnjs" id="inputpw">
               <div class="validate"></div>
             </div>

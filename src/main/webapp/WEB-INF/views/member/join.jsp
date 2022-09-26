@@ -254,7 +254,7 @@
               </div>
               <br>
              <div class="text-center">
-             	<button type="submit" id="join">회원가입</button>
+             	<button type="button" id="join">회원가입</button>
              </div>
              
             </form>

@@ -12,7 +12,6 @@
     <form action="./delete" enctype="multipart/form-data">
     <h1>${dto.roleDTO.roleName}'s My Page</h1>
     <p>이름: ${dto.userName}</p>
-    <input type="hidden" name="${dto.password}" id="pw">
 
     <c:choose>
 		<c:when test="${dto.roleNum eq 1}">

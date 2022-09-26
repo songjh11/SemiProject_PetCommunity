@@ -11,7 +11,7 @@ public class ChatRoomDAO {
 
 	@Autowired
 	private SqlSession sqlSession;
-	private final String NAMESPACE = "com.pet.home.chat.ChatRoomDAO.";
+	private final String NAMESPACE = "com.pet.home.chat.room.ChatRoomDAO.";
 	
 	
 	//채팅 리스트 불러오기

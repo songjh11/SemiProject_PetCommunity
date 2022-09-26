@@ -24,7 +24,7 @@
             </div>
             <div class="col-6">
             <div class="input-group mb-3">
-                <input type="text" id="msg" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <input type="text" id="msg" name="message" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
                 </div>
@@ -64,7 +64,7 @@
                 console.log('arr[' + i + ']: ' + arr[i]);
             }
             
-            var cur_session = '${userid}'; //현재 세션에 로그인 한 사람
+            var cur_session = '${dtd.userName}'; //현재 세션에 로그인 한 사람
             console.log("cur_session : " + cur_session);
             
             sessionId = arr[0];
@@ -94,7 +94,7 @@
         //채팅창에서 나갔을 때
         function onClose(evt) {
             
-            var user = '${pr.username}';
+            var user = '${dto.userName}';
             var str = user + " 님이 퇴장하셨습니다.";
             
             $("#msgArea").append(str);
@@ -102,7 +102,7 @@
         //채팅창에 들어왔을 때
         function onOpen(evt) {
             
-            var user = '${pr.username}';
+            var user = '${dto.userName}';
             var str = user + "님이 입장하셨습니다.";
             
             $("#msgArea").append(str);

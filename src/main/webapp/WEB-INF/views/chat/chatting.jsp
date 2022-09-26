@@ -61,6 +61,10 @@
             let roomNum = document.querySelector("#roomNum");
             let userName = document.querySelector("#userName");
             
+            if(msg.value == null){
+                alert("입력해주세요.")
+                return;
+            }
 
             console.log(roomNum.value);
             console.log(userName.value);

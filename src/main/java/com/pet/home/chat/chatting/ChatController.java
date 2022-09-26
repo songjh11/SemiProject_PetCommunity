@@ -30,7 +30,7 @@ public class ChatController {
 	@Autowired
 	private MemberService memberService;
 	
-	
+	//채팅방 (이전 채팅 목록 불러오기)
 	@RequestMapping("/chat")
 	public String chat(Model model, ChattingDTO chattingDTO, HttpServletRequest request) throws Exception {
 		log.info("[Controller] : chat");
@@ -46,6 +46,7 @@ public class ChatController {
 	}
 	
 	
+	// 채팅 입력마다 DB 추가
 	@PostMapping("/chat/add")
 	@ResponseBody
 	public void addChat(ChattingDTO chattingDTO) throws Exception{

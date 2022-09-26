@@ -25,7 +25,7 @@
 			<c:forEach items="${requestScope.list}" var="dto">
 			<tr>
 				<td>${pageScope.dto.roomNum}</td>
-				<td>${pageScope.dto.roomName}</td>
+				<td><a href="/chat?roomNum=${dto.roomNum}">${pageScope.dto.roomName}</a></td>
 				<td>${pageScope.dto.masterName}</td>
 			</tr>
 			</c:forEach>

@@ -29,20 +29,22 @@ import lombok.extern.slf4j.Slf4j;
 public class EchoHandler extends TextWebSocketHandler {
 
  	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
-	
+ 	
  	// 클라이언트가 연결 되었을 때 실행
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		sessionList.add(session);
-		log.info("{} 연결됨", session.getId());
+		MemberDTO memberDTO = this.getUserName(session);
+		if(memberDTO != null) {	
+			sessionList.add(session);
+			log.info("{} 연결됨", session.getId());
+		}
 	}
 
 	//클라이언트가 웹소켓 서버로 메시지를 전송했을 때 실행
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		
-		Map<String, Object> map = session.getAttributes();
-		MemberDTO memberDTO= (MemberDTO)map.get("member");
+		MemberDTO memberDTO = this.getUserName(session);
 		
 		log.info("{}로부터 {}를 받음", session.getId(), message.getPayload());
 		for(WebSocketSession sess : sessionList) {
@@ -54,8 +56,18 @@ public class EchoHandler extends TextWebSocketHandler {
 	//클라이언트 연결을 끊었을 때 실행
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+		
+		MemberDTO memberDTO = this.getUserName(session);
+		
 		sessionList.remove(session);
 		log.info("{} 연결 끊김", session.getId());
+	}
+	
+	//접속한 유저의 Http세션을 조회하여 userName을 불러옴
+	private MemberDTO getUserName(WebSocketSession session) {
+		Map<String, Object> map = session.getAttributes();
+		MemberDTO memberDTO = (MemberDTO)map.get("member");
+		return memberDTO==null? null: memberDTO;
 	}
 	
 	

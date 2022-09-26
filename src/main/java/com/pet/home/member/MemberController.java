@@ -38,22 +38,35 @@ public class MemberController {
 	}
 
 	@PostMapping("login")
-	public String login(HttpServletRequest request, MemberDTO memberDTO) throws Exception {
+	public ModelAndView login(HttpServletRequest request, MemberDTO memberDTO) throws Exception {
 		
 		System.out.println("DB로그인 접속 (POST)");
 		
 		memberDTO = memberService.getLogin(memberDTO);
+		
+		
 
 		// request에 있는 파라미터를 session에 넣음
 		HttpSession session = request.getSession();
 		// DB에서 가져온 DTO데이터를 JSP로 속성만들어서 보내기
 		session.setAttribute("member", memberDTO);
 		
-if (memberDTO!=null) {
+		if (memberDTO!=null) {
 			System.out.println("오 ~ 로그인 성공");
-}else {System.out.println("오 ~ 로그인 실패");}
+		}else {System.out.println("오 ~ 로그인 실패");}
+
+		//dto에 roleNum을 담아 main.jsp에서 메뉴 다르게 보이도록  
+		ModelAndView mv = new ModelAndView();
 		
-		return "redirect:../";
+		//member 세션의 userId
+		//getAdmPage 메소드 재활용하여 roleNum 가져오기
+		memberDTO = (MemberDTO)session.getAttribute("member");
+		memberDTO = memberService.getAdmPage(memberDTO);
+		mv.addObject("dto", memberDTO);
+		session.setAttribute("dto", memberDTO);
+		mv.setViewName("redirect:../");
+		
+		return mv;
 	}
 	
 	@GetMapping("logout")

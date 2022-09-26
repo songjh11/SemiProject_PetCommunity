@@ -61,7 +61,7 @@ public class MemberController {
 		//member 세션의 userId
 		//getAdmPage 메소드 재활용하여 roleNum 가져오기
 		memberDTO = (MemberDTO)session.getAttribute("member");
-		memberDTO = memberService.getAdmPage(memberDTO);
+		memberDTO = memberService.getMyPage(memberDTO);
 		mv.addObject("dto", memberDTO);
 		session.setAttribute("dto", memberDTO);
 		mv.setViewName("redirect:../");
@@ -130,19 +130,15 @@ public class MemberController {
 		ModelAndView mv = new ModelAndView();
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
 		
-		memberDTO = memberService.getAdmPage(memberDTO);
+		memberDTO = memberService.getMyPage(memberDTO);
 		
 		if(memberDTO.getRoleNum()==1){ 
 		memberDTO = memberService.getBizPage(memberDTO); //역할번호가 1번일 때 판매자 마이페이지 
 		}else if(memberDTO.getRoleNum()==2){
 		memberDTO = memberService.getGuestPage(memberDTO); //역할번호가 2번일 때 회원 마이페이지 
 		}else {
-		memberDTO = memberService.getAdmPage(memberDTO); // 그 외 관리자 마이페이지  
+		memberDTO = memberService.getMyPage(memberDTO); // 그 외 관리자 마이페이지  
 		}
-		System.out.println(memberDTO.getRoleNum());
-   System.out.println(memberDTO.getUserName());
-	System.out.println(memberDTO.getPhone());
-
 		
 		mv.addObject("dto", memberDTO);
 		mv.setViewName("member/mypage");
@@ -161,6 +157,27 @@ public class MemberController {
 	public ModelAndView search(MemberDTO memberDTO)throws Exception {
 		ModelAndView mv = new ModelAndView();
 		return mv;
+	}
+	
+	@GetMapping("delete")
+	public String delete()throws Exception{
+		
+		return"member/delete";
+		
+	}
+	
+	@PostMapping("delete")
+	public int delete(MemberDTO memberDTO)throws Exception{
+		
+		System.out.println("delete post");
+
+		memberService.setBizDelete(memberDTO);
+		memberService.setGuestDelete(memberDTO);
+		memberService.setMemFileDelete(memberDTO.getMemberFileDTO());
+		int result = memberService.setMemDelete(memberDTO);
+		
+		return result;
+		
 	}
 
 		

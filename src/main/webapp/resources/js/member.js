@@ -1,3 +1,27 @@
+//=====================비밀번호확인=====================
+function pwCheck(){
+
+
+
+    const del = document.getElementById("delete");
+    const deleteform = document.getElementById("deleteform");
+    const inputpw = document.getElementById("inputpw");
+    const pw = document.getElementById("pw");
+
+    del.addEventListener("click",function(){
+
+        console.log("pw"+pw.value);
+        console.log(inputpw.value);
+        if(pw.value==inputpw.value){
+            deleteform.submit();
+        }else{
+            alert("비밀번호가 부적합합니다.");
+            return;
+        }
+
+    })
+}
+
 
 
 //======================전체동의 =======================

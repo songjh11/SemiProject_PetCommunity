@@ -68,18 +68,34 @@ public class MemberService {
 	}
 	
 
-	public MemberDTO getGuestPage(MemberDTO memberDTO) {
+	public MemberDTO getGuestPage(MemberDTO memberDTO)throws Exception{
 		return memberDAO.getGuestPage(memberDTO);
 	}
 	
-	public MemberDTO getBizPage(MemberDTO memberDTO) {
+	public MemberDTO getBizPage(MemberDTO memberDTO)throws Exception{
 		return memberDAO.getBizPage(memberDTO);
 	}
 	
-	public MemberDTO getAdmPage(MemberDTO memberDTO) {
-		return memberDAO.getAdmPage(memberDTO);
+	public MemberDTO getMyPage(MemberDTO memberDTO)throws Exception{
+		return memberDAO.getMyPage(memberDTO);
 		
 	}
+	
+	public int setMemDelete(MemberDTO memberDTO)throws Exception{
+		return memberDAO.setMemDelete(memberDTO);
+	};
+	
+	public int setMemFileDelete(MemberFileDTO memberFileDTO)throws Exception{
+		return memberDAO.setMemFileDelete(memberFileDTO);
+	};
+	
+	public int setGuestDelete(MemberDTO memberDTO)throws Exception{
+		return memberDAO.setGuestDelete(memberDTO);
+	};
+	
+	public int setBizDelete(MemberDTO memberDTO)throws Exception{
+		return memberDAO.setBizDelete(memberDTO);
+	};
 
 	public MemberDTO getPickList(MemberDTO memberDTO) throws Exception{
 		return memberDAO.getPickList(memberDTO);

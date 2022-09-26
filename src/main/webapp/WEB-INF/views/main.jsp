@@ -89,10 +89,10 @@
        <!-- 역할번호에 따라 다른 메뉴바-->
        <c:choose>
        <c:when test="${dto.roleNum =='1'}">
-        <a class="btn-book-a-table" href="#">guest page</a>
+        <a class="btn-book-a-table" href="#">seller page</a>
        </c:when>
        <c:when test="${dto.roleNum =='2'}">
-        <a class="btn-book-a-table" href="#">seller page</a>
+        <a class="btn-book-a-table" href="#">guest page</a>
        </c:when>
        <c:otherwise>
         <a class="btn-book-a-table" href="#">admin page</a>

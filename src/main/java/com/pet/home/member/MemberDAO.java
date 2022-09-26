@@ -44,12 +44,29 @@ public class MemberDAO {
 		
 	}
 	
-	public MemberDTO getAdmPage(MemberDTO memberDTO) {
-		return sqlSession.selectOne(NAMESPACE+"getAdmPage", memberDTO);
+	public MemberDTO getMyPage(MemberDTO memberDTO) {
+		return sqlSession.selectOne(NAMESPACE+"getMyPage", memberDTO);
 		
 	}
 		
 	public MemberDTO getPickList(MemberDTO memberDTO) throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getPickList", memberDTO);
 	}
+	
+	public int setMemDelete(MemberDTO memberDTO)throws Exception{
+		return sqlSession.delete(NAMESPACE+"setMemDelete", memberDTO);
+	}
+	
+	public int setMemFileDelete(MemberFileDTO memberFileDTO )throws Exception{
+		return sqlSession.delete(NAMESPACE+"setMemFileDelete", memberFileDTO);
+	}
+	
+	public int setGuestDelete(MemberDTO memberDTO)throws Exception{
+		return sqlSession.delete(NAMESPACE+"setGuestDelete", memberDTO);
+	}
+	
+	public int setBizDelete(MemberDTO memberDTO)throws Exception{
+		return sqlSession.delete(NAMESPACE+"setBizDelete", memberDTO);
+	}
+	
 }

@@ -8,8 +8,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+    <form action="./delete" enctype="multipart/form-data">
     <h1>${dto.roleDTO.roleName}'s My Page</h1>
     <p>이름: ${dto.userName}</p>
+    <input type="hidden" name="${dto.password}" id="pw">
 
     <c:choose>
 		<c:when test="${dto.roleNum eq 1}">
@@ -48,6 +51,10 @@
             <p>문자수신동의여부: 비동의</p>
         </c:when>
      </c:choose>
+     <button type="submit">회원탈퇴</button>
+    </form>
+   
+
 
 
 <!-- 

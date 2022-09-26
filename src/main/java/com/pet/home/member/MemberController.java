@@ -169,7 +169,9 @@ public class MemberController {
 		
 		System.out.println("delete post");
 
-		memberService.setMemDelete(memberDTO);
+		int result = memberService.setMemDelete(memberDTO);
+		
+	System.out.println("서비스실행");
 		
 		return "redirect:../";
 		
@@ -180,8 +182,12 @@ public class MemberController {
 	@GetMapping("test")
 	public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 		MemberDTO ar = memberService.getPickList(memberDTO);
+		MemberDTO ar2 = memberService.getShopCartList(memberDTO);
+		MemberDTO ar3 = memberService.getTotalPrice(memberDTO);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("list", ar);
+		mv.addObject("list2", ar2);
+		mv.addObject("list3", ar3);
 		mv.setViewName("member/test");
 
 		return mv;

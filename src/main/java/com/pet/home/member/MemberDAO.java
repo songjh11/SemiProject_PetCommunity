@@ -57,5 +57,12 @@ public class MemberDAO {
 		return sqlSession.delete(NAMESPACE+"setMemDelete", memberDTO);
 	}
 
+	public MemberDTO getShopCartList(MemberDTO memberDTO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getShopCartList", memberDTO);
+	}
+	
+	public MemberDTO getTotalPrice(MemberDTO memberDTO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getTotalPrice", memberDTO);
+	}
 	
 }

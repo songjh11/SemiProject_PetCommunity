@@ -22,6 +22,19 @@ public class QnaService implements BoardService {
 	private QnaDAO qnaDAO;
 	private FileManager fileManager;
 	
+	public int setReply(QnaDTO qnaDTO) throws Exception{
+		qnaDTO = (QnaDTO)qnaDAO.getDetail(qnaDTO);
+		QnaDTO parent = qnaDTO;
+		qnaDTO.setRef(parent.getRef());
+		System.out.println(parent.getStep());
+		qnaDTO.setStep(parent.getStep()+1L);
+		qnaDTO.setDepth(parent.getDepth()+1L);
+		
+		qnaDAO.setStepUpdate(parent);
+		int result = qnaDAO.setReplyAdd(qnaDTO);
+		return result;
+	}
+	
 	
 	@Override
 	public List<BoardDTO> getList(Pager pager) throws Exception {

@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>공지사항</title>
+  <title>${board}</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -94,10 +94,10 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Sample Inner Page</h2>
+          <h2>공지사항</h2>
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li>Sample Inner Page</li>
+            <li>공지사항</li>
           </ol>
         </div>
 
@@ -106,48 +106,27 @@
 
     <section class="sample-page">
       <div class="container" data-aos="fade-up">
-
-       <table class="table">
-	
-		<thead>
-			<tr>
-				<th>번호</th><th>제목</th><th>작성자</th><th>조회수</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>${requestScope.dto.num}</td>
-				<td>${requestScope.dto.title}</td>
-				<td>${requestScope.dto.writer}</td>
-				<td>${requestScope.dto.hit}</td>
-				
-			</tr>
-		</tbody>
-		</table>
-		
+		<h1 class="align-center">${requestScope.board} reply 작성</h1>
 		<div class="row">
-			<c:forEach items="${dto.boardFileDTOs}" var="fileDTO">
-				<p>
-				<a href="../resources/upload/notice/${fileDTO.fileName}">${fileDTO.oriName}</a>
-				</p>
-			</c:forEach>
-		</div> 
+		<form action="./reply" method="post">
+			<input type="hidden" name="num" value="${dto.num}">
+		    <div class="mb-3">
+		  		<label for="writer" class="form-label">작성자</label>
+		  		<input type="text" class="form-control" id="writer" name="writer" placeholder="${requestScope.dto.writer}">
+			</div>
+			<div class="mb-3">
+		  		<label for="title" class="form-label">제목</label>
+		  		<input type="text" class="form-control" id="title" name="title" placeholder="${requestScope.dto.title}">
+			</div>
+			<div class="mb-3">
+		  		<label for="contents" class="form-label">내용</label>
+		  		<textarea class="form-control" id="contents" rows="3" name="contents" placeholder="${requestScope.dto.contents}"></textarea>
+			</div>
 		
-				<div class="form-floating">
-	  			<textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 200px"></textarea>
-	  			<label for="floatingTextarea2">${dto.contents}</label>
-				</div>
-		
-		
-		<c:if test="${board eq 'qna'}">
-		<a href="./reply?num=${dto.num}" class="btn btn-danger">reply</a>
-		</c:if>
-	
-		<a href="./update?num=${requestScope.dto.num}" class="btn btn-primary">수정</a>
-	
-	
-		<a href="./delete?num=${requestScope.dto.num}" class="btn btn-primary">삭제</a>
-
+		     
+		    <button class="btn btn-primary btn-lg btn-block" type="submit">reply</button>
+          </form>
+		</div>
       </div>
     </section>
 

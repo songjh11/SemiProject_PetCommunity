@@ -29,6 +29,21 @@ public class QnaController {
 		return "qna";
 	}
 	
+	@GetMapping("reply")
+	public ModelAndView setReply(QnaDTO qnaDTO,ModelAndView mv) throws Exception{
+		mv.addObject("dto", qnaDTO);
+		mv.setViewName("board/reply");
+		
+		return mv;
+	}
+	
+	@PostMapping("reply")
+	public String setReply(QnaDTO qnaDTO) throws Exception{
+		int result = qnaService.setReply(qnaDTO);
+		return "redirect:./list";
+	}
+	
+	
 	@RequestMapping("list")
 	public ModelAndView getList(Pager pager, HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
@@ -62,6 +77,21 @@ public class QnaController {
 		mv.addObject("dto", boardDTO);
 		mv.setViewName("board/detail");
 		return mv;
+	}
+	
+	@GetMapping("update")
+	public ModelAndView setUpdate(BoardDTO boardDTO, ModelAndView mv) throws Exception{
+		boardDTO = qnaService.getDetail(boardDTO);
+		mv.addObject("dto", boardDTO);
+		mv.setViewName("board/update");
+		return mv;
+	}
+	
+	@PostMapping("update")
+	public String setUpdate(BoardDTO boardDTO) throws Exception{
+		int result = qnaService.setUpdate(boardDTO);
+		
+		return "redirect:./detail?num="+boardDTO.getNum();
 	}
 	
 }

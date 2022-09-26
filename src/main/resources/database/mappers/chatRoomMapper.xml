@@ -11,6 +11,5 @@
 		INSERT INTO CHATROOM(ROOMNUM, ROOMNAME, MASTERNAME)
 		VALUES(CHATROOM_SEQ.NEXTVAL, #{roomName}, #{masterName})
 	</insert>
-	
-	<select id="getDetail" parameterType="chatRoomDTO"></select>
+
 </mapper>

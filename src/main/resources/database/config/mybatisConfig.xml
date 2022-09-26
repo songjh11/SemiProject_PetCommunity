@@ -5,6 +5,9 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.pet.home.board.impl.BoardDTO" alias="BoardDTO"/>
+		<typeAlias type="com.pet.home.board.impl.BoardFileDTO" alias="BoardFileDTO"/>
+		<typeAlias type="com.pet.home.board.notice.NoticeDTO" alias="NoticeDTO"/>
+		<typeAlias type="com.pet.home.board.qna.QnaDTO" alias="QnaDTO"/>
 		
 		<typeAlias type="com.pet.home.chat.chatting.ChattingDTO" alias="ChattingDTO"/>
 		<typeAlias type="com.pet.home.chat.room.ChatRoomDTO" alias="ChatRoomDTO"/>
@@ -15,9 +18,6 @@
 		<typeAlias type="com.pet.home.member.RoleDTO" alias="RoleDTO"/>
 		<typeAlias type="com.pet.home.member.MemberFileDTO" alias="MemberFileDTO"/>
 
-		<typeAlias type="com.pet.home.board.impl.BoardFileDTO" alias="BoardFileDTO"/>
-		<typeAlias type="com.pet.home.board.notice.NoticeDTO" alias="NoticeDTO"/>
-		<typeAlias type="com.pet.home.board.qna.QnaDTO" alias="QnaDTO"/>
 		
 		<typeAlias type="com.pet.home.sell.SellItemDTO" alias="SellItemDTO"/>
 		<typeAlias type="com.pet.home.sell.file.FileDTO" alias="FileDTO"/>

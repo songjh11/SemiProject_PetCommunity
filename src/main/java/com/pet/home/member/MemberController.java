@@ -91,8 +91,6 @@ public class MemberController {
 		
 		System.out.println("join post 실행");
 		
-		System.out.println("photo: "+photo);
-		
 		//선택 약관동의값 세팅 
 		// 체크되지 않으면 0 , 선택되면 1로 설정 
 		if(memberDTO.getAgMes()==null) {
@@ -167,16 +165,13 @@ public class MemberController {
 	}
 	
 	@PostMapping("delete")
-	public int delete(MemberDTO memberDTO)throws Exception{
+	public String delete(MemberDTO memberDTO)throws Exception{
 		
 		System.out.println("delete post");
 
-		memberService.setBizDelete(memberDTO);
-		memberService.setGuestDelete(memberDTO);
-		memberService.setMemFileDelete(memberDTO.getMemberFileDTO());
-		int result = memberService.setMemDelete(memberDTO);
+		memberService.setMemDelete(memberDTO);
 		
-		return result;
+		return "redirect:../";
 		
 	}
 

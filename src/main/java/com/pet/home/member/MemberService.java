@@ -83,19 +83,7 @@ public class MemberService {
 	
 	public int setMemDelete(MemberDTO memberDTO)throws Exception{
 		return memberDAO.setMemDelete(memberDTO);
-	};
-	
-	public int setMemFileDelete(MemberFileDTO memberFileDTO)throws Exception{
-		return memberDAO.setMemFileDelete(memberFileDTO);
-	};
-	
-	public int setGuestDelete(MemberDTO memberDTO)throws Exception{
-		return memberDAO.setGuestDelete(memberDTO);
-	};
-	
-	public int setBizDelete(MemberDTO memberDTO)throws Exception{
-		return memberDAO.setBizDelete(memberDTO);
-	};
+	}
 
 	public MemberDTO getPickList(MemberDTO memberDTO) throws Exception{
 		return memberDAO.getPickList(memberDTO);

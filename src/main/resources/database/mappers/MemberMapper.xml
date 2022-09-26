@@ -78,25 +78,9 @@ INSERT INTO FOLLOW (FOLLOWNUM, FOLLOWER, FOLLOWEE)
 VALUES(FOL_SEQ.NEXTVAL,#{userId},#{userId});
 </insert>
 
-<delete id="setMemFileDelete" parameterType="MemberFileDTO">
-DELETE FROM MEMFILE WHERE USERID=#{userId}
-</delete>
-
-<delete id="setGuestDelete" parameterType="MemberDTO">
-DELETE FROM GUEST WHERE USERID=#{userId}
-</delete>
-
-<delete id="setBizDelete" parameterType="MemberDTO">
-DELETE FROM BIZMEM WHERE USERID=#{userId}
-</delete>
-
 <delete id="setMemDelete" parameterType="MemberDTO">
 DELETE FROM MEMBER WHERE USERID=#{userId}
 </delete>
-
-
-
-
 
 <resultMap type="MemberDTO" id="getLoginResult">
 		<id column="USERID" property="userId" />

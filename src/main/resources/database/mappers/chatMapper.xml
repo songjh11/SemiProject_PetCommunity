@@ -24,7 +24,7 @@
 	</insert>
 	
 	<select id="getMessageList" parameterType="String" resultType="ChatMessageDTO">
-		SELECT * FROM CHATMESSAGE WHERE ROOMNUM = #{roomNUM}
+		SELECT * FROM CHATMESSAGE WHERE ROOMNUM=#{roomNum}
 	</select>
 	
 	<select id="getSearchChatRoom" parameterType="ChatRoomDTO" resultType="ChatRoomDTO">
@@ -37,7 +37,7 @@
 	
 	<select id="getUnReadCount" parameterType="ChatMessageDTO" resultType="Long">
 		SELECT SELECT(*) FROM CHATMESSAGE 
-		WEHRE ROOMNUM = #{roomNUM} AND EMAIL != #{email} AND UNREADCOUNT = 1
+		WEHRE ROOMNUM = #{roomNum} AND EMAIL != #{email} AND UNREADCOUNT = 1
 	</select>
 	
 	<update id="setCount" parameterType="ChatMessageDTO">

@@ -86,7 +86,7 @@
   
 
           <div class="col-lg-8 align-items-center">
-            <form action="join" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data">
+            <form action="join" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data" id="frm">
               <div class="row gy-4">
                 <div class="col-lg-8 col-md-12">
                   <input type="hidden" name="roleNum" value="${param.roleNum}">

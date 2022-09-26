@@ -56,17 +56,6 @@ public class MemberDAO {
 	public int setMemDelete(MemberDTO memberDTO)throws Exception{
 		return sqlSession.delete(NAMESPACE+"setMemDelete", memberDTO);
 	}
-	
-	public int setMemFileDelete(MemberFileDTO memberFileDTO )throws Exception{
-		return sqlSession.delete(NAMESPACE+"setMemFileDelete", memberFileDTO);
-	}
-	
-	public int setGuestDelete(MemberDTO memberDTO)throws Exception{
-		return sqlSession.delete(NAMESPACE+"setGuestDelete", memberDTO);
-	}
-	
-	public int setBizDelete(MemberDTO memberDTO)throws Exception{
-		return sqlSession.delete(NAMESPACE+"setBizDelete", memberDTO);
-	}
+
 	
 }

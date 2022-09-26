@@ -19,7 +19,24 @@
             <label><b>채팅방</b></label>
         </div>
         <div>
+          <form action="/add" method="post" enctype="application/x-www-form-urlencoded">
+            <input type="text" id="roomNum" name="roomNum" hidden value="${dto.roomNum}">
+            <input type="text" id="userName" name="userName" hidden value="${dto.userName}">
             <div id="msgArea" class="col">
+                <c:forEach items="${list}" var="chat">
+                	<c:choose>
+                		<c:when test="${chat.userName eq dto.userName}">
+                		<div class="alert alert-warning">
+                			<b>${chat.message} : ${chat.userName} </b>
+                		</div>
+                		</c:when>
+	                	<c:otherwise>
+	                	<div class="alert alert-secondary">
+	                		<b>${chat.message} : ${chat.userName}</b>
+	                	</div>
+	                	</c:otherwise>
+	                	</c:choose>	
+                </c:forEach>
             
             </div>
             <div class="col-6">
@@ -31,16 +48,37 @@
             </div>
             </div>
         </div>
+        </form>
         <div class="col-6">
         </div>
     </div>
 
 
 	<script type="text/javascript">
-       //전송 버튼 누르는 이벤트
+        //전송 버튼 누르는 이벤트
         $("#button-send").on("click", function(e) {
-            sendMessage();
-            $('#msg').val('')
+            let msg = document.querySelector("#msg");
+            let roomNum = document.querySelector("#roomNum");
+            let userName = document.querySelector("#userName");
+            
+
+            console.log(roomNum.value);
+            console.log(userName.value);
+
+            const xhttp = new XMLHttpRequest();
+
+            xhttp.open("POST","/chat/add");
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            xhttp.send("userName="+userName.value+"&roomNum="+roomNum.value+"&message="+msg.value);
+
+            xhttp.onreadystatechange = function(){
+                if(xhttp.readyState==4 && xhttp.status == 200){
+                    let result = xhttp.responseText.trim();
+                    sendMessage();
+                     $('#msg').val('')
+                }
+            }
         });
 
         var sock = new SockJS('http://localhost/echo');
@@ -55,6 +93,7 @@
         function onMessage(msg) {
             
             var data = msg.data;
+            console.log("msg.data? : ",data);
             var sessionId = null; //데이터를 보낸 사람
             var message = null;
             
@@ -64,14 +103,18 @@
                 console.log('arr[' + i + ']: ' + arr[i]);
             }
             
-            var cur_session = '${dtd.userName}'; //현재 세션에 로그인 한 사람
+            var cur_session = '${dto.userName}'; //현재 세션에 로그인 한 사람
+            
+           
+
+            
             console.log("cur_session : " + cur_session);
             
             sessionId = arr[0];
             message = arr[1];
             
             //로그인 한 클라이언트와 타 클라이언트를 분류하기 위함
-            if(sessionId == cur_session){
+            if(sessionId != cur_session){
                 
                 var str = "<div class='col-6'>";
                 str += "<div class='alert alert-secondary'>";
@@ -108,6 +151,9 @@
             $("#msgArea").append(str);
         }
 
+
+
+    
     </script>
 </body>
 </html>

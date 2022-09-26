@@ -1,5 +1,7 @@
 package com.pet.home.chat.chatting;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -29,21 +31,26 @@ public class ChatController {
 	private MemberService memberService;
 	
 	
-	@GetMapping("/chat")
+	@RequestMapping("/chat")
 	public String chat(Model model, ChattingDTO chattingDTO, HttpServletRequest request) throws Exception {
 		log.info("[Controller] : chat");
 		
 		HttpSession session = request.getSession();
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
 		chattingDTO.setUserName(memberDTO.getUserName());
-		model.addAttribute("dto", chattingDTO);	
+		List<ChattingDTO> chattingDTOs= chattingService.getList(chattingDTO);
+		model.addAttribute("dto", chattingDTO);
+		model.addAttribute("list", chattingDTOs);
+		
 		return "chat/chatting";
 	}
 	
-	@PostMapping("/add")
+	
+	@PostMapping("/chat/add")
 	@ResponseBody
-	public String addChat() throws Exception{
-		return null;
+	public void addChat(ChattingDTO chattingDTO) throws Exception{
+		
+		int result = chattingService.setAdd(chattingDTO);
 	}
 	
 	

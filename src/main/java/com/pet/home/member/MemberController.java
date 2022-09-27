@@ -165,15 +165,35 @@ public class MemberController {
 	}
 	
 	@PostMapping("delete")
-	public String delete(MemberDTO memberDTO)throws Exception{
+	public String delete(HttpServletRequest request )throws Exception{
 		
 		System.out.println("delete post");
 
-		int result = memberService.setMemDelete(memberDTO);
+		MemberDTO memberDTO = (MemberDTO)request.getSession().getAttribute("dto");
+		String pw = request.getParameter("pw");
 		
-	System.out.println("서비스실행");
+		System.out.println(memberDTO.getUserId());
+		System.out.println(memberDTO.getPassword());
+		System.out.println(pw);
 		
-		return "redirect:../";
+		if(memberDTO.getPassword().equals(pw)){
+			
+			memberService.setMemDelete(memberDTO);
+			
+			request.setAttribute("msg", "회원 탈퇴가 완료되었습니다.");
+			request.setAttribute("url", "/");
+			
+			request.getSession().invalidate(); //세션 비우기 
+			
+			return "member/alert";
+		
+			
+		}else {
+			
+			request.setAttribute("msg", "비밀번호가 일치하지 않습니다.");
+			request.setAttribute("url", "/member/delete");
+			return "member/alert";
+		}
 		
 	}
 

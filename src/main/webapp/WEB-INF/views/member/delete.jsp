@@ -86,19 +86,18 @@ height: 80px;
 
 
       <div class="col-lg-8 align-items-center">
-        <form action="./delete" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data"  id="delfrm">
-            <input type="hidden" value="${dto.password}" id="pw">
-            <input type="hidden" value="${dto.userId}" name="userId">
+        <form action="delete" method="post" data-aos="fade-up" data-aos-delay="100" id="delfrm">
+
             <div class="row gy-4">
             <div class="col-lg-8 col-md-12">
               ${dto.userId}
-              <input type="text" name="password" class="form-control" placeholder="password" value="wldnjs" id="inputpw">
+              <input type="text" name="pw" class="form-control" placeholder="password" value="wldnjs" id="inputpw">
               <div class="validate"></div>
             </div>
           </div>
           <br>
          <div class="text-center">
-           <button type="button" id="del">회원탈퇴</button>
+           <button type="submit" id="del">회원탈퇴</button>
          </div>
          
         </form>
@@ -131,7 +130,6 @@ height: 80px;
 <script src="/resources/assets/js/main.js"></script>
 
 <script src="/resources/JS/member.js"></script>
-<script>pwCheck();</script>
 
 </body>
 </html>

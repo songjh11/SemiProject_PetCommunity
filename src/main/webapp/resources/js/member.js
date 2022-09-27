@@ -1,27 +1,26 @@
 //=====================비밀번호확인=====================
-function pwCheck(){
 
 
 
-    const del = document.getElementById("del");
-    const delfrm = document.getElementById("delfrm");
-    const inputpw = document.getElementById("inputpw");
-    const pw = document.getElementById("pw");
 
-    del.addEventListener("click",function(){
+    // const del = document.getElementById("del");
+    // const delfrm = document.getElementById("delfrm");
+    // const inputpw = document.getElementById("inputpw");
+    // const pw = document.getElementById("pw");
 
-        console.log(pw.value);
-        console.log(inputpw.value);
-        console.log(pw.value==inputpw.value);
-        if(pw.value==inputpw.value){
-            delfrm.submit();
-        }else{
-            alert("비밀번호가 부적합합니다.");
-            return;
-        }
+    // del.addEventListener("click",function(){
 
-    })
-}
+    //     console.log(pw.value);
+    //     console.log(inputpw.value);
+    //     if(pw.value==inputpw.value){
+    //         delfrm.submit();
+
+    //     }else{
+    //         alert("비밀번호가 부적합합니다.");
+    //     }
+
+    // })
+
 
 
 

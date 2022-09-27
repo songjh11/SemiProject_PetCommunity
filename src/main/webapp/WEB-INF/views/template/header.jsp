@@ -12,6 +12,11 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
+  <!-- SockJs Websocket Jquery-->
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
+
+
   <!-- Favicons -->
   <link href="resources/assets/img/favicon.png" rel="icon">
   <link href="resources/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -106,9 +111,50 @@
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
     </div>
+    <div id="msgStack">
+    </div>
   </header><!-- End Header -->
 <body>
 
   <script src="/resources/JS/sellHeader.js"></script>
+  <script>
+
+    //알림기능
+    let socket = null;
+    $(document).ready(function(){
+      //웹 소켓 연결
+      let name = "${sessionScope.member.userName}"
+      if(name != null){
+        connectWs();
+      }
+    });
+      
+      function connectWs(){
+        sock = new SockJS("/echo");
+        sock.onopen = onOpen;
+        sock.onmessage = onMessage;
+        sock.onclose = onClose;
+
+        function onOpen(evt){}
+
+        function onMessage(msg){
+          let data = msg.data;
+          let toast = "<div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>";
+          toast += "<div class='toast-header'><i class='fas fa-bell mr-2'></i><strong class='mr-auto'>알림</strong>";
+          toast += "<small class='text-muted'>just now</small><button type='button' class='ml-2 mb-1 close' data-dismiss='toast' aria-label='Close'>";
+          toast += "<span aria-hidden='true'>&times;</span></button>";
+          toast += "</div> <div class='toast-body'>" + data + "</div></div>";
+          $("#msgStack").append(toast);   // msgStack div에 생성한 toast 추가
+          $(".toast").toast({"animation": true, "autohide": false});
+          $('.toast').toast('show');
+        }
+
+        function onClose(evt){}
+
+      }
+
+
+
+  </script>
 </body>
 </html>

@@ -90,7 +90,6 @@ height: 80px;
 
             <div class="row gy-4">
             <div class="col-lg-8 col-md-12">
-              ${dto.userId}
               <input type="text" name="pw" class="form-control" placeholder="password" value="wldnjs" id="inputpw">
               <div class="validate"></div>
             </div>

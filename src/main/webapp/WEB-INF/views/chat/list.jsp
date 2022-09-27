@@ -57,16 +57,16 @@
 				<button type="submit" class="btn btn-primary" id="send">Send message</button>
 			</div>
 			</form>
+			
+			<div id="list">
+			</div>
+			
 		</div>
 		</div>
 	</div>
 	</div>
 	
 	<script type="text/javascript">
-		const masterName = document.getElementById("masterName");
-		const roomName = document.getElementById("roomName");
-		const send = document.getElementById("send");
-
 
 	</script>
 

@@ -54,7 +54,21 @@
     </div>
 
 
+    <div id="msgStack"></div>
+    <div>
+        <ul>
+            <li></li>
+        </ul>
+    </div>
+
+    
+
+
+
 	<script type="text/javascript">
+
+        let sessions = "${session}"
+
         //전송 버튼 누르는 이벤트
         $("#button-send").on("click", function(e) {
             let msg = document.querySelector("#msg");
@@ -79,22 +93,32 @@
             xhttp.onreadystatechange = function(){
                 if(xhttp.readyState==4 && xhttp.status == 200){
                     let result = xhttp.responseText.trim();
+                    socket.send(userName.value+","+roomNum.value+","+msg.value);
                     sendMessage();
                      $('#msg').val('')
                 }
             }
+
+
+
+
         });
 
         var sock = new SockJS('http://localhost/echo');
         sock.onmessage = onMessage;
         sock.onclose = onClose;
         sock.onopen = onOpen;
+        socket = sock;
 
+
+        
+        
         function sendMessage() {
             sock.send($("#msg").val());
         }
         //서버에서 메시지를 받았을 때
         function onMessage(msg) {
+        
             
             var data = msg.data;
             console.log("msg.data? : ",data);
@@ -136,7 +160,19 @@
                 
                 $("#msgArea").append(str);
             }
-            
+
+            //toast 생성 및 추가
+
+            let toast = "<div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>";
+            toast += "<div class='toast-header'><i class='fas fa-bell mr-2'></i><strong class='mr-auto'>알림</strong>";
+            toast += "<small class='text-muted'>just now</small><button type='button' class='ml-2 mb-1 close' data-dismiss='toast' aria-label='Close'>";
+            toast += "<span aria-hidden='true'>&times;</span></button>";
+            toast += "</div> <div class='toast-body'>" + data + "</div></div>";
+            $("#msgStack").append(toast);   // msgStack div에 생성한 toast 추가
+            $(".toast").toast({"animation": true, "autohide": false});
+            $('.toast').toast('show');
+
+
         }
         //채팅창에서 나갔을 때
         function onClose(evt) {
@@ -152,6 +188,7 @@
             var user = '${dto.userName}';
             var str = user + "님이 입장하셨습니다.";
             
+
             $("#msgArea").append(str);
         }
 

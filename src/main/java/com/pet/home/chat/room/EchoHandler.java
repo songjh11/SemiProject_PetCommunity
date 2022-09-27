@@ -50,10 +50,14 @@ public class EchoHandler extends TextWebSocketHandler {
 		MemberDTO memberDTO = this.getUserName(session);
 		if(memberDTO.getUserName() != null) { //로그인 세션이 들어왔을 때
 
-			log.info("현재 접속한 사람 : " + memberDTO.getUserName());
+			//log.info("현재 접속한 사람 : " + memberDTO.getUserName());
 			sessionList.add(session);
+
+			//log.info("{} 연결됨", session.getId());
+
 			userSessionList.add(memberDTO);
 			
+
 		}
 		
 		for(WebSocketSession sess : sessionList) {
@@ -72,10 +76,13 @@ public class EchoHandler extends TextWebSocketHandler {
 		MemberDTO memberDTO = this.getUserName(session);
 		String msg = message.getPayload();
 		
+
+		//log.info("{}로부터 {}를 받음", session.getId(), message.getPayload());
+
 		// 실시간 알림기능 
 		if(msg != null) {
 			String[] strs = msg.split(",");
-			log.info(strs.toString());
+			//log.info(strs.toString());
 			if(strs != null && strs.length == 4) {
 				String target = strs[0]; //message를 받을 타겟
 				String roomNum = strs[1]; 
@@ -97,7 +104,8 @@ public class EchoHandler extends TextWebSocketHandler {
 		}
 		
 		//1:1 채팅
-		log.info("{}로부터 {}를 받음", session.getId(), message.getPayload());
+		//log.info("{}로부터 {}를 받음", session.getId(), message.getPayload());
+
 		for(WebSocketSession sess : sessionList) {
 			sess.sendMessage(new TextMessage(memberDTO.getUserName() + ":" + message.getPayload()));
 			for(MemberDTO mDTO : userSessionList) {
@@ -114,11 +122,16 @@ public class EchoHandler extends TextWebSocketHandler {
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		
 		MemberDTO memberDTO = this.getUserName(session);
+
+		
+		sessionList.remove(session);
+		//log.info("{} 연결 끊김", session.getId());
 		if(memberDTO.getUserName() != null) {
 			userSessionList.remove(memberDTO);
 			sessionList.remove(session);
-			log.info("{} 연결 끊김", session.getId());
+			//log.info("{} 연결 끊김", session.getId());
 		}
+
 	}
 	
 	
@@ -127,7 +140,7 @@ public class EchoHandler extends TextWebSocketHandler {
 	@Override
 	public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
 		// TODO Auto-generated method stub
-		log.info(session.getId() + "익셉션 발생 : " + exception.getMessage());
+		//log.info(session.getId() + "익셉션 발생 : " + exception.getMessage());
 	}
 
 	//접속한 유저의 Http세션을 조회하여 userName을 불러옴
@@ -135,7 +148,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		Map<String, Object> map = session.getAttributes();
 		MemberDTO memberDTO = (MemberDTO)map.get("member");
 		if(memberDTO == null) {
-			log.info("로그인 안함");
+			//log.info("로그인 안함");
 			return null;
 		}
 		

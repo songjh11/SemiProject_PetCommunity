@@ -33,7 +33,7 @@ public class ChatController {
 	//채팅방 (이전 채팅 목록 불러오기)
 	@RequestMapping("/chat")
 	public String chat(Model model, ChattingDTO chattingDTO, HttpServletRequest request) throws Exception {
-		log.info("[Controller] : chat");
+		//log.info("[Controller] : chat");
 		
 		HttpSession session = request.getSession();
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");

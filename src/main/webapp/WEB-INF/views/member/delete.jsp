@@ -7,7 +7,7 @@ pageEncoding="UTF-8"%>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Join page</title>
+<title>Account Delete Page</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -81,25 +81,22 @@ height: 80px;
   <div class="container" data-aos="fade-up">
 
     <div class="section-header">
-      <p><span>Login page</span></p>
+      <p><span>Confirm page</span></p>
     </div>
 
 
       <div class="col-lg-8 align-items-center">
-        <form action="./login" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data"  id="loginform">
-          <div class="row gy-4">
+        <form action="delete" method="post" data-aos="fade-up" data-aos-delay="100" id="delfrm">
+
+            <div class="row gy-4">
             <div class="col-lg-8 col-md-12">
-              <input type="text" name="userId" class="form-control" placeholder="User ID" value="jw1">
-              <div class="validate"></div>
-            </div>
-            <div class="col-lg-8 col-md-12">
-              <input type="text" name="password" class="form-control" placeholder="password" value="wldnjs">
+              <input type="text" name="pw" class="form-control" placeholder="password" value="wldnjs" id="inputpw">
               <div class="validate"></div>
             </div>
           </div>
           <br>
          <div class="text-center">
-           <button type="submit" id="login">Login</button>
+           <button type="submit" id="del">회원탈퇴</button>
          </div>
          
         </form>
@@ -131,11 +128,7 @@ height: 80px;
 <!-- Template Main JS File -->
 <script src="/resources/assets/js/main.js"></script>
 
-<!-- daum 지도 검색 api -->  
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
 <script src="/resources/JS/member.js"></script>
 
-<script>check();</script>
 </body>
 </html>

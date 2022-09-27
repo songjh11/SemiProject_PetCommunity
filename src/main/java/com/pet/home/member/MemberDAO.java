@@ -44,8 +44,8 @@ public class MemberDAO {
 		
 	}
 	
-	public MemberDTO getAdmPage(MemberDTO memberDTO) {
-		return sqlSession.selectOne(NAMESPACE+"getAdmPage", memberDTO);
+	public MemberDTO getMyPage(MemberDTO memberDTO) {
+		return sqlSession.selectOne(NAMESPACE+"getMyPage", memberDTO);
 		
 	}
 		
@@ -53,6 +53,10 @@ public class MemberDAO {
 		return sqlSession.selectOne(NAMESPACE+"getPickList", memberDTO);
 	}
 	
+	public int setMemDelete(MemberDTO memberDTO)throws Exception{
+		return sqlSession.delete(NAMESPACE+"setMemDelete", memberDTO);
+	}
+
 	public MemberDTO getShopCartList(MemberDTO memberDTO) throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getShopCartList", memberDTO);
 	}
@@ -60,4 +64,5 @@ public class MemberDAO {
 	public MemberDTO getTotalPrice(MemberDTO memberDTO) throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getTotalPrice", memberDTO);
 	}
+	
 }

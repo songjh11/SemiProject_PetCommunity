@@ -99,7 +99,8 @@
         </ul>
       </nav><!-- .navbar -->
 	  <a class="btn-book-a-table" href="/member/login">Login</a>
-	  <a class="btn-book-a-table" href="/member/agree">Join</a>
+	  <a class="btn-book-a-table" href="/member/role">Join</a>
+    
     <a href="./add"><button class="btn btn-outline-success me-2" type="button">Add Items</button></a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>

@@ -58,15 +58,37 @@
 			</div>
 			</form>
 			
-			<div id="list">
-			</div>
-			
-		</div>
 		</div>
 	</div>
+</div>
+
+</div>
+	<div id="list">
 	</div>
 	
 	<script type="text/javascript">
+		let sock = new SockJS("/echo");
+		sock.onmessage = onMessage;
+		sock.onclose = onClose;
+		sock.onopen = onOpen;
+
+		function onMessage(msg){
+			let data = msg.data;
+			console.log(data);
+			let arr = data.split(":");
+
+			let userName = arr[0];
+			let status = arr[1];
+
+			let str = "<div class='col-6'>";
+				str += "<b>"+userName + ":" + status + "</b>";
+				str += "</div>";
+				$("#list").append(str);
+		}
+
+		function onOpen(evt){}
+
+		function onClose(evt){}
 
 	</script>
 

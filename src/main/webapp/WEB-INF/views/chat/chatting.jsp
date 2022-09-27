@@ -67,8 +67,6 @@
 
 	<script type="text/javascript">
 
-        let sessions = "${session}"
-
         //전송 버튼 누르는 이벤트
         $("#button-send").on("click", function(e) {
             let msg = document.querySelector("#msg");
@@ -93,7 +91,7 @@
             xhttp.onreadystatechange = function(){
                 if(xhttp.readyState==4 && xhttp.status == 200){
                     let result = xhttp.responseText.trim();
-                    socket.send(userName.value+","+roomNum.value+","+msg.value);
+                    sock.send(userName.value+","+roomNum.value+","+msg.value);
                     sendMessage();
                      $('#msg').val('')
                 }
@@ -108,14 +106,15 @@
         sock.onmessage = onMessage;
         sock.onclose = onClose;
         sock.onopen = onOpen;
-        socket = sock;
 
 
         
-        
+        // 서버에 메세지 보냄
         function sendMessage() {
             sock.send($("#msg").val());
         }
+
+
         //서버에서 메시지를 받았을 때
         function onMessage(msg) {
         
@@ -187,6 +186,7 @@
             
             var user = '${dto.userName}';
             var str = user + "님이 입장하셨습니다.";
+            
             
 
             $("#msgArea").append(str);

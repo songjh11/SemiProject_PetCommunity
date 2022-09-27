@@ -3,7 +3,7 @@
 		    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pet.home.sell.SellItemDAO">
-
+	
 	<sql id="search">
 		(SELECT ROWNUM R, SITEM.* FROM 
 			(SELECT SII.* 
@@ -18,7 +18,14 @@
 			WHERE SII.ITEMNAME LIKE '%'||#{search}||'%' 
 		ORDER BY SII.ITEMNUM DESC) SITEM)
 	</sql>
-
+	
+	<!-- 지도 매핑용 -->
+	<select id="getAllItemList" resultType="SellItemDTO">
+		SELECT * FROM SELLITEM
+	</select>
+	<!-- !!!!!!! -->
+	
+	
 	<insert id="setItemAdd" parameterType="SellItemDTO">
 		<selectKey keyProperty="itemNum" order="BEFORE" resultType="Long">
 		 			SELECT SELLITEM_SEQ.NEXTVAL FROM DUAL

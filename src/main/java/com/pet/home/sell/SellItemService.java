@@ -182,7 +182,9 @@ public class SellItemService {
 		return itemDAO.getMap();
 	}
 	
-	
-	
+	//지도 매핑용
+	public List<SellItemDTO> getAllItemList() throws Exception{
+		return itemDAO.getAllItemList();
+	}
 
 }

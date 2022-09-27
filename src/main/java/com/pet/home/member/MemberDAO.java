@@ -56,6 +56,21 @@ public class MemberDAO {
 	public int setMemDelete(MemberDTO memberDTO)throws Exception{
 		return sqlSession.delete(NAMESPACE+"setMemDelete", memberDTO);
 	}
+	
+	public int setMemUpdate(MemberDTO memberDTO)throws Exception{
+		return sqlSession.update(NAMESPACE+"setMemUpdate", memberDTO);
+		
+	}
+	
+	public int setGuestUpdate(MemberDTO memberDTO)throws Exception{
+		return sqlSession.update(NAMESPACE+"setGuestUpdate", memberDTO);
+		
+	}
+	
+	public int setFileUpdate(MemberFileDTO memberFileDTO)throws Exception{
+		return sqlSession.update(NAMESPACE+"setFileUpdate", memberFileDTO);
+		
+	}
 
 	public MemberDTO getShopCartList(MemberDTO memberDTO) throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getShopCartList", memberDTO);

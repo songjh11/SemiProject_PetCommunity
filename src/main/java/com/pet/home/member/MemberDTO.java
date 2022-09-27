@@ -19,54 +19,32 @@ public class MemberDTO {
 	private Integer agMail;
 	private Integer agValue;
 	private Integer agMes;
-
-	private Long totalPrice;
-	private List<ShopCartDTO> shopCartDTOs;
-    public List<ShopCartDTO> getShopCartDTOs() {
-		return shopCartDTOs;
-	}
-	public void setShopCartDTOs(List<ShopCartDTO> shopCartDTOs) {
-		this.shopCartDTOs = shopCartDTOs;
-	}
-	public Long getTotalPrice() {
-		return totalPrice;
-	}
-	public void setTotalPrice(Long totalPrice) {
-		this.totalPrice = totalPrice;
-	}
+	private String itemCatg;
+	private String itemId;
+	private Long bizNum;
+	
+	private String petCatg;
+	private String petName;
+	private Long guestId;
 
 	private RoleDTO roleDTO;
 	private MemberFileDTO memberFileDTO;
+	private Long totalPrice;
+	
+	private Long itemZipCode;
+	private String deAddress;
 
-    public List<SellItemDTO> getItemDTOs() {
-		return itemDTOs;
-	}
-	public void setItemDTOs(List<SellItemDTO> itemDTOs) {
-		this.itemDTOs = itemDTOs;
-	}
-	public List<SellFileDTO> getFileDTOs() {
-		return fileDTOs;
-	}
-	public void setFileDTOs(List<SellFileDTO> fileDTOs) {
-		this.fileDTOs = fileDTOs;
-	}
+	private List<ShopCartDTO> shopCartDTOs;
 	private List<RoleDTO> roleDTOs;
     private List<SellItemDTO> itemDTOs;
     private List<SellFileDTO> fileDTOs;
-	
-	public MemberFileDTO getMemberFileDTO() {
-		return memberFileDTO;
-	}
-	public void setMemberFileDTO(MemberFileDTO memberFileDTO) {
-		this.memberFileDTO = memberFileDTO;
-	}
+    
 	public String getUserId() {
 		return userId;
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	
 	public Integer getRoleNum() {
 		return roleNum;
 	}
@@ -109,7 +87,6 @@ public class MemberDTO {
 	public void setBlock(Integer block) {
 		this.block = block;
 	}
-
 	public Integer getAgMail() {
 		return agMail;
 	}
@@ -127,15 +104,6 @@ public class MemberDTO {
 	}
 	public void setAgMes(Integer agMes) {
 		this.agMes = agMes;
-	}
-
-	
-	
-	public RoleDTO getRoleDTO() {
-		return roleDTO;
-	}
-	public void setRoleDTO(RoleDTO roleDTO) {
-		this.roleDTO = roleDTO;
 	}
 	public String getItemCatg() {
 		return itemCatg;
@@ -173,13 +141,65 @@ public class MemberDTO {
 	public void setGuestId(Long guestId) {
 		this.guestId = guestId;
 	}
-	private String itemCatg;
-	private String itemId;
-	private Long bizNum;
+	public RoleDTO getRoleDTO() {
+		return roleDTO;
+	}
+	public void setRoleDTO(RoleDTO roleDTO) {
+		this.roleDTO = roleDTO;
+	}
+	public MemberFileDTO getMemberFileDTO() {
+		return memberFileDTO;
+	}
+	public void setMemberFileDTO(MemberFileDTO memberFileDTO) {
+		this.memberFileDTO = memberFileDTO;
+	}
+	public Long getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(Long totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	public Long getItemZipCode() {
+		return itemZipCode;
+	}
+	public void setItemZipCode(Long itemZipCode) {
+		this.itemZipCode = itemZipCode;
+	}
+	public String getDeAddress() {
+		return deAddress;
+	}
+	public void setDeAddress(String deAddress) {
+		this.deAddress = deAddress;
+	}
+	public List<ShopCartDTO> getShopCartDTOs() {
+		return shopCartDTOs;
+	}
+	public void setShopCartDTOs(List<ShopCartDTO> shopCartDTOs) {
+		this.shopCartDTOs = shopCartDTOs;
+	}
+	public List<RoleDTO> getRoleDTOs() {
+		return roleDTOs;
+	}
+	public void setRoleDTOs(List<RoleDTO> roleDTOs) {
+		this.roleDTOs = roleDTOs;
+	}
+	public List<SellItemDTO> getItemDTOs() {
+		return itemDTOs;
+	}
+	public void setItemDTOs(List<SellItemDTO> itemDTOs) {
+		this.itemDTOs = itemDTOs;
+	}
+	public List<SellFileDTO> getFileDTOs() {
+		return fileDTOs;
+	}
+	public void setFileDTOs(List<SellFileDTO> fileDTOs) {
+		this.fileDTOs = fileDTOs;
+	}
 	
-	private String petCatg;
-	private String petName;
-	private Long guestId;
+	
+   
+	
+
 	
 	
 

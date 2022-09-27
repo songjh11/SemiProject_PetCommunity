@@ -1,25 +1,22 @@
-//=====================비밀번호확인=====================
+//=====================update 선택동의값 세팅 =====================
+
+const update = document.getElementById("update");
+const updatefrm = document.getElementById("updatefrm");
+const radiomes = document.getElementById("radiomes");
+
+update.addEventListener("click",function(){
+
+    if(radiomes.checked){
+        radiomes.value='1'
+    }else{
+        radiomes.value='0'
+    }
+
+    updatefrm.submit();
+    
+    })
 
 
-
-
-    // const del = document.getElementById("del");
-    // const delfrm = document.getElementById("delfrm");
-    // const inputpw = document.getElementById("inputpw");
-    // const pw = document.getElementById("pw");
-
-    // del.addEventListener("click",function(){
-
-    //     console.log(pw.value);
-    //     console.log(inputpw.value);
-    //     if(pw.value==inputpw.value){
-    //         delfrm.submit();
-
-    //     }else{
-    //         alert("비밀번호가 부적합합니다.");
-    //     }
-
-    // })
 
 
 

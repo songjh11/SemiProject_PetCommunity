@@ -6,8 +6,8 @@
 		 <mapper namespace="com.pet.home.member.MemberDAO">
 
 <insert id="setJoin" parameterType="MemberDTO">	 
-INSERT INTO member (USERID,ROLENUM,USERNAME,PASSWORD,EMAIL,PHONE,ADDRESS,BLOCK,AGMAIL,AGVALUE,AGMES)
-VALUES (#{userId},#{roleNum},#{userName},#{password},#{email},#{phone},#{address},0,#{agMail},#{agValue},#{agMes})
+INSERT INTO member (USERID,ROLENUM,USERNAME,PASSWORD,EMAIL,PHONE,ADDRESS,BLOCK,AGMAIL,AGVALUE,AGMES,DEADDRESS,ITEMZIPCODE)
+VALUES (#{userId},#{roleNum},#{userName},#{password},#{email},#{phone},#{address},0,#{agMail},#{agValue},#{agMes},#{deAddress},#{itemZipCode})
 </insert>
 
 <insert id="setAddFile" parameterType="MemberFileDTO">
@@ -26,7 +26,7 @@ VALUES (#{bizNum},#{userId},#{roleNum},#{itemCatg},ITEM_SEQ.NEXTVAL)
 </insert>
 
 <select id="getGuestPage" parameterType="MemberDTO" resultMap="myPageResult">
-    SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, G.PETCATG, G.PETNAME, MF.FILENAME, MF.ORINAME
+    SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.DEADDRESS, M.ITEMZIPCODE,M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, G.PETCATG, G.PETNAME, MF.FILENAME, MF.ORINAME
       FROM MEMBER M
       INNER JOIN
       GUEST G
@@ -42,7 +42,7 @@ WHERE M.USERID=#{userId}
 </select>
 
 <select id="getBizPage" parameterType="MemberDTO" resultMap="myPageResult">
-SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, B.ITEMCATG, B.ITEMID
+SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.DEADDRESS, M.ITEMZIPCODE, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, B.ITEMCATG, B.ITEMID
       FROM MEMBER M
       INNER JOIN
        ROLE R
@@ -54,7 +54,7 @@ WHERE M.USERID=#{userId}
 </select>
 
 <select id="getMyPage" parameterType="MemberDTO" resultMap="myPageResult">
-SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES
+SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS,M.DEADDRESS, M.ITEMZIPCODE, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES
       FROM MEMBER M
       INNER JOIN
        ROLE R
@@ -81,6 +81,19 @@ VALUES(FOL_SEQ.NEXTVAL,#{userId},#{userId});
 <delete id="setMemDelete" parameterType="MemberDTO">
 DELETE FROM MEMBER WHERE USERID=#{userId}
 </delete>
+
+<update id="setMemUpdate" parameterType="MemberDTO" >
+UPDATE member SET PASSWORD=#{password}, USERNAME=#{userName}, EMAIL=#{email}, PHONE=#{phone}, ADDRESS=#{address},DEADDRESS=#{deAddress}, ITEMZIPCODE=#{itemZipCode}, AGMES=#{agMes} where USERID=#{userId}
+</update>
+
+<update id="setGuestUpdate" parameterType="MemberDTO" >
+UPDATE Guest SET PETCATG=#{petCatg}, PETNAME=#{petName} where USERID=#{userId}
+</update>
+
+<update id="setFileUpdate" parameterType="MemberFileDTO" >
+UPDATE MEMFILE SET FILENAME=#{fileName}, ORINAME=#{oriName} where USERID=#{userId}
+</update>
+
 
 <resultMap type="MemberDTO" id="getLoginResult">
 		<id column="USERID" property="userId" />
@@ -109,6 +122,8 @@ DELETE FROM MEMBER WHERE USERID=#{userId}
       <result column="PETNAME" property="petName"/>
       <result column="ITEMCATG" property="itemCatg"/>
       <result column="ITEMID" property="itemId"/>
+      <result column="DEADDRESS" property="deAddress"/>
+      <result column="ITEMZIPCODE" property="itemZipCode"/>
                               
       <association property="memberFileDTO" javaType="MemberFileDTO">
       <result column="FILENAME" property="fileName"/>

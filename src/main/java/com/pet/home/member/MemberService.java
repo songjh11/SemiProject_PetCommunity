@@ -84,6 +84,21 @@ public class MemberService {
 	public int setMemDelete(MemberDTO memberDTO)throws Exception{
 		return memberDAO.setMemDelete(memberDTO);
 	}
+	
+	public int setMemUpdate(MemberDTO memberDTO)throws Exception{
+		return memberDAO.setMemUpdate(memberDTO);
+		
+	}
+	
+	public int setGuestUpdate(MemberDTO memberDTO)throws Exception{
+		return memberDAO.setGuestUpdate(memberDTO);
+		
+	}
+	
+	public int setFileUpdate(MemberFileDTO memberFileDTO, MultipartFile photo, ServletContext servletContext)throws Exception{
+		return memberDAO.setFileUpdate(memberFileDTO);
+		
+	}
 
 	public MemberDTO getPickList(MemberDTO memberDTO) throws Exception{
 		return memberDAO.getPickList(memberDTO);

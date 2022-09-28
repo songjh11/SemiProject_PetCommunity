@@ -2,6 +2,7 @@ package com.pet.home.member;
 
 import java.util.List;
 
+import com.pet.home.board.event.coupon.CouponDTO;
 import com.pet.home.sell.SellItemDTO;
 import com.pet.home.sell.ShopCartDTO;
 import com.pet.home.sell.file.SellFileDTO;
@@ -19,6 +20,26 @@ public class MemberDTO {
 	private Integer agMail;
 	private Integer agValue;
 	private Integer agMes;
+	
+	//////////////////////////////////////////
+	
+	private List<CouponDTO> couponDTOs;
+	
+	public List<CouponDTO> getCouponDTOs() {
+		return couponDTOs;
+	}
+	public void setCouponDTOs(List<CouponDTO> couponDTOs) {
+		this.couponDTOs = couponDTOs;
+	}
+	
+	/////////////////////////////////////////
+	
+	public List<RoleDTO> getRoleDTOs() {
+		return roleDTOs;
+	}
+	public void setRoleDTOs(List<RoleDTO> roleDTOs) {
+		this.roleDTOs = roleDTOs;
+	}
 
 	private Long totalPrice;
 	private List<ShopCartDTO> shopCartDTOs;

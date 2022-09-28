@@ -133,8 +133,6 @@
 	<div class="mb-3">
 		<a href="./add" class="btn btn-primary">새 글 작성하기</a>
 	</div>
-
-      </div>
     </section>
 
   </main><!-- End #main -->

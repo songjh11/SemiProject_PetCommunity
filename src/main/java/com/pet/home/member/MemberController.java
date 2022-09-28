@@ -3,6 +3,7 @@ package com.pet.home.member;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.xml.xpath.XPathEvaluationResult.XPathResultType;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.method.support.ModelAndViewContainer;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
  
 @Controller
@@ -36,22 +38,35 @@ public class MemberController {
 	}
 
 	@PostMapping("login")
-	public String login(HttpServletRequest request, MemberDTO memberDTO) throws Exception {
+	public ModelAndView login(HttpServletRequest request, MemberDTO memberDTO) throws Exception {
 		
 		System.out.println("DB로그인 접속 (POST)");
 		
 		memberDTO = memberService.getLogin(memberDTO);
+		
+		
 
 		// request에 있는 파라미터를 session에 넣음
 		HttpSession session = request.getSession();
 		// DB에서 가져온 DTO데이터를 JSP로 속성만들어서 보내기
 		session.setAttribute("member", memberDTO);
 		
-if (memberDTO!=null) {
+		if (memberDTO!=null) {
 			System.out.println("오 ~ 로그인 성공");
-}else {System.out.println("오 ~ 로그인 실패");}
+		}else {System.out.println("오 ~ 로그인 실패");}
+
+		//dto에 roleNum을 담아 main.jsp에서 메뉴 다르게 보이도록  
+		ModelAndView mv = new ModelAndView();
 		
-		return "redirect:../";
+		//member 세션의 userId
+		//getAdmPage 메소드 재활용하여 roleNum 가져오기
+		memberDTO = (MemberDTO)session.getAttribute("member");
+		memberDTO = memberService.getMyPage(memberDTO);
+		mv.addObject("dto", memberDTO);
+		session.setAttribute("dto", memberDTO);
+		mv.setViewName("redirect:../");
+		
+		return mv;
 	}
 	
 	@GetMapping("logout")
@@ -70,7 +85,7 @@ if (memberDTO!=null) {
 	}
 	
 	@PostMapping("join")
-	public String join(MemberDTO memberDTO) throws Exception{
+	public String join(MemberDTO memberDTO, MultipartFile photo, HttpSession session) throws Exception{
 		
 		Calendar ca = Calendar.getInstance();
 		
@@ -84,9 +99,8 @@ if (memberDTO!=null) {
 		}
 
 		//공통 member테이블 먼저 생성 
-		int result = memberService.setJoin(memberDTO);
+		int result = memberService.setJoin(memberDTO, photo, session.getServletContext());
 		
-	
 		
 		//사업자 회원일 때 
 		if(memberDTO.getRoleNum()==1){ 
@@ -108,6 +122,83 @@ if (memberDTO!=null) {
 		
 	}
 	
+
+	@GetMapping("mypage")
+	public ModelAndView mypage(HttpSession session)throws Exception {
+		ModelAndView mv = new ModelAndView();
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		
+		memberDTO = memberService.getMyPage(memberDTO);
+		
+		if(memberDTO.getRoleNum()==1){ 
+		memberDTO = memberService.getBizPage(memberDTO); //역할번호가 1번일 때 판매자 마이페이지 
+		}else if(memberDTO.getRoleNum()==2){
+		memberDTO = memberService.getGuestPage(memberDTO); //역할번호가 2번일 때 회원 마이페이지 
+		}else {
+		memberDTO = memberService.getMyPage(memberDTO); // 그 외 관리자 마이페이지  
+		}
+		
+		mv.addObject("dto", memberDTO);
+		mv.setViewName("member/mypage");
+		
+		return mv;
+	}
+	
+	
+	@GetMapping("search")
+	public String search()throws Exception {
+		
+		return "member/search";
+	}
+	
+	@PostMapping("search")
+	public ModelAndView search(MemberDTO memberDTO)throws Exception {
+		ModelAndView mv = new ModelAndView();
+		return mv;
+	}
+	
+	@GetMapping("delete")
+	public String delete()throws Exception{
+		
+		return"member/delete";
+		
+	}
+	
+	@PostMapping("delete")
+	public String delete(HttpServletRequest request )throws Exception{
+		
+		System.out.println("delete post");
+
+		MemberDTO memberDTO = (MemberDTO)request.getSession().getAttribute("dto");
+		String pw = request.getParameter("pw");
+		
+		System.out.println(memberDTO.getUserId());
+		System.out.println(memberDTO.getPassword());
+		System.out.println(pw);
+		
+		if(memberDTO.getPassword().equals(pw)){
+			
+			memberService.setMemDelete(memberDTO);
+			
+			request.setAttribute("msg", "회원 탈퇴가 완료되었습니다.");
+			request.setAttribute("url", "/");
+			
+			request.getSession().invalidate(); //세션 비우기 
+			
+			return "member/alert";
+		
+			
+		}else {
+			
+			request.setAttribute("msg", "비밀번호가 일치하지 않습니다.");
+			request.setAttribute("url", "/member/delete");
+			return "member/alert";
+		}
+		
+	}
+
+		
+
 	@GetMapping("test")
 	public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 		MemberDTO ar = memberService.getPickList(memberDTO);
@@ -118,6 +209,7 @@ if (memberDTO!=null) {
 		mv.addObject("list2", ar2);
 		mv.addObject("list3", ar3);
 		mv.setViewName("member/test");
+
 		return mv;
 	}
 	

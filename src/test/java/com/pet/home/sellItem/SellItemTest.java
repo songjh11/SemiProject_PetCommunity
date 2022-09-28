@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.pet.home.MyAbstractTest;
 import com.pet.home.sell.SellItemDAO;
 import com.pet.home.sell.SellItemDTO;
+import com.pet.home.sell.file.SellFileDTO;
 
 
 public class SellItemTest extends MyAbstractTest{
@@ -17,17 +18,27 @@ public class SellItemTest extends MyAbstractTest{
 	
 	@Test
 	public void setItemAddTest() throws Exception {
-		SellItemDTO dto = new SellItemDTO();
-		dto.setUserId("m1");
-		dto.setItemPrice(20000L);
-		dto.setItemName("암거나");
-		dto.setItemContents("암거나");
-		dto.setItemZipCode(58L);
-		dto.setItemAddress("sdfa");
-		dto.setItemDeAddress("afaf");
-//		dto.setItemCatg("Hotel");
-		
-		sellItemDAO.setItemAdd(dto);		
+		for (int i=1; i<50; i++) {
+			
+			SellItemDTO dto = new SellItemDTO();
+			dto.setUserId("m1");
+			dto.setItemPrice(20000L);
+			dto.setItemName("암거나");
+			dto.setItemContents("암거나");
+			dto.setItemZipCode(58L);
+			dto.setItemAddress("sdfa");
+			dto.setItemDeAddress("afaf");
+			dto.setItemCatg(1L);
+			sellItemDAO.setItemAdd(dto);		
+			
+			SellFileDTO fileDTO = new SellFileDTO();
+			fileDTO.setFileName("이미지 수정 ("+i+")");
+			fileDTO.setItemNum(dto.getItemNum());
+			fileDTO.setOriName("이미지 수정 ("+i+")"+".png");
+			sellItemDAO.setAddSellFile(fileDTO);
+		}
+
+	
 	}
 	
 	@Test
@@ -41,6 +52,8 @@ public class SellItemTest extends MyAbstractTest{
 		assertNotEquals(0, dto);
 		
 	}
+	
+	
 	
 
 }

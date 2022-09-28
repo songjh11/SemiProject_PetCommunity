@@ -138,9 +138,10 @@
 	  			<label for="floatingTextarea2">${dto.contents}</label>
 				</div>
 		
-	
+		
+		<c:if test="${board eq 'qna'}">
 		<a href="./reply?num=${dto.num}" class="btn btn-danger">reply</a>
-	
+		</c:if>
 	
 		<a href="./update?num=${requestScope.dto.num}" class="btn btn-primary">수정</a>
 	

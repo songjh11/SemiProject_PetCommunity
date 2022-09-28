@@ -79,15 +79,34 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav><!-- .navbar -->
+      
+      <!--로그인 성공했을 때-->
       <c:if test="${not empty sessionScope.member}">
       <h5>${sessionScope.member.userName} 님 환영합니다!</h5>
        <a class="btn-book-a-table" href="/member/mypage">Mypage</a>
        <a class="btn-book-a-table" href="/member/logout">Logout</a>
-      </c:if>
-      <c:if test="${empty sessionScope.member}">
-	  <a class="btn-book-a-table" href="/member/login">Login</a>
-	  <a class="btn-book-a-table" href="/member/role">Join</a>
-	  </c:if>
+
+       <!-- 역할번호에 따라 다른 메뉴바-->
+       <c:choose>
+       <c:when test="${dto.roleNum =='1'}">
+        <a class="btn-book-a-table" href="#">seller page</a>
+       </c:when>
+       <c:when test="${dto.roleNum =='2'}">
+        <a class="btn-book-a-table" href="#">guest page</a>
+       </c:when>
+       <c:otherwise>
+        <a class="btn-book-a-table" href="/mypage/admin">admin page</a>
+        </c:otherwise>
+        </c:choose>
+
+       </c:if>
+       <!-- 로그인 실패했을 때 -->
+       <c:if test="${empty sessionScope.member}">
+	      <a class="btn-book-a-table" href="/member/login">Login</a>
+	       <a class="btn-book-a-table" href="/member/role">Join</a>
+	       </c:if>
+   
+
       <a class="btn-book-a-table" href="#book-a-table">Book a Table</a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>

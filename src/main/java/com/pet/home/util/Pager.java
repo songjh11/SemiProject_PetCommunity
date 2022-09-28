@@ -69,11 +69,16 @@ public class Pager {
 		this.next = next;
 	}
 
-	//객체 생성시 초기값
 	public Pager() {
-		// TODO Auto-generated constructor stub
 		this.perPage = 10L;
 		this.perBlock = 5L;
+	}
+	
+	//객체 생성시 초기값
+	public Pager(Long perPage, Long perBlock) {
+		// TODO Auto-generated constructor stub
+		this.perPage = perPage;
+		this.perBlock = perBlock;
 	}
 	
 	//1. mapper에서 사용할 값

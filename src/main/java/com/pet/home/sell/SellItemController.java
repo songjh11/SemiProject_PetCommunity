@@ -21,6 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.pet.home.sell.file.RvFileDTO;
 import com.pet.home.sell.file.SellFileDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
+import com.pet.home.util.Pager;
+import com.pet.home.util.SellPager;
 
 @Controller
 @RequestMapping(value="/sell/*")
@@ -28,17 +30,18 @@ public class SellItemController {
 	//아이템 등록, 수정, 삭제
 	
 	@Autowired
-	private SellItemService itemService;
-	
-	
+	private SellItemService itemService;	
 	
 	@GetMapping("list")
-	public ModelAndView getItemList(SellItemDTO dto) throws Exception {
-	  List<SellItemDTO> ar	= itemService.getItemList(dto);
-	  System.out.println(dto.getItemCatg());
-	  CategoryDTO categoryDTO = itemService.getCategory(dto.getItemCatg());
-	  ModelAndView mv = new ModelAndView();
-	  mv.addObject("list",ar);
+	public ModelAndView getItemList(SellPager sellPager) throws Exception {
+		System.out.println(sellPager.getItemCatg());
+		ModelAndView mv = new ModelAndView();
+
+	  List<SellItemDTO> ar	= itemService.getItemList(sellPager);
+	  CategoryDTO categoryDTO = itemService.getCategory(sellPager.getItemCatg());
+	  
+	  mv.addObject("list", ar);
+	  mv.addObject("pager",sellPager);
 	  mv.addObject("category", categoryDTO);
 	  return mv;
 	}
@@ -62,9 +65,6 @@ public class SellItemController {
 	public ModelAndView setItemAddResult(SellItemDTO itemDTO, MultipartFile [] files, HttpSession session) throws Exception {
 		System.out.println("add Post");
 		ModelAndView view = new ModelAndView();
-		System.out.println(itemDTO.getUserId());
-		System.out.println(itemDTO.getItemAddress());
-		System.out.println(files.length);
 		int result = itemService.setItemAdd(itemDTO, files, session.getServletContext());
 		if(result>0) {
 			view.setViewName("redirect:/sell/list?itemCatg="+itemDTO.getItemCatg());
@@ -73,35 +73,39 @@ public class SellItemController {
 			view.setViewName("../");
 		}
 		return view;
-	}
-	
-	
+	}	
 	
 	@GetMapping("update")
 	public Model setItemUpdate(SellItemDTO dto, Model model) throws Exception {
+		System.out.println("update");
+		List<SellFileDTO> ar = dto.getFileDTOs();
 		dto = itemService.getDetailOne(dto);
 		model.addAttribute("dto", dto);
-		List<SellFileDTO> ar = dto.getFileDTOs();
-		for(SellFileDTO a: ar) {
-			System.out.println(a.getFileName());
-			System.out.println(a.getOriName());
-		}
 		return model;		
 	}
 	
 	@PostMapping("update")
-	public ModelAndView setItemUpdateResult(SellItemDTO itemDTO) throws Exception {
-		int result = itemService.setItemUpdate(itemDTO);
+	public ModelAndView setItemUpdateResult(SellItemDTO itemDTO, MultipartFile [] files, HttpSession session) throws Exception {
+		System.out.println("updatepost");
+		int result = itemService.setItemUpdate(itemDTO, files, session.getServletContext());
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/sell/list?itemCatg="+itemDTO.getItemCatg());
 		return mv;
 	}
 	
+	@PostMapping("filedelete")
+	@ResponseBody
+	public int setFileDelete(SellFileDTO fileDTO, HttpSession session) throws Exception {
+		int result = itemService.setUpdateFileDelete(fileDTO, session.getServletContext());
+		return result;
+	}
+	
 	@GetMapping("delete")
-	public ModelAndView setItemDelete(SellItemDTO itemDTO) throws Exception {
+	public ModelAndView setItemDelete(SellItemDTO itemDTO, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		int result = itemService.setItemDelete(itemDTO);
 		mv.setViewName("redirect:/sell/list?itemCatg="+itemDTO.getItemCatg());
+		int result = itemService.setItemDelete(itemDTO, session.getServletContext());
+		
 		return mv;
 	}
 	
@@ -254,16 +258,20 @@ public class SellItemController {
 	}
 	
 	
-//	@GetMapping("search")
-//	public void getItemOne() {
-//		String search = "m1";
-//	}
-//	
-//	@PostMapping("search")
-//	public void getItemOneResult(String search) {
-//		SellItemDTO dto = new SellItemDTO();
-//		dto.setUserId(search);
-//		dto = itemService.getItemOne(dto);
-//		System.out.println(dto.getItemNum());
-//	}
+	@GetMapping("search")
+	public ModelAndView getItemOne(SellPager sellPager) throws Exception {
+		System.out.println(sellPager.getItemCatg());
+		System.out.println(sellPager.getSearch());
+		  List<SellItemDTO> ar	= itemService.getItemList(sellPager);
+		  ModelAndView mv = new ModelAndView();
+		  mv.addObject("list", ar);
+		  mv.addObject("pager",sellPager);
+		  return mv;
+		}
+
+	
+	@GetMapping("pettx")
+	public void getPetTaxi () {
+		
+	}
 }

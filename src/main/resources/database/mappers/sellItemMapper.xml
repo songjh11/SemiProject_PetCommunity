@@ -3,6 +3,29 @@
 		    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pet.home.sell.SellItemDAO">
+	
+	<sql id="search">
+		(SELECT ROWNUM R, SITEM.* FROM 
+			(SELECT SII.* 
+			FROM 
+				(SELECT SI.ITEMNUM, SI.ITEMPRICE, SI.ITEMNAME, SI.ITEMCATG, SI.ITEMADDRESS, SF.FILENAME
+					FROM SELLITEM SI
+					INNER JOIN
+					SELLFILE SF
+					ON SI.ITEMNUM = SF.ITEMNUM
+					WHERE SI.ITEMCATG= #{itemCatg}					
+					ORDER BY SI.ITEMNUM DESC,SF.PHOTONUM ASC) SII 
+			WHERE SII.ITEMNAME LIKE '%'||#{search}||'%' 
+		ORDER BY SII.ITEMNUM DESC) SITEM)
+	</sql>
+	
+	<!-- 지도 매핑용 -->
+	<select id="getAllItemList" resultType="SellItemDTO">
+		SELECT * FROM SELLITEM
+	</select>
+	<!-- !!!!!!! -->
+	
+	
 	<insert id="setItemAdd" parameterType="SellItemDTO">
 		<selectKey keyProperty="itemNum" order="BEFORE" resultType="Long">
 		 			SELECT SELLITEM_SEQ.NEXTVAL FROM DUAL
@@ -22,23 +45,29 @@
 			WHERE CATEGORYNUM = #{itemCatg}
 	</select>
 	
+	<select id="getSellFileDTO" parameterType="SellFileDTO" resultType="SellFileDTO">
+		SELECT * FROM SELLFILE WHERE PHOTONUM=#{photoNum}
+	</select>
+	
 	<insert id="setAddSellFile" parameterType="SellFileDTO">
 		INSERT INTO SELLFILE 
 		(PHOTONUM, ITEMNUM, ORINAME, FILENAME)
 		VALUES (SELLFILE_SEQ.NEXTVAL, #{itemNum}, #{oriName}, #{fileName})
 	</insert>
 	
-	<select id="getItemList" parameterType="SellItemDTO" resultMap="getItemResult">
-		SELECT SI.ITEMNUM, SI.ITEMPRICE, SI.ITEMNAME, SF.FILENAME
-			FROM SELLITEM SI
-			INNER JOIN
-			SELLFILE SF
-			ON SI.ITEMNUM = SF.ITEMNUM
-		WHERE SI.ITEMCATG=#{itemCatg} ORDER BY SI.ITEMNUM DESC,SF.PHOTONUM ASC
+	<select id="getItemList" parameterType="SellPager" resultMap="getItemResult">
+		SELECT * FROM
+			<include refid="search"></include>
+		WHERE R BETWEEN #{startRow} and #{lastRow}
+	</select>
+	
+	<select id="getItemCount" parameterType="SellPager" resultType="Long">
+		SELECT COUNT(ROWNUM) FROM
+			<include refid="search"></include>	
 	</select>
 	
 	<select id="getDetailOne" parameterType="SellItemDTO" resultMap="getItemResult">
-		SELECT SI.*, FILENAME, ORINAME 
+		SELECT SI.*, FILENAME, ORINAME, PHOTONUM
 			FROM SELLITEM SI
 			LEFT JOIN
 			SELLFILE SF 
@@ -52,8 +81,9 @@
 		ITEMNAME=#{itemName}, ITEMPRICE=#{itemPrice}, ITEMCONTENTS=#{itemContents} WHERE ITEMNUM=#{itemNum} 
 	</update>
 	
-	<select id="getItemOne" parameterType="SellItemDTO" resultType="SellItemDTO">
-		SELECT * FROM SELLITEM WHERE USERID=#{userId}
+	<select id="getItems" parameterType="Map" resultType="SellItemDTO">
+		SELECT SI.* FROM (SELECT * FROM SELLITEM WHERE ITEMCATG = #{kind}) SI WHERE ITEMNAME LIKE '%'||#{search}||'%' 
+		ORDER BY SI.ITEMNUM DESC    
 	</select>
 	
 	<delete id="setItemDelete" parameterType="SellItemDTO">
@@ -62,6 +92,10 @@
 	
 	<delete id="setFileDelete" parameterType="Long">
 		DELETE SELLFILE WHERE ITEMNUM = #{itemNum}
+	</delete>
+	
+	<delete id="setUpdateFileDelete" parameterType="Long">
+		DELETE SELLFILE WHERE PHOTONUM = #{photoNum}
 	</delete>
 	
 	<delete id="setCategoryDelete" parameterType="Long">
@@ -83,10 +117,10 @@
 		<result column="ITEMADDRESS" property="itemAddress"/>
 		<result column="ITEMDEADDRESS" property="itemDeAddress"/>
 		<result column="ITEMCATG" property="itemCatg"/>
-		<collection property="fileDTOs" javaType="List" ofType="sellFileDTO">
-			<id column="FILENUM" property="fileNum"></id>
-			<result column="FILENAME" property="fileName"/>
-			<result column="ORINAME" property="oriName"/>
-		</collection>
+			<collection property="fileDTOs" javaType="List" ofType="sellFileDTO">
+				<id column="PHOTONUM" property="photoNum"></id>
+				<result column="FILENAME" property="fileName"/>
+				<result column="ORINAME" property="oriName"/>
+			</collection>
 	</resultMap>
 </mapper>

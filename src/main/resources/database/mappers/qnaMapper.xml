@@ -7,13 +7,40 @@
 		(SELECT ROWNUM R, Q.* FROM
 		(SELECT * FROM QNA 
 				WHERE <choose>
-						<when test="kind == 'title">TITLE</when>
-						<when test="kind == 'wirter">WRITER</when>
+						<when test="kind == 'title'">TITLE</when>
+						<when test="kind == 'wirter'">WRITER</when>
 						<otherwise>CONTENTS</otherwise>	
 					</choose>
 		LIKE '%'||#{search}||'%'
 		ORDER BY NUM DESC) Q)
 	</sql>
+	
+	<insert id="setReplyAdd" parameterType="QnaDTO">
+		<selectKey keyProperty="num" order="BEFORE" resultType="Long">
+			SELECT QNA_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO QNA(NUM, TITLE, CONTENTS, WRITER, REGDATE, HIT, REF, STEP, DEPTH)
+		VALUES(#{num}, #{title}, #{contents}, #{writer}, SYSDATE, 0, #{ref}, #{step}, #{depth})
+	</insert>
+	
+	<update id="setStepUpdate" parameterType="QnaDTO">
+		UPDATE QNA
+		SET STEP = STEP+1
+		WHERE REF = #{ref} AND STEP > #{step}
+	</update>
+	
+	<select id="getFileDetail" parameterType="BoardFileDTO" resultType="BoardFileDTO">
+		SELECT * FROM QNAFILE WHERE FILENUM = #{fileNum}
+	</select>
+	
+	<delete id="setFileDelete" parameterType="BoardFileDTO">
+		DELETE QNAFILE WHERE FILENUM = #{fileNum}
+	</delete>
+	
+	<insert id="setAddFile" parameterType="BoardFileDTO">
+		INSERT INTO QNAFILE(FILENUM, FILENAME, ORINAME, NUM)
+		VALUES(QNA_FILE_SEQ.NEXTVAL, #{fileName}, #{oriName}, #{num})
+	</insert>
 	
 	<select id="getList" parameterType="Pager" resultType="QnaDTO">
 		SELECT * FROM
@@ -21,6 +48,54 @@
 		WHERE R BETWEEN #{startRow} and #{lastRow}
 	</select>
 	
+	<select id="getCount" parameterType="Pager" resultType="Long">
+		SELECT COUNT(ROWNUM) FROM
+		<include refid="search"></include>
+	</select>
+	
+	
+	<insert id="setAdd" parameterType="BoardDTO">
+		<selectKey keyProperty="num" order="BEFORE" resultType="Long">
+			SELECT QNA_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+			INSERT INTO QNA(NUM, TITLE, CONTENTS, WRITER, REGDATE, HIT, REF, STEP, DEPTH)
+			VALUES(#{num}, #{title}, #{contents}, #{writer}, SYSDATE,0, #{num}, 0, 0)
+	</insert>
+	
+	<delete id="setDelete" parameterType="BoardDTO">
+		DELETE QNA WHERE NUM = #{num}
+	</delete>
+	
+	<update id="setUpdate" parameterType="BoardDTO">
+		UPDATE QNA SET TITLE = #{title}, CONTENTS = #{contents}
+		WHERE NUM = #{num}
+	</update>
+	
+	<select id="getDetail" parameterType="BoardDTO" resultMap="getDetailResult">
+		SELECT Q.*, QF.*
+		FROM QNA Q 
+		LEFT JOIN QNAFILE QF
+		ON Q.NUM = QF.NUM
+		WHERE Q.NUM = #{num}
+	</select>
+	
+	<resultMap type="QnaDTO" id="getDetailResult">
+		<id column="NUM" property="num"></id>
+		<result column="TITLE" property="title"/>
+		<result column="CONTENTS" property="contents"/>
+		<result column="WRITER" property="writer"/>
+		<result column="REGDATE" property="regDate"/>
+		<result column="HIT" property="hit"/>
+		<result column="REF" property="ref"/>
+		<result column="STEP" property="step"/>
+		<result column="DEPTH" property="depth"/>
+		
+		<collection property="boardFileDTOs" javaType="List" ofType="BoardFileDTO">
+			<id column="FILENUM" property="fileNum"/>
+			<result column="FILENAME" property="fileName"/>
+			<result column="ORINAME" property="oriName"/>
+		</collection>
+	</resultMap>
 	
 	
 </mapper>

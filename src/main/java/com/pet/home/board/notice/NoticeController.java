@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,6 +26,11 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 	
+	@ModelAttribute("board")
+	public String getBoard() {
+		return "notice";
+	}
+	
 	@PostMapping("fileDelete")
 	@ResponseBody
 	public int setFileDelete(BoardFileDTO boardFileDTO, HttpSession session) throws Exception{
@@ -36,7 +42,8 @@ public class NoticeController {
 	
 	
 	@GetMapping("list")
-	public ModelAndView getList(ModelAndView mv, Pager pager) throws Exception {
+	public ModelAndView getList(ModelAndView mv) throws Exception {
+		Pager pager = new Pager(10L, 5L);
 		List<BoardDTO> ar = noticeService.getList(pager);
 		mv.addObject("list", ar);
 		mv.addObject("pager",pager);

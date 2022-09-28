@@ -29,11 +29,34 @@ public class MemberDAO {
 	public int setBiz(MemberDTO memberDTO)throws Exception{
 		return sqlSession.insert(NAMESPACE+"setBiz", memberDTO);
 	}
+
+	public int setAddFile(MemberFileDTO memberFileDTO)throws Exception{
+		return sqlSession.insert(NAMESPACE+"setAddFile", memberFileDTO);
+	}
 	
+	public MemberDTO getGuestPage(MemberDTO memberDTO) {
+		return sqlSession.selectOne(NAMESPACE+"getGuestPage", memberDTO);
+		
+	}
+	
+	public MemberDTO getBizPage(MemberDTO memberDTO) {
+		return sqlSession.selectOne(NAMESPACE+"getBizPage", memberDTO);
+		
+	}
+	
+	public MemberDTO getMyPage(MemberDTO memberDTO) {
+		return sqlSession.selectOne(NAMESPACE+"getMyPage", memberDTO);
+		
+	}
+		
 	public MemberDTO getPickList(MemberDTO memberDTO) throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getPickList", memberDTO);
 	}
 	
+	public int setMemDelete(MemberDTO memberDTO)throws Exception{
+		return sqlSession.delete(NAMESPACE+"setMemDelete", memberDTO);
+	}
+
 	public MemberDTO getShopCartList(MemberDTO memberDTO) throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getShopCartList", memberDTO);
 	}
@@ -41,4 +64,5 @@ public class MemberDAO {
 	public MemberDTO getTotalPrice(MemberDTO memberDTO) throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getTotalPrice", memberDTO);
 	}
+	
 }

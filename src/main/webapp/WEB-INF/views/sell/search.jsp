@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="utf-8">
+ <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>Search</title>
@@ -31,184 +30,135 @@
   <!-- Template Main CSS File -->
   <link href="/resources/assets/css/main.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: Yummy - v1.2.0
-  * Template URL: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+	<style type="text/css">
+
+	</style>
+  
 </head>
-
 <body>
-
-  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
-    <div class="container d-flex align-items-center justify-content-between">
-
-      <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1>Search<span>.</span></h1>
-      </a>
-
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a href="#hero">Home</a></li>
-          <li><a href="../sell/list/h">호텔링</a></li>
-          <li><a href="../sell/list/o">One Day 클래스</a></li>
-          <li><a href="../sell/list/t">트레이닝</a></li>
-          <li><a href="#">Pet Taxi</a></li>
-          <li><a href="#gallery">여행해요</a></li>
-          <li class="dropdown"><a href="#"><span>커뮤니티</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-              <li><a href="#">같이해요</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-              <li><a href="/notice/list">공지사항</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav><!-- .navbar -->
-
-      <a class="btn-book-a-table" href="/sell/add">Add Items</a>
-      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
-
-    </div>
-  </header><!-- End Header -->
+<!-- header start -->
+<c:import url="/WEB-INF/views/template/header.jsp"></c:import>
+<!-- header end -->
 
   
     <!-- ======= Menu Section ======= -->
-              <section id="chefs" class="chefs section-bg">
-                <div class="container" data-aos="fade-up">
-                   
-                   <div class="section-header">
-                    <p><span>Search</span><p>
-                   </div>
-                   
-					<div class="row gy-4">
-					
-                    <c:forEach items="${list}" var="ar">
-                    	<div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-	                      <div class="chef-member">
-		                          <div class="member-img">
-		                            <img src="/resources/images/다운로드.jpg" class="img-fluid" alt="">
-			                            <div class="social">
-			                              <a href=""><i class="bi bi-twitter"></i></a>
-			                              <a href=""><i class="bi bi-facebook"></i></a>
-			                              <a href=""><i class="bi bi-instagram"></i></a>
-			                              <a href=""><i class="bi bi-linkedin"></i></a>
-			                            </div>
-		                           </div>
-		                          <div class="member-info">
-		                            <h4><a href="./detail?itemNum=${ar.itemNum}">${ar.itemName}</a></h4>
-		                            <span>${ar.itemPrice}</span>
-		                          </div>
-	                         </div>
-                         </div>
-                    </c:forEach>
-                    </div><!-- End Chefs Member -->
-                    
+    <section id="chefs" class="chefs section-bg">
+      <div class="container" data-aos="fade-up">
+                 
+                 <div class="section-header">
+                  <p><span>Search</span><p>
+                 </div>
+
+          <c:if test="${empty list}">
+            <div class="section-header">
+              <p><span>검색 결과가 없습니다</span></p>
+            </div>
+          </c:if>
+          <div class="row gy-1">	
+            <c:forEach items="${list}" var="ar">
+              <div class="col-lg-3 col-md-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 10px;">
+                  <div class="member-img" style="width: 100%;">
+                    <img src="/resources/upload/sellfile/${ar.fileDTOs[0].fileName}" class="img-fluid" alt="">
+                    <div class="social">
+                      <a href=""><i class="bi bi-twitter"></i></a>
+                      <a href=""><i class="bi bi-facebook"></i></a>
+                      <a href=""><i class="bi bi-instagram"></i></a>
+                      <a href=""><i class="bi bi-linkedin"></i></a>
                     </div>
-              </section>    
+                  </div>
+                  <div class="member-info" style="width: 100%; height: 115px;">
+                    <h4><a href="./detail?itemNum=${ar.itemNum}">${ar.itemName}</a></h4>
+                    <p>${ar.itemAddress}</p>
+                    <span>${ar.itemPrice}</span>
+                  </div>
+                </div>
+              </div>
+            </c:forEach>
+          </div>
+      </div>
+      <!-- End grid1div -->
+      </div>
+    </section> 
 
    
 
 
        
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
+ <!-- footer start -->
+ <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
+ <!-- footer end -->
 
-    <div class="container">
-      <div class="row gy-3">
-        <div class="col-lg-3 col-md-6 d-flex">
-          <i class="bi bi-geo-alt icon"></i>
-          <div>
-            <h4>Address</h4>
-            <p>
-              A108 Adam Street <br>
-              New York, NY 535022 - US<br>
-            </p>
-          </div>
+   <!-- script start -->
+ <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-        </div>
+ <div id="preloader"></div>
 
-        <div class="col-lg-3 col-md-6 footer-links d-flex">
-          <i class="bi bi-telephone icon"></i>
-          <div>
-            <h4>Reservations</h4>
-            <p>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
-            </p>
-          </div>
-        </div>
+ <!-- Vendor JS Files -->
+ <script src="/resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+ <script src="/resources/assets/vendor/aos/aos.js"></script>
+ <script src="/resources/assets/vendor/glightbox/js/glightbox.min.js"></script>
+ <script src="/resources/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+ <script src="/resources/assets/vendor/swiper/swiper-bundle.min.js"></script>
+ <script src="/resources/assets/vendor/php-email-form/validate.js"></script>
 
-        <div class="col-lg-3 col-md-6 footer-links d-flex">
-          <i class="bi bi-clock icon"></i>
-          <div>
-            <h4>Opening Hours</h4>
-            <p>
-              <strong>Mon-Sat: 11AM</strong> - 23PM<br>
-              Sunday: Closed
-            </p>
-          </div>
-        </div>
+ <!-- Template Main JS File -->
+ <script src="/resources/assets/js/main.js"></script>
 
-        <div class="col-lg-3 col-md-6 footer-links">
-          <h4>Follow Us</h4>
-          <div class="social-links d-flex">
-            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-          </div>
-        </div>
+<!-- daum 지도 검색 api -->  
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+       function execDaumPostcode() {
+         new daum.Postcode({
+           oncomplete: function(data) {
+               // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-      </div>
-    </div>
+               // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+               // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+               var addr = ''; // 주소 변수
+               var extraAddr = ''; // 참고항목 변수
 
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><span>Yummy</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
-    </div>
+               //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+               if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                   addr = data.roadAddress;
+               } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                   addr = data.jibunAddress;
+               }
 
-  </footer><!-- End Footer -->
-  <!-- End Footer -->
+               // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+               if(data.userSelectedType === 'R'){
+                   // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                   // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                   if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                       extraAddr += data.bname;
+                   }
+                   // 건물명이 있고, 공동주택일 경우 추가한다.
+                   if(data.buildingName !== '' && data.apartment === 'Y'){
+                       extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                   }
+                   // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                   if(extraAddr !== ''){
+                       extraAddr = ' (' + extraAddr + ')';
+                   }
+                   // 조합된 참고항목을 해당 필드에 넣는다.
+                   //document.getElementById("itemLongtitude").value = extraAddr;
+               
+               } else {
+                   document.getElementById("itemAddress").value = '';
+               }
 
-  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+               // 우편번호와 주소 정보를 해당 필드에 넣는다.
+               document.getElementById('itemZipCode').value = data.zonecode;
+               document.getElementById("itemAddress").value = addr += extraAddr;
+               // 커서를 상세주소 필드로 이동한다.
+               document.getElementById("itemDeAddress").focus();
+           }
+       }).open();
+   }//kakao api 끝
+</script>
 
-  <div id="preloader"></div>
 
-  <!-- Vendor JS Files -->
-  <script src="/resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="/resources/assets/vendor/aos/aos.js"></script>
-  <script src="/resources/assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="/resources/assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="/resources/assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="/resources/assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="/resources/assets/js/main.js"></script>
 
 </body>
 

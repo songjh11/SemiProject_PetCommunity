@@ -29,7 +29,9 @@
       	<typeAlias type="com.pet.home.sell.sellcategory.CategoryDTO" alias="CategoryDTO"/>
       	<typeAlias type="com.pet.home.sell.PickDTO" alias="PickDTO"/>
       	<typeAlias type="com.pet.home.sell.ShopCartDTO" alias="ShopCartDTO"/>
-      
+      	<typeAlias type="com.pet.home.sell.ReviewDTO" alias="ReviewDTO"/>
+      	<typeAlias type="com.pet.home.util.CommentPager" alias="CommentPager"/>
+      	<typeAlias type="com.pet.home.sell.RvCommentDTO" alias="RvCommentDTO"/>
 		<typeAlias type="com.pet.home.util.Pager" alias="Pager"/>
 		<typeAlias type="java.lang.Long" alias="Long"/>
 		<typeAlias type="java.util.List" alias="List"/>

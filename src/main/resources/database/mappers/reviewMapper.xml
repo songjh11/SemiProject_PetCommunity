@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pet.home.sell.ReviewDAO">
+	<insert id="setReviewAdd" parameterType="ReviewDTO">
+		<selectKey keyProperty="rvNum" order="BEFORE" resultType="Long">
+		 			SELECT RV_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO REVIEW 
+		VALUES 
+		(#{rvNum},#{itemNum}, #{userId}, #{rvTitle}, #{rvContents}, #{rvRate})
+	</insert>
+	
+	<insert id="setAddReviewFile" parameterType="RvFileDTO">
+		INSERT INTO RVFILE 
+		(PHOTONUM, RVNUM, ORINAME, FILENAME)
+		VALUES (SELLFILE_SEQ.NEXTVAL, #{rvNum}, #{oriName}, #{fileName})
+	</insert>
+	
+	<select id="getReviewListTotalCount" parameterType="CommentPager" resultType="Long">
+		    	SELECT COUNT(RVNUM) FROM REVIEW WHERE ITEMNUM = #{itemNum}
+    </select>
+	
+	<select id="getReviewList" parameterType="CommentPager" resultMap="getReviewListResult">
+		SELECT R.*,RF.*,RC.* FROM
+    		(SELECT ROWNUM R, C.* FROM
+        		(SELECT * FROM REVIEW WHERE ITEMNUM = #{itemNum} ORDER BY RVNUM DESC) C)R
+    		LEFT OUTER JOIN
+    		RVFILE RF
+    		ON R.RVNUM = RF.RVNUM
+    		LEFT OUTER JOIN
+    		RVCOMMENT RC
+    		ON RF.RVNUM = RC.RVNUM
+    	WHERE R BETWEEN #{startRow} AND #{lastRow}
+    	ORDER BY R.RVNUM DESC, RC.RVCNUM DESC
+	</select>
+	<resultMap type="ReviewDTO" id="getReviewListResult">
+		<id column="RVNUM" property="rvNum"/>
+		<result column="ITEMNUM" property="itemNum"/>
+		<result column="USERID" property="userId"/>
+		<result column="RVTITLE" property="rvTitle"/>
+		<result column="RVCONTENTS" property="rvContents"/>
+		<result column="RVRATE" property="rvRate"/>
+		<collection property="rvFileDTOs" javaType="List" ofType="RvFileDTO">
+			<id column="PHOTONUM" property="photoNum"/>
+			<result column="ORINAME" property="oriName"/>
+			<result column="FILENAME" property="fileName"/>
+			<result column="RVNUM" property="rvNum"/>
+		</collection>
+		<collection property="rvCommentDTOs" javaType="List" ofType="RvCommentDTO">
+			<id column="RVCNUM" property="rvcNum"/>
+			<result column="RVNUM" property="rvNum"/>
+			<result column="RVCWRITER" property="rvcWriter"/>
+			<result column="RVCCONTENTS" property="rvcContents"/>
+			<result column="RVCREGDATE" property="rvcRegDate"/>
+		</collection>
+	</resultMap>
+	
+	<select id="getFileDetail" parameterType="RvFileDTO" resultType="RvFileDTO">
+		SELECT * FROM RVFILE WHERE PHOTONUM=#{photoNum}
+	</select>
+	
+	<delete id="setFileDelete" parameterType="RvFileDTO">
+		DELETE RVFILE WHERE PHOTONUM=#{photoNum}
+	</delete>
+	
+	<update id="setReviewUpdate" parameterType="ReviewDTO">
+		UPDATE REVIEW SET RVTITLE=#{rvTitle},RVCONTENTS=#{rvContents},RVRATE=#{rvRate} WHERE RVNUM=#{rvNum}
+	</update>
+	
+	<delete id="setReviewDelete" parameterType="ReviewDTO">
+		DELETE REVIEW WHERE RVNUM=#{rvNum}
+	</delete>
+	
+	<select id="getReviewUpdate" parameterType="ReviewDTO" resultMap="getReviewUpdateResult">
+		SELECT R.*, PHOTONUM,FILENAME, ORINAME 
+			FROM REVIEW R
+			INNER JOIN
+			RVFILE RF 
+			ON R.RVNUM = RF.RVNUM
+			WHERE R.RVNUM=#{rvNum}
+		ORDER BY R.RVNUM DESC, RF.PHOTONUM ASC
+	</select>
+	<resultMap type="ReviewDTO" id="getReviewUpdateResult">
+		<id column="RVNUM" property="rvNum"/>
+		<result column="ITEMNUM" property="itemNum"/>
+		<result column="USERID" property="userId"/>
+		<result column="RVTITLE" property="rvTitle"/>
+		<result column="RVCONTENTS" property="rvContents"/>
+		<result column="RVRATE" property="rvRate"/>
+		<collection property="rvFileDTOs" javaType="List" ofType="RvFileDTO">
+			<id column="PHOTONUM" property="photoNum"></id>
+			<result column="ORINAME" property="oriName"/>
+			<result column="FILENAME" property="fileName"/>
+		</collection>
+	</resultMap>
+</mapper>

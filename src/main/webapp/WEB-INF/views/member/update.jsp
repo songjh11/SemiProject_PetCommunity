@@ -157,7 +157,7 @@
               </div>
               <br>
              <div class="text-center">
-             	<button type="button" id="update">수정완료</button>
+             	<button type="button" id="update" class="btn-book-a-table">수정완료</button>
              </div>
              
             </form>

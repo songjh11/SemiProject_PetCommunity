@@ -52,8 +52,8 @@
             <p>문자수신동의여부: 비동의</p>
         </c:when>
      </c:choose>
-     <button type="submit">회원탈퇴</button>
-     <a href="./update">정보수정</a>
+     <button type="submit" class="btn-book-a-table">회원탈퇴</button>
+     <a href="./update" class="btn-book-a-table">정보수정</a>
     </form>
    
 

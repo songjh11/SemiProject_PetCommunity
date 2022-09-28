@@ -90,39 +90,52 @@
               <div class="row gy-4">
                 <div class="col-lg-8 col-md-12">
                   <input type="hidden" name="roleNum" value="${param.roleNum}">
-                  <input type="text" name="userId" class="form-control" placeholder="User ID">
+                  <input type="text" name="userId" id="userId" class="form-control" placeholder="User ID">
                   <div class="validate"></div>
+                  <div id="d1" class="col"></div>
                 </div>
                 <div class="col-lg-8 col-md-12">
-                  <input type="text" name="password" class="form-control" placeholder="password">
+                  <input type="text" name="password" id="password" class="form-control" placeholder="password">
                   <div class="validate"></div>
+                  <div id="d2" class="col"></div>
                 </div>
                 <div class="col-lg-8 col-md-12">
-                  <input type="text" name="userName" class="form-control" placeholder="User Name">
+                  <input type="text" name="password2" id="password2" class="form-control" placeholder="One more password">
                   <div class="validate"></div>
+                  <div id="d2_1" class="col"></div>
                 </div>
                 <div class="col-lg-8 col-md-12">
-                  <input type="number" name="phone" class="form-control" id="userId" placeholder="Phone">
+                  <input type="text" name="userName" id="userName" class="form-control" placeholder="User Name">
                   <div class="validate"></div>
+                  <div id="d3" class="col"></div>
                 </div>
                 <div class="col-lg-8 col-md-12">
-                  <input type="email" name="email" class="form-control" placeholder="Email">
+                  <input type="number" name="phone" id="phone" class="form-control" id="userId" placeholder="Phone">
                   <div class="validate"></div>
+                  <div id="d4" class="col"></div>
+                </div>
+                <div class="col-lg-8 col-md-12">
+                  <input type="email" name="email" id="email" class="form-control" placeholder="Email">
+                  <div class="validate"></div>
+                  <div id="d5" class="col"></div>
                 </div>
 
                 <div class="col-lg-6 col-md-6">
                   <input type="text" name="itemZipCode" class="form-control" id="itemZipCode" placeholder="우편번호">
-                   <div class="validate"></div>
+                  <div class="validate"></div>
+                  <div id="d6" class="col"></div>
                  </div>
                  <div class="col-lg-6 col-md-6">
                    <button type="button" id="address_kakao" onclick="execDaumPostcode();">주소 검색</button>
                  </div>
                  <div class="col-lg-12 col-md-12">
                   <input type="text" name="address" class="form-control" id="address" placeholder="주소">
+                  <div id="d7" class="col"></div>
                  </div>
                  <div class="col-lg-12 col-md-12">
                    <input type="text" name="deAddress" class="form-control" id="deAddress" placeholder="상세 주소">
                    <div class="validate"></div>
+                   <div id="d8" class="col"></div>
                  </div>
 
                 <c:if test="${param.roleNum == '1'}">
@@ -134,6 +147,7 @@
                       <option value="3">트레이닝</option>
                     </select>
                     <div class="validate"></div>
+                    <div id="d9" class="col"></div>
                   </div>
                 </c:if>
                 </div>
@@ -143,18 +157,22 @@
                 <c:if test="${param.roleNum == '2'}">
 
                   <div class="col-lg-8 col-md-6">
-                    <input type="text" class="form-control" name="petCatg" placeholder="Pet Categori">
+                    <input type="text" class="form-control" name="petCatg" id="petCatg" placeholder="Pet Categori">
                     <div class="validate"></div>
+                    <div id="d10" class="col"></div>
                   </div>
 
                   <div class="col-lg-8 col-md-6">
-                    <input type="text" class="form-control" name="petName" placeholder="Pet Name">
+                    <input type="text" class="form-control" name="petName"id="petName" placeholder="Pet Name">
                     <div class="validate"></div>
+                    <div id="d11" class="col"></div>
                   </div>
 
                   <div class="col-lg-8 col-md-6">
                     <input type="file" class="form-control" name="photo" id="files" placeholder="Pet Photo">
                     <div class="validate"></div>
+
+                    <div id="d12" class="col"></div>
                   </div>
 
                 </c:if>
@@ -254,7 +272,7 @@
               </div>
               <br>
              <div class="text-center">
-             	<button type="button" id="join">회원가입</button>
+             	<button type="button" id="join" class="btn-book-a-table">회원가입</button>
              </div>
              
             </form>

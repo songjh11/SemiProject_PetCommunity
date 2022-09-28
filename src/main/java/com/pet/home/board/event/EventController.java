@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pet.home.admin.AdminService;
+import com.pet.home.board.event.coupon.CouponDTO;
 import com.pet.home.board.impl.BoardDTO;
 import com.pet.home.board.impl.BoardFileDTO;
 import com.pet.home.board.notice.NoticeDTO;
@@ -24,7 +26,8 @@ public class EventController {
 	
 	@Autowired
 	private EventService eventService;
-	
+	@Autowired
+	private AdminService adminService;
 	
 	@PostMapping("fileDelete")
 	@ResponseBody
@@ -56,7 +59,8 @@ public class EventController {
 	@PostMapping("add")
 	public ModelAndView setAdd(ModelAndView mv, NoticeDTO noticeDTO,MultipartFile [] multipartFiles, HttpSession session) throws Exception{
 		int result = eventService.setAdd(noticeDTO, multipartFiles, session.getServletContext());
-		
+		List<CouponDTO> list = adminService.getCouponList();
+		mv.addObject("list", list);
 		mv.setViewName("redirect:./list");
 		
 		return mv;
@@ -105,7 +109,6 @@ public class EventController {
 		
 		return "redirect:./list";
 	}
-	
 	
 	
 	

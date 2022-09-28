@@ -91,6 +91,6 @@
 		function onClose(evt){}
 
 	</script>
-
+<script src="/resources/js/chat_lib/chat.js"></script>
 </body>
 </html>

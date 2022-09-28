@@ -17,6 +17,7 @@ import com.pet.home.sell.file.RvFileDTO;
 import com.pet.home.sell.file.SellFileDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
 import com.pet.home.sell.sellcategory.SellCategoryDTO;
+import com.pet.home.util.FileManager;
 import com.pet.home.util.Pager;
 import com.pet.home.util.SellPager;
 
@@ -232,6 +233,78 @@ public class SellItemService {
 	
 	public SellItemDTO getMap() throws Exception{
 		return itemDAO.getMap();
+	}
+	
+	public ReviewDTO getReviewUpdate(ReviewDTO reviewDTO) throws Exception{
+		return reviewDAO.getReviewUpdate(reviewDTO);
+	}
+	
+	public int setFileDelete(RvFileDTO rvFileDTO,ServletContext servletContext) throws Exception{
+		rvFileDTO = reviewDAO.getFileDetail(rvFileDTO);
+		int result = reviewDAO.setFileDelete(rvFileDTO);
+		String path = "resources/upload/reviewfile";
+		
+		if(result > 0) {
+			fileManager.deleteFile(servletContext, rvFileDTO, path);
+		}
+		
+		return result;
+	}
+	
+	public int setReviewUpdate(ReviewDTO reviewDTO, MultipartFile [] mf, ServletContext servletContext) throws Exception{
+		int result = reviewDAO.setReviewUpdate(reviewDTO);
+		for(MultipartFile m: mf) {
+			if(m.isEmpty()) {
+				continue;
+			}				
+			
+			String realPath = servletContext.getRealPath("resources/upload/reviewfile");
+			
+			File file = new File(realPath);
+			
+			if(!file.exists()) {
+				file.mkdirs();
+			}
+			
+			Calendar ca = Calendar.getInstance();
+			Long l = ca.getTimeInMillis();
+			String oriName = m.getOriginalFilename();
+			String fileName = l+"_"+oriName;
+			file = new File(file, fileName);
+			
+			System.out.println(realPath);
+			System.out.println(fileName);
+			
+			m.transferTo(file);
+			RvFileDTO rvFileDTO = new RvFileDTO();
+			rvFileDTO.setFileName(fileName);
+			rvFileDTO.setOriName(m.getOriginalFilename());
+			rvFileDTO.setRvNum(reviewDTO.getRvNum());
+			reviewDAO.setAddReviewFile(rvFileDTO);
+			System.out.println("저장");
+		}//for end
+		
+		return result;
+	}
+	
+	public int setReviewDelete(ReviewDTO reviewDTO) throws Exception{
+		return reviewDAO.setReviewDelete(reviewDTO);
+	}
+	
+	public int setReviewCommentAllDelete(RvCommentDTO rvCommentDTO) throws Exception{
+		return rvCommentDAO.setReviewCommentAllDelete(rvCommentDTO);
+	}
+	
+	public int setReviewCommentDelete(RvCommentDTO rvCommentDTO) throws Exception{
+		return rvCommentDAO.setReviewCommentDelete(rvCommentDTO);
+	}
+	
+	public int setReviewCommentAdd(RvCommentDTO rvCommentDTO) throws Exception{
+		return rvCommentDAO.setReviewCommentAdd(rvCommentDTO);
+	}
+	
+	public int setReviewCommentUpdate(RvCommentDTO rvCommentDTO) throws Exception{
+		return rvCommentDAO.setReviewCommentUpdate(rvCommentDTO);
 	}
 	
 	//지도 매핑용

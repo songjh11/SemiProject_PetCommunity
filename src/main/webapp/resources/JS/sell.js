@@ -9,6 +9,12 @@ const uFileDelete = document.querySelectorAll(".uFileDelete");
 let count=0;
 let idx=0;
 
+function setCount(c){
+    if(c>=0){
+        count=c;
+    }
+}
+
 
 // add page: 이벤트 전달-------------------------------------------------------------
 sellfileAdd.addEventListener("click", function(){

@@ -233,7 +233,9 @@
       <div id="myTabContent" class="tab-content">
         <div class="tab-pane fade show active" id="iContents" role="tabpanel">
           <br>
-          <p>${sellItemDTO.itemContents}</p>
+          <button style="display: none;"></button>
+          <div style="white-space:pre;"><c:out value="${sellItemDTO.itemContents}"/></div>
+          <p></p>
         </div>
         <div class="tab-pane fade" id="review" role="tabpanel">
           <br>

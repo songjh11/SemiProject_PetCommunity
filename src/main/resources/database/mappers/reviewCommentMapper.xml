@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pet.home.sell.RvCommentDAO">
+
+	<delete id="setReviewCommentAllDelete" parameterType="RvCommentDTO">
+		DELETE RVCOMMENT WHERE RVNUM=#{rvNum}
+	</delete>
+	
+	<delete id="setReviewCommentDelete" parameterType="RvCommentDTO">
+		DELETE RVCOMMENT WHERE RVCNUM=#{rvcNum}
+	</delete>
+	
+	<insert id="setReviewCommentAdd" parameterType="RvCommentDTO">
+		INSERT INTO RVCOMMENT VALUES(RV_SEQ.NEXTVAL,#{rvNum},'회원3',#{rvcContents},SYSDATE)
+	</insert>
+	
+	<update id="setReviewCommentUpdate" parameterType="RvCommentDTO">
+		UPDATE RVCOMMENT SET RVCCONTENTS=#{rvcContents} WHERE RVCNUM=#{rvcNum}
+	</update>
+
+</mapper>

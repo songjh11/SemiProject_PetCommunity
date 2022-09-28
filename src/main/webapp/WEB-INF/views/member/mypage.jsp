@@ -17,11 +17,12 @@
 		<c:when test="${dto.roleNum eq 1}">
             <p>아이템카테고리: ${dto.itemCatg}</p>
             <p>아이템아이디: ${dto.itemId}</p>
-            <a href="../resources/upload/member/${dto.memberFileDTO.fileName}">${dto.memberFileDTO.oriName}</a>
+            
         </c:when>
         <c:when test="${dto.roleNum eq 2}">
             <p>펫이름: ${dto.petName}</p>
             <p>펫카테고리: ${dto.petCatg}</p>
+            <a href="../resources/upload/member/${dto.memberFileDTO.fileName}">${dto.memberFileDTO.oriName}</a>
         </c:when>
 	</c:choose>
     <p>번호: ${dto.phone}</p>

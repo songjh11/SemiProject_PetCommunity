@@ -139,7 +139,7 @@ public class MemberController {
 		memberDTO = memberService.getBizPage(memberDTO); //역할번호가 1번일 때 판매자 마이페이지 
 		}else if(memberDTO.getRoleNum()==2){
 		memberDTO = memberService.getGuestPage(memberDTO); //역할번호가 2번일 때 회원 마이페이지 
-		System.out.println(memberDTO.getPetCatg());
+		System.out.println("마이페이지포스트 "+ memberDTO.getPetCatg());
 		}else {
 		memberDTO = memberService.getMyPage(memberDTO); // 그 외 관리자 마이페이지  
 		}
@@ -227,29 +227,28 @@ public class MemberController {
 	@PostMapping("update")
 	public String update(MemberDTO memberDTO, MultipartFile photo, HttpSession session) throws Exception{
 		
-		System.out.println("update post 실행");
-		
-		memberDTO = (MemberDTO)session.getAttribute("dto");
-		System.out.println(memberDTO.getPetCatg());
-
-		//공통 member테이블 먼저 생성 
-		int result = memberService.setMemUpdate(memberDTO);
-		
-		System.out.println("업데이트롤"+memberDTO.getRoleNum());
+		if(memberDTO.getAgMes()==null) {
+			memberDTO.setAgMes(0);
+		}else {memberDTO.setAgMes(1);
+		}
+		System.out.println("유1"+memberDTO.getUserId());
+		//공통 member테이블 먼저 업데이
+		memberService.setMemUpdate(memberDTO);
 		
 		
-		if(memberDTO.getRoleNum()==2){ 
-			System.out.println(memberDTO.getPetCatg());
+		if(memberDTO.getPetCatg() != null){ 
+		System.out.println("유"+memberDTO.getUserId());
 			//게스트 회원일 때 
-			memberDTO = memberService.getGuestPage(memberDTO);
 			memberService.setGuestUpdate(memberDTO); //guest 테이블 생성 
-			System.out.println(memberDTO.getPetCatg());
+
 			if(!photo.isEmpty()) {
+				
 			String path = session.getServletContext().getRealPath("resources/upload/member");
 			String fileName = fileManager.saveFile(session.getServletContext(), path, photo);
 			MemberFileDTO memberFileDTO = new MemberFileDTO();
 			memberFileDTO.setFileName(fileName);
 			memberFileDTO.setOriName(photo.getOriginalFilename());
+			memberFileDTO.setUserId(memberDTO.getUserId());
 			memberService.setFileUpdate(memberFileDTO, photo, session.getServletContext());
 				
 		}

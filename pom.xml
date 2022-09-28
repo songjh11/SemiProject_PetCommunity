@@ -221,8 +221,27 @@
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 			<scope>test</scope>
-		</dependency>        
+		</dependency>   
+		
+		<!-- import결제api --> 
+			<dependency>
+			    <groupId>com.github.iamport</groupId>
+			    <artifactId>iamport-rest-client-java</artifactId>
+			    <version>0.2.22</version>
+			</dependency>
+
+		
+		
 	</dependencies>
+	
+	<!-- import결제api --> 
+		<repositories>
+			<repository>
+			    <id>jitpack.io</id>
+			    <url>https://jitpack.io</url>
+			</repository>
+		</repositories>  
+		
     <build>
         <plugins>
             <plugin>

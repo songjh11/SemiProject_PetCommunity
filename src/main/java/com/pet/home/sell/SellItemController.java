@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pet.home.sell.check.CheckDTO;
 import com.pet.home.sell.file.SellFileDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
 import com.pet.home.util.Pager;
@@ -55,6 +56,12 @@ public class SellItemController {
 		model.addObject("category", categoryDTO);
 		return model;
 	}
+	
+	@PostMapping("check")
+	public void setCheck(CheckDTO checkDTO) {
+		System.out.println(checkDTO.getItemNum());
+	}
+
 	
 	@GetMapping("add")
 	public void setItemAdd() throws Exception {

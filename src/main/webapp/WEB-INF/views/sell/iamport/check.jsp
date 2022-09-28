@@ -7,7 +7,7 @@
  <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>${sellItemDTO.itemName}</title>
+  <title>${category.categoryName}</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -91,10 +91,8 @@
     <c:import url="/WEB-INF/views/template/header.jsp"></c:import>
     <!-- header end -->
 </div>
-<div style="margin-top: 100px;">  
-<a href="./update?itemNum=${sellItemDTO.itemNum}"><button>수정</button></a>
-<a href="./delete?itemNum=${sellItemDTO.itemNum}"><button id="deleteItem">삭제</button></a>
-</div>
+
+<h1>결제되었습니다</h1>
 
 <!-- main contents -->
 <section class="mainSection">
@@ -160,21 +158,21 @@
 <!-- reservation section -->
   <div style="width: 80%; margin-top: 50px;">
     <div class="block-32 aos-init aos-animate" data-aos="fade-up" data-aos-offset="-200">
-        <form action="/iamport/payments/complete" method="post" id="rvFrm">
+        <form action="check" method="post">
           <div class="outerBox">
             <div class="innerBox">
               <div class="col-md-6 mb-3 mb-lg-0 col-lg-3">
                 <label for="checkin_date" class="font-weight-bold text-black">Check In</label>
                 <div class="field-icon-wrap">
                   <div class="icon"><span class="icon-calendar"></span></div>
-                  <input type="date" id="revStartDate" name="revStartDate" class="form-control">
+                  <input type="date" id="checkin_date" class="form-control">
                 </div>
               </div>
               <div class="col-md-6 mb-3 mb-lg-0 col-lg-3">
                 <label for="checkout_date" class="font-weight-bold text-black">Check Out</label>
                 <div class="field-icon-wrap">
                   <div class="icon"><span class="icon-calendar"></span></div>
-                  <input type="date" id="revEndDate" name="revEndDate" class="form-control">
+                  <input type="date" id="checkout_date" class="form-control">
                 </div>
               </div>
               <div class="col-md-6 mb-3 mb-md-0 col-lg-3">
@@ -183,7 +181,7 @@
                     <label for="adults" class="font-weight-bold text-black">Adults</label>
                     <div class="field-icon-wrap">
                       <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                      <select name="" id="adultsCount" name="adultsCount" class="form-control">
+                      <select name="" id="adults" class="form-control">
                         <option value="">1</option>
                         <option value="">2</option>
                         <option value="">3</option>
@@ -195,7 +193,7 @@
                     <label for="Dog" class="font-weight-bold text-black">Dog</label>
                     <div class="field-icon-wrap">
                       <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                      <select name="" id="dogCount" name="dogCount" class="form-control">
+                      <select name="" id="children" class="form-control">
                         <option value="">1</option>
                         <option value="">2</option>
                         <option value="">3</option>
@@ -208,7 +206,7 @@
             </div>
             <div class="buttonBox">
               <div class="col-md-6 col-lg-3 align-self-end">
-                <button type="button" class="btn btn-outline-danger" onclick="requestPay()">Check Availabilty</button>
+                <button class="btn btn-outline-danger" onclick="requestPay()">Check Availabilty</button>
               </div>
             </div>
           </div>
@@ -322,72 +320,31 @@
 
 <!-- 결제 api -->
 <script>
-
-var IMP = window.IMP; // 생략 가능
-IMP.init("imp12326472"); // 예: imp00000000
-const revStartDate = document.getElementById("revStartDate");
-const revEndDate = document.getElementById("revEndDate");
-const adultsCount = document.getElementById("adultsCount");
-const dogCount = document.getElementById("dogCount");
-const rvFrm = document.getElementById("rvFrm");
-
   function requestPay() {
     // IMP.request_pay(param, callback) 결제창 호출
     IMP.request_pay({ // param
         pg: "html5_inicis",
         pay_method: "card",
-        merchant_uid: "ORD20180131-0000018",
-        name: "${sellItemDTO.itemName}",
-        amount: 100,//${sellItemDTO.itemPrice}
+        merchant_uid: "ORD20180131-0000011",
+        name: "노르웨이 회전 의자",
+        amount: 64900,
         buyer_email: "gildong@gmail.com",
         buyer_name: "홍길동",
         buyer_tel: "010-4242-4242",
+        buyer_addr: "서울특별시 강남구 신사동",
+        buyer_postcode: "01181"
     }, function (rsp) { // callback
-      if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
-        // jQuery로 HTTP 요청
-        jQuery.ajax({
-            url: "/iamport/payments/complete", // 예: https://www.myservice.com/payments/complete
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            data: {
-                imp_uid: rsp.imp_uid,
-                merchant_uid: rsp.merchant_uid
-            }
-        }).done(function (data) {
-          
-          switch(data.status) {
-            case "vbankIssued":
-                  console.log("가상계좌 발급 완료");
-              // 가상계좌 발급 시 로직
-              break;
-            case "success":
-                console.log("결제 성공");
-              // 결제 성공 시 로직
-              break;
-          }
-          // 가맹점 서버 결제 API 성공시 로직
-          if ( everythings_fine ) {
-    			var msg = 'Payment successful.';
-    			msg += '\Payment ID: ' + rsp.imp_uid;
-    			msg += '\nOrder ID: ' + rsp.merchant_uid;
-    			msg += '\Payment amount: ' + rsp.paid_amount;
-    			msg += 'Credit card authorization number: ' + rsp.apply_num;
-    			
-    			alert(msg);
-        
-    		} else {
-    			//[3] Payment is not complete.
-    			//[4] Payment amount check failed -> payment has been automatically cancelled.
-    		}
-    	});
-    } else {
-        var msg = 'Payment failed.';
-        msg += 'Error: ' + rsp.error_msg;
-        
-        alert(msg);
-    }
-  })
-  };
+        if (rsp.success) {
+            ...,
+            // 결제 성공 시 로직,
+            ...
+        } else {
+            ...,
+            // 결제 실패 시 로직,
+            ...
+        }
+    });
+  }
 </script>
 
 <script src="/resources/JS/sell.js"></script>  

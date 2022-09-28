@@ -68,6 +68,11 @@
       border-color: #ccc;
     }
 
+    .btnsocial{
+      border: 0px;  
+      outline: 0px;
+      background-color: transparent;
+    }
 
     </style>
 
@@ -94,13 +99,12 @@
                   <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 15px;">
                     <div class="member-img" style="width: 100%;">
                       <img src="/resources/upload/sellfile/${ar.fileDTOs[0].fileName}" class="img-fluid" alt="">
-                      <div class="social">
-                        <i class="bi bi-twitter btnPick" data-item-num="${ar.itemNum}">찜</i>
-                        <p>
-                          <i class="bi bi-facebook" id="btnShopCart">장바구니</i></a>
+                      <div class="social d-flex">
+                        <button type="button" class="btnsocial" id="btnPick">
+                          <i class="bi bi-balloon-heart btnPick" data-item-num="${ar.itemNum}"></i>
+                        </button>
+                          <i class="bi bi-facebook" id="btnShopCart"></i></a>
                         </p>
-                        <i class="bi bi-instagram"></i>
-                        <i class="bi bi-linkedin"></i>
                       </div>
                     </div>
                     <div class="member-info" style="width: 100%; height: 115px;">
@@ -226,6 +230,16 @@
   <script src="/resources/assets/js/main.js"></script>
   <script src="/resources/JS/sellHeader.js"></script>
   <script src="/resources/JS/pick&shopcart.js"></script>
+
+  <script>
+    const btnPick = document.getElementById("btnPick");
+    
+    btnPick.addEventListener("click", function(){
+      선택자.classList.remove('삭제할 클래스명')
+      선택자.classList.add('추가할클래스명')  
+
+    })
+  </script>
 </body>
 
 </html>

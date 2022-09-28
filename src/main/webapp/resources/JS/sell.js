@@ -170,6 +170,11 @@ deleteItem.addEventListener("click", function(event){
 
 });
 
-var popover = new bootstrap.Popover(document.querySelector('.example-popover'), {
-    container: 'body'
-  })
+// 결제 api
+
+
+
+
+
+
+

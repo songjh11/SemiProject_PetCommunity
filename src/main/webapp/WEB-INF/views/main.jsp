@@ -95,7 +95,7 @@
         <a class="btn-book-a-table" href="#">guest page</a>
        </c:when>
        <c:otherwise>
-        <a class="btn-book-a-table" href="#">admin page</a>
+        <a class="btn-book-a-table" href="/mypage/admin">admin page</a>
         </c:otherwise>
         </c:choose>
 

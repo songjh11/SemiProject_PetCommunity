@@ -13,10 +13,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
+import com.pet.home.sell.file.RvFileDTO;
 import com.pet.home.sell.file.SellFileDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
 import com.pet.home.sell.sellcategory.SellCategoryDTO;
+import com.pet.home.util.FileManager;
 import com.pet.home.util.Pager;
 import com.pet.home.util.SellPager;
 
@@ -29,6 +30,12 @@ public class SellItemService {
 	private PickDAO pickDAO;
 	@Autowired
 	private ShopCartDAO shopCartDAO;
+	@Autowired
+	private ReviewDAO reviewDAO;
+	@Autowired
+	private FileManager fileManager;
+	@Autowired
+	private RvCommentDAO rvCommentDAO;
 	
 	public int setItemAdd(SellItemDTO itemDTO, MultipartFile [] files, ServletContext servletContext) throws Exception {
 		int result = itemDAO.setItemAdd(itemDTO);
@@ -178,11 +185,131 @@ public class SellItemService {
 		return shopCartDAO.setShopCartUpdate(shopCartDTO);
 	}
 	
+	public int setReviewAdd(ReviewDTO reviewDTO, MultipartFile [] mf, ServletContext servletContext) throws Exception {
+		System.out.println("service");
+		int result = reviewDAO.setReivewAdd(reviewDTO);
+		System.out.println(reviewDTO.getItemNum());
+		
+			for(MultipartFile m: mf) {
+				if(m.isEmpty()) {
+					continue;
+				}				
+				
+				String realPath = servletContext.getRealPath("resources/upload/reviewfile");
+				
+				File file = new File(realPath);
+				
+				if(!file.exists()) {
+					file.mkdirs();
+				}
+				
+				Calendar ca = Calendar.getInstance();
+				Long l = ca.getTimeInMillis();
+				String oriName = m.getOriginalFilename();
+				String fileName = l+"_"+oriName;
+				file = new File(file, fileName);
+				
+				System.out.println(realPath);
+				System.out.println(fileName);
+				
+				m.transferTo(file);
+				RvFileDTO rvFileDTO = new RvFileDTO();
+				rvFileDTO.setFileName(fileName);
+				rvFileDTO.setOriName(m.getOriginalFilename());
+				rvFileDTO.setRvNum(reviewDTO.getRvNum());
+				reviewDAO.setAddReviewFile(rvFileDTO);
+				System.out.println("저장");
+			}//for end
+			
+		return result;
+	}
+	
+	public List<ReviewDTO> getReviewList(com.pet.home.util.CommentPager commentPager)throws Exception{
+		commentPager.getRowNum();
+		Long totalCount = reviewDAO.getReviewListTotalCount(commentPager);
+		commentPager.makePage(totalCount);
+		return reviewDAO.getReviewList(commentPager);
+	}
+	
 	public SellItemDTO getMap() throws Exception{
 		return itemDAO.getMap();
 	}
 	
+	public ReviewDTO getReviewUpdate(ReviewDTO reviewDTO) throws Exception{
+		return reviewDAO.getReviewUpdate(reviewDTO);
+	}
 	
+	public int setFileDelete(RvFileDTO rvFileDTO,ServletContext servletContext) throws Exception{
+		rvFileDTO = reviewDAO.getFileDetail(rvFileDTO);
+		int result = reviewDAO.setFileDelete(rvFileDTO);
+		String path = "resources/upload/reviewfile";
+		
+		if(result > 0) {
+			fileManager.deleteFile(servletContext, rvFileDTO, path);
+		}
+		
+		return result;
+	}
 	
+	public int setReviewUpdate(ReviewDTO reviewDTO, MultipartFile [] mf, ServletContext servletContext) throws Exception{
+		int result = reviewDAO.setReviewUpdate(reviewDTO);
+		for(MultipartFile m: mf) {
+			if(m.isEmpty()) {
+				continue;
+			}				
+			
+			String realPath = servletContext.getRealPath("resources/upload/reviewfile");
+			
+			File file = new File(realPath);
+			
+			if(!file.exists()) {
+				file.mkdirs();
+			}
+			
+			Calendar ca = Calendar.getInstance();
+			Long l = ca.getTimeInMillis();
+			String oriName = m.getOriginalFilename();
+			String fileName = l+"_"+oriName;
+			file = new File(file, fileName);
+			
+			System.out.println(realPath);
+			System.out.println(fileName);
+			
+			m.transferTo(file);
+			RvFileDTO rvFileDTO = new RvFileDTO();
+			rvFileDTO.setFileName(fileName);
+			rvFileDTO.setOriName(m.getOriginalFilename());
+			rvFileDTO.setRvNum(reviewDTO.getRvNum());
+			reviewDAO.setAddReviewFile(rvFileDTO);
+			System.out.println("저장");
+		}//for end
+		
+		return result;
+	}
+	
+	public int setReviewDelete(ReviewDTO reviewDTO) throws Exception{
+		return reviewDAO.setReviewDelete(reviewDTO);
+	}
+	
+	public int setReviewCommentAllDelete(RvCommentDTO rvCommentDTO) throws Exception{
+		return rvCommentDAO.setReviewCommentAllDelete(rvCommentDTO);
+	}
+	
+	public int setReviewCommentDelete(RvCommentDTO rvCommentDTO) throws Exception{
+		return rvCommentDAO.setReviewCommentDelete(rvCommentDTO);
+	}
+	
+	public int setReviewCommentAdd(RvCommentDTO rvCommentDTO) throws Exception{
+		return rvCommentDAO.setReviewCommentAdd(rvCommentDTO);
+	}
+	
+	public int setReviewCommentUpdate(RvCommentDTO rvCommentDTO) throws Exception{
+		return rvCommentDAO.setReviewCommentUpdate(rvCommentDTO);
+	}
+	
+	//지도 매핑용
+	public List<SellItemDTO> getAllItemList() throws Exception{
+		return itemDAO.getAllItemList();
+	}
 
 }

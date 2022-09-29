@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pet.home.sell.file.RvFileDTO;
 import com.pet.home.sell.file.SellFileDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
 import com.pet.home.util.Pager;
@@ -88,7 +91,7 @@ public class SellItemController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/sell/list?itemCatg="+itemDTO.getItemCatg());
 		return mv;
-				}
+	}
 	
 	@PostMapping("filedelete")
 	@ResponseBody
@@ -148,6 +151,102 @@ public class SellItemController {
 		int result = itemService.setShopCartUpdate(shopCartDTO);
 		return result;
 	}
+	
+	@GetMapping("reviewadd")
+	public ModelAndView setReviewAdd(ReviewDTO reviewDTO) throws Exception {
+		System.out.println("reviewadd Get");
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("reviewDTO", reviewDTO);
+		mv.setViewName("./sell/reviewadd");
+		return mv;
+	}
+	
+	
+	@PostMapping("reviewadd")
+	public ModelAndView setReviewAddResult(ReviewDTO reviewDTO, MultipartFile [] files, HttpSession session) throws Exception {
+		System.out.println("reviewadd Post");
+		ModelAndView view = new ModelAndView();
+		System.out.println(reviewDTO.getUserId());
+		System.out.println(files.length);
+		int result = itemService.setReviewAdd(reviewDTO, files, session.getServletContext());
+		if(result>0) {
+			view.setViewName("redirect:/sell/detail?itemNum="+reviewDTO.getItemNum());
+			
+		} else {
+			view.setViewName("../");
+		}
+		return view;
+	}
+	
+	@GetMapping("reviewList")
+	@ResponseBody
+	public Map<String, Object> getReviewList(com.pet.home.util.CommentPager commentPager) throws Exception{
+		List<ReviewDTO> ar = itemService.getReviewList(commentPager);
+		System.out.println(ar.size());
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", ar);
+		map.put("pager", commentPager);
+		return map;
+	}
+	
+	@GetMapping("reviewupdate")
+	public ModelAndView getReviewUpdate(ReviewDTO reviewDTO) throws Exception{
+		reviewDTO = itemService.getReviewUpdate(reviewDTO);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("reviewDTO", reviewDTO);
+		mv.setViewName("./sell/reviewupdate");
+		return mv;
+	}
+	
+	@PostMapping("reviewupdate")
+	public String setReviewUpdate(ReviewDTO reviewDTO, MultipartFile [] files, HttpSession session) throws Exception {
+		int result = itemService.setReviewUpdate(reviewDTO, files, session.getServletContext());
+		return "redirect:./detail?itemNum="+reviewDTO.getItemNum();
+	}
+	
+	@PostMapping("reviewdelete")
+	@ResponseBody
+	public int setReviewDelete(ReviewDTO reviewDTO) throws Exception{
+		int result = itemService.setReviewDelete(reviewDTO);
+		return result;
+	}
+	
+	@PostMapping("fileDelete")
+	@ResponseBody
+	public int setFileDelete(RvFileDTO rvFileDTO, HttpSession session) throws Exception{
+		int result = itemService.setFileDelete(rvFileDTO, session.getServletContext());
+		return result;
+	}
+	
+	@PostMapping("reviewcommentalldelete")
+	@ResponseBody
+	public int setReviewCommentAllDelete(RvCommentDTO rvCommentDTO) throws Exception{
+		int result = itemService.setReviewCommentAllDelete(rvCommentDTO);
+		return result;
+	}
+	
+	@PostMapping("reviewcommentdelete")
+	@ResponseBody
+	public int setReviewCommentDelete(RvCommentDTO rvCommentDTO) throws Exception{
+		int result = itemService.setReviewCommentDelete(rvCommentDTO);
+		return result;
+	}
+	
+	@PostMapping("reviewcommentadd")
+	@ResponseBody
+	public int setReviewCommentAdd(RvCommentDTO rvCommentDTO) throws Exception{
+		int result = itemService.setReviewCommentAdd(rvCommentDTO);
+		return result;
+	}
+	
+	@PostMapping("reviewcommentupdate")
+	@ResponseBody
+	public int setReviewCommentUpdate(RvCommentDTO rvCommentDTO) throws Exception{
+		int result = itemService.setReviewCommentUpdate(rvCommentDTO);
+		return result;
+	}
+	
+	
 	
 	@GetMapping("map")
 	public ModelAndView getMap(SellItemDTO itemDTO) throws Exception{

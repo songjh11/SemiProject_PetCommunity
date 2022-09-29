@@ -56,16 +56,13 @@ public class EchoHandler extends TextWebSocketHandler {
 			//log.info("{} 연결됨", session.getId());
 
 			userSessionList.add(memberDTO);
-			
-
 		}
 		
 		for(WebSocketSession sess : sessionList) {
 			for(MemberDTO mDTO : userSessionList) {
 				sess.sendMessage(new TextMessage(mDTO.getUserName()+":"+"접속"));
-			}
+			}	
 		}
-		
 		
 	}
 
@@ -109,11 +106,11 @@ public class EchoHandler extends TextWebSocketHandler {
 		for(WebSocketSession sess : sessionList) {
 			sess.sendMessage(new TextMessage(memberDTO.getUserName() + ":" + message.getPayload()));
 			for(MemberDTO mDTO : userSessionList) {
-				sess.sendMessage(new TextMessage(mDTO.getUserName() + ":" + "접속"));
-			}
+				sess.sendMessage(new TextMessage(mDTO.getUserName()+":"+"접속"));
+			}	
 		}
 		
-		
+	
 		
 	}
 	

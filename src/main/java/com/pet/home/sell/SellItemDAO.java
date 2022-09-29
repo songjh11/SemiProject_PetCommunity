@@ -80,4 +80,8 @@ public class SellItemDAO {
 		return session.selectOne(NAMESPACE+"getMap");
 	}
 	
+	//지도 매핑용 전체 상품 리스트
+	public List<SellItemDTO> getAllItemList() throws Exception{
+		return session.selectList(NAMESPACE+"getAllItemList");
+	}
 }

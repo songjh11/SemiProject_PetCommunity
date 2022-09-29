@@ -8,6 +8,11 @@
 		<typeAlias type="com.pet.home.board.impl.BoardFileDTO" alias="BoardFileDTO"/>
 		<typeAlias type="com.pet.home.board.notice.NoticeDTO" alias="NoticeDTO"/>
 		<typeAlias type="com.pet.home.board.qna.QnaDTO" alias="QnaDTO"/>
+		<typeAlias type="com.pet.home.board.sharing.SharingDTO" alias="SharingDTO"/>
+		<typeAlias type="com.pet.home.board.sharing.ShCommentDTO" alias="ShCommentDTO"/>
+		<typeAlias type="com.pet.home.util.BoardCommentPager" alias="BoardCommentPager"/>
+		<typeAlias type="com.pet.home.board.event.EventDTO" alias="EventDTO"/>
+		<typeAlias type="com.pet.home.board.event.coupon.CouponDTO" alias="CouponDTO"/>
 		
 		<typeAlias type="com.pet.home.chat.chatting.ChattingDTO" alias="ChattingDTO"/>
 		<typeAlias type="com.pet.home.chat.room.ChatRoomDTO" alias="ChatRoomDTO"/>
@@ -32,7 +37,9 @@
       	<typeAlias type="com.pet.home.sell.sellcategory.CategoryDTO" alias="CategoryDTO"/>
       	<typeAlias type="com.pet.home.sell.PickDTO" alias="PickDTO"/>
       	<typeAlias type="com.pet.home.sell.ShopCartDTO" alias="ShopCartDTO"/>
-      
+      	<typeAlias type="com.pet.home.sell.ReviewDTO" alias="ReviewDTO"/>
+      	<typeAlias type="com.pet.home.util.CommentPager" alias="CommentPager"/>
+      	<typeAlias type="com.pet.home.sell.RvCommentDTO" alias="RvCommentDTO"/>
 		<typeAlias type="com.pet.home.util.Pager" alias="Pager"/>
 		<typeAlias type="com.pet.home.util.SellPager" alias="SellPager"/>
 		<typeAlias type="java.lang.Long" alias="Long"/>

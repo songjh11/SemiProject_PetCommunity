@@ -23,7 +23,7 @@ public class ChatRoomController {
 	private ChatRoomService chatRoomService;
 
 	
-	@GetMapping("list")
+	@RequestMapping(value = "list")
 	public ModelAndView getList(HttpServletRequest request) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		HttpSession session = request.getSession();

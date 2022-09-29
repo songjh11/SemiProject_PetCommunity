@@ -1,8 +1,8 @@
-//chat.js => room.jsp
+//chat.js => /chat/list.jsp
 
 const app = document.getElementById("app");
 const roomName = document.querySelector("#roomName");
-const btn = document.getElementById("btn");
+const btn = document.getElementById("send");
 
 
 btn.addEventListener("click", function(){

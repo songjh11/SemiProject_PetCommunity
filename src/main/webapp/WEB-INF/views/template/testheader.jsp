@@ -117,5 +117,54 @@
 <body>
 
   <script src="/resources/JS/sellHeader.js"></script>
+  <script>
+
+    //알림기능
+    let socket = null;
+    $(document).ready(function(){
+      //웹 소켓 연결
+      let name = "${sessionScope.member.userName}"
+      if(name != null){
+        connectWs(name);
+      }
+    });
+      
+      function connectWs(name){
+        sock = new SockJS("/echo");
+        sock.onopen = onOpen;
+        sock.onmessage = onMessage;
+        sock.onclose = onClose;
+
+        function onOpen(evt){
+        }
+
+
+        // 버튼 클릭(접속) 하면 서버에서 데이터 파싱해서 보내고 알림
+        function onMessage(msg){
+          let data = msg.data;
+          let arr = data.split(":");
+          console.log(arr[0]);
+          console.log(arr[1]);
+          console.log(name);
+          if(arr[0] != name){
+
+            let toast = "<div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>";
+            toast += "<div class='toast-header'><i class='fas fa-bell mr-2'></i><strong class='mr-auto'>알림</strong>";
+            toast += "<small class='text-muted'>just now</small><button type='button' class='ml-2 mb-1 close' data-dismiss='toast' aria-label='Close'>";
+            toast += "<span aria-hidden='true'>&times;</span></button>";
+            toast += "</div> <div class='toast-body'>" + data + "</div></div>";
+            $("#msgStack").append(toast);   // msgStack div에 생성한 toast 추가
+            $(".toast").toast({"animation": true, "autohide": true});
+            $('.toast').toast('show');
+          }
+        }
+
+        function onClose(evt){}
+
+      }
+
+
+
+  </script>
 </body>
 </html>

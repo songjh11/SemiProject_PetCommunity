@@ -97,9 +97,9 @@
 		                          <div class="member-img">
 		                            <img src="/resources/upload/sellfile/${ar.fileDTOs[0].fileName}" class="img-fluid" alt="">
 			                            <div class="social">
-			                              <i class="bi bi-twitter btnPick" data-item-num="${ar.itemNum}">찜</i>
+			                              <i class="bi bi-twitter btnPick" style="cursor: pointer;" data-item-num="${ar.itemNum}">찜</i>
                                     <p>
-                                      <i class="bi bi-facebook btnShopCart" data-item-num="${ar.itemNum }" data-item-price="${ar.itemPrice}">장바구니</i></a>
+                                      <i class="bi bi-facebook btnShopCart" style="cursor: pointer;" data-item-num="${ar.itemNum }" data-item-price="${ar.itemPrice}">장바구니</i></a>
                                     </p>
 			                              <i class="bi bi-instagram"></i>
 			                              <i class="bi bi-linkedin"></i>

@@ -73,7 +73,7 @@ SELECT M.USERNAME, M.USERID, R.ROLENUM, R.ROLENAME
 		ORDER BY R.ROLENUM ASC
 </select>
 
-<select id="getFolloweeList" parameterType="MemberDTO" resultType="MemberDTO">
+<select id="getFolloweeList" parameterType="MemberDTO" resultMap="getFollowList">
 SELECT F.FOLLOWEE, MF.FILENAME
 from FOLLOW F
 LEFT JOIN
@@ -82,7 +82,7 @@ ON (F.FOLLOWEE = MF.USERID)
 WHERE FOLLOWER =#{userId}
 </select>
 
-<select id="getFollowerList" parameterType="MemberDTO" resultType="MemberDTO">
+<select id="getFollowerList" parameterType="MemberDTO" resultMap="getFollowList">
 SELECT F.FOLLOWER, MF.FILENAME
 from FOLLOW F
 LEFT JOIN
@@ -125,7 +125,7 @@ UPDATE MEMFILE SET FILENAME=#{fileName}, ORINAME=#{oriName} where USERID=#{userI
 		</collection>
 	</resultMap>
 	
-	
+<!--  FOLLOW LIST -->
 	<resultMap type="MemberDTO" id="getFollowList">
 	<id column="USERID" property="userId"></id>
 	

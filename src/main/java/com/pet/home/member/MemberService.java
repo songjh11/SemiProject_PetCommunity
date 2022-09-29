@@ -113,5 +113,23 @@ public class MemberService {
 		return memberDAO.getTotalPrice(memberDTO);
 	}
 	
+	public List<FollowDTO> getFolloweeList(MemberDTO memberDTO){
+		return memberDAO.getFolloweeList(memberDTO);
+	}
+	
+	public List<FollowDTO> getFollowerList(MemberDTO memberDTO){
+		return memberDAO.getFollowerList(memberDTO);
+	}
+	
+	public int getFollowerount(MemberDTO memberDTO)throws Exception{
+		return memberDAO.getFollowerount(memberDTO);
+		
+	}
+	
+	public int getFolloweeount(MemberDTO memberDTO)throws Exception{
+		return memberDAO.getFolloweeount(memberDTO);
+		
+	}
+	
 
 }

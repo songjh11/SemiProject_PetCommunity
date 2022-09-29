@@ -231,13 +231,13 @@ public class MemberController {
 			memberDTO.setAgMes(0);
 		}else {memberDTO.setAgMes(1);
 		}
-		System.out.println("유1"+memberDTO.getUserId());
+
 		//공통 member테이블 먼저 업데이
 		memberService.setMemUpdate(memberDTO);
 		
 		
 		if(memberDTO.getPetCatg() != null){ 
-		System.out.println("유"+memberDTO.getUserId());
+
 			//게스트 회원일 때 
 			memberService.setGuestUpdate(memberDTO); //guest 테이블 생성 
 

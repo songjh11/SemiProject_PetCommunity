@@ -73,10 +73,11 @@ SELECT M.USERNAME, M.USERID, R.ROLENUM, R.ROLENAME
 		ORDER BY R.ROLENUM ASC
 </select>
 
-<insert id="getFollow">
-INSERT INTO FOLLOW (FOLLOWNUM, FOLLOWER, FOLLOWEE)
-VALUES(FOL_SEQ.NEXTVAL,#{userId},#{userId});
-</insert>
+<select id="getFollowList" parameterType="FollowDTO" resultType="FollowDTO">
+SELECT FOLLOWER, FOLLOWEE
+FROM FOLLOW
+WHERE FOLLOWER=#{follower}
+</select>
 
 <delete id="setMemDelete" parameterType="MemberDTO">
 DELETE FROM MEMBER WHERE USERID=#{userId}

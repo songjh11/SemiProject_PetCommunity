@@ -241,6 +241,7 @@
     }//kakao api 끝
 </script>
 
-<script src="/resources/JS/member.js"></script>
+<script src="/resources/JS/update.js"></script>
+
 </body>
 </html>

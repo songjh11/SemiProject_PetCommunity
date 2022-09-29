@@ -22,6 +22,7 @@
         <c:when test="${dto.roleNum eq 2}">
             <p>펫이름: ${dto.petName}</p>
             <p>펫카테고리: ${dto.petCatg}</p>
+            <img src="../resources/upload/member/${dto.memberFileDTO.fileName}" alt="">
             <a href="../resources/upload/member/${dto.memberFileDTO.fileName}">${dto.memberFileDTO.oriName}</a>
         </c:when>
 	</c:choose>

@@ -17,6 +17,7 @@
 		<typeAlias type="com.pet.home.member.MemberDTO" alias="MemberDTO"/>
 		<typeAlias type="com.pet.home.member.RoleDTO" alias="RoleDTO"/>
 		<typeAlias type="com.pet.home.member.MemberFileDTO" alias="MemberFileDTO"/>
+		<typeAlias type="com.pet.home.member.FollowDTO" alias="FollowDTO"/>
 
 		
 		<typeAlias type="com.pet.home.sell.SellItemDTO" alias="SellItemDTO"/>

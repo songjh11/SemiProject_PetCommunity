@@ -1,25 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Yummy Bootstrap Template - Index</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
 
   <!-- SockJs Websocket Jquery-->
   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
 
-
   <!-- Favicons -->
-  <link href="resources/assets/img/favicon.png" rel="icon">
-  <link href="resources/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="/resources/assets/img/favicon.png" rel="icon">
+  <link href="/resources/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,14 +16,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="resources/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="resources/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="resources/assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="resources/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="resources/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="/resources/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/resources/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/resources/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/resources/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/resources/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="resources/assets/css/main.css" rel="stylesheet">
+  <link href="/resources/assets/css/main.css" rel="stylesheet">
+
 
   <!-- =======================================================
   * Template Name: Yummy - v1.2.0
@@ -42,9 +32,7 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-</head>
 
-<body>
 
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
@@ -85,7 +73,8 @@
           <li><a href="#gallery">여행해요</a></li>
           <li class="dropdown"><a href="#"><span>커뮤니티</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
-              <li><a href="#">같이해요</a></li>
+              <li><a href="/sharing/list">같이해요</a></li>
+              <li><a href="/event/list">이벤트</a></li>
               <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                 <ul>
                   <li><a href="#">Deep Drop Down 1</a></li>
@@ -100,11 +89,40 @@
               <li><a href="#">Drop Down 4</a></li>
             </ul>
           </li>
+          <li class="dropdown"><a href="#"><span>고객센터</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <li><a href="/notice/list">공지사항</a></li>
+            <li><a href="/qna/list">QNA</a></li>
+          </li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav><!-- .navbar -->
-	  <a class="btn-book-a-table" href="/member/login">Login</a>
-	  <a class="btn-book-a-table" href="/member/role">Join</a>
+	  
+      <!--로그인 성공했을 때-->
+      <c:if test="${not empty sessionScope.member}">
+      <h5>${sessionScope.member.userName} 님 환영합니다!</h5>
+       <a class="btn-book-a-table" href="/member/mypage">Mypage</a>
+       <a class="btn-book-a-table" href="/member/logout">Logout</a>
+
+       <!-- 역할번호에 따라 다른 메뉴바-->
+       <c:choose>
+       <c:when test="${dto.roleNum =='1'}">
+        <a class="btn-book-a-table" href="#">seller page</a>
+       </c:when>
+       <c:when test="${dto.roleNum =='2'}">
+        <a class="btn-book-a-table" href="#">guest page</a>
+       </c:when>
+       <c:otherwise>
+        <a class="btn-book-a-table" href="/mypage/admin">admin page</a>
+        </c:otherwise>
+        </c:choose>
+
+       </c:if>
+       <!-- 로그인 실패했을 때 -->
+       <c:if test="${empty sessionScope.member}">
+	      <a class="btn-book-a-table" href="/member/login">Login</a>
+	       <a class="btn-book-a-table" href="/member/role">Join</a>
+	       </c:if>
+
     
     <a href="./add"><button class="btn btn-outline-success me-2" type="button">Add Items</button></a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
@@ -114,9 +132,8 @@
     <div id="msgStack">
     </div>
   </header><!-- End Header -->
-<body>
 
-  <script src="/resources/JS/sellHeader.js"></script>
+
   <script>
 
     //알림기능
@@ -166,5 +183,3 @@
 
 
   </script>
-</body>
-</html>

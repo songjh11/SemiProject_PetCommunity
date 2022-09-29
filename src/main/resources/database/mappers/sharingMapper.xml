@@ -94,11 +94,11 @@
 	
 	<insert id="setCommentAdd" parameterType="ShCommentDTO">
 		INSERT INTO SHCOMMENT(COMMENTNUM, NUM, WRITER, CONTENTS, REGDATE)
-		VALUES(SHCOMMENT_SEQ.NEXTVAL,#{bookNum},#{writer},#{contents},SYSDATE)
+		VALUES(SHCOMMENT_SEQ.NEXTVAL,#{num},#{writer},#{contents},SYSDATE)
 	</insert>
 	
 	<select id="getCommentListTotalCount" parameterType="BoardCommentPager" resultType="Long">
-		SELECT COUNT(NUM) FROM SHCOMMENT WHERE NUM = #{NUM}
+		SELECT COUNT(NUM) FROM SHCOMMENT WHERE NUM = #{num}
 	</select>
 	
 	<delete id="setCommentDelete" parameterType="ShCommentDTO">

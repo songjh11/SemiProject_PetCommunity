@@ -79,5 +79,14 @@ public class MemberDAO {
 	public MemberDTO getTotalPrice(MemberDTO memberDTO) throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getTotalPrice", memberDTO);
 	}
+
+			
+	public List<FollowDTO> getFollowList(FollowDTO followDTO){
+		return sqlSession.selectList(NAMESPACE+"getFollowList",followDTO);
+	}
+
+	public int getFollowCount(FollowDTO followDTO)throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getFollowCount", followDTO);
+	}
 	
 }

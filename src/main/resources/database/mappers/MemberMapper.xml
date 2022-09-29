@@ -73,10 +73,30 @@ SELECT M.USERNAME, M.USERID, R.ROLENUM, R.ROLENAME
 		ORDER BY R.ROLENUM ASC
 </select>
 
-<select id="getFollowList" parameterType="FollowDTO" resultType="FollowDTO">
-SELECT FOLLOWER, FOLLOWEE
-FROM FOLLOW
-WHERE FOLLOWER=#{follower}
+<select id="getFolloweeList" parameterType="MemberDTO" resultType="MemberDTO">
+SELECT F.FOLLOWEE, MF.FILENAME
+from FOLLOW F
+LEFT JOIN
+MEMFILE MF
+ON (F.FOLLOWEE = MF.USERID)
+WHERE FOLLOWER =#{userId}
+</select>
+
+<select id="getFollowerList" parameterType="MemberDTO" resultType="MemberDTO">
+SELECT F.FOLLOWER, MF.FILENAME
+from FOLLOW F
+LEFT JOIN
+MEMFILE MF
+ON (F.FOLLOWER = MF.USERID)
+WHERE FOLLOWEE =#{userId}
+</select>
+
+<select id="getFollowerCount" parameterType="MemberDTO" resultType="Long">
+SELECT COUNT(DISTINCT FOLLOWEE) FROM FOLLOW WHERE FOLLOWER=#{userId};
+</select>
+
+<select id="getFolloweeCount" parameterType="MemberDTO" resultType="Long">
+SELECT COUNT(DISTINCT FOLLOWER) FROM FOLLOW WHERE FOLLOWEE=#{userId};
 </select>
 
 <delete id="setMemDelete" parameterType="MemberDTO">
@@ -105,6 +125,20 @@ UPDATE MEMFILE SET FILENAME=#{fileName}, ORINAME=#{oriName} where USERID=#{userI
 		</collection>
 	</resultMap>
 	
+	
+	<resultMap type="MemberDTO" id="getFollowList">
+	<id column="USERID" property="userId"></id>
+	
+	<association property="memberFileDTO" javaType="MemberFileDTO">
+      <result column="FILENAME" property="fileName"/>
+      </association>
+	
+	<collection property="followDTOs" javaType="List" ofType="FollowDTO">
+	 <result column="FOLLOWER" property="follower"/>
+	 <result column="FOLLOWEE" property="followee"/>
+	 	</collection>
+      
+	</resultMap>
 	
 <!-- Guest My page Result Map -->
 	 <resultMap type="MemberDTO" id="myPageResult">

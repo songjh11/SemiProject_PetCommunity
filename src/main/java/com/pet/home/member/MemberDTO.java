@@ -38,7 +38,14 @@ public class MemberDTO {
 	private List<RoleDTO> roleDTOs;
     private List<SellItemDTO> itemDTOs;
     private List<SellFileDTO> fileDTOs;
+    private List<FollowDTO> followDTOs;
     
+	public List<FollowDTO> getFollowDTOs() {
+		return followDTOs;
+	}
+	public void setFollowDTOs(List<FollowDTO> followDTOs) {
+		this.followDTOs = followDTOs;
+	}
 	public String getUserId() {
 		return userId;
 	}

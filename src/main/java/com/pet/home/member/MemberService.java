@@ -38,7 +38,7 @@ public class MemberService {
 		
 		if(memberDTO.getRoleNum()==2){ 
 			//저장 경로 설정 
-			String path = servletContext.getRealPath("resources/upload/member");
+			String path = "resources/upload/member";
 			String fileName = fileManager.saveFile(servletContext, path, photo);
 			
 			if(!photo.isEmpty()) {
@@ -113,11 +113,11 @@ public class MemberService {
 		return memberDAO.getTotalPrice(memberDTO);
 	}
 	
-	public List<FollowDTO> getFolloweeList(MemberDTO memberDTO){
+	public List<MemberDTO> getFolloweeList(MemberDTO memberDTO){
 		return memberDAO.getFolloweeList(memberDTO);
 	}
 	
-	public List<FollowDTO> getFollowerList(MemberDTO memberDTO){
+	public List<MemberDTO> getFollowerList(MemberDTO memberDTO){
 		return memberDAO.getFollowerList(memberDTO);
 	}
 	
@@ -129,6 +129,14 @@ public class MemberService {
 	public int getFolloweeount(MemberDTO memberDTO)throws Exception{
 		return memberDAO.getFolloweeount(memberDTO);
 		
+	}
+	
+	public int setFollow(MemberDTO memberDTO)throws Exception{
+		return memberDAO.setFollow(memberDTO);
+	}
+	
+	public int setFollowDelete(MemberDTO memberDTO)throws Exception{
+		return memberDAO.setFollowDelete(memberDTO);
 	}
 	
 

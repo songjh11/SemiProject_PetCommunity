@@ -1,68 +1,222 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+ <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>My page</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/resources/assets/img/favicon.png" rel="icon">
+  <link href="/resources/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/resources/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/resources/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/resources/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/resources/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/resources/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/resources/assets/css/main.css" rel="stylesheet">
+
+	<style type="text/css">
+
+.testimonial-img {
+  border-radius: 50%;
+  border: 4px solid #fff;
+  margin: 0 auto;
+}
+
+    .ag{
+      background-color:cornsilk;
+      overflow: scroll;
+      width: 600px;
+      height: 100px;
+    }
+
+    .warning{
+      color: red;
+    }
+    #po{
+      font-size: 10pt;
+      color: darkgray;
+    }
+
+
+    #imgDiv{
+      display: flex;
+    }
+
+    .newDiv{
+      justify-content: center;
+      align-items:center;
+      position: relative;
+      width: 80px;
+	  	height: 80px;
+      margin-right: 5px;
+    }
+    .thumnail{
+		width: 80px;
+		height: 80px;
+
+		} 
+    .imgDeleteBtn {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+    }
+
+    #inputDiv{
+      display: none;
+    }
+	</style>
+  
 </head>
 <body>
+<!-- header start -->
+<c:import url="/WEB-INF/views/template/header.jsp"></c:import>
+<!-- header end -->
+<!-- ======= mypage Section ======= -->
+    <section id="book-a-table" class="book-a-table">
+      <div class="container" data-aos="fade-up">
 
-    <form action="./delete" enctype="multipart/form-data">
-    <h1>${dto.roleDTO.roleName}'s My Page</h1>
-    <p>이름: ${dto.userName}</p>
+        <div class="section-header">
+        <p><span>${dto.roleDTO.roleName}'s My Page</span></p>
+        </div>
 
-    <c:choose>
-		<c:when test="${dto.roleNum eq 1}">
-            <p>아이템카테고리: ${dto.itemCatg}</p>
-            <p>아이템아이디: ${dto.itemId}</p>
-            
-        </c:when>
-        <c:when test="${dto.roleNum eq 2}">
-            <p>펫이름: ${dto.petName}</p>
-            <p>펫카테고리: ${dto.petCatg}</p>
-            <img src="../resources/upload/member/${dto.memberFileDTO.fileName}" alt="">
-            <a href="../resources/upload/member/${dto.memberFileDTO.fileName}">${dto.memberFileDTO.oriName}</a>
-        </c:when>
-	</c:choose>
-    <p>번호: ${dto.phone}</p>
-    <p>메일: ${dto.email}</p>
-    <p>주소: ${dto.itemZipCode} + ${dto.deAddress} + ${dto.address}</p>
-    <c:choose>
-		<c:when test="${dto.agValue  eq 1}">
-            <p>정보제공동의여부: 동의</p>
-        </c:when>
-        <c:when test="${dto.agValue  eq 0}">
-            <p>정보제공동의여부: 비동의</p>
-        </c:when>
-    </c:choose>
-    <c:choose>
-        <c:when test="${dto.agMail  eq 1}">
-            <p>메일수신동의여부: 동의</p>
-        </c:when>
-        <c:when test="${dto.agMail  eq 0}">
-            <p>메일수신동의여부: 비동의</p>
-        </c:when>
-    </c:choose>
-    <c:choose>
-        <c:when test="${dto.agMes  eq 1}">
-            <p>문자수신동의여부: 동의</p>
-        </c:when>
-        <c:when test="${dto.agMes  eq 0}">
-            <p>문자수신동의여부: 비동의</p>
-        </c:when>
-     </c:choose>
-     <button type="submit" class="btn-book-a-table">회원탈퇴</button>
-     <a href="./update" class="btn-book-a-table">정보수정</a>
-    </form>
-   
+          <div class="col-lg-8 align-items-center">
+            <form action="./delete" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data" id="updatefrm">
+              <div class="row gy-4">
+                <div class="col-lg-8 col-md-12">
+                  <input type="text" name="userId" class="form-control" value="${dto.userId}" readonly>
+                  <div class="validate"></div>
+                </div>
+                <div class="col-lg-8 col-md-12">
+                  <input type="text" name="userName" class="form-control" value="${dto.userName}" readonly>
+                  <div class="validate"></div>
+                </div>
+                <div class="col-lg-8 col-md-12">
+                  <input type="number" name="phone" class="form-control" value="${dto.phone}" readonly>
+                  <div class="validate"></div>
+                </div>
+                <div class="col-lg-8 col-md-12">
+                  <input type="email" name="email" class="form-control" value="${dto.email}" readonly>
+                  <div class="validate"></div>
+                </div>
+
+                <div class="col-lg-6 col-md-6">
+                  <input type="text" name="itemZipCode" class="form-control" id="itemZipCode" value="${dto.itemZipCode}" readonly>
+                   <div class="validate"></div>
+                 </div>
+                 <div class="col-lg-12 col-md-12">
+                  <input type="text" name="address" class="form-control" id="address" value="${dto.address}" readonly>
+                 </div>
+                 <div class="col-lg-12 col-md-12">
+                   <input type="text" name="deAddress" class="form-control" id="deAddress" value="${dto.deAddress}" readonly>
+                   <div class="validate"></div>
+                 </div>
+
+                </div>
+                
+                <c:choose>
+                    <c:when test="${dto.roleNum eq 1}">
+                        <div class="col-lg-8 col-md-6">
+                            <input type="text" class="form-control" name="itemCatg" value="${dto.itemCatg}" readonly>
+                            <div class="validate"></div>
+                          </div>
+                          <div class="col-lg-8 col-md-6">
+                            <input type="text" class="form-control" name="itemId" value="${dto.itemId}" readonly>
+                            <div class="validate"></div>
+                          </div>
+                        
+                    </c:when>
+                    <c:when test="${dto.roleNum eq 2}">
+                        <div class="col-lg-8 col-md-6">
+                            <input type="text" class="form-control" name="petName" value="${dto.petName}" readonly>
+                            <div class="validate"></div>
+                          </div>
+                          <div class="col-lg-8 col-md-6">
+                            <input type="text" class="form-control" name="petCatg" value="${dto.petCatg}" readonly>
+                            <div class="validate"></div>
+                          </div>
+                          <div class="col-lg-2 text-center">
+                        <img src="../resources/upload/member/${dto.memberFileDTO.fileName}" class="img-fluid testimonial-img" alt="">
+                        </div>
+                    </c:when>
+                </c:choose>
+
+                <c:choose>
+                <c:when test="${dto.agValue  eq 1}">
+                    <p>정보제공동의여부: 동의</p>
+                </c:when>
+                <c:when test="${dto.agValue  eq 0}">
+                    <p>정보제공동의여부: 비동의</p>
+                </c:when>
+            </c:choose>
+            <c:choose>
+                <c:when test="${dto.agMail  eq 1}">
+                    <p>메일수신동의여부: 동의</p>
+                </c:when>
+                <c:when test="${dto.agMail  eq 0}">
+                    <p>메일수신동의여부: 비동의</p>
+                </c:when>
+            </c:choose>
+            <c:choose>
+                <c:when test="${dto.agMes  eq 1}">
+                    <p>문자수신동의여부: 동의</p>
+                </c:when>
+                <c:when test="${dto.agMes  eq 0}">
+                    <p>문자수신동의여부: 비동의</p>
+                </c:when>
+             </c:choose>
+              </div>
+              <br>
+             <div class="text-center">
+                <button type="submit" class="btn-book-a-table">회원탈퇴</button>
+                <a href="./update" class="btn-book-a-table">정보수정</a>
+                <a href="./followee" class="btn-book-a-table">팔로잉 목록</a>
+                <a href="./follower" class="btn-book-a-table">팔로워 목록</a>
+             </div>
+             
+            </form>
+          </div><!-- End Reservation Form -->
+
+        </div>
+
+    </section><!-- End Add Items Section -->
 
 
 
-<!-- 
-    M.USERID, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS,
-  M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, G.PETCATG, G.PETNAME, MF.FILENAME, MF.ORINAME -->
+  <!-- footer start -->
+  <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
+  <!-- footer end -->
+
+    <!-- script start -->
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="/resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/resources/assets/vendor/aos/aos.js"></script>
+  <script src="/resources/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/resources/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="/resources/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/resources/assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/resources/assets/js/main.js"></script>
 
 </body>
 </html>

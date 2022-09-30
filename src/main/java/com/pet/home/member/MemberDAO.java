@@ -81,11 +81,11 @@ public class MemberDAO {
 	}
 
 			
-	public List<FollowDTO> getFolloweeList(MemberDTO memberDTO){
+	public List<MemberDTO> getFolloweeList(MemberDTO memberDTO){
 		return sqlSession.selectList(NAMESPACE+"getFolloweeList",memberDTO);
 	}
 	
-	public List<FollowDTO> getFollowerList(MemberDTO memberDTO){
+	public List<MemberDTO> getFollowerList(MemberDTO memberDTO){
 		return sqlSession.selectList(NAMESPACE+"getFollowerList",memberDTO);
 	}
 
@@ -95,6 +95,14 @@ public class MemberDAO {
 	
 	public int getFolloweeount(MemberDTO memberDTO)throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getFolloweeCount", memberDTO);
+	}
+	
+	public int setFollow(MemberDTO memberDTO)throws Exception{
+		return sqlSession.insert(NAMESPACE+"setFollow", memberDTO);
+	}
+	
+	public int setFollowDelete(MemberDTO memberDTO)throws Exception{
+		return sqlSession.delete(NAMESPACE+"setFollowDelete", memberDTO);
 	}
 	
 }

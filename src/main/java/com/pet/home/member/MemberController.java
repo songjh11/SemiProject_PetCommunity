@@ -259,7 +259,30 @@ public class MemberController {
 		
 	}
 
+		@GetMapping("followee")
+		public ModelAndView getFolloweeList(MemberDTO memberDTO,HttpSession session)throws Exception{
+			ModelAndView mv = new ModelAndView();
+			memberDTO = (MemberDTO)session.getAttribute("member");
+			
+			List<MemberDTO> ar = memberService.getFolloweeList(memberDTO);
+			
+			mv.addObject("list", ar);
+			mv.addObject("follow","followee");
+			mv.setViewName("member/follow");
+			return mv;
+		}
 		
+		@GetMapping("follower")
+		public ModelAndView getFollowerList(MemberDTO memberDTO, HttpSession session)throws Exception{
+			ModelAndView mv = new ModelAndView();
+			memberDTO = (MemberDTO)session.getAttribute("member");
+			List<MemberDTO> ar = memberService.getFollowerList(memberDTO);
+			
+			mv.addObject("list", ar);
+			mv.addObject("follow","follower");
+			mv.setViewName("member/follow");
+			return mv;
+		}
 
 	@GetMapping("test")
 	public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{

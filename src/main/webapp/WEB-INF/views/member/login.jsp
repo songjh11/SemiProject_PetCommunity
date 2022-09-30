@@ -7,7 +7,7 @@ pageEncoding="UTF-8"%>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Join page</title>
+<title>Login page</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -89,7 +89,7 @@ height: 80px;
         <form action="./login" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data"  id="loginform">
           <div class="row gy-4">
             <div class="col-lg-8 col-md-12">
-              <input type="text" name="userId" class="form-control" placeholder="User ID" value="jw1">
+              <input type="text" name="userId" class="form-control" placeholder="User ID" value="jw6">
               <div class="validate"></div>
             </div>
             <div class="col-lg-8 col-md-12">

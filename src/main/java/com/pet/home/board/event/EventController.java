@@ -58,9 +58,11 @@ public class EventController {
 	}
 	
 	@GetMapping("add")
-	public String setAdd() throws Exception{
-		
-		return "board/add";
+	public ModelAndView setAdd(ModelAndView mv) throws Exception{
+		List<CouponDTO> list = adminService.getCouponList();
+		mv.addObject("list", list);
+		mv.setViewName("board/add");
+		return mv;
 	}
 	
 	@PostMapping("add")

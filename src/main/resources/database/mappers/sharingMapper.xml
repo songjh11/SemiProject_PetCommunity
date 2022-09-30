@@ -84,12 +84,12 @@
 	
 	<!-- 같이해요 게시판 댓글 -->
 	<select id="getCommentList" parameterType="BoardCommentPager" resultType="ShCommentDTO">
-		SELECT * FROM
-		(SELECT ROWNUM R, SC * FROM
+		(SELECT * FROM
+		(SELECT ROWNUM R, SC.* FROM
 			(SELECT * FROM SHCOMMENT
 			WHERE NUM = #{num}
 			ORDER BY COMMENTNUM DESC)SC)
-			WHERE R BETWEEN #{startRow} AND #{lastRow}
+			WHERE R BETWEEN #{startRow} AND #{lastRow})
 	</select>
 	
 	<insert id="setCommentAdd" parameterType="ShCommentDTO">
@@ -98,7 +98,7 @@
 	</insert>
 	
 	<select id="getCommentListTotalCount" parameterType="BoardCommentPager" resultType="Long">
-		SELECT COUNT(NUM) FROM SHCOMMENT WHERE NUM = #{num}
+		SELECT COUNT(COMMENTNUM) FROM SHCOMMENT WHERE NUM = #{num}
 	</select>
 	
 	<delete id="setCommentDelete" parameterType="ShCommentDTO">

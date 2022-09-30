@@ -110,6 +110,7 @@
 </div>
 
 <!-- main contents -->
+<form action="payments" method="post" id="rvFrm">
 <section class="mainSection">
   <div class="mainContents row gy-1">
       <!-- image 영역 -->
@@ -553,7 +554,7 @@
             <div class="buttonBox">
               <div class="col-md-6 col-lg-3 align-self-end">
                 <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal3">
+                  <button type="button" class="btn btn-outline-danger" id="rvBtnFrm">
                     예약/결제하기
                   </button>
               </div>
@@ -561,40 +562,9 @@
           </div>
         </div>
       </div>
+</form>    
       <!-- reservation section end -->
-      <!-- 결제 Modal -->
-      <div class="modal fade" id="modal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">주문 내역 확인</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form action="iamport/check" method="post" id="rvFrm">
-              <input type="text" name="itemName" value="$(#itemName).value">
-              <input type="text" name="" value="">
-              <input type="text" name="" value="">
-              <input type="text" name="" value="">
-              <input type="text" name="" value="">
-              <input type="text" name="" value="">
-              <input type="text" name="revStartDate" value="#revStartDate">
-              <input type="text" name="" value="">
-              <input type="text" name="revEndDate" value="#revEndDate">
-              <input type="text" name="adultsCount" value="#adultsCount">
-              <input type="text" name="dogCount" value="#dogCount">
-              <input type="text" name="" value="">
-              </form>  
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-              <button type="button" class="btn btn-primary" id="rvBtnFrm">결제</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- modal end -->
- 
+       
       <a href="./reviewadd?itemNum=${sellItemDTO.itemNum}"><button>리뷰쓰기</button></a>
       <!-- contents, review, qna -->
       <div>

@@ -9,6 +9,12 @@ const uFileDelete = document.querySelectorAll(".uFileDelete");
 let count=0;
 let idx=0;
 
+function setCount(c){
+    if(c>=0){
+        count=c;
+    }
+}
+
 
 // add page: 이벤트 전달-------------------------------------------------------------
 sellfileAdd.addEventListener("click", function(){
@@ -168,5 +174,19 @@ deleteItem.addEventListener("click", function(event){
         }
     }
 
+});
+
+// 모달
+var myModal = document.getElementById('myModal')
+var myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.bs.modal', function () {
+  myInput.focus()
 })
+
+
+
+
+
+
 

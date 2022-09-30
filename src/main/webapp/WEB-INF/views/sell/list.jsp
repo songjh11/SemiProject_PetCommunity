@@ -68,6 +68,15 @@
       border-color: #ccc;
     }
 
+    .btnsocial{
+      border: 0px;  
+      outline: 0px;
+      background-color: transparent;
+    }
+
+    .img-fluid{
+      height: 250px;
+    }
 
     </style>
 
@@ -88,33 +97,30 @@
                     <p><span>${category.categoryName}</span><p>
                    </div>
                    
-
-					<div class="row gy-4">
-					
-                    <c:forEach items="${list}" var="ar">
-                    	<div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-	                      <div class="chef-member">
-		                          <div class="member-img">
-		                            <img src="/resources/upload/sellfile/${ar.fileDTOs[0].fileName}" class="img-fluid" alt="">
-			                            <div class="social">
-			                              <i class="bi bi-twitter btnPick" style="cursor: pointer;" data-item-num="${ar.itemNum}">찜</i>
-                                    <p>
-                                      <i class="bi bi-facebook btnShopCart" style="cursor: pointer;" data-item-num="${ar.itemNum }" data-item-price="${ar.itemPrice}">장바구니</i></a>
-                                    </p>
-			                              <i class="bi bi-instagram"></i>
-			                              <i class="bi bi-linkedin"></i>
-			                            </div>
-		                           </div>
-		                          <div class="member-info">
-		                            <h4><a href="./detail?itemNum=${ar.itemNum}">${ar.itemName}</a></h4>
-		                            <span>${ar.itemPrice}</span>
-		                          </div>
-	                         </div>
-                         </div>
-                    </c:forEach>
-                    </div><!-- End Chefs Member -->
-                    
-
+					<div class="row gy-1">	
+              <c:forEach items="${list}" var="ar">
+                <div class="col-lg-3 col-md-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                  <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 15px;">
+                    <div class="member-img" style="width: 100%;">
+                      <img src="/resources/upload/sellfile/${ar.fileDTOs[0].fileName}" class="img-fluid" alt="">
+                      <div class="social d-flex">
+                        <button type="button" class="btnsocial" id="btnPick">
+                          <i class="bi bi-balloon-heart btnPick" style="cursor: pointer;" data-item-num="${ar.itemNum}"></i>
+                        </button>
+                          <i class="bi bi-facebook" style="cursor: pointer;" id="btnShopCart"></i></a>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="member-info" style="width: 100%; height: 115px;">
+                      <h4><a href="./detail?itemNum=${ar.itemNum}">${ar.itemName}</a></h4>
+                      <!-- <p>${ar.itemAddress}</p> -->
+                      <span>${ar.itemPrice}</span>
+                    </div>
+                  </div>
+                </div>
+              </c:forEach>
+        </div>
+        <!-- End grid1div -->
 
       </div>
     </section> 
@@ -144,73 +150,9 @@
 
        
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-
-    <div class="container">
-      <div class="row gy-3">
-        <div class="col-lg-3 col-md-6 d-flex">
-          <i class="bi bi-geo-alt icon"></i>
-          <div>
-            <h4>Address</h4>
-            <p>
-              A108 Adam Street <br>
-              New York, NY 535022 - US<br>
-            </p>
-          </div>
-
-        </div>
-
-        <div class="col-lg-3 col-md-6 footer-links d-flex">
-          <i class="bi bi-telephone icon"></i>
-          <div>
-            <h4>Reservations</h4>
-            <p>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
-            </p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 footer-links d-flex">
-          <i class="bi bi-clock icon"></i>
-          <div>
-            <h4>Opening Hours</h4>
-            <p>
-              <strong>Mon-Sat: 11AM</strong> - 23PM<br>
-              Sunday: Closed
-            </p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 footer-links">
-          <h4>Follow Us</h4>
-          <div class="social-links d-flex">
-            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><span>Yummy</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
-    </div>
-
-  </footer><!-- End Footer -->
-  <!-- End Footer -->
+   <!-- footer start -->
+   <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
+   <!-- footer end -->
 
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -228,6 +170,16 @@
   <script src="/resources/assets/js/main.js"></script>
   <script src="/resources/JS/sellHeader.js"></script>
   <script src="/resources/JS/pick&shopcart.js"></script>
+
+  <script>
+    const btnPick = document.getElementById("btnPick");
+    
+    btnPick.addEventListener("click", function(){
+      선택자.classList.remove('삭제할 클래스명')
+      선택자.classList.add('추가할클래스명')  
+
+    })
+  </script>
 </body>
 
 </html>

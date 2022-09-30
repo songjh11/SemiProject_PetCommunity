@@ -125,7 +125,7 @@
 						<input type="hidden" id="num">
 					<div class="mb-3">
 						<label for="recipient-name" class="col-form-label">Writer</label>
-						<input type="text" class="form-control" id="updateWriter">
+						<input type="text" class="form-control" readonly id="updateWriter">
 					</div>
 					<div class="mb-3">
 						<label for="message-text" class="col-form-label">Contents</label>

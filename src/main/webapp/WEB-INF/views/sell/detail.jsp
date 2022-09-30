@@ -118,7 +118,7 @@
 </div>
 
 
- <a href="./reviewadd?itemNum=${sellItemDTO.itemNum}"><button>리뷰쓰기</button></a>
+
  
 
  <div>
@@ -144,21 +144,7 @@
     </div>
 </div>
 
-<div class="crq">
-  <ul class="nav nav-tabs" role="tablist">
-      <li class="nav-item" role="presentation">
-        <a class="nav-link active" data-bs-toggle="tab" href="#iContents" aria-selected="true" role="tab">상세 설명</a>
-      </li>
-      <li class="nav-item" role="presentation">
-        <a class="nav-link" data-bs-toggle="tab" href="#rv" id="reviewCheck" onclick="reviewList(); this.onclick=null;" data-item-num="${sellItemDTO.itemNum}" aria-selected="false" role="tab" tabindex="-1">리뷰</a>
-      </li>
-      <li class="nav-item" role="presentation">
-        <a class="nav-link" data-bs-toggle="tab" href="#qna" aria-selected="false" role="tab" tabindex="-1">문의</a>
-      </li>
-    </ul>
-    <div id="myTabContent" class="tab-content">
-      <div class="tab-pane fade show active" id="iContents" role="tabpanel">
-        <p>${sellItemDTO.itemContents}</p>
+
 
 <!-- main contents -->
 <form action="payments" method="post" id="rvFrm">
@@ -613,10 +599,11 @@
           </div>
         </div>
       </div>
+  </section>
 </form>    
       <!-- reservation section end -->
        
-      <a href="./reviewadd?itemNum=${sellItemDTO.itemNum}"><button>리뷰쓰기</button></a>
+<a href="./reviewadd?itemNum=${sellItemDTO.itemNum}"><button>리뷰쓰기</button></a>
       <!-- contents, review, qna -->
       <div>
         <!-- Button trigger modal -->
@@ -666,7 +653,8 @@
             위드독애견호텔은 작고 답답한 공간이 아닌 아늑하고 편안하게 휴식할 수 있는 넓은 객실을 갖춘 프리미엄 애견호텔 입니다.
             여행/출장 또는 장시간 집을 비워야 할 때 위드독애견호텔의 호텔링 / 데이케어(※ 산책 옵션 추가 가능)서비스를 이용해 보세요.</p>
         </div>
-        <div class="tab-pane fade" role="tabpanel" id="rv">
+      </div>
+      <div class="tab-pane fade" role="tabpanel" id="rv">
           <p>리뷰</p>
           <table class="table" id="review">
             <th class="th" style="display: none;" >작성자</th>
@@ -676,14 +664,11 @@
             <th class="th" style="display: none;" >리뷰사진</th>
           </table>
           <button id="more">더보기</button>
-        </div>
-        <div class="tab-pane fade" id="qna" role="tabpanel">
-          <br>
+      </div>
+      <div class="tab-pane fade" id="qna" role="tabpanel">
           <p>문의</p>
-        </div>
       </div>
   </div>
-</section>
 
 
  <!-- footer start -->

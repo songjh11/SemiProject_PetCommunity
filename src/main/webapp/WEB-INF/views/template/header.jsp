@@ -12,6 +12,11 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
+  <!-- SockJs Websocket Jquery-->
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
+
+
   <!-- Favicons -->
   <link href="resources/assets/img/favicon.png" rel="icon">
   <link href="resources/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -99,11 +104,14 @@
         </ul>
       </nav><!-- .navbar -->
 	  <a class="btn-book-a-table" href="/member/login">Login</a>
-	  <a class="btn-book-a-table" href="/member/agree">Join</a>
+	  <a class="btn-book-a-table" href="/member/role">Join</a>
+    
     <a href="./add"><button class="btn btn-outline-success me-2" type="button">Add Items</button></a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
+    </div>
+    <div id="msgStack">
     </div>
   </header><!-- End Header -->
 <body>

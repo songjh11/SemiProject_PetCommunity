@@ -1,3 +1,27 @@
+//=====================비밀번호확인=====================
+
+
+
+
+    // const del = document.getElementById("del");
+    // const delfrm = document.getElementById("delfrm");
+    // const inputpw = document.getElementById("inputpw");
+    // const pw = document.getElementById("pw");
+
+    // del.addEventListener("click",function(){
+
+    //     console.log(pw.value);
+    //     console.log(inputpw.value);
+    //     if(pw.value==inputpw.value){
+    //         delfrm.submit();
+
+    //     }else{
+    //         alert("비밀번호가 부적합합니다.");
+    //     }
+
+    // })
+
+
 
 
 //======================전체동의 =======================
@@ -8,11 +32,8 @@ function check(){
     const req = document.getElementsByClassName("req"); //필수
     const join = document.getElementById("join"); //조인페이지로
     const frm = document.getElementById("frm"); //form
-    const mes = document.getElementById("mes"); //선택값1
-    const mes_hd = document.getElementById("mes_hd"); //선택값2
     
 
-//선택 동의값 세팅
 
 
 

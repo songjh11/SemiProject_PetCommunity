@@ -8,6 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+    <form action="./delete" enctype="multipart/form-data">
     <h1>${dto.roleDTO.roleName}'s My Page</h1>
     <p>이름: ${dto.userName}</p>
 
@@ -48,6 +50,10 @@
             <p>문자수신동의여부: 비동의</p>
         </c:when>
      </c:choose>
+     <button type="submit">회원탈퇴</button>
+    </form>
+   
+
 
 
 <!-- 

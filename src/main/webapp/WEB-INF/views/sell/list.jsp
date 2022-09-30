@@ -88,31 +88,33 @@
                     <p><span>${category.categoryName}</span><p>
                    </div>
                    
-					<div class="row gy-1">	
-              <c:forEach items="${list}" var="ar">
-                <div class="col-lg-3 col-md-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-                  <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 15px;">
-                    <div class="member-img" style="width: 100%;">
-                      <img src="/resources/upload/sellfile/${ar.fileDTOs[0].fileName}" class="img-fluid" alt="">
-                      <div class="social">
-                        <i class="bi bi-twitter btnPick" data-item-num="${ar.itemNum}">찜</i>
-                        <p>
-                          <i class="bi bi-facebook" id="btnShopCart">장바구니</i></a>
-                        </p>
-                        <i class="bi bi-instagram"></i>
-                        <i class="bi bi-linkedin"></i>
-                      </div>
-                    </div>
-                    <div class="member-info" style="width: 100%; height: 115px;">
-                      <h4><a href="./detail?itemNum=${ar.itemNum}">${ar.itemName}</a></h4>
-                      <p>${ar.itemAddress}</p>
-                      <span>${ar.itemPrice}</span>
-                    </div>
-                  </div>
-                </div>
-              </c:forEach>
-        </div>
-        <!-- End grid1div -->
+
+					<div class="row gy-4">
+					
+                    <c:forEach items="${list}" var="ar">
+                    	<div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+	                      <div class="chef-member">
+		                          <div class="member-img">
+		                            <img src="/resources/upload/sellfile/${ar.fileDTOs[0].fileName}" class="img-fluid" alt="">
+			                            <div class="social">
+			                              <i class="bi bi-twitter btnPick" style="cursor: pointer;" data-item-num="${ar.itemNum}">찜</i>
+                                    <p>
+                                      <i class="bi bi-facebook btnShopCart" style="cursor: pointer;" data-item-num="${ar.itemNum }" data-item-price="${ar.itemPrice}">장바구니</i></a>
+                                    </p>
+			                              <i class="bi bi-instagram"></i>
+			                              <i class="bi bi-linkedin"></i>
+			                            </div>
+		                           </div>
+		                          <div class="member-info">
+		                            <h4><a href="./detail?itemNum=${ar.itemNum}">${ar.itemName}</a></h4>
+		                            <span>${ar.itemPrice}</span>
+		                          </div>
+	                         </div>
+                         </div>
+                    </c:forEach>
+                    </div><!-- End Chefs Member -->
+                    
+
 
       </div>
     </section> 

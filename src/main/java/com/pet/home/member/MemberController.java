@@ -38,22 +38,35 @@ public class MemberController {
 	}
 
 	@PostMapping("login")
-	public String login(HttpServletRequest request, MemberDTO memberDTO) throws Exception {
+	public ModelAndView login(HttpServletRequest request, MemberDTO memberDTO) throws Exception {
 		
 		System.out.println("DB로그인 접속 (POST)");
 		
 		memberDTO = memberService.getLogin(memberDTO);
+		
+		
 
 		// request에 있는 파라미터를 session에 넣음
 		HttpSession session = request.getSession();
 		// DB에서 가져온 DTO데이터를 JSP로 속성만들어서 보내기
 		session.setAttribute("member", memberDTO);
 		
-if (memberDTO!=null) {
+		if (memberDTO!=null) {
 			System.out.println("오 ~ 로그인 성공");
-}else {System.out.println("오 ~ 로그인 실패");}
+		}else {System.out.println("오 ~ 로그인 실패");}
+
+		//dto에 roleNum을 담아 main.jsp에서 메뉴 다르게 보이도록  
+		ModelAndView mv = new ModelAndView();
 		
-		return "redirect:../";
+		//member 세션의 userId
+		//getAdmPage 메소드 재활용하여 roleNum 가져오기
+		memberDTO = (MemberDTO)session.getAttribute("member");
+		memberDTO = memberService.getMyPage(memberDTO);
+		mv.addObject("dto", memberDTO);
+		session.setAttribute("dto", memberDTO);
+		mv.setViewName("redirect:../");
+		
+		return mv;
 	}
 	
 	@GetMapping("logout")
@@ -77,8 +90,6 @@ if (memberDTO!=null) {
 		Calendar ca = Calendar.getInstance();
 		
 		System.out.println("join post 실행");
-		
-		System.out.println("photo: "+photo);
 		
 		//선택 약관동의값 세팅 
 		// 체크되지 않으면 0 , 선택되면 1로 설정 
@@ -117,34 +128,86 @@ if (memberDTO!=null) {
 		ModelAndView mv = new ModelAndView();
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
 		
-		memberDTO = memberService.getAdmPage(memberDTO);
-		System.out.println("롤2"+memberDTO.getRoleNum());
+		memberDTO = memberService.getMyPage(memberDTO);
 		
 		if(memberDTO.getRoleNum()==1){ 
 		memberDTO = memberService.getBizPage(memberDTO); //역할번호가 1번일 때 판매자 마이페이지 
 		}else if(memberDTO.getRoleNum()==2){
 		memberDTO = memberService.getGuestPage(memberDTO); //역할번호가 2번일 때 회원 마이페이지 
 		}else {
-		memberDTO = memberService.getAdmPage(memberDTO); // 그 외 관리자 마이페이지  
+		memberDTO = memberService.getMyPage(memberDTO); // 그 외 관리자 마이페이지  
 		}
-		System.out.println("ddddddd");
-		System.out.println(memberDTO.getRoleNum());
-   System.out.println(memberDTO.getUserName());
-	System.out.println(memberDTO.getPhone());
-
 		
 		mv.addObject("dto", memberDTO);
 		mv.setViewName("member/mypage");
 		
 		return mv;
 	}
+	
+	
+	@GetMapping("search")
+	public String search()throws Exception {
+		
+		return "member/search";
+	}
+	
+	@PostMapping("search")
+	public ModelAndView search(MemberDTO memberDTO)throws Exception {
+		ModelAndView mv = new ModelAndView();
+		return mv;
+	}
+	
+	@GetMapping("delete")
+	public String delete()throws Exception{
+		
+		return"member/delete";
+		
+	}
+	
+	@PostMapping("delete")
+	public String delete(HttpServletRequest request )throws Exception{
+		
+		System.out.println("delete post");
+
+		MemberDTO memberDTO = (MemberDTO)request.getSession().getAttribute("dto");
+		String pw = request.getParameter("pw");
+		
+		System.out.println(memberDTO.getUserId());
+		System.out.println(memberDTO.getPassword());
+		System.out.println(pw);
+		
+		if(memberDTO.getPassword().equals(pw)){
+			
+			memberService.setMemDelete(memberDTO);
+			
+			request.setAttribute("msg", "회원 탈퇴가 완료되었습니다.");
+			request.setAttribute("url", "/");
+			
+			request.getSession().invalidate(); //세션 비우기 
+			
+			return "member/alert";
+		
+			
+		}else {
+			
+			request.setAttribute("msg", "비밀번호가 일치하지 않습니다.");
+			request.setAttribute("url", "/member/delete");
+			return "member/alert";
+		}
+		
+	}
+
 		
 
 	@GetMapping("test")
 	public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 		MemberDTO ar = memberService.getPickList(memberDTO);
+		MemberDTO ar2 = memberService.getShopCartList(memberDTO);
+		MemberDTO ar3 = memberService.getTotalPrice(memberDTO);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("list", ar);
+		mv.addObject("list2", ar2);
+		mv.addObject("list3", ar3);
 		mv.setViewName("member/test");
 
 		return mv;

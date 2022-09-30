@@ -26,7 +26,7 @@ VALUES (#{bizNum},#{userId},#{roleNum},#{itemCatg},ITEM_SEQ.NEXTVAL)
 </insert>
 
 <select id="getGuestPage" parameterType="MemberDTO" resultMap="myPageResult">
-    SELECT M.USERID, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, G.PETCATG, G.PETNAME, MF.FILENAME, MF.ORINAME
+    SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, G.PETCATG, G.PETNAME, MF.FILENAME, MF.ORINAME
       FROM MEMBER M
       INNER JOIN
       GUEST G
@@ -42,7 +42,7 @@ WHERE M.USERID=#{userId}
 </select>
 
 <select id="getBizPage" parameterType="MemberDTO" resultMap="myPageResult">
-SELECT M.USERID, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, B.ITEMCATG, B.ITEMID
+SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, B.ITEMCATG, B.ITEMID
       FROM MEMBER M
       INNER JOIN
        ROLE R
@@ -53,8 +53,8 @@ SELECT M.USERID, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS,
 WHERE M.USERID=#{userId}
 </select>
 
-<select id="getAdmPage" parameterType="MemberDTO" resultMap="myPageResult">
-SELECT M.USERID, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES
+<select id="getMyPage" parameterType="MemberDTO" resultMap="myPageResult">
+SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES
       FROM MEMBER M
       INNER JOIN
        ROLE R
@@ -73,6 +73,15 @@ SELECT M.USERNAME, M.USERID, R.ROLENUM, R.ROLENAME
 		ORDER BY R.ROLENUM ASC
 </select>
 
+<insert id="getFollow">
+INSERT INTO FOLLOW (FOLLOWNUM, FOLLOWER, FOLLOWEE)
+VALUES(FOL_SEQ.NEXTVAL,#{userId},#{userId});
+</insert>
+
+<delete id="setMemDelete" parameterType="MemberDTO">
+DELETE FROM MEMBER WHERE USERID=#{userId}
+</delete>
+
 <resultMap type="MemberDTO" id="getLoginResult">
 		<id column="USERID" property="userId" />
 		<result column="USERNAME" property="userName" />
@@ -87,6 +96,7 @@ SELECT M.USERNAME, M.USERID, R.ROLENUM, R.ROLENAME
 	 <resultMap type="MemberDTO" id="myPageResult">
       <id column="USERID" property="userId"/>
       <result column="ROLENUM" property="roleNum"/>
+       <result column="PASSWORD" property="password"/>
       <result column="USERNAME" property="userName"/>
       <result column="EMAIL" property="email"/>
       <result column="PHONE" property="phone"/>
@@ -129,7 +139,7 @@ SELECT M.USERNAME, M.USERID, R.ROLENUM, R.ROLENAME
 	  <association property="RoleDTO" javaType="RoleDTO">
       <result column="ROLENAME" property="roleName"/>
       </association>
-      
+     
    </resultMap> -->
 
 <select id="getPickList" parameterType="MemberDTO" resultMap="getPickListResult">
@@ -144,7 +154,7 @@ FROM MEMBER M
      INNER JOIN
      SELLFILE SF
      ON SI.ITEMNUM = SF.ITEMNUM
-WHERE M.USERID = 'guest'
+WHERE M.USERID = 'guest' ORDER BY P.PICKNUM DESC
 </select>
 <resultMap type="MemberDTO" id="getPickListResult">
 	<id column="USERID" property="userId"/>
@@ -158,5 +168,44 @@ WHERE M.USERID = 'guest'
 		</collection>
 	</collection>
 </resultMap>
- 
+
+<select id="getShopCartList" parameterType="MemberDTO" resultMap="getShopCartListResult">
+SELECT M.USERID,S.SHOPNUM,S.TOTALCOUNT,SI.ITEMNUM,SI.ITEMNAME,SI.ITEMPRICE,SI.ITEMCONTENTS,SF.FILENAME
+FROM MEMBER M
+     INNER JOIN
+     SHOPCART S
+     ON M.USERID = S.USERID
+     INNER JOIN
+     SELLITEM SI
+     ON S.ITEMNUM = SI.ITEMNUM
+     INNER JOIN
+     SELLFILE SF
+     ON SI.ITEMNUM = SF.ITEMNUM
+WHERE M.USERID = 'guest' ORDER BY S.SHOPNUM DESC
+</select>
+<resultMap type="MemberDTO" id="getShopCartListResult">
+	<id column="USERID" property="userId"/>
+	<collection property="itemDTOs" javaType="List" ofType="SellItemDTO">
+		<id column="ITEMNUM" property="itemNum"/>
+		<result column="ITEMNAME" property="itemName"/>
+		<result column="ITEMPRICE" property="itemPrice"/>
+		<result column="ITEMCONTENTS" property="itemContents"/>
+		<collection property="shopCartDTOs" javaType="List" ofType="ShopCartDTO">
+		<result column="TOTALCOUNT" property="totalCount"/>
+		</collection>
+		<collection property="fileDTOs" javaType="List" ofType="sellFileDTO">
+			<result column="FILENAME" property="fileName"/>
+		</collection>
+	</collection>
+</resultMap>
+
+<select id="getTotalPrice" parameterType="MemberDTO" resultType="MemberDTO">
+SELECT SUM(S.TOTALPRICE*S.TOTALCOUNT) AS TOTALPRICE
+FROM MEMBER M
+     INNER JOIN
+     SHOPCART S
+     ON M.USERID = S.USERID
+WHERE M.USERID = 'guest'
+</select>
+
 </mapper>

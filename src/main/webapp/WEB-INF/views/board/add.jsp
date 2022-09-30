@@ -223,7 +223,7 @@
 
   <!-- Template Main JS File -->
   <script src="/resources/assets/js/main.js"></script>
-  <script src="/resources/js/board_file.js"></script>
+  <script src="/resources/JS/board_file.js"></script>
 </body>
 
 </html>

@@ -7,7 +7,10 @@ const writer = document.querySelector("#writer");
 const contents = document.querySelector("#contents");
 const commentAdd = document.querySelector("#commentAdd");
 const commentList = document.querySelector("#commentList");
+const more = document.querySelector("#more");
 const num = commentAdd.getAttribute("data-num");
+const updateButton = document.querySelector("#updateButton");
+
 
 getCommentList(page,num);
 
@@ -26,6 +29,13 @@ commentAdd.addEventListener("click", function(){
                 writer.value = "";
                 contents.value = "";
                 alert("댓글 작성 완료");
+
+                if(commentList.children.length != 0){
+                    for(i=0; i < commentList.children.length;){
+                        commentList.children[0].remove();
+                    }
+                }
+                page = 1;
                 getCommentList(page,num);
             }else{
                 alert("댓글 작성 실패");
@@ -70,7 +80,28 @@ function getCommentList(p,n){
                 tab_td.appendChild(td_text);
                 tab_tr.appendChild(tab_td);
 
+                tab_td = document.createElement("td");
+                tab_td.setAttribute("class","delete");
+                tab_td.setAttribute("data-comment-num",ar[i].commentNum);
+                td_text = document.createTextNode("삭제");
+                tab_td.appendChild(td_text);
+                tab_tr.appendChild(tab_td);
+
+                tab_td = document.createElement("td");
+                tab_td.setAttribute("class","update");
+                tab_td.setAttribute("data-comment-num",ar[i].commentNum);
+                td_text = document.createTextNode("수정");
+                tab_td.appendChild(td_text);
+                tab_tr.appendChild(tab_td);
+            
                 tab_tbody.appendChild(tab_tr);
+            }
+
+
+            if(page >= pager.totalPage){
+                more.classList.add("disabled");
+            }else{
+                more.classList.remove("disabled");
             }
 
             commentList.appendChild(tab_tbody);
@@ -78,3 +109,99 @@ function getCommentList(p,n){
         }
     }
 }
+
+more.addEventListener("click", function(){
+    page++;
+    console.log(num);
+    console.log(page);
+    getCommentList(page,num);
+})
+
+
+//댓글 삭제 delete 이벤트 위임
+commentList.addEventListener("click", function(event){
+    if(event.target.className == "delete"){
+        let check = window.confirm("삭제하시겠습니까?");
+        if(check == true){
+            let commentNum = event.target.getAttribute("data-comment-num");
+            console.log("num:",num);
+
+            const xhttp = new XMLHttpRequest();
+            xhttp.open("POST","./commentDelete");
+            xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xhttp.send("commentNum="+commentNum);
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    let result = xhttp.responseText.trim();
+                    console.log(result);
+                    result = JSON.parse(result);
+                    if(result == '1'){
+                        alert("삭제 완료");
+                        if(commentList.children.length != 0){
+                            for(let i=0; i<commentList.children.length;){
+                                commentList.children[0].remove();
+                            }
+                        }
+
+                        page = 1;
+                        getCommentList(page,num);
+                    }else{
+                        alert("삭제 실패");
+                    }
+                }
+            }
+        }
+    }
+
+    if(event.target.className == "update"){
+        let check = window.confirm("수정하시겠습니까")
+        if(check == true){
+            let contents = event.target.previousSibling.previousSibling.previousSibling.innerHTML;
+            let writer = event.target.previousSibling.previousSibling.previousSibling.previousSibling.innerHTML;
+            let commentNum = event.target.getAttribute("data-comment-num");
+
+            document.querySelector("#updateWriter").value = writer;
+            document.querySelector("#updateContents").value = contents;
+            document.querySelector("#num").value = commentNum;
+
+            document.querySelector("#up").click();
+        }  
+    }
+
+})
+
+
+
+//----------------- Modal 창 업데이트 버튼 클릭 이벤트 ------------------------------
+updateButton.addEventListener("click",function(){
+    
+    let data_contents = document.querySelector("#updateContents").value;
+    let data_commentNum = document.querySelector("#num").value; 
+    
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "./commentUpdate");
+    xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xhttp.send("commentNum="+data_commentNum+"&contents="+data_contents);
+    xhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            let result = xhttp.responseText.trim();
+            result = JSON.parse(result);
+
+            if(result == '1'){
+                alert("수정성공");
+                if(commentList.children.length !=0){
+                    for(let i=0; i<commentList.children.length;){
+                        commentList.children[0].remove();
+                    }
+                }
+
+                page = 1;
+                getCommentList(page,num);
+            }else{
+                alert("수정 실패");
+            }
+
+        }
+    }
+
+})

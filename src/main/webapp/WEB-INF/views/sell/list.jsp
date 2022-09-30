@@ -74,6 +74,10 @@
       background-color: transparent;
     }
 
+    .img-fluid{
+      height: 250px;
+    }
+
     </style>
 
 </head>
@@ -109,7 +113,7 @@
                     </div>
                     <div class="member-info" style="width: 100%; height: 115px;">
                       <h4><a href="./detail?itemNum=${ar.itemNum}">${ar.itemName}</a></h4>
-                      <p>${ar.itemAddress}</p>
+                      <!-- <p>${ar.itemAddress}</p> -->
                       <span>${ar.itemPrice}</span>
                     </div>
                   </div>

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
@@ -16,7 +18,7 @@ import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 
 @Controller
-@RequestMapping("/sell/iamport/*")
+@RequestMapping()
 public class ImportController {
 	//클라이언트가 결제를 하면 이쪽으로 imp_uid, merchant_uid가 넘어오고
 	//client 객체를 통해서 토큰을 발급 받고
@@ -30,12 +32,17 @@ public class ImportController {
 		
 	}
 	
-	@PostMapping("payments/complete")
-	public void setCheck(String imp_uid, String merchant_uid, CheckDTO checkDTO, HttpServletRequest request) throws Exception {
-	  try {
-		  	System.out.println(request.getAttribute(merchant_uid));
-		  	System.out.println(checkDTO.getMerchant_uid());
+	@PostMapping()
+	@ResponseBody
+	public void setCheck(@RequestParam String imp_uid, @RequestParam String userName) throws Exception {
+		System.out.println(imp_uid);
+		System.out.println(userName);
+		
+		try {
+			IamportResponse<AccessToken> ipList = client.getAuth();
 			IamportResponse<Payment> paymentResponse = client.paymentByImpUid("imp12326472");
+			System.out.println(paymentResponse.getResponse().getAmount());
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

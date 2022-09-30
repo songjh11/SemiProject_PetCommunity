@@ -17,15 +17,18 @@
 		<c:when test="${dto.roleNum eq 1}">
             <p>아이템카테고리: ${dto.itemCatg}</p>
             <p>아이템아이디: ${dto.itemId}</p>
+            
         </c:when>
         <c:when test="${dto.roleNum eq 2}">
             <p>펫이름: ${dto.petName}</p>
             <p>펫카테고리: ${dto.petCatg}</p>
+            <img src="../resources/upload/member/${dto.memberFileDTO.fileName}" alt="">
+            <a href="../resources/upload/member/${dto.memberFileDTO.fileName}">${dto.memberFileDTO.oriName}</a>
         </c:when>
 	</c:choose>
     <p>번호: ${dto.phone}</p>
     <p>메일: ${dto.email}</p>
-    <p>주소: ${dto.address}</p>
+    <p>주소: ${dto.itemZipCode} + ${dto.deAddress} + ${dto.address}</p>
     <c:choose>
 		<c:when test="${dto.agValue  eq 1}">
             <p>정보제공동의여부: 동의</p>
@@ -50,7 +53,8 @@
             <p>문자수신동의여부: 비동의</p>
         </c:when>
      </c:choose>
-     <button type="submit">회원탈퇴</button>
+     <button type="submit" class="btn-book-a-table">회원탈퇴</button>
+     <a href="./update" class="btn-book-a-table">정보수정</a>
     </form>
    
 

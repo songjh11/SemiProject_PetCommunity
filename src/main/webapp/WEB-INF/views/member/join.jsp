@@ -31,11 +31,15 @@
   <link href="/resources/assets/css/main.css" rel="stylesheet">
 
 	<style type="text/css">
-    .col{
+    .ag{
       background-color:cornsilk;
       overflow: scroll;
       width: 600px;
       height: 100px;
+    }
+
+    .warning{
+      color: red;
     }
     #po{
       font-size: 10pt;
@@ -90,39 +94,52 @@
               <div class="row gy-4">
                 <div class="col-lg-8 col-md-12">
                   <input type="hidden" name="roleNum" value="${param.roleNum}">
-                  <input type="text" name="userId" class="form-control" placeholder="User ID">
+                  <input type="text" name="userId" id="userId" class="form-control" placeholder="User ID">
                   <div class="validate"></div>
+                  <div id="d1" class="warning"></div>
                 </div>
                 <div class="col-lg-8 col-md-12">
-                  <input type="text" name="password" class="form-control" placeholder="password">
+                  <input type="text" name="password" id="password" class="form-control" placeholder="password">
                   <div class="validate"></div>
+                  <div id="d2" class="warning"></div>
                 </div>
                 <div class="col-lg-8 col-md-12">
-                  <input type="text" name="userName" class="form-control" placeholder="User Name">
+                  <input type="text" name="password2" id="password2" class="form-control" placeholder="One more password">
                   <div class="validate"></div>
+                  <div id="d2_1" class="warning"></div>
                 </div>
                 <div class="col-lg-8 col-md-12">
-                  <input type="number" name="phone" class="form-control" id="userId" placeholder="Phone">
+                  <input type="text" name="userName" id="userName" class="form-control" placeholder="User Name">
                   <div class="validate"></div>
+                  <div id="d3" class="warning"></div>
                 </div>
                 <div class="col-lg-8 col-md-12">
-                  <input type="email" name="email" class="form-control" placeholder="Email">
+                  <input type="number" name="phone" id="phone" class="form-control" id="userId" placeholder="Phone">
                   <div class="validate"></div>
+                  <div id="d4" class="warning"></div>
+                </div>
+                <div class="col-lg-8 col-md-12">
+                  <input type="email" name="email" id="email" class="form-control" placeholder="Email">
+                  <div class="validate"></div>
+                  <div id="d5" class="warning"></div>
                 </div>
 
                 <div class="col-lg-6 col-md-6">
                   <input type="text" name="itemZipCode" class="form-control" id="itemZipCode" placeholder="우편번호">
-                   <div class="validate"></div>
+                  <div class="validate"></div>
+                  <div id="d6" class="warning"></div>
                  </div>
                  <div class="col-lg-6 col-md-6">
                    <button type="button" id="address_kakao" onclick="execDaumPostcode();">주소 검색</button>
                  </div>
                  <div class="col-lg-12 col-md-12">
                   <input type="text" name="address" class="form-control" id="address" placeholder="주소">
+                  <div id="d7" class="warning"></div>
                  </div>
                  <div class="col-lg-12 col-md-12">
                    <input type="text" name="deAddress" class="form-control" id="deAddress" placeholder="상세 주소">
                    <div class="validate"></div>
+                   <div id="d8" class="warning"></div>
                  </div>
 
                 <c:if test="${param.roleNum == '1'}">
@@ -134,6 +151,7 @@
                       <option value="3">트레이닝</option>
                     </select>
                     <div class="validate"></div>
+                    <div id="d9" class="warning"></div>
                   </div>
                 </c:if>
                 </div>
@@ -143,18 +161,22 @@
                 <c:if test="${param.roleNum == '2'}">
 
                   <div class="col-lg-8 col-md-6">
-                    <input type="text" class="form-control" name="petCatg" placeholder="Pet Categori">
+                    <input type="text" class="form-control" name="petCatg" id="petCatg" placeholder="Pet Categori">
                     <div class="validate"></div>
+                    <div id="d10" class="warning"></div>
                   </div>
 
                   <div class="col-lg-8 col-md-6">
-                    <input type="text" class="form-control" name="petName" placeholder="Pet Name">
+                    <input type="text" class="form-control" name="petName"id="petName" placeholder="Pet Name">
                     <div class="validate"></div>
+                    <div id="d11" class="warning"></div>
                   </div>
 
                   <div class="col-lg-8 col-md-6">
                     <input type="file" class="form-control" name="photo" id="files" placeholder="Pet Photo">
                     <div class="validate"></div>
+
+                    <div id="d12" class="warning"></div>
                   </div>
 
                 </c:if>
@@ -164,7 +186,7 @@
 
                   개인정보 동의 약관(필수)<input type="checkbox" class="cb req" name="agValue" value="1">
                   <div class="form-group mt-3">
-	                <div class="form-control col" name="itemContents" rows="5">
+	                <div class="form-control ag" name="itemContents" rows="5">
 
                     제 1 조 (목적)
                     본 약관은 문화체육관광부 대표누리집 (이하 "누리집")이 제공하는 모든 서비스(이하 "서비스")의 이용조건 및 절차, 이용자와 누리집의 권리, 의무, 책임사항과 기타 제반 사항을 규정함을 목적으로 합니다.
@@ -193,7 +215,7 @@
   
                   이메일 동의 약관(필수) <input type="checkbox" class="cb req" name="agMail" value="1">
                   <div class="form-group mt-3">
-	                <div class="form-control col" name="itemContents" rows="5">
+	                <div class="form-control ag" name="itemContents" rows="5">
 
                     제 1 조 (목적)
                     본 약관은 문화체육관광부 대표누리집 (이하 "누리집")이 제공하는 모든 서비스(이하 "서비스")의 이용조건 및 절차, 이용자와 누리집의 권리, 의무, 책임사항과 기타 제반 사항을 규정함을 목적으로 합니다.
@@ -223,7 +245,7 @@
                 메시지 동의 약관(선택) <input type="checkbox" class="cb" name="agMes" value=""> 
 
                   <div class="form-group mt-3">
-	                <div class="form-control col" name="itemContents" rows="5">
+	                <div class="form-control ag" name="itemContents" rows="5">
 
                    제 9 조 (서비스 이용시간)
                    1. 서비스 이용시간은 누리집의 업무상 또는 기술상 특별한 지장이 없는 한 연중무휴, 1일 24시간을 원칙으로 합니다.
@@ -254,7 +276,7 @@
               </div>
               <br>
              <div class="text-center">
-             	<button type="button" id="join">회원가입</button>
+             	<button type="button" id="join" class="btn-book-a-table">회원가입</button>
              </div>
              
             </form>
@@ -338,8 +360,21 @@
     }//kakao api 끝
 </script>
 
+<!-- roleNum 파라미터 js로 가져오기-->
+<script>
+  function getParameter(name) {
+      name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+      var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+          results = regex.exec(location.search);
+      return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
+
+  let roleNum = getParameter("roleNum");
+  </script>
+
+
+
 <script src="/resources/JS/member.js"></script>
 
-  <script>check();</script>
 </body>
 </html>

@@ -30,16 +30,17 @@ rvBtnFrm.addEventListener("click", function(){
     }, function (rsp) { // callback
         if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
             // jQuery로 HTTP 요청
-            jQuery.ajax({
-                url: "sell/verify_iamport/", // 예: https://www.myservice.com/payments/complete
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
+            $.ajax({
+                url: "./payments", // 예: https://www.myservice.com/payments/complete
+                type: "POST",
+                dataType: 'json',
                 data: {
-                    imp_uid: rsp.imp_uid,
-                    merchant_uid: rsp.merchant_uid
+                    'imp_uid': 'rsp.imp_uid',
+                    'merchant_uid': 'rsp.merchant_uid'
                 }
             }).done(function (data) {
               // 가맹점 서버 결제 API 성공시 로직
+              alert("결제 성공")
             })
           } else {
             alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);

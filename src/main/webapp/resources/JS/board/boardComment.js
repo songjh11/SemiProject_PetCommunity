@@ -26,6 +26,7 @@ commentAdd.addEventListener("click", function(){
             let result = xhttp.responseText.trim();
             result = JSON.parse(result);
             if(result == 1 && writer.value != "" && contents.value != ""){
+                sock.send(userName+","+window.location.href+","+writer.value+","+"님이 댓글을 작성했습니다.");
                 writer.value = "";
                 contents.value = "";
                 alert("댓글 작성 완료");
@@ -59,7 +60,6 @@ function getCommentList(p,n){
 
             let ar = result.list;
             console.log(result);
-            console.log(ar[0].writer);
             let pager = result.pager;
             let tab_tbody = document.createElement("tbody");
 

@@ -99,7 +99,7 @@ height: 80px;
           </div>
           <br>
          <div class="text-center">
-           <button type="submit" id="login">Login</button>
+           <button type="submit" id="login" class="btn-book-a-table">Login</button>
          </div>
          
         </form>

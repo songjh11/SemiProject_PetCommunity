@@ -7,7 +7,7 @@
  <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Update Item</title>
+  <title>Join page</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -31,6 +31,18 @@
   <link href="/resources/assets/css/main.css" rel="stylesheet">
 
 	<style type="text/css">
+    .col{
+      background-color:cornsilk;
+      overflow: scroll;
+      width: 600px;
+      height: 100px;
+    }
+    #po{
+      font-size: 10pt;
+      color: darkgray;
+    }
+
+
     #imgDiv{
       display: flex;
     }
@@ -57,24 +69,6 @@
     #inputDiv{
       display: none;
     }
-
-    .disb{
-      display: block;
-    }
-
-    .fileList{
-      align-items: center;
-    }
-
-    span{
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    .uFileDelete{
-      margin-left: 5px;
-    }
-
 	</style>
   
 </head>
@@ -82,60 +76,96 @@
 <!-- header start -->
 <c:import url="/WEB-INF/views/template/header.jsp"></c:import>
 <!-- header end -->
-<!-- ======= Add Items Section ======= -->
+<!-- ======= Join Section ======= -->
     <section id="book-a-table" class="book-a-table">
       <div class="container" data-aos="fade-up">
 
         <div class="section-header">
-          <p><span>Update Item</span></p>
+          <p><span>Join page</span></p>
         </div>
+  
 
           <div class="col-lg-8 align-items-center">
-            <form action="update" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data" id="updateItemFrm">
-              <input type="hidden" name="itemNum" value="${dto.itemNum}">
-        			<input type="hidden" name="itemCatg" value="${dto.itemCatg}">
+            <form action="update" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data" id="updatefrm">
               <div class="row gy-4">
-                <div class="col-lg-8 col-md-6">
-                  <input type="text" class="form-control disb" name="itemName" id="itemName" value="${dto.itemName}">
+                <div class="col-lg-8 col-md-12">
+                  <input type="hidden" name="roleNum" value="${param.roleNum}">
+                  <input type="text" name="userId" class="form-control" value="${dto.userId}" readonly>
                   <div class="validate"></div>
                 </div>
-                <div class="col-lg-8 col-md-6">
-                  <input type="text" class="form-control disb" name="itemPrice" id="itemPrice" value="${dto.itemPrice}">
+                <div class="col-lg-8 col-md-12">
+                  <input type="text" name="password" class="form-control" value="${dto.password}">
                   <div class="validate"></div>
                 </div>
-                <div class="col-lg-12 col-md-12 fileList">
-                  <c:forEach items= "${dto.fileDTOs}" var= "ar">
-                    <span>${ar.oriName}
-                    <button type="button" class="uFileDelete btn btn-outline-danger" data-photo-num="${ar.photoNum}">파일 삭제</button>
-                    </span>
-                  </c:forEach>
+                <div class="col-lg-8 col-md-12">
+                  <input type="text" name="userName" class="form-control" value="${dto.userName}">
+                  <div class="validate"></div>
+                </div>
+                <div class="col-lg-8 col-md-12">
+                  <input type="number" name="phone" class="form-control" value="${dto.phone}">
+                  <div class="validate"></div>
+                </div>
+                <div class="col-lg-8 col-md-12">
+                  <input type="email" name="email" class="form-control" value="${dto.email}">
+                  <div class="validate"></div>
+                </div>
+
+                <div class="col-lg-6 col-md-6">
+                  <input type="text" name="itemZipCode" class="form-control" id="itemZipCode" value="${dto.itemZipCode}">
+                   <div class="validate"></div>
+                 </div>
+                 <div class="col-lg-6 col-md-6">
+                   <button type="button" id="address_kakao" onclick="execDaumPostcode();">주소 검색</button>
+                 </div>
+                 <div class="col-lg-12 col-md-12">
+                  <input type="text" name="address" class="form-control" id="address" value="${dto.address}">
+                 </div>
+                 <div class="col-lg-12 col-md-12">
+                   <input type="text" name="deAddress" class="form-control" id="deAddress" value="${dto.deAddress}">
+                   <div class="validate"></div>
+                 </div>
+
+                </div>
+                
+               
+             
+                <c:if test="${dto.roleNum == '2'}">
+
+                  <div class="col-lg-8 col-md-6">
+                    <input type="text" class="form-control" name="petCatg" value="${dto.petCatg}">
+                    <div class="validate"></div>
                   </div>
-                <div class="col-lg-12 col-md-12">
-                   <button type="button" id="sellfileAdd" class="btn btn-outline-primary">상품 사진 추가</button>
+
+                  <div class="col-lg-8 col-md-6">
+                    <input type="text" class="form-control" name="petName" value="${dto.petName}">
+                    <div class="validate"></div>
                   </div>
-                <div class="col-lg-4 col-md-6">  
-                <div id="sellFileImages">
-                  <div id= "inputDiv"></div>
-                  <div id = "imgDiv"></div>
-                </div>
-                </div>
-                <div class="form-group mt-3" style="margin-top: 5px;">
-	                <textarea class="form-control" name="itemContents" rows="5" value="${dto.itemContents}">${dto.itemContents}</textarea>
-	                <div class="validate"></div>
-                </div>
+
+                  <div class="col-lg-8 col-md-6">
+                    <input type="file" class="form-control" name="photo" id="files" value="${dto.memberFileDTO.oriName}">
+                    <div class="validate"></div>
+                  </div>
+
+                </c:if>
+                메시지 동의 약관(선택) <input type="radio" class="cb" name="agMes" value="${dto.agMes}" id="radiomes"> 
+
+
+              
+                
+              
               
               </div>
               <br>
-              <div class="text-center">
-                <button type="submit" id="updateItemBtn" class="btn btn-outline-primary">상품 수정</button>
-              </div>
+             <div class="text-center">
+             	<button type="button" id="update" class="btn-book-a-table">수정완료</button>
+             </div>
              
             </form>
-          </div><!-- End Update Form -->
+          </div><!-- End Reservation Form -->
 
         </div>
 
-    </section><!-- End Update Items Section -->
+    </section><!-- End Add Items Section -->
 
 
 
@@ -198,24 +228,20 @@
                     //document.getElementById("itemLongtitude").value = extraAddr;
                 
                 } else {
-                    document.getElementById("itemAddress").value = '';
+                    document.getElementById("address").value = '';
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('itemZipCode').value = data.zonecode;
-                document.getElementById("itemAddress").value = addr += extraAddr;
+                document.getElementById("address").value = addr += extraAddr;
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("itemDeAddress").focus();
+                document.getElementById("deAddress").focus();
             }
         }).open();
     }//kakao api 끝
 </script>
 
-<script src="/resources/JS/sell.js"></script>
-<script>
-	setCount(${dto.fileDTOs.size()});
-</script>
+<script src="/resources/JS/update.js"></script>
 
-  
 </body>
 </html>

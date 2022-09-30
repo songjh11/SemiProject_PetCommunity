@@ -1,5 +1,6 @@
 package com.pet.home.sell;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,21 +9,31 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pet.home.sell.check.CheckDTO;
 import com.pet.home.sell.file.RvFileDTO;
 import com.pet.home.sell.file.SellFileDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
 import com.pet.home.util.Pager;
 import com.pet.home.util.SellPager;
+import com.siot.IamportRestClient.IamportClient;
+import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.response.AccessToken;
+import com.siot.IamportRestClient.response.IamportResponse;
+import com.siot.IamportRestClient.response.Payment;
 
 @Controller
 @RequestMapping(value="/sell/*")
@@ -31,6 +42,10 @@ public class SellItemController {
 	
 	@Autowired
 	private SellItemService itemService;	
+	
+	@GetMapping("Test")
+	public void detailTest() {
+	}
 	
 	@GetMapping("list")
 	public ModelAndView getItemList(SellPager sellPager) throws Exception {
@@ -54,6 +69,12 @@ public class SellItemController {
 		model.addObject("category", categoryDTO);
 		return model;
 	}
+	
+	@PostMapping("check")
+	public void setCheck(CheckDTO checkDTO) {
+		System.out.println(checkDTO.getItemNum());
+	}
+
 	
 	@GetMapping("add")
 	public void setItemAdd() throws Exception {
@@ -274,4 +295,25 @@ public class SellItemController {
 	public void getPetTaxi () {
 		
 	}
+
+	
+IamportClient client = new IamportClient("7768266328715148", "uETnhxe3MbNMjFN4Gs6U5PuiYYR6TWf9SFcGncxj9SWEcDAysad8JZmNnOYpChUkXzIdw7Ld9uTaSWuP", true);
+	
+	public void getToken() throws Exception {
+		IamportResponse<AccessToken> ipList = client.getAuth();
+		
+	}
+	
+	@PostMapping("payments")
+	@ResponseBody
+	public void setCheck(@RequestBody String imp_uid, @RequestParam String merchant_uid) throws Exception {
+			System.out.println("payments/complete");
+			System.out.println(imp_uid);
+			System.out.println(merchant_uid);
+			String test_imp_uid = "imp12326472";
+            IamportResponse<Payment> payment_response = client.paymentByImpUid(test_imp_uid);
+            System.out.println(payment_response.getResponse().getAmount());
+	}
+
+	
 }

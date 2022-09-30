@@ -1,39 +1,19 @@
 package com.pet.home.chat.room;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
-
-import javax.servlet.http.HttpSession;
-import javax.websocket.OnClose;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-
-import org.mybatis.logging.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import com.pet.home.chat.chatting.ChattingDTO;
-import com.pet.home.chat.chatting.ChattingService;
 import com.pet.home.member.MemberDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RequestMapping("/echo")
 @Controller
 public class EchoHandler extends TextWebSocketHandler {
@@ -51,17 +31,19 @@ public class EchoHandler extends TextWebSocketHandler {
 		if(memberDTO.getUserName() != null) { //로그인 세션이 들어왔을 때
 
 			//log.info("현재 접속한 사람 : " + memberDTO.getUserName());
+			System.out.println("현재 접속한 사람 : " + memberDTO.getUserName());
 			sessionList.add(session);
 
 			//log.info("{} 연결됨", session.getId());
 
 			userSessionList.add(memberDTO);
-		}
 		
-		for(WebSocketSession sess : sessionList) {
-			for(MemberDTO mDTO : userSessionList) {
-				sess.sendMessage(new TextMessage(mDTO.getUserName()+":"+"접속"));
-			}	
+		
+			for(WebSocketSession sess : sessionList) {
+				for(MemberDTO mDTO : userSessionList) {
+					sess.sendMessage(new TextMessage(mDTO.getUserName()+":"+"접속"));
+				}	
+			}
 		}
 		
 	}
@@ -77,7 +59,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		//log.info("{}로부터 {}를 받음", session.getId(), message.getPayload());
 
 		// 실시간 알림기능 
-		if(msg != null) {
+		if(msg != null && memberDTO != null) {
 			String[] strs = msg.split(",");
 			//log.info(strs.toString());
 			if(strs != null && strs.length == 4) {
@@ -98,19 +80,17 @@ public class EchoHandler extends TextWebSocketHandler {
 			}
 			
 			
-		}
+		
 		
 		//1:1 채팅
 		//log.info("{}로부터 {}를 받음", session.getId(), message.getPayload());
+			System.out.println("{}로부터 {}를 받음"+ session.getId()+":"+ message.getPayload());
 
-		for(WebSocketSession sess : sessionList) {
-			sess.sendMessage(new TextMessage(memberDTO.getUserName() + ":" + message.getPayload()));
-			for(MemberDTO mDTO : userSessionList) {
-				sess.sendMessage(new TextMessage(mDTO.getUserName()+":"+"접속"));
+			for(WebSocketSession sess : sessionList) {
+				sess.sendMessage(new TextMessage(memberDTO.getUserName() + ":" + message.getPayload()));
 			}	
+			
 		}
-		
-	
 		
 	}
 	
@@ -123,11 +103,10 @@ public class EchoHandler extends TextWebSocketHandler {
 		
 		sessionList.remove(session);
 		//log.info("{} 연결 끊김", session.getId());
-		if(memberDTO.getUserName() != null) {
-			userSessionList.remove(memberDTO);
-			sessionList.remove(session);
-			//log.info("{} 연결 끊김", session.getId());
-		}
+		System.out.println("{} 연결 끊김"+ session.getId());
+		
+		userSessionList.remove(memberDTO);
+
 
 	}
 	

@@ -56,6 +56,21 @@ public class MemberDAO {
 	public int setMemDelete(MemberDTO memberDTO)throws Exception{
 		return sqlSession.delete(NAMESPACE+"setMemDelete", memberDTO);
 	}
+	
+	public int setMemUpdate(MemberDTO memberDTO)throws Exception{
+		return sqlSession.update(NAMESPACE+"setMemUpdate", memberDTO);
+		
+	}
+	
+	public int setGuestUpdate(MemberDTO memberDTO)throws Exception{
+		return sqlSession.update(NAMESPACE+"setGuestUpdate", memberDTO);
+		
+	}
+	
+	public int setFileUpdate(MemberFileDTO memberFileDTO)throws Exception{
+		return sqlSession.update(NAMESPACE+"setFileUpdate", memberFileDTO);
+		
+	}
 
 	public MemberDTO getShopCartList(MemberDTO memberDTO) throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getShopCartList", memberDTO);
@@ -63,6 +78,23 @@ public class MemberDAO {
 	
 	public MemberDTO getTotalPrice(MemberDTO memberDTO) throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getTotalPrice", memberDTO);
+	}
+
+			
+	public List<FollowDTO> getFolloweeList(MemberDTO memberDTO){
+		return sqlSession.selectList(NAMESPACE+"getFolloweeList",memberDTO);
+	}
+	
+	public List<FollowDTO> getFollowerList(MemberDTO memberDTO){
+		return sqlSession.selectList(NAMESPACE+"getFollowerList",memberDTO);
+	}
+
+	public int getFollowerount(MemberDTO memberDTO)throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getFollowerCount", memberDTO);
+	}
+	
+	public int getFolloweeount(MemberDTO memberDTO)throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getFolloweeCount", memberDTO);
 	}
 	
 }

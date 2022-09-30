@@ -8,6 +8,9 @@
 		<typeAlias type="com.pet.home.board.impl.BoardFileDTO" alias="BoardFileDTO"/>
 		<typeAlias type="com.pet.home.board.notice.NoticeDTO" alias="NoticeDTO"/>
 		<typeAlias type="com.pet.home.board.qna.QnaDTO" alias="QnaDTO"/>
+		<typeAlias type="com.pet.home.board.sharing.SharingDTO" alias="SharingDTO"/>
+		<typeAlias type="com.pet.home.board.sharing.ShCommentDTO" alias="ShCommentDTO"/>
+		<typeAlias type="com.pet.home.util.BoardCommentPager" alias="BoardCommentPager"/>
 		<typeAlias type="com.pet.home.board.event.EventDTO" alias="EventDTO"/>
 		<typeAlias type="com.pet.home.board.event.coupon.CouponDTO" alias="CouponDTO"/>
 		
@@ -19,6 +22,7 @@
 		<typeAlias type="com.pet.home.member.MemberDTO" alias="MemberDTO"/>
 		<typeAlias type="com.pet.home.member.RoleDTO" alias="RoleDTO"/>
 		<typeAlias type="com.pet.home.member.MemberFileDTO" alias="MemberFileDTO"/>
+		<typeAlias type="com.pet.home.member.FollowDTO" alias="FollowDTO"/>
 
 		
 		<typeAlias type="com.pet.home.sell.SellItemDTO" alias="SellItemDTO"/>

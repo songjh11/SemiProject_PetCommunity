@@ -84,6 +84,21 @@ public class MemberService {
 	public int setMemDelete(MemberDTO memberDTO)throws Exception{
 		return memberDAO.setMemDelete(memberDTO);
 	}
+	
+	public int setMemUpdate(MemberDTO memberDTO)throws Exception{
+		return memberDAO.setMemUpdate(memberDTO);
+		
+	}
+	
+	public int setGuestUpdate(MemberDTO memberDTO)throws Exception{
+		return memberDAO.setGuestUpdate(memberDTO);
+		
+	}
+	
+	public int setFileUpdate(MemberFileDTO memberFileDTO, MultipartFile photo, ServletContext servletContext)throws Exception{
+		return memberDAO.setFileUpdate(memberFileDTO);
+		
+	}
 
 	public MemberDTO getPickList(MemberDTO memberDTO) throws Exception{
 		return memberDAO.getPickList(memberDTO);
@@ -96,6 +111,24 @@ public class MemberService {
 	
 	public MemberDTO getTotalPrice(MemberDTO memberDTO) throws Exception{
 		return memberDAO.getTotalPrice(memberDTO);
+	}
+	
+	public List<FollowDTO> getFolloweeList(MemberDTO memberDTO){
+		return memberDAO.getFolloweeList(memberDTO);
+	}
+	
+	public List<FollowDTO> getFollowerList(MemberDTO memberDTO){
+		return memberDAO.getFollowerList(memberDTO);
+	}
+	
+	public int getFollowerount(MemberDTO memberDTO)throws Exception{
+		return memberDAO.getFollowerount(memberDTO);
+		
+	}
+	
+	public int getFolloweeount(MemberDTO memberDTO)throws Exception{
+		return memberDAO.getFolloweeount(memberDTO);
+		
 	}
 	
 

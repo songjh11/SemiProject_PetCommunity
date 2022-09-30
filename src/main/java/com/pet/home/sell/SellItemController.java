@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -294,16 +295,7 @@ public class SellItemController {
 	public void getPetTaxi () {
 		
 	}
-	
 
-	
-	@PostMapping("/verify_iamport/*")
-	@ResponseBody
-	public void setCheckId(@RequestBody String imp_uid) throws Exception {
-			String test_imp_uid = "imp12326472";
-            IamportResponse<Payment> payment_response = client.paymentByImpUid(test_imp_uid);
-            System.out.println(payment_response.getResponse().getAmount());
-	}
 	
 IamportClient client = new IamportClient("7768266328715148", "uETnhxe3MbNMjFN4Gs6U5PuiYYR6TWf9SFcGncxj9SWEcDAysad8JZmNnOYpChUkXzIdw7Ld9uTaSWuP", true);
 	
@@ -312,9 +304,12 @@ IamportClient client = new IamportClient("7768266328715148", "uETnhxe3MbNMjFN4Gs
 		
 	}
 	
-	@PostMapping("/verify_iamport/*")
+	@PostMapping("payments")
 	@ResponseBody
-	public void setCheck(@RequestBody String imp_uid) throws Exception {
+	public void setCheck(@RequestBody String imp_uid, @RequestParam String merchant_uid) throws Exception {
+			System.out.println("payments/complete");
+			System.out.println(imp_uid);
+			System.out.println(merchant_uid);
 			String test_imp_uid = "imp12326472";
             IamportResponse<Payment> payment_response = client.paymentByImpUid(test_imp_uid);
             System.out.println(payment_response.getResponse().getAmount());

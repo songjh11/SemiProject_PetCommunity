@@ -105,9 +105,9 @@
                       <img src="/resources/upload/sellfile/${ar.fileDTOs[0].fileName}" class="img-fluid" alt="">
                       <div class="social d-flex">
                         <button type="button" class="btnsocial" id="btnPick">
-                          <i class="bi bi-balloon-heart btnPick" data-item-num="${ar.itemNum}"></i>
+                          <i class="bi bi-balloon-heart btnPick" style="cursor: pointer;" data-item-num="${ar.itemNum}"></i>
                         </button>
-                          <i class="bi bi-facebook" id="btnShopCart"></i></a>
+                          <i class="bi bi-facebook" style="cursor: pointer;" id="btnShopCart"></i></a>
                         </p>
                       </div>
                     </div>

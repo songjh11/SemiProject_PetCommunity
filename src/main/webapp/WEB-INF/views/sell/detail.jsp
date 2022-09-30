@@ -562,7 +562,7 @@
         </div>
       </div>
       <!-- reservation section end -->
-      <!-- Modal -->
+      <!-- 결제 Modal -->
       <div class="modal fade" id="modal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -595,14 +595,42 @@
       </div>
       <!-- modal end -->
  
-  <!-- contents, review, qna -->
+      <a href="./reviewadd?itemNum=${sellItemDTO.itemNum}"><button>리뷰쓰기</button></a>
+      <!-- contents, review, qna -->
+      <div>
+        <!-- Button trigger modal -->
+        <button type="button" id= "up" style="display:none" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Launch demo modal
+          </button>
+      
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">댓글 수정</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <input type="hidden" id="rvcNum" value="">
+                <input type="hidden" id="rvNum" value="">
+                <textarea class="form-control" id="rvcContents"></textarea>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >취소</button>
+                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btnCheck">수정</button>
+              </div>
+              </div>
+          </div>
+          </div>
+      </div>
   <div class="crq" style="width: 80%; margin-top: 50px;">
     <ul class="nav nav-tabs nav-fill" role="tablist">
         <li class="nav-item" role="presentation" style="width: 30%;">
           <a class="nav-link active" data-bs-toggle="tab" href="#iContents" aria-selected="true" role="tab">상세 설명</a>
         </li>
         <li class="nav-item" role="presentation" style="width: 30%;">
-          <a class="nav-link" data-bs-toggle="tab" href="#review" aria-selected="false" role="tab" tabindex="-1">리뷰</a>
+          <a class="nav-link" data-bs-toggle="tab" href="#rv" id="reviewCheck" onclick="reviewList(); this.onclick=null;" data-item-num="${sellItemDTO.itemNum}" aria-selected="false" role="tab" tabindex="-1">리뷰</a>
         </li>
         <li class="nav-item" role="presentation" style="width: 30%;">
           <a class="nav-link" data-bs-toggle="tab" href="#qna" aria-selected="false" role="tab" tabindex="-1">문의</a>
@@ -617,9 +645,16 @@
             위드독애견호텔은 작고 답답한 공간이 아닌 아늑하고 편안하게 휴식할 수 있는 넓은 객실을 갖춘 프리미엄 애견호텔 입니다.
             여행/출장 또는 장시간 집을 비워야 할 때 위드독애견호텔의 호텔링 / 데이케어(※ 산책 옵션 추가 가능)서비스를 이용해 보세요.</p>
         </div>
-        <div class="tab-pane fade" id="review" role="tabpanel">
-          <br>
+        <div class="tab-pane fade" role="tabpanel" id="rv">
           <p>리뷰</p>
+          <table class="table" id="review">
+            <th class="th" style="display: none;" >작성자</th>
+            <th class="th" style="display: none;" >제목</th>
+            <th class="th" style="display: none;" >내용</th>
+            <th class="th" style="display: none;" >평점</th>
+            <th class="th" style="display: none;" >리뷰사진</th>
+          </table>
+          <button id="more">더보기</button>
         </div>
         <div class="tab-pane fade" id="qna" role="tabpanel">
           <br>
@@ -701,6 +736,11 @@
        }).open();
    }//kakao api 끝
 </script>
+
+  <!--모달 부트스트랩-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+  <!-- 리뷰 리스트 js -->
+  <script src="/resources/JS/review.js"></script>
 
 <!-- 결제 api -->
 <script src="/resources/JS/check.js"></script>

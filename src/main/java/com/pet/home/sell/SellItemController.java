@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pet.home.sell.check.CheckDTO;
 import com.pet.home.sell.file.RvFileDTO;
 import com.pet.home.sell.file.SellFileDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
@@ -294,7 +295,17 @@ public class SellItemController {
 		
 	}
 	
-	IamportClient client = new IamportClient("7768266328715148", "uETnhxe3MbNMjFN4Gs6U5PuiYYR6TWf9SFcGncxj9SWEcDAysad8JZmNnOYpChUkXzIdw7Ld9uTaSWuP", true);
+
+	
+	@PostMapping("/verify_iamport/*")
+	@ResponseBody
+	public void setCheckId(@RequestBody String imp_uid) throws Exception {
+			String test_imp_uid = "imp12326472";
+            IamportResponse<Payment> payment_response = client.paymentByImpUid(test_imp_uid);
+            System.out.println(payment_response.getResponse().getAmount());
+	}
+	
+IamportClient client = new IamportClient("7768266328715148", "uETnhxe3MbNMjFN4Gs6U5PuiYYR6TWf9SFcGncxj9SWEcDAysad8JZmNnOYpChUkXzIdw7Ld9uTaSWuP", true);
 	
 	public void getToken() throws Exception {
 		IamportResponse<AccessToken> ipList = client.getAuth();
@@ -308,5 +319,6 @@ public class SellItemController {
             IamportResponse<Payment> payment_response = client.paymentByImpUid(test_imp_uid);
             System.out.println(payment_response.getResponse().getAmount());
 	}
+
 	
 }

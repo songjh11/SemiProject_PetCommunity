@@ -140,6 +140,8 @@
       </div>
     <!-- text 영역 -->
     <div class="textAre col-lg-6 col-md-6 d-flex">
+      <input type="hidden" id="itemNum" value="${sellItemDTO.itemNum}">
+      <input type="hidden" id="itemCatg" value="${sellItemDTO.itemCatg}">
       <div>
         <table class="table table-striped">
           <tbody>
@@ -514,14 +516,14 @@
                 <label for="checkin_date" class="font-weight-bold text-black">Check In</label>
                 <div class="field-icon-wrap">
                   <div class="icon"><span class="icon-calendar"></span></div>
-                  <input type="date" id="revStartDate" class="form-control">
+                  <input type="date" id="revStartDate" name="revStartDate" class="form-control">
                 </div>
               </div>
               <div class="col-md-6 mb-3 mb-lg-0 col-lg-3">
                 <label for="checkout_date" class="font-weight-bold text-black">Check Out</label>
                 <div class="field-icon-wrap">
                   <div class="icon"><span class="icon-calendar"></span></div>
-                  <input type="date" id="revEndDate" class="form-control">
+                  <input type="date" id="revEndDate" name="revEndDate" class="form-control">
                 </div>
               </div>
               <div class="col-md-6 mb-3 mb-md-0 col-lg-3">
@@ -530,7 +532,8 @@
                     <label for="adults" class="font-weight-bold text-black">Adults</label>
                     <div class="field-icon-wrap">
                       <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                      <select id="adultsCount" class="form-control">
+                      <select id="adultsCount" name="adultsCount" class="form-control">
+                        <option value="" selected>-- 인원 수 선택 --</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -541,7 +544,8 @@
                     <label for="Dog" class="font-weight-bold text-black">Dog</label>
                     <div class="field-icon-wrap">
                       <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                      <select id="dogCount" class="form-control">
+                      <select id="dogCount" name="dogCount" class="form-control">
+                        <option value="" selected>-- 강아지 수 선택 --</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>

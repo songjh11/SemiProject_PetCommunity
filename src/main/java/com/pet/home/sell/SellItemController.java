@@ -306,13 +306,16 @@ IamportClient client = new IamportClient("7768266328715148", "uETnhxe3MbNMjFN4Gs
 	
 	@PostMapping("payments")
 	@ResponseBody
-	public void setCheck(@RequestBody String imp_uid, @RequestParam String merchant_uid) throws Exception {
+	public void setCheck(@RequestParam String imp_uid, @RequestParam String merchant_uid) throws Exception {
 			System.out.println("payments/complete");
 			System.out.println(imp_uid);
 			System.out.println(merchant_uid);
-			String test_imp_uid = "imp12326472";
-            IamportResponse<Payment> payment_response = client.paymentByImpUid(test_imp_uid);
+
+            IamportResponse<Payment> payment_response = client.paymentByImpUid(imp_uid);
             System.out.println(payment_response.getResponse().getAmount());
+            System.out.println(payment_response.getResponse().getName());
+            System.out.println(payment_response.getResponse().getBuyerName());
+            
 	}
 
 	

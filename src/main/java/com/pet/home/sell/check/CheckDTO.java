@@ -10,16 +10,12 @@ public class CheckDTO {
     private Long itemNum;
     private String itemName;
     private Long amount;
-    private String email;
-    private String userName;
     private String userId;
-    private Long buyer_tel;
     private String revStartDate;
     private String revEndDate;
     private Long adultsCount;
     private Long dogCount;
     private Long itemCatg;
-    
 	public String getPg() {
 		return pg;
 	}
@@ -56,29 +52,11 @@ public class CheckDTO {
 	public void setAmount(Long amount) {
 		this.amount = amount;
 	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
 	public String getUserId() {
 		return userId;
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-	public Long getBuyer_tel() {
-		return buyer_tel;
-	}
-	public void setBuyer_tel(Long buyer_tel) {
-		this.buyer_tel = buyer_tel;
 	}
 	public String getRevStartDate() {
 		return revStartDate;
@@ -110,6 +88,7 @@ public class CheckDTO {
 	public void setItemCatg(Long itemCatg) {
 		this.itemCatg = itemCatg;
 	}
+    
     
     
     

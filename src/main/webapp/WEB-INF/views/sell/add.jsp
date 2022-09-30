@@ -128,7 +128,7 @@
               </div>
               <br>
              <div class="text-center">
-             	<button type="submit" id="addItemBtn">상품 등록</button>
+             	<button type="button" id="addItemBtn">상품 등록</button>
              </div>
              
             </form>
@@ -212,8 +212,7 @@
     }//kakao api 끝
 </script>
 
-<script src="/resources/JS/sell.js"></script>
-
+<script src="/resources/JS/sellAdd.js"></script>
   
 </body>
 </html>

@@ -7,6 +7,7 @@ const writer = document.querySelector("#writer");
 const contents = document.querySelector("#contents");
 const commentAdd = document.querySelector("#commentAdd");
 const commentList = document.querySelector("#commentList");
+const more = document.querySelector("#more");
 const num = commentAdd.getAttribute("data-num");
 
 getCommentList(page,num);
@@ -26,6 +27,13 @@ commentAdd.addEventListener("click", function(){
                 writer.value = "";
                 contents.value = "";
                 alert("댓글 작성 완료");
+
+                if(commentList.children.length != 0){
+                    for(i=0; i < commentList.children.length;){
+                        commentList.children[0].remove();
+                    }
+                }
+                page = 1;
                 getCommentList(page,num);
             }else{
                 alert("댓글 작성 실패");
@@ -70,7 +78,28 @@ function getCommentList(p,n){
                 tab_td.appendChild(td_text);
                 tab_tr.appendChild(tab_td);
 
+                tab_td = document.createElement("td");
+                tab_td.setAttribute("class","delete");
+                tab_td.setAttribute("data-comment-num",ar[i].commentNum);
+                td_text = document.createTextNode("삭제");
+                tab_td.appendChild(td_text);
+                tab_tr.appendChild(tab_td);
+
+                tab_td = document.createElement("td");
+                tab_td.setAttribute("class","update");
+                tab_td.setAttribute("data-comment-num",ar[i].commentNum);
+                td_text = document.createTextNode("수정");
+                tab_td.appendChild(td_text);
+                tab_tr.appendChild(tab_td);
+            
                 tab_tbody.appendChild(tab_tr);
+            }
+
+
+            if(page >= pager.totalPage){
+                more.classList.add("disabled");
+            }else{
+                more.classList.remove("disabled");
             }
 
             commentList.appendChild(tab_tbody);

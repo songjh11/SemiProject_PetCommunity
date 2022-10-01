@@ -81,16 +81,85 @@
 <c:import url="/WEB-INF/views/template/header.jsp"></c:import>
 <!-- header end -->
 <!-- ======= Follow Section ======= -->
-    <section id="book-a-table" class="book-a-table">
+    <section id="chefs" class="chefs section-bg">
       <div class="container" data-aos="fade-up">
 
         <div class="section-header">
-          <p><span>${follow} page</span></p>
+          <h2>follow</h2>
+          <p>${follow} <span>page</span></p>
         </div>
 
+        <div class="row gy-4">
+
+          <c:choose>
+
+            <c:when test="${follow eq 'followee'}">
+              <c:forEach items="${list}" var="dto">
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+            <div class="chef-member">
+              <div class="member-img">
+                <img src="/resources/upload/member/${dto.memberFileDTO.fileName}" class="img-fluid" alt="">
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <c:forEach items="${dto.followDTOs}" var="followDTOs">
+              <div class="member-info">
+                <h4>${followDTOs.followee}</h4>
+                <span>guest</span>
+                <p>안녕하세요.</p>
+              </div>
+            </c:forEach>  
+            </div>
+
+          </div>
+        </c:forEach>
+        </c:when>
+
+        <c:otherwise>
+        
+          <c:forEach items="${list}" var="dto">
+
+            <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+              <div class="chef-member">
+                <div class="member-img">
+                  <img src="/resources/upload/member/${dto.memberFileDTO.fileName}" class="img-fluid" alt="">
+                  <div class="social">
+                    <a href=""><i class="bi bi-twitter"></i></a>
+                    <a href=""><i class="bi bi-facebook"></i></a>
+                    <a href=""><i class="bi bi-instagram"></i></a>
+                    <a href=""><i class="bi bi-linkedin"></i></a>
+                  </div>
+                </div>
+                <c:forEach items="${dto.followDTOs}" var="followDTOs">
+                <div class="member-info">
+                  <h4>${followDTOs.follower}</h4>
+                  <span>guest</span>
+                  <p>안녕하세요.</p>
+                </div>
+              </c:forEach>  
+              </div>
+  
+            </div>
+          </c:forEach>
+        
+            </c:otherwise>
+            </c:choose>
+
+        </div>
+
+        
+
+      </div>
+    </section>
 
 
-        <c:choose>
+
+        <!-- <c:choose>
 
             <c:when test="${follow eq 'followee'}">
         
@@ -100,7 +169,7 @@
             <c:forEach items="${dto.followDTOs}" var="followDTOs">
                       ${followDTOs.followee}     
                     </c:forEach>       
-        <td>${dto.memberFileDTO.fileName}</td>                                       `
+                    <img src="../resources/upload/member/${dto.memberFileDTO.fileName}" >                                   `
             </c:forEach>
         
             </c:when>
@@ -112,19 +181,14 @@
             <c:forEach items="${dto.followDTOs}" var="followDTOs">
                       ${followDTOs.follower}     
                     </c:forEach>       
-        <td>${dto.memberFileDTO.fileName}</td>                                       `
+
+            <img src="../resources/upload/member/${dto.memberFileDTO.fileName}" >
+                                   `
             </c:forEach>
         
             </c:otherwise>
-            </c:choose>
-  
+            </c:choose> -->
 
-
-          </div><!-- End Reservation Form -->
-
-    
-
-    </section><!-- End Add Items Section -->
 
 
 

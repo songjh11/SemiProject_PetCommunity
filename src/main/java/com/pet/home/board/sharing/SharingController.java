@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,6 +30,11 @@ public class SharingController {
 	private SharingService sharingService;
 	@Autowired
 	private MemberService memberService;
+	
+	@ModelAttribute("board")
+	public String getBoard() {
+		return "sharing";
+	}
 	
 	
 	// 댓글 처리

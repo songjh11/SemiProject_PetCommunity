@@ -7,7 +7,7 @@
  <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Update Item</title>
+  <title>Check</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -57,24 +57,6 @@
     #inputDiv{
       display: none;
     }
-
-    .disb{
-      display: block;
-    }
-
-    .fileList{
-      align-items: center;
-    }
-
-    span{
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    .uFileDelete{
-      margin-left: 5px;
-    }
-
 	</style>
   
 </head>
@@ -87,31 +69,22 @@
       <div class="container" data-aos="fade-up">
 
         <div class="section-header">
-          <p><span>Update Item</span></p>
+          <p><span>결제 내역 확인</span></p>
         </div>
 
           <div class="col-lg-8 align-items-center">
-            <form action="update" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data" id="updateItemFrm">
-              <input type="hidden" name="itemNum" value="${dto.itemNum}">
-        			<input type="hidden" name="itemCatg" value="${dto.itemCatg}">
+            <form action="add" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data" id="addItemFrm">
               <div class="row gy-4">
-                <div class="col-lg-8 col-md-6">
-                  <input type="text" class="form-control disb" name="itemName" id="itemName" value="${dto.itemName}">
+                <div class="col-lg-8 col-md-12">
+                  <input type="text" name="userId" class="form-control" id="userId" placeholder="User ID">
                   <div class="validate"></div>
                 </div>
                 <div class="col-lg-8 col-md-6">
-                  <input type="text" class="form-control disb" name="itemPrice" id="itemPrice" value="${dto.itemPrice}">
+                  <input type="text" class="form-control" name="itemName" id="itemName" placeholder="Item Name">
                   <div class="validate"></div>
                 </div>
-                <div class="col-lg-12 col-md-12 fileList">
-                  <c:forEach items= "${dto.fileDTOs}" var= "ar">
-                    <span>${ar.oriName}
-                    <button type="button" class="uFileDelete btn btn-outline-danger" data-photo-num="${ar.photoNum}">파일 삭제</button>
-                    </span>
-                  </c:forEach>
-                  </div>
-                <div class="col-lg-12 col-md-12">
-                   <button type="button" id="sellfileAdd" class="btn btn-outline-primary">상품 사진 추가</button>
+                <div class="col-lg-4 col-md-6">
+                   <button type="button" id="sellfileAdd">상품 사진 추가</button>
                   </div>
                 <div class="col-lg-4 col-md-6">  
                 <div id="sellFileImages">
@@ -119,23 +92,51 @@
                   <div id = "imgDiv"></div>
                 </div>
                 </div>
-                <div class="form-group mt-3" style="margin-top: 5px;">
-	                <textarea class="form-control" name="itemContents" rows="5" value="${dto.itemContents}">${dto.itemContents}</textarea>
+                             
+                <div class="col-lg-12 col-md-12">
+                  <input type="text" class="form-control" name="itemPrice" id="itemPrice" placeholder="Item Price">
+                  <div class="validate"></div>
+                </div>
+                <div class="form-group mt-3">
+	                <textarea class="form-control" name="itemContents" rows="5" placeholder="Item Contents"></textarea>
 	                <div class="validate"></div>
                 </div>
-              
+                
+                <div class="col-lg-6 col-md-6">
+                 <input type="text" name="itemZipCode" class="form-control" id="itemZipCode" placeholder="우편번호">
+                  <div class="validate"></div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                  <button type="button" id="address_kakao" onclick="execDaumPostcode();">주소 검색</button>
+                </div>
+                <div class="col-lg-12 col-md-12">
+                 <input type="text" name="itemAddress" class="form-control" id="itemAddress" placeholder="주소">
+                </div>
+                <div class="col-lg-12 col-md-12">
+                  <input type="text" name="itemDeAddress" class="form-control" id="itemDeAddress" placeholder="상세 주소">
+                  <div class="validate"></div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <select name="itemCatg" class="form-control" id="itemCatg">
+                    <option value='' selected>-- 상품 카테고리 선택 --</option>
+                    <option value="1">호텔링</option>
+                    <option value="2">원데이클래스</option>
+                    <option value="3">트레이닝</option>
+                  </select>
+                  <div class="validate"></div>
+                </div>
               </div>
               <br>
-              <div class="text-center">
-                <button type="submit" id="updateItemBtn" class="btn btn-outline-primary">상품 수정</button>
-              </div>
+             <div class="text-center">
+             	<button type="submit" id="addItemBtn">상품 등록</button>
+             </div>
              
             </form>
-          </div><!-- End Update Form -->
+          </div><!-- End Reservation Form -->
 
         </div>
 
-    </section><!-- End Update Items Section -->
+    </section><!-- End Add Items Section -->
 
 
 
@@ -212,9 +213,6 @@
 </script>
 
 <script src="/resources/JS/sell.js"></script>
-<script>
-	setCount(${dto.fileDTOs.size()});
-</script>
 
   
 </body>

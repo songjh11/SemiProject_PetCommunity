@@ -26,7 +26,6 @@ public class BoardCommentPager {
 		
 		
 		
-		
 		public Long getNum() {
 			return num;
 		}

@@ -29,11 +29,13 @@
 
   <!-- Template Main CSS File -->
   <link href="/resources/assets/css/main.css" rel="stylesheet">
+ 
+  <style>
+    ul{
+    list-style: none;
+    }
+    </style>
 
-	<style type="text/css">
-
-	</style>
-  
 </head>
 <body>
 <!-- header start -->
@@ -51,7 +53,16 @@
 
           <c:if test="${empty list}">
             <div class="section-header">
-              <p><span>검색 결과가 없습니다</span></p>
+              <div class="not_found02"> 
+                <p><em>'${pager.search}'</em>에 대한 검색결과가 없습니다.</p>  
+                <ul> 
+                  <li>단어의 철자가 정확한지 확인해 보세요.</li> 
+                  <li>한글을 영어로 혹은 영어를 한글로 입력했는지 확인해 보세요.</li> 
+                  <li>검색어의 단어 수를 줄이거나, 보다 일반적인 검색어로 다시 검색해 보세요.</li> 
+                  <li>두 단어 이상의 검색어인 경우, 띄어쓰기를 확인해 보세요. </li>
+                  <li>검색 옵션을 변경해서 다시 검색해 보세요.</li> 
+                </ul> 
+              </div>
             </div>
           </c:if>
           <div class="row gy-1">	
@@ -69,7 +80,6 @@
                   </div>
                   <div class="member-info" style="width: 100%; height: 115px;">
                     <h4><a href="./detail?itemNum=${ar.itemNum}">${ar.itemName}</a></h4>
-                    <p>${ar.itemAddress}</p>
                     <span>${ar.itemPrice}</span>
                   </div>
                 </div>

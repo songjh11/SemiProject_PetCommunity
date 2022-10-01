@@ -267,6 +267,91 @@ public class SellItemController {
 		return result;
 	}
 	
+	@GetMapping("sellqnaadd")
+	public ModelAndView setSellQnaAdd(SellQnaDTO sellQnaDTO) throws Exception {
+		System.out.println("sellqnaadd Get");
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("sellQnaDTO", sellQnaDTO);
+		mv.setViewName("./sell/sellqnaadd");
+		return mv;
+	}
+	
+	
+	@PostMapping("sellqnaadd")
+	public ModelAndView setSellQnaAddResult(SellQnaDTO sellQnaDTO) throws Exception {
+		System.out.println("sellqnaadd Post");
+		ModelAndView view = new ModelAndView();
+		int result = itemService.setSellQnaAdd(sellQnaDTO);
+		if(result>0) {
+			view.setViewName("redirect:/sell/detail?itemNum="+sellQnaDTO.getItemNum());
+			
+		} else {
+			view.setViewName("../");
+		}
+		return view;
+	}
+	
+	@GetMapping("qnaList")
+	@ResponseBody
+	public Map<String, Object> getSellQnaList(com.pet.home.util.CommentPager commentPager) throws Exception{
+		List<SellQnaDTO> ar = itemService.getSellQnaList(commentPager);
+		System.out.println(ar.size());
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", ar);
+		map.put("pager", commentPager);
+		return map;
+	}
+	
+	@GetMapping("qnaupdate")
+	public ModelAndView getSellQnaUpdate(SellQnaDTO sellQnaDTO) throws Exception{
+		sellQnaDTO = itemService.getSellQnaUpdate(sellQnaDTO);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("sellQnaDTO", sellQnaDTO);
+		mv.setViewName("./sell/qnaupdate");
+		return mv;
+	}
+	
+	@PostMapping("qnaupdate")
+	public String setSellQnaUpdate(SellQnaDTO sellQnaDTO) throws Exception {
+		int result = itemService.setSellQnaUpdate(sellQnaDTO);
+		return "redirect:./detail?itemNum="+sellQnaDTO.getItemNum();
+	}
+	
+	@PostMapping("qnadelete")
+	@ResponseBody
+	public int setSellQnaDelete(SellQnaDTO sellQnaDTO) throws Exception{
+		int result = itemService.setSellQnaDelete(sellQnaDTO);
+		return result;
+	}
+	
+	@PostMapping("qnacommentalldelete")
+	@ResponseBody
+	public int setSellQnaCommentAllDelete(SellQnaCommentDTO sellQnaCommentDTO) throws Exception{
+		int result = itemService.setSellQnaCommentAllDelete(sellQnaCommentDTO);
+		return result;
+	}
+	
+	@PostMapping("qnacommentdelete")
+	@ResponseBody
+	public int setSellQnaCommentDelete(SellQnaCommentDTO sellQnaCommentDTO) throws Exception{
+		int result = itemService.setSellQnaCommentDelete(sellQnaCommentDTO);
+		return result;
+	}
+	
+	@PostMapping("qnacommentadd")
+	@ResponseBody
+	public int setSellQnaCommentAdd(SellQnaCommentDTO sellQnaCommentDTO) throws Exception{
+		int result = itemService.setSellQnaCommentAdd(sellQnaCommentDTO);
+		return result;
+	}
+	
+	@PostMapping("qnacommentupdate")
+	@ResponseBody
+	public int setSellQnaCommentUpdate(SellQnaCommentDTO sellQnaCommentDTO) throws Exception{
+		int result = itemService.setSellQnaCommentUpdate(sellQnaCommentDTO);
+		return result;
+	}
+	
 	
 	
 	@GetMapping("map")

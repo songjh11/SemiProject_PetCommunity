@@ -40,6 +40,8 @@
       	<typeAlias type="com.pet.home.sell.ReviewDTO" alias="ReviewDTO"/>
       	<typeAlias type="com.pet.home.util.CommentPager" alias="CommentPager"/>
       	<typeAlias type="com.pet.home.sell.RvCommentDTO" alias="RvCommentDTO"/>
+      	<typeAlias type="com.pet.home.sell.SellQnaDTO" alias="SellQnaDTO"/>
+      	<typeAlias type="com.pet.home.sell.SellQnaCommentDTO" alias="SellQnaCommentDTO"/>
 		<typeAlias type="com.pet.home.util.Pager" alias="Pager"/>
 		<typeAlias type="com.pet.home.util.SellPager" alias="SellPager"/>
 		<typeAlias type="java.lang.Long" alias="Long"/>

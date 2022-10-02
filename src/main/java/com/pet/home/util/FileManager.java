@@ -37,7 +37,7 @@ public class FileManager {
 	}
 	
 	//saver 파일 저장
-	public String saveFile(ServletContext servletContext, String path,MultipartFile multipartFile) throws Exception{
+	public String saveFile(ServletContext servletContext, String path, MultipartFile multipartFile) throws Exception{
 		String realPath = servletContext.getRealPath(path);
 		System.out.println("실제 경로:" + realPath);
 		

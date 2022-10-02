@@ -71,22 +71,25 @@
           border-style: solid;
           border-color: gainsboro;
           border-radius: 10px;
-
         }
 
         .innerBox{
-          display:flex;
+          display: flex;
           justify-content: space-between;
           align-items:center;
-          width: 80%; 
-          padding:10px;
+          padding: 10px;
+          border-width: 1px;
+          border-style: solid;
+          border-color: gainsboro;
+          border-radius: 10px;
         }
 
-        .buttonBox{
+         .buttonBox{
           display:flex;
           justify-content: space-between;
           align-items:center;
           padding:10px;
+          writing-mode: horizontal-tb;
         }
 
         .textAre{
@@ -102,6 +105,9 @@
           color: orange;
         }
         
+        #rvBtnFrmP{
+          writing-mode: horizontal-tb;
+        }
 
 
   </style>
@@ -177,8 +183,14 @@
       </div>
     <!-- text 영역 -->
     <div class="textAre col-lg-6 col-md-6 d-flex">
-      <input type="hidden" id="itemNum" value="${sellItemDTO.itemNum}">
-      <input type="hidden" id="itemCatg" value="${sellItemDTO.itemCatg}">
+      <input type="hidden" id="itemNum" name="itemNum" value="${sellItemDTO.itemNum}">
+      <input type="hidden" id="itemCatg" name="itemCatg" value="${sellItemDTO.itemCatg}">
+      <input type="hidden" id="itemPrice" name="itemPrice" value="${sellItemDTO.itemPrice}">
+      <input type="hidden" id="buyer_email" value="${sessionScope.member.email}">
+      <input type="hidden" id="buyer_name" value="${sessionScope.member.userName}">
+      <input type="text" id="buyer_tel" value="${sessionScope.member.phone}">
+      <input type="text" id="userId" value="${sessionScope.member.userId}">
+
       <div>
         <table class="table table-striped">
           <tbody>
@@ -190,7 +202,7 @@
                 ${sellItemDTO.userId}</td>
             </tr>
             <tr>
-              <td id="itemName" value="${sellItemDTO.itemName}"><h1>${sellItemDTO.itemName}</h1></td>
+              <td id="itemName" name="itemName" value="${sellItemDTO.itemName}"><h1>${sellItemDTO.itemName}</h1></td>
             </tr>
             <tr>
               <td>
@@ -545,70 +557,86 @@
 
 
 <!-- reservation section -->
-  <div style="width: 80%; margin-top: 50px;">
-    <div class="block-32 aos-init aos-animate" data-aos="fade-up" data-aos-offset="-200">
-          <div class="outerBox">
-            <div class="innerBox">
-              <div class="col-md-6 mb-3 mb-lg-0 col-lg-3">
-                <label for="checkin_date" class="font-weight-bold text-black">Check In</label>
-                <div class="field-icon-wrap">
-                  <div class="icon"><span class="icon-calendar"></span></div>
-                  <input type="date" id="revStartDate" name="revStartDate" class="form-control">
-                </div>
-              </div>
-              <div class="col-md-6 mb-3 mb-lg-0 col-lg-3">
-                <label for="checkout_date" class="font-weight-bold text-black">Check Out</label>
-                <div class="field-icon-wrap">
-                  <div class="icon"><span class="icon-calendar"></span></div>
-                  <input type="date" id="revEndDate" name="revEndDate" class="form-control">
-                </div>
-              </div>
-              <div class="col-md-6 mb-3 mb-md-0 col-lg-3">
-                <div class="row">
-                  <div class="col-md-6 mb-3 mb-md-0">
-                    <label for="adults" class="font-weight-bold text-black">Adults</label>
-                    <div class="field-icon-wrap">
-                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                      <select id="adultsCount" name="adultsCount" class="form-control">
-                        <option value="" selected>-- 인원 수 선택 --</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                      </select>
+        <div style="width: 80%; margin-top: 50px;">
+          <div class="block-32 aos-init aos-animate" data-aos="fade-up" data-aos-offset="-200">
+                <div class="outerBox">
+                    <div>
+                      <label for="checkin_date" class="font-weight-bold text-black">Check In</label>
+                      <div class="field-icon-wrap">
+                        <div class="icon"><span class="icon-calendar"></span></div>
+                        <input type="date" id="revStartDate" name="revStartDate" class="form-control">
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-md-6 mb-3 mb-md-0">
-                    <label for="Dog" class="font-weight-bold text-black">Dog</label>
-                    <div class="field-icon-wrap">
-                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                      <select id="dogCount" name="dogCount" class="form-control">
-                        <option value="" selected>-- 강아지 수 선택 --</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                      </select>
+                    <div>
+                      <label for="checkout_date" class="font-weight-bold text-black">Check Out</label>
+                      <div class="field-icon-wrap">
+                        <div class="icon"><span class="icon-calendar"></span></div>
+                        <input type="date" id="revEndDate" name="revEndDate" class="form-control">
+                      </div>
                     </div>
-                  </div>
+                    <div>
+                      <div class="row">
+                          <label for="adults" class="font-weight-bold text-black">Adults</label>
+                          <div class="field-icon-wrap">
+                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                            <select id="adultsCount" name="adultsCount" class="form-control">
+                              <option value="" selected>-- 인원 수 선택 --</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                            </select>
+                          </div>
+                      </div>
+                    </div>  
+                    <div>
+                        <div class="row">
+                          <label for="Dog" class="font-weight-bold text-black">Dog</label>
+                          <div class="field-icon-wrap">
+                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                            <select id="dogCount" name="dogCount" class="form-control">
+                              <option value="" selected>-- 강아지 수 선택 --</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                            </select>
+                          </div>
+                        </div>
+                    </div>
+                    <div>
+                      <label for="priceCount" class="font-weight-bold text-black"></label>
+                      <div class="field-icon-wrap">
+                        <input type="button" id="priceCount" class="btn btn-outline-danger" value="예상 금액 계산">
+                      </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-            <div class="buttonBox">
-              <div class="col-md-6 col-lg-3 align-self-end">
-                <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-outline-danger" id="rvBtnFrm">
-                    예약/결제하기
-                  </button>
-              </div>
-            </div>  
           </div>
         </div>
-      </div>
+
+      <div style="width: 80%; margin-top: 20px;">
+          <div class="innerBox">
+            <div>
+              <label for="priceCount" class="font-weight-bold text-black">예상 금액 확인</label>
+              <div class="field-icon-wrap">
+                <input type="text" id="totalPrice" readonly class="form-control">
+              </div>
+            </div>
+            <div>
+                <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-outline-danger" id="rvBtnFrm">
+                    예약/결제
+                  </button>
+            </div>
+          </div>  
+      </div>  
+  </div>
   </section>
 </form>    
       <!-- reservation section end -->
        
-<a href="./reviewadd?itemNum=${sellItemDTO.itemNum}"><button>리뷰쓰기</button></a>
+      
       <!-- contents, review, qna -->
+      <section>
+        
       <div>
         <!-- Button trigger modal -->
         <button type="button" id= "up" style="display:none" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -660,6 +688,7 @@
       </div>
       <div class="tab-pane fade" role="tabpanel" id="rv">
           <p>리뷰</p>
+          <a href="./reviewadd?itemNum=${sellItemDTO.itemNum}"><button type="button">리뷰쓰기</button></a>
           <table class="table" id="review">
             <th class="th" style="display: none;" >작성자</th>
             <th class="th" style="display: none;" >제목</th>
@@ -755,6 +784,6 @@
 <!-- 결제 api -->
 <script src="/resources/JS/check.js"></script>
 
-<script src="/resources/JS/sell.js"></script>  
+
  </body>
 </html>

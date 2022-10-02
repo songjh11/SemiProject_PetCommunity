@@ -64,7 +64,7 @@ WHERE M.USERID=#{userId}
 
 	 	 
 <select id="getLogin" parameterType="MemberDTO" resultMap="getLoginResult">
-SELECT M.USERNAME, M.USERID, R.ROLENUM, R.ROLENAME
+SELECT M.USERNAME, M.USERID, M.EMAIL, M.PHONE, R.ROLENUM, R.ROLENAME
 		FROM MEMBER M
     		INNER JOIN
     		ROLE R
@@ -119,6 +119,8 @@ UPDATE MEMFILE SET FILENAME=#{fileName}, ORINAME=#{oriName} where USERID=#{userI
 <resultMap type="MemberDTO" id="getLoginResult">
 		<id column="USERID" property="userId" />
 		<result column="USERNAME" property="userName" />
+		<result column="PHONE" property="phone"/>
+		<result column="EMAIL" property="email"/>
 		<collection property="roleDTO" javaType="RoleDTO" ofType="RoleDTO">
 			<id column="ROLENUM" property="roleNum" />
 			<result column="ROLENAME" property="roleName" />

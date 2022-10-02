@@ -1,12 +1,11 @@
 package com.pet.home.sell.check;
 
 public class CheckDTO {
-	private String pg;
-	//: "html5_inicis",
-    private String pay_method;
-    //: "card",
+
+	private String imp_uid;
+	//가맹점번호
     private String merchant_uid;
-    //시퀀스: "ORD20180131-0000011",
+    //결제번호
     private Long itemNum;
     private String itemName;
     private Long amount;
@@ -16,17 +15,14 @@ public class CheckDTO {
     private Long adultsCount;
     private Long dogCount;
     private Long itemCatg;
-	public String getPg() {
-		return pg;
+
+    
+    
+	public String getImp_uid() {
+		return imp_uid;
 	}
-	public void setPg(String pg) {
-		this.pg = pg;
-	}
-	public String getPay_method() {
-		return pay_method;
-	}
-	public void setPay_method(String pay_method) {
-		this.pay_method = pay_method;
+	public void setImp_uid(String imp_uid) {
+		this.imp_uid = imp_uid;
 	}
 	public String getMerchant_uid() {
 		return merchant_uid;

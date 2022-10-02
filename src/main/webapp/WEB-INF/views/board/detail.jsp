@@ -36,6 +36,30 @@
       </div>
     </div><!-- End Breadcrumbs -->
 
+
+	<section id="hero" class="hero d-flex align-items-center section-bg">
+		<div class="container">
+		  <div class="row justify-content-between gy-5">
+			<div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
+			  <h2 data-aos="fade-up">${requestScope.member.userName}님 <br>프로필</h2>
+			  <p data-aos="fade-up" data-aos-delay="100">Pet 이름 : ${requestScope.member.petName}<br> Pet Category : ${requestScope.member.petCatg}</p>
+			  <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+				<a href="#book-a-table" class="btn-book-a-table">팔로우</a>
+				
+				<c:if test="${not empty sessionScope.member}">
+					<a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>1:1 채팅</span></a>
+				</c:if>
+				
+			  </div>
+			</div>
+				<div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
+			  		<img src="../resources/upload/member/${requestScope.member.memberFileDTO.fileName}" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="300">
+				</div>
+		  </div>
+		</div>
+	  </section><!-- End Hero Section -->
+
+
     <section class="sample-page">
       <div class="container" data-aos="fade-up">
 
@@ -150,7 +174,11 @@
 
   <c:import url="/WEB-INF/views/template/testfooter.jsp"></c:import>
 
+  	<script type="text/javascript">
+		let userName = "${requestScope.member.userName}";
+	</script>
 	<script type="text/javascript" src="/resources/JS/board/boardComment.js"></script>
+  	
 </body>
 
 </html>

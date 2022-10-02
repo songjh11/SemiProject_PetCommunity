@@ -105,10 +105,10 @@
 
        <!-- 역할번호에 따라 다른 메뉴바-->
        <c:choose>
-       <c:when test="${dto.roleNum =='1'}">
+       <c:when test="${sessionScope.member.roleNum =='1'}">
         <a class="btn-book-a-table" href="#">seller page</a>
        </c:when>
-       <c:when test="${dto.roleNum =='2'}">
+       <c:when test="${sessionScope.member.roleNum =='2'}">
         <a class="btn-book-a-table" href="#">guest page</a>
        </c:when>
        <c:otherwise>
@@ -159,11 +159,7 @@
         // 버튼 클릭(접속) 하면 서버에서 데이터 파싱해서 보내고 알림
         function onMessage(msg){
           let data = msg.data;
-          let arr = data.split(":");
-          console.log(arr[0]);
-          console.log(arr[1]);
-          console.log(name);
-          if(arr[0] != name){
+  
 
             let toast = "<div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>";
             toast += "<div class='toast-header'><i class='fas fa-bell mr-2'></i><strong class='mr-auto'>알림</strong>";
@@ -171,9 +167,9 @@
             toast += "<span aria-hidden='true'>&times;</span></button>";
             toast += "</div> <div class='toast-body'>" + data + "</div></div>";
             $("#msgStack").append(toast);   // msgStack div에 생성한 toast 추가
-            $(".toast").toast({"animation": true, "autohide": true});
+            $(".toast").toast({"animation": true, "autohide": false});
             $('.toast').toast('show');
-          }
+          
         }
 
         function onClose(evt){}

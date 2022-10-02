@@ -91,8 +91,6 @@ public class SharingService implements BoardService {
 	// 댓글 처리
 	
 	public List<ShCommentDTO> getCommentList(BoardCommentPager boardCommentPager) throws Exception{
-		Long totalCount = sharingDAO.getCommentListTotalCount(boardCommentPager);
-		System.out.println(totalCount);
 		boardCommentPager.getRowNum();
 		boardCommentPager.makePage(sharingDAO.getCommentListTotalCount(boardCommentPager));
 		

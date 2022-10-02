@@ -17,6 +17,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pet.home.board.event.coupon.CouponDTO;
 import com.pet.home.util.FileManager;
  
 @Controller
@@ -287,11 +288,49 @@ public class MemberController {
 			mv.setViewName("member/follow");
 			return mv;
 		}
+		
+		@GetMapping("cart")
+		public ModelAndView getShopCartList(MemberDTO memberDTO, HttpSession session)throws Exception{
+			ModelAndView mv = new ModelAndView();
+			memberDTO = (MemberDTO)session.getAttribute("member");
+			List<MemberDTO> ar = memberService.getShopCartList(memberDTO);
+			
+			mv.addObject("list", ar);
+			mv.addObject("follow","cart");
+			mv.setViewName("member/follow");
+			return mv;
+		}
+		
+		@GetMapping("pick")
+		public ModelAndView getPickList(MemberDTO memberDTO, HttpSession session)throws Exception{
+			ModelAndView mv = new ModelAndView();
+			memberDTO = (MemberDTO)session.getAttribute("member");
+			List<MemberDTO> ar = memberService.getPickList(memberDTO);
+			
+			mv.addObject("list", ar);
+			mv.addObject("follow","pick");
+			mv.setViewName("member/follow");
+			return mv;
+		}
+		
+		@GetMapping("coupon")
+		public ModelAndView getCouponList(MemberDTO memberDTO,HttpSession session)throws Exception{
+			ModelAndView mv = new ModelAndView();
+			memberDTO = (MemberDTO)session.getAttribute("member");
+			List<CouponDTO> ar = memberService.getCouponList(memberDTO);
+
+			mv.addObject("list", ar);
+			mv.addObject("follow","coupon");
+			mv.setViewName("member/follow");
+			return mv;
+		}
+		
+		
 
 	@GetMapping("test")
 	public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
-		MemberDTO ar = memberService.getPickList(memberDTO);
-		MemberDTO ar2 = memberService.getShopCartList(memberDTO);
+		List<MemberDTO> ar = memberService.getPickList(memberDTO);
+		List<MemberDTO> ar2 = memberService.getShopCartList(memberDTO);
 		MemberDTO ar3 = memberService.getTotalPrice(memberDTO);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("list", ar);

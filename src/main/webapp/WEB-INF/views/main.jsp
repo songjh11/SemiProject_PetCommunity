@@ -53,7 +53,6 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="#hero">Home</a></li>
          <li><a href="/sell/list?itemCatg=1">호텔링</a></li>
           <li><a href="/sell/list?itemCatg=2">One Day 클래스</a></li>
           <li><a href="/sell/list?itemCatg=3">트레이닝</a></li>
@@ -76,7 +75,6 @@
               <li><a href="#">Drop Down 4</a></li>
             </ul>
           </li>
-          <li><a href="#contact">Contact</a></li>
         </ul>
       </nav><!-- .navbar -->
       
@@ -89,7 +87,7 @@
        <!-- 역할번호에 따라 다른 메뉴바-->
        <c:choose>
        <c:when test="${dto.roleNum =='1'}">
-        <a class="btn-book-a-table" href="#">seller page</a>
+        <a href="/sell/add"><button class="btn btn-outline-success me-2" type="button">Add Items</button></a>
        </c:when>
        <c:when test="${dto.roleNum =='2'}">
         <a class="btn-book-a-table" href="#">guest page</a>

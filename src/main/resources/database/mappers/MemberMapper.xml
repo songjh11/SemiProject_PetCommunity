@@ -114,6 +114,12 @@ VALUES(FOL_SEQ.NEXTVAL,#{follower},#{userId})
 DELETE FROM FOLLOW WHERE FOLLOWEE=#{userId}
 </delete>
 
+<!-- ==============coupon=================== -->
+
+<select id="getCouponList" parameterType="MemberDTO" resultType="CouponDTO">
+SELECT * FROM COUPON WHERE USERID=#{userId}
+</select>
+
 <!--================= Update & Delete============== -->
 
 <delete id="setMemDelete" parameterType="MemberDTO">
@@ -201,7 +207,7 @@ FROM MEMBER M
      INNER JOIN
      SELLFILE SF
      ON SI.ITEMNUM = SF.ITEMNUM
-WHERE M.USERID = 'guest' ORDER BY P.PICKNUM DESC
+WHERE M.USERID =#{userId} ORDER BY P.PICKNUM DESC
 </select>
 <resultMap type="MemberDTO" id="getPickListResult">
 	<id column="USERID" property="userId"/>
@@ -228,7 +234,7 @@ FROM MEMBER M
      INNER JOIN
      SELLFILE SF
      ON SI.ITEMNUM = SF.ITEMNUM
-WHERE M.USERID = 'guest' ORDER BY S.SHOPNUM DESC
+WHERE M.USERID =#{userId} ORDER BY S.SHOPNUM DESC
 </select>
 <resultMap type="MemberDTO" id="getShopCartListResult">
 	<id column="USERID" property="userId"/>

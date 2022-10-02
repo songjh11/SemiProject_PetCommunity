@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pet.home.board.event.coupon.CouponDTO;
 import com.pet.home.util.FileManager;
 
 @Service
@@ -100,12 +101,12 @@ public class MemberService {
 		
 	}
 
-	public MemberDTO getPickList(MemberDTO memberDTO) throws Exception{
+	public  List<MemberDTO> getPickList(MemberDTO memberDTO) throws Exception{
 		return memberDAO.getPickList(memberDTO);
 
 	}
 	
-	public MemberDTO getShopCartList(MemberDTO memberDTO) throws Exception{
+	public List<MemberDTO> getShopCartList(MemberDTO memberDTO) throws Exception{
 		return memberDAO.getShopCartList(memberDTO);
 	}
 	
@@ -137,6 +138,11 @@ public class MemberService {
 	
 	public int setFollowDelete(MemberDTO memberDTO)throws Exception{
 		return memberDAO.setFollowDelete(memberDTO);
+	}
+	
+	public  List<CouponDTO> getCouponList(MemberDTO memberDTO) throws Exception{
+		return memberDAO.getCouponList(memberDTO);
+
 	}
 	
 

@@ -112,7 +112,7 @@
        <!-- 역할번호에 따라 다른 메뉴바-->
        <c:choose>
        <c:when test="${dto.roleNum =='1'}">
-        <a class="btn-book-a-table" href="#">seller page</a>
+        <a href="/sell/add"><button class="btn btn-outline-success me-2" type="button">Add Items</button></a>
        </c:when>
        <c:when test="${dto.roleNum =='2'}">
         <a class="btn-book-a-table" href="#">guest page</a>
@@ -128,8 +128,6 @@
 	      <a class="btn-book-a-table" href="/member/login">Login</a>
 	       <a class="btn-book-a-table" href="/member/role">Join</a>
 	       </c:if>
-    
-    <!-- <a href="./add"><button class="btn btn-outline-success me-2" type="button">Add Items</button></a> -->
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 

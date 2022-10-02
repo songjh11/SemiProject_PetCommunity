@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pet.home.board.event.coupon.CouponDTO;
+
 @Repository
 public class MemberDAO {
 	
@@ -49,8 +51,8 @@ public class MemberDAO {
 		
 	}
 		
-	public MemberDTO getPickList(MemberDTO memberDTO) throws Exception{
-		return sqlSession.selectOne(NAMESPACE+"getPickList", memberDTO);
+	public List<MemberDTO> getPickList(MemberDTO memberDTO) throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getPickList", memberDTO);
 	}
 	
 	public int setMemDelete(MemberDTO memberDTO)throws Exception{
@@ -72,8 +74,8 @@ public class MemberDAO {
 		
 	}
 
-	public MemberDTO getShopCartList(MemberDTO memberDTO) throws Exception{
-		return sqlSession.selectOne(NAMESPACE+"getShopCartList", memberDTO);
+	public List<MemberDTO> getShopCartList(MemberDTO memberDTO) throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getShopCartList", memberDTO);
 	}
 	
 	public MemberDTO getTotalPrice(MemberDTO memberDTO) throws Exception{
@@ -103,6 +105,10 @@ public class MemberDAO {
 	
 	public int setFollowDelete(MemberDTO memberDTO)throws Exception{
 		return sqlSession.delete(NAMESPACE+"setFollowDelete", memberDTO);
+	}
+	
+	public List<CouponDTO> getCouponList(MemberDTO memberDTO){
+		return sqlSession.selectList(NAMESPACE+"getCouponList", memberDTO);
 	}
 	
 }

@@ -86,6 +86,7 @@ public class SellItemController {
 	public ModelAndView setItemAddResult(SellItemDTO itemDTO, MultipartFile [] files, HttpSession session) throws Exception {
 		System.out.println("add Post");
 		ModelAndView view = new ModelAndView();
+		session.getAttribute("member");
 		int result = itemService.setItemAdd(itemDTO, files, session.getServletContext());
 		if(result>0) {
 			view.setViewName("redirect:/sell/list?itemCatg="+itemDTO.getItemCatg());

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pet.home.board.event.coupon.CouponDTO;
 import com.pet.home.util.FileManager;
 
 @Service
@@ -100,12 +101,12 @@ public class MemberService {
 		
 	}
 
-	public MemberDTO getPickList(MemberDTO memberDTO) throws Exception{
+	public  List<MemberDTO> getPickList(MemberDTO memberDTO) throws Exception{
 		return memberDAO.getPickList(memberDTO);
 
 	}
 	
-	public MemberDTO getShopCartList(MemberDTO memberDTO) throws Exception{
+	public List<MemberDTO> getShopCartList(MemberDTO memberDTO) throws Exception{
 		return memberDAO.getShopCartList(memberDTO);
 	}
 	
@@ -113,11 +114,11 @@ public class MemberService {
 		return memberDAO.getTotalPrice(memberDTO);
 	}
 	
-	public List<FollowDTO> getFolloweeList(MemberDTO memberDTO){
+	public List<MemberDTO> getFolloweeList(MemberDTO memberDTO){
 		return memberDAO.getFolloweeList(memberDTO);
 	}
 	
-	public List<FollowDTO> getFollowerList(MemberDTO memberDTO){
+	public List<MemberDTO> getFollowerList(MemberDTO memberDTO){
 		return memberDAO.getFollowerList(memberDTO);
 	}
 	
@@ -129,6 +130,19 @@ public class MemberService {
 	public int getFolloweeount(MemberDTO memberDTO)throws Exception{
 		return memberDAO.getFolloweeount(memberDTO);
 		
+	}
+	
+	public int setFollow(MemberDTO memberDTO)throws Exception{
+		return memberDAO.setFollow(memberDTO);
+	}
+	
+	public int setFollowDelete(MemberDTO memberDTO)throws Exception{
+		return memberDAO.setFollowDelete(memberDTO);
+	}
+	
+	public  List<CouponDTO> getCouponList(MemberDTO memberDTO) throws Exception{
+		return memberDAO.getCouponList(memberDTO);
+
 	}
 	
 

@@ -2,7 +2,7 @@
     const cb = document.getElementsByClassName("cb"); //checkbutton
     const req = document.getElementsByClassName("req"); //필수
     const join = document.getElementById("join"); //조인페이지로
-    const frm = document.getElementById("frm"); //form
+    const joinfrm = document.getElementById("joinfrm"); //form
 
 
     //===============로그인 조건 값 주기&경고창================
@@ -114,13 +114,13 @@ join.addEventListener("click", function(){
             addressCheck=true;
         }
 
-         //=============로그인 조건 제출 시 확인========================
+         //============회원가입 조건 제출 시 확인========================
 
          if(roleNum==1){if( 
             userIdCheck==true && pwCheck==true && pw2Check==true && userNameCheck==true 
             && emailCheck==true && phoneCheck==true 
             && itemZipCodeCheck==true && addressCheck==true && deAddressCheck==true && itemCatgCheck==true){
-            frm.submit();
+            joinfrm.submit();
           }else{
             alert("필수 항목을 다시 확인하세요.")}
          }else if(roleNum==2){
@@ -128,14 +128,14 @@ join.addEventListener("click", function(){
                 userIdCheck==true && pwCheck==true && pw2Check==true && userNameCheck==true && emailCheck==true
                 && phoneCheck==true && itemZipCodeCheck==true && addressCheck==true && deAddressCheck==true 
                 && petCatgCheck==true &&  petNameCheck==true && filesCheck==true){
-              frm.submit();
+              joinfrm.submit();
               }else{
                 alert("필수 항목을 다시 확인하세요.")}
 
          }else if(roleNum==0){if(
             userIdCheck==true && pwCheck==true && pw2Check==true && userNameCheck==true && emailCheck==true
              && phoneCheck==true && itemZipCodeCheck==true && addressCheck==true && deAddressCheck==true){
-          frm.submit();
+           joinfrm.submit();
           }else{
             alert("필수 항목을 다시 확인하세요.")
          }
@@ -309,31 +309,4 @@ join.addEventListener("click", function(){
 
         }
 
-                    //주소 api작용되는 부분의 값 변화를 blur,change로 체크가 안되어
-            //join눌렀을 때 널값으로 체크함.
-    
-        // itemZipCode.addEventListener("change", function(){
-    
-        // if(itemZipCode.value.length<1){
-        //     itemZipCode.focus();
-        //     itemZipCodeCheck=false;
-        //     d6.innerHTML='주소 검색해주세요.';
-        // }else {
-        //     itemZipCodeCheck=true;
-        //     d6.innerHTML='';
-        // }
-    
-        // });
         
-        // address.addEventListener("change", function(){
-    
-        // if(address.value.length<1){
-        //     address.focus();
-        //     addressCheck=false;
-        //     d7.innerHTML='주소를 입력해주세요.';
-        // }else {
-        //     addressCheck=true;
-        //     d7.innerHTML='';
-        // }
-    
-        // });

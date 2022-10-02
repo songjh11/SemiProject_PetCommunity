@@ -27,7 +27,6 @@ import com.pet.home.sell.check.CheckDTO;
 import com.pet.home.sell.file.RvFileDTO;
 import com.pet.home.sell.file.SellFileDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
-import com.pet.home.util.Pager;
 import com.pet.home.util.SellPager;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
@@ -306,12 +305,33 @@ IamportClient client = new IamportClient("7768266328715148", "uETnhxe3MbNMjFN4Gs
 	
 	@PostMapping("payments")
 	@ResponseBody
-	public void setCheck(@RequestParam String imp_uid, @RequestParam String merchant_uid) throws Exception {
+	public void setCheck(@RequestParam String imp_uid, 
+			@RequestParam String merchant_uid, 
+			@RequestParam(required = false) String revStartDate,
+			@RequestParam String itemNum,
+			@RequestParam String itemCatg,
+			@RequestParam String amount,
+			@RequestParam String revEndDate,
+			@RequestParam String adultsCount,
+			@RequestParam String dogCount,
+			HttpSession session) throws Exception {
 			System.out.println("payments/complete");
 			System.out.println(imp_uid);
 			System.out.println(merchant_uid);
-
-            IamportResponse<Payment> payment_response = client.paymentByImpUid(imp_uid);
+			System.out.println("revStartDate: "+revStartDate);
+			IamportResponse<Payment> payment_response = client.paymentByImpUid(imp_uid);
+			CheckDTO checkDTO = new CheckDTO();
+			checkDTO.setImp_uid(imp_uid);
+			checkDTO.setMerchant_uid(merchant_uid);
+			checkDTO.setItemNum(Long.parseLong(itemNum));
+			checkDTO.setItemName(payment_response.getResponse().getName());
+			checkDTO.setAmount(Long.parseLong(amount));
+			checkDTO.setRevStartDate(revStartDate);
+			checkDTO.setRevEndDate(revEndDate);
+			checkDTO.setAdultsCount(Long.parseLong(adultsCount));
+			checkDTO.setDogCount(Long.parseLong(dogCount));
+			checkDTO.setItemCatg(Long.parseLong(itemCatg));
+			
             System.out.println(payment_response.getResponse().getAmount());
             System.out.println(payment_response.getResponse().getName());
             System.out.println(payment_response.getResponse().getBuyerName());

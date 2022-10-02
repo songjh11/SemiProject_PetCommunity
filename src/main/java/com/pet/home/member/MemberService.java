@@ -38,7 +38,8 @@ public class MemberService {
 		
 		if(memberDTO.getRoleNum()==2){ 
 			//저장 경로 설정 
-			String path = servletContext.getRealPath("resources/upload/member");
+			String path = "resources/upload/member";
+			System.out.println(path);
 			String fileName = fileManager.saveFile(servletContext, path, photo);
 			
 			if(!photo.isEmpty()) {

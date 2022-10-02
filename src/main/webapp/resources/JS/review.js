@@ -252,6 +252,9 @@ function reviewList(){
                     href = document.createAttribute("href");
                     href.value = "./reviewupdate?rvNum="+ar[i].rvNum;
                     button = document.createElement("button");
+                    type = document.createAttribute("type");
+                    type.value = "button";
+                    button.setAttributeNode(type);
                     btnText = document.createTextNode("리뷰수정");
                     button.appendChild(btnText);
                     al.setAttributeNode(href);

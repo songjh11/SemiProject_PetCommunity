@@ -205,3 +205,29 @@ updateButton.addEventListener("click",function(){
     }
 
 })
+
+
+
+//----------------------- 팔로우 -------------------------------
+function setFollow(followee, follower){
+    
+    const follow = document.querySelector("#follow");
+    follow.addEventListener("click",function(){
+
+            const xhttp = new XMLHttpRequest();
+            xhttp.open("POST","./addfollow");
+            xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xhttp.send("follower="+follower+"&followee="+followee);
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status==200){
+                    let result = xhttp.responseText.trim();
+                    result = JSON.parse(result);
+                    if(result == '1'){
+                        alert("팔로우 성공");
+                    }else{
+                        alert("팔로우 실패");
+                    }
+                }
+            }
+    })     
+}

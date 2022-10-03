@@ -44,10 +44,10 @@
 			  <h2 data-aos="fade-up">${requestScope.member.userName}님 <br>프로필</h2>
 			  <p data-aos="fade-up" data-aos-delay="100">Pet 이름 : ${requestScope.member.petName}<br> Pet Category : ${requestScope.member.petCatg}</p>
 			  <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-				<a href="#book-a-table" class="btn-book-a-table">팔로우</a>
+				<a class="btn-book-a-table" id="follow">팔로우</a>
 				
 				<c:if test="${not empty sessionScope.member}">
-					<a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>1:1 채팅</span></a>
+					<a href="#" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>1:1 채팅</span></a>
 				</c:if>
 				
 			  </div>
@@ -178,7 +178,12 @@
 		let userName = "${requestScope.member.userName}";
 	</script>
 	<script type="text/javascript" src="/resources/JS/board/boardComment.js"></script>
-  	
+  	<script type="text/javascript">
+
+		let followee = "${requestScope.member.userId}";
+		let follower = "${sessionScope.member.userId}"
+		setFollow();
+	</script>
 </body>
 
 </html>

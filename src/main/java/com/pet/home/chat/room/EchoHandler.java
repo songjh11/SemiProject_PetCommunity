@@ -125,8 +125,13 @@ public class EchoHandler extends TextWebSocketHandler {
 	private String getUserName(WebSocketSession session) throws Exception {
 		Map<String, Object> map = session.getAttributes();
 		MemberDTO memberDTO = (MemberDTO)map.get("member");
-		String m_id = memberDTO.getUserName();
-		return m_id==null? null : m_id;
+		if(memberDTO != null) {
+			String m_id = memberDTO.getUserName();
+			return m_id;
+		}else{
+			return null;
+		}
+		
 	}
 	
 	

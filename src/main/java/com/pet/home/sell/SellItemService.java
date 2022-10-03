@@ -36,6 +36,10 @@ public class SellItemService {
 	private FileManager fileManager;
 	@Autowired
 	private RvCommentDAO rvCommentDAO;
+	@Autowired
+	private SellQnaDAO sellQnaDAO;
+	@Autowired
+	private SellQnaCommentDAO sellQnaCommentDAO;
 	
 	public int setItemAdd(SellItemDTO itemDTO, MultipartFile [] files, ServletContext servletContext) throws Exception {
 		int result = itemDAO.setItemAdd(itemDTO);
@@ -306,6 +310,57 @@ public class SellItemService {
 	public int setReviewCommentUpdate(RvCommentDTO rvCommentDTO) throws Exception{
 		return rvCommentDAO.setReviewCommentUpdate(rvCommentDTO);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	public int setSellQnaAdd(SellQnaDTO sellQnaDTO) throws Exception {
+		System.out.println("service");
+		int result = sellQnaDAO.setSellQnaAdd(sellQnaDTO);
+		return result;
+	}
+	
+	public List<SellQnaDTO> getSellQnaList(com.pet.home.util.CommentPager commentPager)throws Exception{
+		commentPager.getRowNum();
+		Long totalCount = sellQnaDAO.getSellQnaListTotalCount(commentPager);
+		commentPager.makePage(totalCount);
+		return sellQnaDAO.getSellQnaList(commentPager);
+	}
+	
+	public SellQnaDTO getSellQnaUpdate(SellQnaDTO sellQnaDTO) throws Exception{
+		return sellQnaDAO.getSellQnaUpdate(sellQnaDTO);
+	}
+
+	
+	public int setSellQnaUpdate(SellQnaDTO sellQnaDTO) throws Exception{
+		int result = sellQnaDAO.setSellQnaUpdate(sellQnaDTO);
+		return result;
+	}
+	
+	public int setSellQnaDelete(SellQnaDTO sellQnaDTO) throws Exception{
+		return sellQnaDAO.setSellQnaDelete(sellQnaDTO);
+	}
+	
+	public int setSellQnaCommentAllDelete(SellQnaCommentDTO sellQnaCommentDTO) throws Exception{
+		return sellQnaCommentDAO.setSellQnaCommentAllDelete(sellQnaCommentDTO);
+	}
+	
+	public int setSellQnaCommentDelete(SellQnaCommentDTO sellQnaCommentDTO) throws Exception{
+		return sellQnaCommentDAO.setSellQnaCommentDelete(sellQnaCommentDTO);
+	}
+	
+	public int setSellQnaCommentAdd(SellQnaCommentDTO sellQnaCommentDTO) throws Exception{
+		return sellQnaCommentDAO.setSellQnaCommentAdd(sellQnaCommentDTO);
+	}
+	
+	public int setSellQnaCommentUpdate(SellQnaCommentDTO sellQnaCommentDTO) throws Exception{
+		return sellQnaCommentDAO.setSellQnaCommentUpdate(sellQnaCommentDTO);
+	}
+	
 	
 	//지도 매핑용
 	public List<SellItemDTO> getAllItemList() throws Exception{

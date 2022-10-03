@@ -336,6 +336,7 @@ public class MemberController {
 			memberDTO = (MemberDTO)session.getAttribute("member");
 
 			System.out.println(follower);
+			memberDTO.setFollower(follower);
 			int result = memberService.setFollowerDelete(memberDTO);
 			
 			if (result==1) {

@@ -6,7 +6,7 @@ import com.pet.home.board.event.coupon.CouponDTO;
 import com.pet.home.board.impl.BoardDTO;
 
 public class EventDTO extends BoardDTO {
-	
+
 	private List<CouponDTO> couponDTOs;
 
 	public List<CouponDTO> getCouponDTOs() {
@@ -16,7 +16,5 @@ public class EventDTO extends BoardDTO {
 	public void setCouponDTOs(List<CouponDTO> couponDTOs) {
 		this.couponDTOs = couponDTOs;
 	}
-	
-	
-	
+
 }

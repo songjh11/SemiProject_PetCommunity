@@ -214,20 +214,19 @@
               <div class="chef-member">
                 <div class="member-img">
                   <img src="/resources/upload/member/${dto.memberFileDTO.fileName}" class="img-fluid" alt="">
-                  <div class="social">
-                    <a href=""><i class="bi bi-trash3"></i></a>
-                    <a href=""><i class="bi bi-facebook"></i></a>
-                    <a href=""><i class="bi bi-instagram"></i></a>
-                    <a href=""><i class="bi bi-linkedin"></i></a>
-                  </div>
                 </div>
             
                 <c:forEach items="${dto.followDTOs}" var="followDTOs">
                 <div class="member-info">
-                  <input type="hidden" value="${followDTOs.follower}" name="follower">
                   <h4>${followDTOs.follower}</h4>
                   <span>guest</span>
                   <p>안녕하세요.</p>
+                  <div class="social">
+                    <button class="del" type="button" value="${followDTOs.follower}"><i class="bi bi-trash3"></i></button>
+                    <a href=""><i class="bi bi-facebook"></i></a>
+                    <a href=""><i class="bi bi-instagram"></i></a>
+                    <a href=""><i class="bi bi-linkedin"></i></a>
+                  </div>
                 </div>
               </c:forEach>  
               </div>
@@ -298,5 +297,16 @@
   <!-- Template Main JS File -->
   <script src="/resources/assets/js/main.js"></script>
 <script src="/resources/JS/follow.js"></script>
+
+<!-- <script>
+  function getParameter(name) {
+      name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+      var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+          results = regex.exec(location.search);
+      return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+
+      let what = getParameter(what);
+  }
+  </script> -->
 </body>
 </html>

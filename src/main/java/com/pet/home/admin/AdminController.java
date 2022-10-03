@@ -15,31 +15,29 @@ import com.pet.home.board.event.coupon.CouponDTO;
 @Controller
 @RequestMapping("/admin/*")
 public class AdminController {
-	
+
 	@Autowired
 	private AdminService adminService;
-	
-	
+
 	@GetMapping("mypage")
-	public ModelAndView test(ModelAndView mv) throws Exception{
+	public ModelAndView test(ModelAndView mv) throws Exception {
 		List<CouponDTO> list = adminService.getCouponList();
 		mv.addObject("list", list);
 		mv.setViewName("admin/admin");
 		return mv;
 	}
-	
+
 	@PostMapping("addcoupon")
 	@ResponseBody
-	public void setAddCoupon(CouponDTO couponDTO) throws Exception{
+	public void setAddCoupon(CouponDTO couponDTO) throws Exception {
 		int result = adminService.setAddCoupon(couponDTO);
 	}
-	
+
 	@GetMapping("couponlist")
 	@ResponseBody
-	public List<CouponDTO> getCouponList() throws Exception{
+	public List<CouponDTO> getCouponList() throws Exception {
 		List<CouponDTO> list = adminService.getCouponList();
 		return list;
 	}
-	
-	
+
 }

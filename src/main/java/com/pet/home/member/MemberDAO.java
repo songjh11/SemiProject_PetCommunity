@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pet.home.board.event.coupon.CouponDTO;
+import com.pet.home.sell.ReservationDTO;
 
 @Repository
 public class MemberDAO {
@@ -91,11 +92,11 @@ public class MemberDAO {
 		return sqlSession.selectList(NAMESPACE+"getFollowerList",memberDTO);
 	}
 
-	public int getFollowerount(MemberDTO memberDTO)throws Exception{
+	public int getFollowerCount(MemberDTO memberDTO)throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getFollowerCount", memberDTO);
 	}
 	
-	public int getFolloweeount(MemberDTO memberDTO)throws Exception{
+	public int getFolloweeCount(MemberDTO memberDTO)throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getFolloweeCount", memberDTO);
 	}
 	
@@ -113,6 +114,10 @@ public class MemberDAO {
 	
 	public List<CouponDTO> getCouponList(MemberDTO memberDTO){
 		return sqlSession.selectList(NAMESPACE+"getCouponList", memberDTO);
+	}
+	
+	public List<ReservationDTO> getRevList(MemberDTO memberDTO){
+		return sqlSession.selectList(NAMESPACE+"getRevList", memberDTO);
 	}
 	
 }

@@ -103,8 +103,12 @@ public class MemberDAO {
 		return sqlSession.insert(NAMESPACE+"setFollow", memberDTO);
 	}
 	
-	public int setFollowDelete(MemberDTO memberDTO)throws Exception{
-		return sqlSession.delete(NAMESPACE+"setFollowDelete", memberDTO);
+	public int setFolloweeDelete(MemberDTO memberDTO)throws Exception{
+		return sqlSession.delete(NAMESPACE+"setFolloweeDelete", memberDTO);
+	}
+	
+	public int setFollowerDelete(MemberDTO memberDTO)throws Exception{
+		return sqlSession.delete(NAMESPACE+"setFollowerDelete", memberDTO);
 	}
 	
 	public List<CouponDTO> getCouponList(MemberDTO memberDTO){

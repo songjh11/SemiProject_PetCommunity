@@ -136,8 +136,13 @@ public class MemberService {
 		return memberDAO.setFollow(memberDTO);
 	}
 	
-	public int setFollowDelete(MemberDTO memberDTO)throws Exception{
-		return memberDAO.setFollowDelete(memberDTO);
+	public int setFolloweeDelete(MemberDTO memberDTO)throws Exception{
+		return memberDAO.setFolloweeDelete(memberDTO);
+	}
+	
+
+	public int setFollowerDelete(MemberDTO memberDTO)throws Exception{
+		return memberDAO.setFollowerDelete(memberDTO);
 	}
 	
 	public  List<CouponDTO> getCouponList(MemberDTO memberDTO) throws Exception{

@@ -81,6 +81,7 @@
 <c:import url="/WEB-INF/views/template/header.jsp"></c:import>
 <!-- header end -->
 <!-- ======= Follow Section ======= -->
+
     <section id="chefs" class="chefs section-bg">
       <div class="container" data-aos="fade-up">
 
@@ -101,7 +102,7 @@
               <div class="member-img">
                 <img src="/resources/upload/member/${dto.memberFileDTO.fileName}" class="img-fluid" alt="">
                 <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-trash3"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>
                   <a href=""><i class="bi bi-instagram"></i></a>
                   <a href=""><i class="bi bi-linkedin"></i></a>
@@ -128,7 +129,7 @@
                     <div class="member-img">
                       <img src="/resources/upload/sellfile/${dto.fileDTOs.fileName}" class="img-fluid" alt="">
                       <div class="social">
-                        <a href=""><i class="bi bi-twitter"></i></a>
+                        <a href=""><i class="bi bi-trash3"></i></a>
                         <a href=""><i class="bi bi-facebook"></i></a>
                         <a href=""><i class="bi bi-instagram"></i></a>
                         <a href=""><i class="bi bi-linkedin"></i></a>
@@ -155,7 +156,7 @@
               <div class="member-img">
                 <img src="/resources/upload/sellfile/${dto.fileDTOs.fileName}" class="img-fluid" alt="">
                 <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-trash3"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>
                   <a href=""><i class="bi bi-instagram"></i></a>
                   <a href=""><i class="bi bi-linkedin"></i></a>
@@ -184,7 +185,7 @@
           <div class="member-img">
             <img src="/resources/images/coupon.jpg" class="img-fluid" alt="">
             <div class="social">
-              <a href=""><i class="bi bi-twitter"></i></a>
+              <a href=""><i class="bi bi-trash3"></i></a>
               <a href=""><i class="bi bi-facebook"></i></a>
               <a href=""><i class="bi bi-instagram"></i></a>
               <a href=""><i class="bi bi-linkedin"></i></a>
@@ -204,23 +205,24 @@
           
         </c:when>
 
-        <c:otherwise>
-        
-          <c:forEach items="${list}" var="dto">
 
+        <c:otherwise>
+          <c:forEach items="${list}" var="dto">
             <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
               <div class="chef-member">
                 <div class="member-img">
                   <img src="/resources/upload/member/${dto.memberFileDTO.fileName}" class="img-fluid" alt="">
                   <div class="social">
-                    <a href=""><i class="bi bi-twitter"></i></a>
+                    <a href=""><i class="bi bi-trash3"></i></a>
                     <a href=""><i class="bi bi-facebook"></i></a>
                     <a href=""><i class="bi bi-instagram"></i></a>
                     <a href=""><i class="bi bi-linkedin"></i></a>
                   </div>
                 </div>
+            
                 <c:forEach items="${dto.followDTOs}" var="followDTOs">
                 <div class="member-info">
+                  <input type="hidden" value="${followDTOs.follower}" name="follower">
                   <h4>${followDTOs.follower}</h4>
                   <span>guest</span>
                   <p>안녕하세요.</p>
@@ -230,21 +232,17 @@
   
             </div>
           </c:forEach>
-        
+             
             </c:otherwise>
+
+     
+
             </c:choose>
 
         </div>
 
-        
-
       </div>
     </section>
-
-
-
-  
-
 
 
   <!-- footer start -->
@@ -266,6 +264,6 @@
 
   <!-- Template Main JS File -->
   <script src="/resources/assets/js/main.js"></script>
-
+<script src="/resources/JS/follow.js"></script>
 </body>
 </html>

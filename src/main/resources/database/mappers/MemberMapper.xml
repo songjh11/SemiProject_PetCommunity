@@ -110,8 +110,12 @@ INSERT INTO FOLLOW (FOLLOWNUM, FOLLOWER, FOLLOWEE)
 VALUES(FOL_SEQ.NEXTVAL,#{follower},#{userId})
 </insert>
 
-<delete id="setFollowDelete" parameterType="MemberDTO">
-DELETE FROM FOLLOW WHERE FOLLOWEE=#{userId}
+<delete id="setFollowerDelete" parameterType="MemberDTO">
+DELETE FROM FOLLOW WHERE FOLLOWEE=#{userId} AND FOLLOWER=#{follower}
+</delete>
+
+<delete id="setFolloweeDelete" parameterType="MemberDTO">
+DELETE FROM FOLLOW WHERE FOLLOWEE=#{followee} AND FOLLOWER=#{userId}
 </delete>
 
 <!-- ==============coupon=================== -->
@@ -123,7 +127,7 @@ SELECT * FROM COUPON WHERE USERID=#{userId}
 <!--================= Update & Delete============== -->
 
 <delete id="setMemDelete" parameterType="MemberDTO">
-DELETE FROM MEMBER WHERE FOLLOWEE=#{userId} AND FOLLOWER=#{follower}
+DELETE FROM MEMBER WHERE USERID=#{userId}
 </delete>
 
 <update id="setMemUpdate" parameterType="MemberDTO" >

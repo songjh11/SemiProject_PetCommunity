@@ -325,7 +325,27 @@ public class MemberController {
 			return mv;
 		}
 		
-		
+		@PostMapping("follower")
+		public ModelAndView setFollowerDelete(MemberDTO memberDTO,String follower, HttpSession session)throws Exception{
+			ModelAndView mv = new ModelAndView();
+			System.out.println("delete post");
+			memberDTO = (MemberDTO)session.getAttribute("member");
+
+			System.out.println(follower);
+			int result = memberService.setFollowerDelete(memberDTO);
+			
+			if (result==1) {
+			mv.addObject("msg","follower가 삭제되었습니다.");
+			mv.addObject("url","/member/follower");
+			mv.setViewName("member/alert");}
+			else {
+				mv.addObject("msg","follower가 삭제 실패했습니다.");
+				mv.addObject("url","/member/follower");
+				mv.setViewName("member/alert");
+				
+			}
+			return mv;
+		}
 
 	@GetMapping("test")
 	public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{

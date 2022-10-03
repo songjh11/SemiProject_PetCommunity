@@ -28,9 +28,22 @@ public class MemberDTO {
 	private String petCatg;
 	private String petName;
 	private Long guestId;
-
+	private String follower;
+	private String followee;
 
 	
+	public String getFollower() {
+		return follower;
+	}
+	public void setFollower(String follower) {
+		this.follower = follower;
+	}
+	public String getFollowee() {
+		return followee;
+	}
+	public void setFollowee(String followee) {
+		this.followee = followee;
+	}
 	private List<CouponDTO> couponDTOs;
 	
 
@@ -54,7 +67,14 @@ public class MemberDTO {
     private List<SellItemDTO> itemDTOs;
     private List<SellFileDTO> fileDTOs;
     private List<FollowDTO> followDTOs;
+    private FollowDTO followDTO;
     
+	public FollowDTO getFollowDTO() {
+		return followDTO;
+	}
+	public void setFollowDTO(FollowDTO followDTO) {
+		this.followDTO = followDTO;
+	}
 	public List<FollowDTO> getFollowDTOs() {
 		return followDTOs;
 	}

@@ -136,7 +136,7 @@
 			</div>
 			<!--------COMMENT---------->
 
-		</div>
+		
 		<!--- Modal ----->
 		<div>
 			<button type="button" style="display: none;" id="up" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">댓글 수정</button>

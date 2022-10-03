@@ -5,6 +5,7 @@ import java.util.List;
 import com.pet.home.board.event.coupon.CouponDTO;
 import com.pet.home.sell.SellItemDTO;
 import com.pet.home.sell.ShopCartDTO;
+import com.pet.home.sell.check.CheckDTO;
 import com.pet.home.sell.file.SellFileDTO;
 
 public class MemberDTO {   
@@ -29,8 +30,6 @@ public class MemberDTO {
 	private String petName;
 	private Long guestId;
 
-
-	
 	private List<CouponDTO> couponDTOs;
 	
 

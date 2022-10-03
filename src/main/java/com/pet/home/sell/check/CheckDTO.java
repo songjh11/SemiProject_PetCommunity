@@ -1,5 +1,11 @@
 package com.pet.home.sell.check;
 
+import java.sql.Date;
+import java.util.List;
+
+import com.pet.home.member.MemberDTO;
+import com.pet.home.sell.SellItemDTO;
+
 public class CheckDTO {
 
 	private String imp_uid;
@@ -7,17 +13,39 @@ public class CheckDTO {
     private String merchant_uid;
     //결제번호
     private Long itemNum;
-    private String itemName;
     private Long amount;
     private String userId;
     private String revStartDate;
     private String revEndDate;
     private Long adultsCount;
     private Long dogCount;
-    private Long itemCatg;
-
+    private Date purchaseDate;
     
     
+    private MemberDTO memberDTO;
+    
+    private SellItemDTO itemDTO;
+    
+    
+    
+	public MemberDTO getMemberDTO() {
+		return memberDTO;
+	}
+	public void setMemberDTO(MemberDTO memberDTO) {
+		this.memberDTO = memberDTO;
+	}
+	public SellItemDTO getItemDTO() {
+		return itemDTO;
+	}
+	public void setItemDTO(SellItemDTO itemDTO) {
+		this.itemDTO = itemDTO;
+	}
+	public Date getPurchaseDate() {
+		return purchaseDate;
+	}
+	public void setPurchaseDate(Date purchaseDate) {
+		this.purchaseDate = purchaseDate;
+	}
 	public String getImp_uid() {
 		return imp_uid;
 	}
@@ -35,12 +63,6 @@ public class CheckDTO {
 	}
 	public void setItemNum(Long itemNum) {
 		this.itemNum = itemNum;
-	}
-	public String getItemName() {
-		return itemName;
-	}
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
 	}
 	public Long getAmount() {
 		return amount;
@@ -78,14 +100,5 @@ public class CheckDTO {
 	public void setDogCount(Long dogCount) {
 		this.dogCount = dogCount;
 	}
-	public Long getItemCatg() {
-		return itemCatg;
-	}
-	public void setItemCatg(Long itemCatg) {
-		this.itemCatg = itemCatg;
-	}
-    
-    
-    
     
 }

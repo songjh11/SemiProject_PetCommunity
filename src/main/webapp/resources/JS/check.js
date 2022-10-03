@@ -12,6 +12,14 @@ const itemNum2 = document.getElementById("itemNum");
 let itn = "";
 const itemCatg = document.getElementById("itemCatg");
 let itg = "";
+const buyer_email = document.getElementById("buyer_email");
+let bev = "";
+const buyer_name = document.getElementById("buyer_name");
+let bnv = "";
+const buyer_tel = document.getElementById("buyer_tel");
+let btv = "";
+const userId = document.getElementById("userId");
+let uiv = "";
 const revStartDate = document.getElementById("revStartDate");
 let rsv ="";
 const revEndDate = document.getElementById("revEndDate");
@@ -24,6 +32,7 @@ const rvFrm = document.getElementById("rvFrm");
 let date = new Date();
 let merchant_uid = date.getTime();
 const rvBtnFrm = document.getElementById("rvBtnFrm");
+let msg = "";
 
 //===================================================날짜 계산
 priceCount.addEventListener("click", function (){
@@ -81,7 +90,10 @@ rvBtnFrm.addEventListener("click", function(){
     ac = adultsCount.value;
     dc = dogCount.value;
     tpv = totalPrice.value;
-
+    bev = buyer_email.value;
+    bnv = buyer_name.value;
+    btv = buyer_tel.value;
+    uiv = userId.value;
   
     if(tpv.length<=0){
     alert("예상 결제 금액을 확인해주세요")
@@ -103,47 +115,40 @@ rvBtnFrm.addEventListener("click", function(){
         pay_method: "card",
         merchant_uid: merchant_uid,
         name: $('#itemName').text(),
-        amount: 100,//${sellItemDTO.itemPrice}
-        buyer_email: "gildong@gmail.com",
-        buyer_name: "홍길동",
-        buyer_tel: "010-4242-4242",
-        revStartDate: rsv
+        amount: 100,//tpv
+        buyer_email: bev,
+        buyer_name: bnv,
+        buyer_tel: btv,
+        revStartDate: rsv,
+        notice_url : 'http://localhost/member/purchaseList'
     }, function (rsp) { // callback
-        
+        // 결제검증
         if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
-            console.log("revStartDate",rsv);
-
-            // jQuery로 HTTP 요청
-            $.ajax({
-                url: "./payments", // 예: https://www.myservice.com/payments/complete
-                type: "POST",
-                dataType: 'json',
-                data: {
-                    'imp_uid': rsp.imp_uid,
-                    'merchant_uid': rsp.merchant_uid,
-                    'pg': 'pg1',
-                    'amount': tpv,
-                    'revStartDate': rsv,
-                    'itemNum': itn,
-                    'itemCatg': itg,
-                    'revEndDate': rev,
-                    'adultsCount': ac,
-                    'dogCount': dc
-
-                 
-                }
-            }).done(function (data) {
-              switch(data.status) {
-                case "vbankIssued":
-                  // 가상계좌 발급 시 로직
-                  break;
-                case "success":
-                  // 결제 성공 시 로직
-                  break;
+          // jQuery로 HTTP 요청
+          $.ajax({
+              url: "./payments", // 예: https://www.myservice.com/payments/complete
+              type: "POST",
+              dataType: 'json',
+              data: {
+                  'imp_uid': rsp.imp_uid,
+                  'merchant_uid': rsp.merchant_uid,
+                  'amount': tpv,
+                  'revStartDate': rsv,
+                  'itemNum': itn,
+                  'revEndDate': rev,
+                  'adultsCount': ac,
+                  'dogCount': dc,
+                  'userId': uiv
               }
-            })
-          } else {
-            alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
-          }
-        })
-    };
+          }).done(function (data) {
+            console.log(data);
+            if(data=="paid") {
+              alert("결제에 성공하였습니다!")
+              window.location.href = 'http://localhost/member/purchaseList';
+            }
+        })} else {
+          alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
+          location.reload(); 
+        }
+      })
+  };

@@ -57,7 +57,7 @@
      <a href="./update" class="btn-book-a-table">정보수정</a>
     </form>
    
-
+    <a href="./purchaseList?userId=${sessionScope.member.userId}"><button type="button">결제 내역 보기</button></a>
 
 
 <!-- 

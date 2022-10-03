@@ -1,11 +1,19 @@
 package com.pet.home.sell;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +31,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.google.gson.JsonObject;
 import com.pet.home.sell.check.CheckDTO;
 import com.pet.home.sell.file.RvFileDTO;
 import com.pet.home.sell.file.SellFileDTO;
@@ -40,7 +50,14 @@ public class SellItemController {
 	//아이템 등록, 수정, 삭제
 	
 	@Autowired
-	private SellItemService itemService;	
+	private SellItemService itemService;
+	
+	private IamportClient client;
+	
+	public SellItemController() {
+		this.client = new IamportClient("7768266328715148", "uETnhxe3MbNMjFN4Gs6U5PuiYYR6TWf9SFcGncxj9SWEcDAysad8JZmNnOYpChUkXzIdw7Ld9uTaSWuP");
+	}
+	
 	
 	@GetMapping("Test")
 	public void detailTest() {
@@ -295,48 +312,121 @@ public class SellItemController {
 		
 	}
 
-	
-IamportClient client = new IamportClient("7768266328715148", "uETnhxe3MbNMjFN4Gs6U5PuiYYR6TWf9SFcGncxj9SWEcDAysad8JZmNnOYpChUkXzIdw7Ld9uTaSWuP", true);
-	
-	public void getToken() throws Exception {
-		IamportResponse<AccessToken> ipList = client.getAuth();
-		
-	}
-	
+	//결제 진행 후 DB 인서트
 	@PostMapping("payments")
 	@ResponseBody
-	public void setCheck(@RequestParam String imp_uid, 
+	public String setCheck(@RequestParam String imp_uid, 
 			@RequestParam String merchant_uid, 
-			@RequestParam(required = false) String revStartDate,
 			@RequestParam String itemNum,
-			@RequestParam String itemCatg,
 			@RequestParam String amount,
+			@RequestParam String userId,
+			@RequestParam(required = false) String revStartDate,
 			@RequestParam String revEndDate,
 			@RequestParam String adultsCount,
 			@RequestParam String dogCount,
 			HttpSession session) throws Exception {
-			System.out.println("payments/complete");
-			System.out.println(imp_uid);
-			System.out.println(merchant_uid);
-			System.out.println("revStartDate: "+revStartDate);
-			IamportResponse<Payment> payment_response = client.paymentByImpUid(imp_uid);
-			CheckDTO checkDTO = new CheckDTO();
-			checkDTO.setImp_uid(imp_uid);
-			checkDTO.setMerchant_uid(merchant_uid);
-			checkDTO.setItemNum(Long.parseLong(itemNum));
-			checkDTO.setItemName(payment_response.getResponse().getName());
-			checkDTO.setAmount(Long.parseLong(amount));
-			checkDTO.setRevStartDate(revStartDate);
-			checkDTO.setRevEndDate(revEndDate);
-			checkDTO.setAdultsCount(Long.parseLong(adultsCount));
-			checkDTO.setDogCount(Long.parseLong(dogCount));
-			checkDTO.setItemCatg(Long.parseLong(itemCatg));
+					
+			//토큰 발급
+			IamportResponse<AccessToken> token = client.getAuth();
 			
-            System.out.println(payment_response.getResponse().getAmount());
-            System.out.println(payment_response.getResponse().getName());
-            System.out.println(payment_response.getResponse().getBuyerName());
-            
+			Payment payment = client.paymentByImpUid(imp_uid).getResponse();
+			String paymentResult = payment.getStatus();
+			System.out.println(payment);
+			System.out.println(payment.getStatus());
+			
+			if(paymentResult.equals("paid")) {
+				CheckDTO checkDTO = new CheckDTO();
+				checkDTO.setImp_uid(imp_uid);
+				checkDTO.setMerchant_uid(merchant_uid);
+				checkDTO.setItemNum(Long.parseLong(itemNum));
+				checkDTO.setAmount(Long.parseLong(amount));
+				checkDTO.setRevStartDate(revStartDate);
+				checkDTO.setRevEndDate(revEndDate);
+				checkDTO.setAdultsCount(Long.parseLong(adultsCount));
+				checkDTO.setDogCount(Long.parseLong(dogCount));
+				checkDTO.setUserId(userId);
+				
+				int result = itemService.setCheck(checkDTO);
+				
+				return paymentResult;
+				
+			} else {
+				return paymentResult;
+				
+			}
+						
+//			IamportResponse<Payment> payment_response = client.paymentByImpUid(imp_uid);
+                          	            
+            }
+	
+	//결제 리스트 출력
+	public ModelAndView getPurchaseList(String userId) throws Exception{
+		CheckDTO checkDTO = new CheckDTO();
+		checkDTO.setUserId(userId);
+		System.out.println(checkDTO.getUserId());
+//		List<CheckDTO> checkList = itemService.getPurchaseList(checkDTO);
+		ModelAndView mv = new ModelAndView();
+//		mv.addObject("checkList", checkList);
+		return mv;		
 	}
 
+//public String getToken() {
+//		
+//		RestTemplate restTemplate = new RestTemplate();
+//	
+//		//서버로 요청할 Header
+//		 HttpHeaders headers = new HttpHeaders();
+//	    headers.setContentType(MediaType.APPLICATION_JSON);
+//		
+//	    
+//	    Map<String, Object> map = new HashMap<>();
+//	    map.put("imp_key", "imp_key");
+//	    map.put("imp_secret", "imp_secret");
+//	    
+//	   
+//	    Gson var = new Gson();
+//	    String json=var.toJson(map);
+//		//서버로 요청할 Body
+//	   
+//	    HttpEntity<String> entity = new HttpEntity<>(json,headers);
+//		return restTemplate.postForObject("https://api.iamport.kr/users/getToken", entity, String.class);
+//		
+//		
+//	}
+//
+//public String requestSubPay() {
+//
+//	String token = pay.getToken();
+//	Gson str = new Gson();
+//	token = token.substring(token.indexOf("response") + 10);
+//	token = token.substring(0, token.length() - 1);
+//
+//	GetTokenVO vo = str.fromJson(token, GetTokenVO.class);
+//
+//	String access_token = vo.getAccess_token();
+//	System.out.println(access_token);
+//
+//	RestTemplate restTemplate = new RestTemplate();
+//
+//	HttpHeaders headers = new HttpHeaders();
+//	headers.setContentType(MediaType.APPLICATION_JSON);
+//	headers.setBearerAuth(access_token);
+//
+//	Map<String, Object> map = new HashMap<>();
+//	map.put("customer_uid", "24");
+//	map.put("merchant_uid", "162443471100");
+//	map.put("amount", "10000");
+//	map.put("name", "test05");
+//
+//	Gson var = new Gson();
+//	String json = var.toJson(map);
+//	System.out.println(json);
+//	HttpEntity<String> entity = new HttpEntity<>(json, headers);
+//	
+//	return restTemplate.postForObject("https://api.iamport.kr/subscribe/payments/again", entity, String.class);
+//
+//}
 	
 }
+
+	

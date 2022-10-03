@@ -17,6 +17,9 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pet.home.sell.SellItemController;
+import com.pet.home.sell.SellItemService;
+import com.pet.home.sell.check.CheckDTO;
 import com.pet.home.util.FileManager;
  
 @Controller
@@ -28,6 +31,9 @@ public class MemberController {
 	
 	@Autowired
 	private FileManager fileManager;
+	
+	@Autowired 
+	private SellItemService sellItemService;
 	
 	@GetMapping("role")
 	public String getAgree()throws Exception{
@@ -275,5 +281,41 @@ public class MemberController {
 		return mv;
 	}
 	
+	
+//결제 내역 리스트	
+	@GetMapping("purchaseList")
+	public ModelAndView getPurchaseList(HttpSession httpSession) throws Exception {
+		System.out.println("purchaseList");
+		MemberDTO memberDTO = (MemberDTO)httpSession.getAttribute("dto");
+		System.out.println(memberDTO.getUserId());
+		System.out.println(memberDTO.getEmail());
+		List<CheckDTO> checkList = sellItemService.getPurchaseList(memberDTO.getUserId());
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("checkList", checkList);
+		for(CheckDTO c: checkList) {
+			System.out.println(c.getImp_uid());
+		}
+		return mv;
+	}
+	
+//결제 상세 내역
+	@GetMapping("purchaseDetail")
+	public ModelAndView getPurchaseDetail(CheckDTO checkDTO) throws Exception {
+		checkDTO = sellItemService.getPurchaseDetail(checkDTO);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("check", checkDTO);
+		return mv;
+	}
+	
+//결제 취소
+	@PostMapping("purchaseDelete")
+	public ModelAndView setPurchaseDelete(CheckDTO checkDTO) throws Exception {
+		System.out.println(checkDTO.getImp_uid());
+		int result = sellItemService.setPurchaseDelete(checkDTO);
+		System.out.println("삭제 완");
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("member/mypage");
+		return mv;
+	}
 }
 	

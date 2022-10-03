@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>공지사항</title>
+  <title>${board} 상세 페이지</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -36,7 +36,7 @@
       </div>
     </div><!-- End Breadcrumbs -->
 
-
+	<c:if test="${board eq 'sharing'}">
 	<section id="hero" class="hero d-flex align-items-center section-bg">
 		<div class="container">
 		  <div class="row justify-content-between gy-5">
@@ -58,7 +58,7 @@
 		  </div>
 		</div>
 	  </section><!-- End Hero Section -->
-
+	</c:if> 
 
     <section class="sample-page">
       <div class="container" data-aos="fade-up">
@@ -103,7 +103,11 @@
 	
 	
 		<a href="./delete?num=${requestScope.dto.num}" class="btn btn-primary">삭제</a>
-
+		<div class="row">
+			<c:if test="${board eq 'event'}">
+				<span>쿠폰명 : ${coupon.couponName}</span>
+			</c:if>
+		</div>
     </div>
 
     <c:if test="${board eq 'sharing'}">
@@ -182,7 +186,7 @@
 
 		let followee = "${requestScope.member.userId}";
 		let follower = "${sessionScope.member.userId}"
-		setFollow();
+		setFollow(followee, follower);
 	</script>
 </body>
 

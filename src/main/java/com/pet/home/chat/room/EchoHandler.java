@@ -122,7 +122,7 @@ public class EchoHandler extends TextWebSocketHandler {
 	}
 
 	//접속한 유저의 Http세션을 조회하여 userName을 불러옴
-	private String getUserName(WebSocketSession session) {
+	private String getUserName(WebSocketSession session) throws Exception {
 		Map<String, Object> map = session.getAttributes();
 		MemberDTO memberDTO = (MemberDTO)map.get("member");
 		String m_id = memberDTO.getUserName();

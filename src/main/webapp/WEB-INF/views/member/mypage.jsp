@@ -38,48 +38,7 @@
   margin: 0 auto;
 }
 
-    .ag{
-      background-color:cornsilk;
-      overflow: scroll;
-      width: 600px;
-      height: 100px;
-    }
-
-    .warning{
-      color: red;
-    }
-    #po{
-      font-size: 10pt;
-      color: darkgray;
-    }
-
-
-    #imgDiv{
-      display: flex;
-    }
-
-    .newDiv{
-      justify-content: center;
-      align-items:center;
-      position: relative;
-      width: 80px;
-	  	height: 80px;
-      margin-right: 5px;
-    }
-    .thumnail{
-		width: 80px;
-		height: 80px;
-
-		} 
-    .imgDeleteBtn {
-      position: absolute;
-      top: 0px;
-      right: 0px;
-    }
-
-    #inputDiv{
-      display: none;
-    }
+ 
 	</style>
   
 </head>
@@ -98,8 +57,18 @@
         <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
 
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="./cart">
+              <h4>장바구니</h4>
+            </a>
+          </li><!-- End tab nav item -->
+          <li class="nav-item">
+            <a class="nav-link" href="./pick">
               <h4>찜 내역</h4>
+            </a>
+          </li><!-- End tab nav item -->
+          <li class="nav-item">
+            <a class="nav-link" href="./coupon">
+              <h4>보유쿠폰</h4>
             </a>
           </li><!-- End tab nav item -->
 
@@ -115,7 +84,7 @@
             </a><!-- End tab nav item -->
 
           <li class="nav-item">
-            <a class="nav-link"  href="#">
+            <a class="nav-link"  href="./rev">
               <h4>예약내역</h4>
             </a>
           </li><!-- End tab nav item -->
@@ -137,14 +106,14 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="stats-item text-center w-100 h-100" OnClick="location.href ='follower'" style="cursor:pointer;">
-              <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
+              <span data-purecounter-start="0" data-purecounter-end="${followernum}" data-purecounter-duration="1" class="purecounter"></span>
               <p>Follower</p>
             </div>
           </div><!-- End Stats Item -->
 
           <div class="col-lg-3 col-md-6">
             <div class="stats-item text-center w-100 h-100" OnClick="location.href ='followee'" style="cursor:pointer;">
-              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
+              <span data-purecounter-start="0" data-purecounter-end="${followeenum}" data-purecounter-duration="1" class="purecounter"></span>
               <p>Followee</p>
             </div>
           </div><!-- End Stats Item -->
@@ -193,9 +162,9 @@
                 <c:choose>
                     <c:when test="${dto.roleNum eq 1}">
                         <div class="col-lg-8 col-md-6">
-                            <input type="text" class="form-control" name="itemCatg" value="${dto.itemCatg}" readonly>
-                            <div class="validate"></div>
-                          </div>
+                          <input type="text" class="form-control" name="itemCatg" value="${dto.itemCatg}" readonly>
+                          <div class="validate"></div>
+                        </div>
                           <div class="col-lg-8 col-md-6">
                             <input type="text" class="form-control" name="itemId" value="${dto.itemId}" readonly>
                             <div class="validate"></div>

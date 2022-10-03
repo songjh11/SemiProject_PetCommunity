@@ -3,6 +3,7 @@ package com.pet.home.member;
 import java.util.List;
 
 import com.pet.home.board.event.coupon.CouponDTO;
+import com.pet.home.sell.ReservationDTO;
 import com.pet.home.sell.SellItemDTO;
 import com.pet.home.sell.ShopCartDTO;
 import com.pet.home.sell.file.SellFileDTO;
@@ -20,46 +21,31 @@ public class MemberDTO {
 	private Integer agMail;
 	private Integer agValue;
 	private Integer agMes;
-
+	private Long itemZipCode;
+	private String deAddress;
 	private String itemCatg;
 	private String itemId;
 	private Long bizNum;
-	
 	private String petCatg;
 	private String petName;
 	private Long guestId;
-
-
-	
 	private List<CouponDTO> couponDTOs;
-	
-
-	public List<CouponDTO> getCouponDTOs() {
-		return couponDTOs;
-	}
-	public void setCouponDTOs(List<CouponDTO> couponDTOs) {
-		this.couponDTOs = couponDTOs;
-	}
 	private Long totalPrice;
 	private List<ShopCartDTO> shopCartDTOs;
- 
-
-	private RoleDTO roleDTO;
-	private MemberFileDTO memberFileDTO;
-	
-	private Long itemZipCode;
-	private String deAddress;
-
 	private List<RoleDTO> roleDTOs;
     private List<SellItemDTO> itemDTOs;
     private List<SellFileDTO> fileDTOs;
     private List<FollowDTO> followDTOs;
-    
-	public List<FollowDTO> getFollowDTOs() {
-		return followDTOs;
+    private FollowDTO followDTO;
+	private RoleDTO roleDTO;
+	private MemberFileDTO memberFileDTO;
+	private ReservationDTO reservationDTO;
+
+	public ReservationDTO getReservationDTO() {
+		return reservationDTO;
 	}
-	public void setFollowDTOs(List<FollowDTO> followDTOs) {
-		this.followDTOs = followDTOs;
+	public void setReservationDTO(ReservationDTO reservationDTO) {
+		this.reservationDTO = reservationDTO;
 	}
 	public String getUserId() {
 		return userId;
@@ -127,6 +113,18 @@ public class MemberDTO {
 	public void setAgMes(Integer agMes) {
 		this.agMes = agMes;
 	}
+	public Long getItemZipCode() {
+		return itemZipCode;
+	}
+	public void setItemZipCode(Long itemZipCode) {
+		this.itemZipCode = itemZipCode;
+	}
+	public String getDeAddress() {
+		return deAddress;
+	}
+	public void setDeAddress(String deAddress) {
+		this.deAddress = deAddress;
+	}
 	public String getItemCatg() {
 		return itemCatg;
 	}
@@ -163,35 +161,17 @@ public class MemberDTO {
 	public void setGuestId(Long guestId) {
 		this.guestId = guestId;
 	}
-	public RoleDTO getRoleDTO() {
-		return roleDTO;
+	public List<CouponDTO> getCouponDTOs() {
+		return couponDTOs;
 	}
-	public void setRoleDTO(RoleDTO roleDTO) {
-		this.roleDTO = roleDTO;
-	}
-	public MemberFileDTO getMemberFileDTO() {
-		return memberFileDTO;
-	}
-	public void setMemberFileDTO(MemberFileDTO memberFileDTO) {
-		this.memberFileDTO = memberFileDTO;
+	public void setCouponDTOs(List<CouponDTO> couponDTOs) {
+		this.couponDTOs = couponDTOs;
 	}
 	public Long getTotalPrice() {
 		return totalPrice;
 	}
 	public void setTotalPrice(Long totalPrice) {
 		this.totalPrice = totalPrice;
-	}
-	public Long getItemZipCode() {
-		return itemZipCode;
-	}
-	public void setItemZipCode(Long itemZipCode) {
-		this.itemZipCode = itemZipCode;
-	}
-	public String getDeAddress() {
-		return deAddress;
-	}
-	public void setDeAddress(String deAddress) {
-		this.deAddress = deAddress;
 	}
 	public List<ShopCartDTO> getShopCartDTOs() {
 		return shopCartDTOs;
@@ -217,7 +197,33 @@ public class MemberDTO {
 	public void setFileDTOs(List<SellFileDTO> fileDTOs) {
 		this.fileDTOs = fileDTOs;
 	}
-	
+	public List<FollowDTO> getFollowDTOs() {
+		return followDTOs;
+	}
+	public void setFollowDTOs(List<FollowDTO> followDTOs) {
+		this.followDTOs = followDTOs;
+	}
+	public FollowDTO getFollowDTO() {
+		return followDTO;
+	}
+	public void setFollowDTO(FollowDTO followDTO) {
+		this.followDTO = followDTO;
+	}
+	public RoleDTO getRoleDTO() {
+		return roleDTO;
+	}
+	public void setRoleDTO(RoleDTO roleDTO) {
+		this.roleDTO = roleDTO;
+	}
+	public MemberFileDTO getMemberFileDTO() {
+		return memberFileDTO;
+	}
+	public void setMemberFileDTO(MemberFileDTO memberFileDTO) {
+		this.memberFileDTO = memberFileDTO;
+	}
+
+
+
 	
    
 	

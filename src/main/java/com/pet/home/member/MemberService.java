@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pet.home.board.event.coupon.CouponDTO;
+import com.pet.home.sell.ReservationDTO;
 import com.pet.home.util.FileManager;
 
 @Service
@@ -100,12 +102,12 @@ public class MemberService {
 		
 	}
 
-	public MemberDTO getPickList(MemberDTO memberDTO) throws Exception{
+	public  List<MemberDTO> getPickList(MemberDTO memberDTO) throws Exception{
 		return memberDAO.getPickList(memberDTO);
 
 	}
 	
-	public MemberDTO getShopCartList(MemberDTO memberDTO) throws Exception{
+	public List<MemberDTO> getShopCartList(MemberDTO memberDTO) throws Exception{
 		return memberDAO.getShopCartList(memberDTO);
 	}
 	
@@ -121,13 +123,13 @@ public class MemberService {
 		return memberDAO.getFollowerList(memberDTO);
 	}
 	
-	public int getFollowerount(MemberDTO memberDTO)throws Exception{
-		return memberDAO.getFollowerount(memberDTO);
+	public int getFollowerCount(MemberDTO memberDTO)throws Exception{
+		return memberDAO.getFollowerCount(memberDTO);
 		
 	}
 	
-	public int getFolloweeount(MemberDTO memberDTO)throws Exception{
-		return memberDAO.getFolloweeount(memberDTO);
+	public int getFolloweeCount(MemberDTO memberDTO)throws Exception{
+		return memberDAO.getFolloweeCount(memberDTO);
 		
 	}
 	
@@ -135,8 +137,23 @@ public class MemberService {
 		return memberDAO.setFollow(memberDTO);
 	}
 	
-	public int setFollowDelete(MemberDTO memberDTO)throws Exception{
-		return memberDAO.setFollowDelete(memberDTO);
+	public int setFolloweeDelete(MemberDTO memberDTO)throws Exception{
+		return memberDAO.setFolloweeDelete(memberDTO);
+	}
+	
+
+	public int setFollowerDelete(MemberDTO memberDTO)throws Exception{
+		return memberDAO.setFollowerDelete(memberDTO);
+	}
+	
+	public  List<CouponDTO> getCouponList(MemberDTO memberDTO) throws Exception{
+		return memberDAO.getCouponList(memberDTO);
+
+	}
+	
+	public  List<ReservationDTO> getRevList(MemberDTO memberDTO) throws Exception{
+		return memberDAO.getRevList(memberDTO);
+
 	}
 	
 

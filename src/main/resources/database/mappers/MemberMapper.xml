@@ -97,12 +97,12 @@ ON (F.FOLLOWER = MF.USERID)
 WHERE FOLLOWEE =#{userId}
 </select>
 
-<select id="getFollowerCount" parameterType="MemberDTO" resultType="Long">
-SELECT COUNT(DISTINCT FOLLOWEE) FROM FOLLOW WHERE FOLLOWER=#{userId}
+<select id="getFollowerCount" parameterType="MemberDTO" resultType="Integer">
+SELECT COUNT(DISTINCT FOLLOWER) FROM FOLLOW WHERE FOLLOWEE=#{userId}
 </select>
 
-<select id="getFolloweeCount" parameterType="MemberDTO" resultType="Long">
-SELECT COUNT(DISTINCT FOLLOWER) FROM FOLLOW WHERE FOLLOWEE=#{userId}
+<select id="getFolloweeCount" parameterType="MemberDTO" resultType="Integer">
+SELECT COUNT(DISTINCT FOLLOWEE) FROM FOLLOW WHERE FOLLOWER=#{userId}
 </select>
 
 <insert id="setFollow" parameterType="MemberDTO">	 
@@ -110,14 +110,24 @@ INSERT INTO FOLLOW (FOLLOWNUM, FOLLOWER, FOLLOWEE)
 VALUES(FOL_SEQ.NEXTVAL,#{follower},#{userId})
 </insert>
 
-<delete id="setFollowDelete" parameterType="MemberDTO">
-DELETE FROM FOLLOW WHERE FOLLOWEE=#{userId}
+<delete id="setFollowerDelete" parameterType="MemberDTO">
+DELETE FROM FOLLOW WHERE FOLLOWEE=#{userId} AND FOLLOWER=#{follower}
 </delete>
+
+<delete id="setFolloweeDelete" parameterType="MemberDTO">
+DELETE FROM FOLLOW WHERE FOLLOWEE=#{followee} AND FOLLOWER=#{userId}
+</delete>
+
+<!-- ==============coupon=================== -->
+
+<select id="getCouponList" parameterType="MemberDTO" resultType="CouponDTO">
+SELECT * FROM COUPON WHERE USERID=#{userId}
+</select>
 
 <!--================= Update & Delete============== -->
 
 <delete id="setMemDelete" parameterType="MemberDTO">
-DELETE FROM MEMBER WHERE FOLLOWEE=#{userId} AND FOLLOWER=#{follower}
+DELETE FROM MEMBER WHERE USERID=#{userId}
 </delete>
 
 <update id="setMemUpdate" parameterType="MemberDTO" >
@@ -201,7 +211,7 @@ FROM MEMBER M
      INNER JOIN
      SELLFILE SF
      ON SI.ITEMNUM = SF.ITEMNUM
-WHERE M.USERID = 'guest' ORDER BY P.PICKNUM DESC
+WHERE M.USERID =#{userId} ORDER BY P.PICKNUM DESC
 </select>
 <resultMap type="MemberDTO" id="getPickListResult">
 	<id column="USERID" property="userId"/>
@@ -228,7 +238,7 @@ FROM MEMBER M
      INNER JOIN
      SELLFILE SF
      ON SI.ITEMNUM = SF.ITEMNUM
-WHERE M.USERID = 'guest' ORDER BY S.SHOPNUM DESC
+WHERE M.USERID =#{userId} ORDER BY S.SHOPNUM DESC
 </select>
 <resultMap type="MemberDTO" id="getShopCartListResult">
 	<id column="USERID" property="userId"/>
@@ -255,4 +265,32 @@ FROM MEMBER M
 WHERE M.USERID = 'guest'
 </select>
 
+
+	<select id="getRevList" parameterType="MemberDTO" resultMap="getRevResult">
+	SELECT R.*, SF.FILENAME, SI.ITEMNAME
+	from RESERVATION R
+   	INNER JOIN
+	SELLITEM SI
+	ON R.ITEMNUM = SI.ITEMNUM
+	INNER JOIN 
+    SELLFILE SF
+	ON SI.ITEMNUM = SF.ITEMNUM
+	WHERE R.USERID=#{userId}
+	</select>
+	<resultMap type="ReservationDTO" id="getRevResult">
+		<id column="ITEMNUM" property="itemNum"/>
+		<result column="USERID" property="userId"/>
+		<result column="REVSTARTDATE" property="revStartDate"/>
+		<result column="REVENDDATE" property="revEndDate"/>
+		<result column="MEMBERCOUNT" property="memberCount"/>
+		<result column="REVPAYWAY" property="revPayway"/>
+		<result column="ITEMCATG" property="itemCatg"/>
+			<association property="sellItemDTO" javaType="SellItemDTO">
+				<result column="ITEMNAME" property="itemName"></result>   
+	 		</association>
+			<collection property="fileDTOs" javaType="List" ofType="sellFileDTO">
+				<result column="FILENAME" property="fileName"/>
+			</collection>
+	</resultMap>
+	
 </mapper>

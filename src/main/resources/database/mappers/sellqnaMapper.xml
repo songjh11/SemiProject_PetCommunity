@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pet.home.sell.SellQnaDAO">
+	<insert id="setSellQnaAdd" parameterType="SellQnaDTO">
+		<selectKey keyProperty="qnaNum" order="BEFORE" resultType="Long">
+		 			SELECT SELLQNA_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO SELLQNA 
+		VALUES 
+		(#{qnaNum},#{itemNum}, #{userId}, #{title}, #{contents})
+	</insert>
+	
+	<select id="getSellQnaListTotalCount" parameterType="CommentPager" resultType="Long">
+		    	SELECT COUNT(QNANUM) FROM SELLQNA WHERE ITEMNUM = #{itemNum}
+    </select>
+	
+	<select id="getSellQnaList" parameterType="CommentPager" resultMap="getSellQnaListResult">
+		SELECT SQ.*,SQC.* FROM
+    		(SELECT ROWNUM SQ, C.* FROM
+        		(SELECT * FROM SELLQNA WHERE ITEMNUM = #{itemNum} ORDER BY QNANUM DESC) C)SQ
+    		LEFT OUTER JOIN
+    		SELLQNACOMMENT SQC
+    		ON SQ.QNANUM = SQC.QNANUM
+    	WHERE SQ BETWEEN #{startRow} AND #{lastRow}
+    	ORDER BY SQ.QNANUM DESC, SQC.SQNUM DESC
+	</select>
+	<resultMap type="SellQnaDTO" id="getSellQnaListResult">
+		<id column="QNANUM" property="qnaNum"/>
+		<result column="ITEMNUM" property="itemNum"/>
+		<result column="USERID" property="userId"/>
+		<result column="TITLE" property="title"/>
+		<result column="CONTENTS" property="contents"/>
+		<collection property="sellQnaCommentDTOs" javaType="List" ofType="SellQnaCommentDTO">
+			<id column="SQNUM" property="sqNum"/>
+			<result column="QNANUM" property="qnaNum"/>
+			<result column="SQWRITER" property="sqWriter"/>
+			<result column="SQCONTENTS" property="sqContents"/>
+		</collection>
+	</resultMap>
+	
+	<update id="setSellQnaUpdate" parameterType="SellQnaDTO">
+		UPDATE SELLQNA SET TITLE=#{title},CONTENTS=#{contents} WHERE QNANUM=#{qnaNum}
+	</update>
+	
+	<delete id="setSellQnaDelete" parameterType="SellQnaDTO">
+		DELETE SELLQNA WHERE QNANUM=#{qnaNum}
+	</delete>
+	
+	<select id="getSellQnaUpdate" parameterType="SellQnaDTO" resultType="SellQnaDTO">
+		SELECT * FROM SELLQNA WHERE QNANUM=#{qnaNum}
+	</select>
+	
+</mapper>

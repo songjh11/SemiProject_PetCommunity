@@ -6,6 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pet.home.board.event.coupon.CouponDTO;
+import com.pet.home.sell.ReservationDTO;
+
 @Repository
 public class MemberDAO {
 	
@@ -49,8 +52,8 @@ public class MemberDAO {
 		
 	}
 		
-	public MemberDTO getPickList(MemberDTO memberDTO) throws Exception{
-		return sqlSession.selectOne(NAMESPACE+"getPickList", memberDTO);
+	public List<MemberDTO> getPickList(MemberDTO memberDTO) throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getPickList", memberDTO);
 	}
 	
 	public int setMemDelete(MemberDTO memberDTO)throws Exception{
@@ -72,8 +75,8 @@ public class MemberDAO {
 		
 	}
 
-	public MemberDTO getShopCartList(MemberDTO memberDTO) throws Exception{
-		return sqlSession.selectOne(NAMESPACE+"getShopCartList", memberDTO);
+	public List<MemberDTO> getShopCartList(MemberDTO memberDTO) throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getShopCartList", memberDTO);
 	}
 	
 	public MemberDTO getTotalPrice(MemberDTO memberDTO) throws Exception{
@@ -89,11 +92,11 @@ public class MemberDAO {
 		return sqlSession.selectList(NAMESPACE+"getFollowerList",memberDTO);
 	}
 
-	public int getFollowerount(MemberDTO memberDTO)throws Exception{
+	public int getFollowerCount(MemberDTO memberDTO)throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getFollowerCount", memberDTO);
 	}
 	
-	public int getFolloweeount(MemberDTO memberDTO)throws Exception{
+	public int getFolloweeCount(MemberDTO memberDTO)throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getFolloweeCount", memberDTO);
 	}
 	
@@ -101,8 +104,20 @@ public class MemberDAO {
 		return sqlSession.insert(NAMESPACE+"setFollow", memberDTO);
 	}
 	
-	public int setFollowDelete(MemberDTO memberDTO)throws Exception{
-		return sqlSession.delete(NAMESPACE+"setFollowDelete", memberDTO);
+	public int setFolloweeDelete(MemberDTO memberDTO)throws Exception{
+		return sqlSession.delete(NAMESPACE+"setFolloweeDelete", memberDTO);
+	}
+	
+	public int setFollowerDelete(MemberDTO memberDTO)throws Exception{
+		return sqlSession.delete(NAMESPACE+"setFollowerDelete", memberDTO);
+	}
+	
+	public List<CouponDTO> getCouponList(MemberDTO memberDTO){
+		return sqlSession.selectList(NAMESPACE+"getCouponList", memberDTO);
+	}
+	
+	public List<ReservationDTO> getRevList(MemberDTO memberDTO){
+		return sqlSession.selectList(NAMESPACE+"getRevList", memberDTO);
 	}
 	
 }

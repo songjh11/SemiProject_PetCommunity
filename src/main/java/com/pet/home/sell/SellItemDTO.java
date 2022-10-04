@@ -16,9 +16,10 @@ public class SellItemDTO {
 	private String itemAddress;
 	private String itemDeAddress;
 	private Long itemCatg;
-	
+
 	private List<SellFileDTO> fileDTOs;
 	private List<ShopCartDTO> shopCartDTOs;
+
 	public List<ShopCartDTO> getShopCartDTOs() {
 		return shopCartDTOs;
 	}
@@ -28,9 +29,6 @@ public class SellItemDTO {
 	}
 
 	private CategoryDTO categoryDTO;
-	
-	
-	
 
 	public CategoryDTO getCategoryDTO() {
 		return categoryDTO;
@@ -105,7 +103,7 @@ public class SellItemDTO {
 	}
 
 	public Long getItemCatg() {
-		if(this.itemCatg==null) {
+		if (this.itemCatg == null) {
 			itemCatg = 1L;
 		}
 		return itemCatg;
@@ -123,7 +121,4 @@ public class SellItemDTO {
 		this.fileDTOs = fileDTOs;
 	}
 
-	
-	
-	
 }

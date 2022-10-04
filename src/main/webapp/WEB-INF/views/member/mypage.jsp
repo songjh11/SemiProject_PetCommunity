@@ -84,7 +84,7 @@
             </a><!-- End tab nav item -->
 
           <li class="nav-item">
-            <a class="nav-link"  href="#">
+            <a class="nav-link"  href="./rev">
               <h4>예약내역</h4>
             </a>
           </li><!-- End tab nav item -->
@@ -106,14 +106,14 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="stats-item text-center w-100 h-100" OnClick="location.href ='follower'" style="cursor:pointer;">
-              <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
+              <span data-purecounter-start="0" data-purecounter-end="${followernum}" data-purecounter-duration="1" class="purecounter"></span>
               <p>Follower</p>
             </div>
           </div><!-- End Stats Item -->
 
           <div class="col-lg-3 col-md-6">
             <div class="stats-item text-center w-100 h-100" OnClick="location.href ='followee'" style="cursor:pointer;">
-              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
+              <span data-purecounter-start="0" data-purecounter-end="${followeenum}" data-purecounter-duration="1" class="purecounter"></span>
               <p>Followee</p>
             </div>
           </div><!-- End Stats Item -->

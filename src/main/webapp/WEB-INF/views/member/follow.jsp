@@ -7,7 +7,7 @@
  <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>follow page</title>
+  <title>list page</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -81,19 +81,19 @@
 <c:import url="/WEB-INF/views/template/header.jsp"></c:import>
 <!-- header end -->
 <!-- ======= Follow Section ======= -->
+
     <section id="chefs" class="chefs section-bg">
       <div class="container" data-aos="fade-up">
 
         <div class="section-header">
-          <h2>follow</h2>
-          <p>${follow} <span>page</span></p>
+          <p>${what} <span>page</span></p>
         </div>
 
         <div class="row gy-4">
 
           <c:choose>
 
-            <c:when test="${follow eq 'followee'}">
+            <c:when test="${what eq 'followee'}">
               <c:forEach items="${list}" var="dto">
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
@@ -101,7 +101,7 @@
               <div class="member-img">
                 <img src="/resources/upload/member/${dto.memberFileDTO.fileName}" class="img-fluid" alt="">
                 <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-trash3"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>
                   <a href=""><i class="bi bi-instagram"></i></a>
                   <a href=""><i class="bi bi-linkedin"></i></a>
@@ -120,7 +120,9 @@
         </c:forEach>
         </c:when>
 
-        <c:when test="${follow eq 'pick'}">
+
+        <c:when test="${what eq 'pick'}">
+
               <c:forEach items="${list}" var="dto">
 
                 <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
@@ -128,8 +130,8 @@
                     <div class="member-img">
                       <img src="/resources/upload/sellfile/${dto.fileDTOs.fileName}" class="img-fluid" alt="">
                       <div class="social">
-                        <a href=""><i class="bi bi-twitter"></i></a>
-                        <a href=""><i class="bi bi-facebook"></i></a>
+                        <a href=""><i class="bi bi-trash3"></i></a>
+						 <a href=""><i class="bi bi-facebook"></i></a>
                         <a href=""><i class="bi bi-instagram"></i></a>
                         <a href=""><i class="bi bi-linkedin"></i></a>
                       </div>
@@ -147,15 +149,17 @@
               </c:forEach>
               </c:when>
 
-        <c:when test="${follow eq 'cart'}">
-              <c:forEach items="${list}" var="dto">
+
+        <c:when test="${what eq 'cart'}">
+		<c:forEach items="${list}" var="dto">
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
             <div class="chef-member">
               <div class="member-img">
                 <img src="/resources/upload/sellfile/${dto.fileDTOs.fileName}" class="img-fluid" alt="">
                 <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
+
+                  <a href=""><i class="bi bi-trash3"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>
                   <a href=""><i class="bi bi-instagram"></i></a>
                   <a href=""><i class="bi bi-linkedin"></i></a>
@@ -174,17 +178,15 @@
         </c:forEach>
         </c:when>
 
-        <c:when test="${follow eq 'coupon'}">
 
-        ${follow}
-         
+        <c:when test="${what eq 'coupon'}">
 
       <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
         <div class="chef-member">
           <div class="member-img">
             <img src="/resources/images/coupon.jpg" class="img-fluid" alt="">
             <div class="social">
-              <a href=""><i class="bi bi-twitter"></i></a>
+              <a href=""><i class="bi bi-trash3"></i></a>
               <a href=""><i class="bi bi-facebook"></i></a>
               <a href=""><i class="bi bi-instagram"></i></a>
               <a href=""><i class="bi bi-linkedin"></i></a>
@@ -204,47 +206,75 @@
           
         </c:when>
 
-        <c:otherwise>
-        
-          <c:forEach items="${list}" var="dto">
 
+      
+        <c:when test="${what eq 'follower'}">
+          <c:forEach items="${list}" var="dto">
             <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
               <div class="chef-member">
                 <div class="member-img">
                   <img src="/resources/upload/member/${dto.memberFileDTO.fileName}" class="img-fluid" alt="">
-                  <div class="social">
-                    <a href=""><i class="bi bi-twitter"></i></a>
-                    <a href=""><i class="bi bi-facebook"></i></a>
-                    <a href=""><i class="bi bi-instagram"></i></a>
-                    <a href=""><i class="bi bi-linkedin"></i></a>
-                  </div>
                 </div>
+            
                 <c:forEach items="${dto.followDTOs}" var="followDTOs">
                 <div class="member-info">
                   <h4>${followDTOs.follower}</h4>
                   <span>guest</span>
                   <p>안녕하세요.</p>
+                  <div class="social">
+                    <button class="del" type="button" value="${followDTOs.follower}"><i class="bi bi-trash3"></i></button>
+                    <a href=""><i class="bi bi-facebook"></i></a>
+                    <a href=""><i class="bi bi-instagram"></i></a>
+                    <a href=""><i class="bi bi-linkedin"></i></a>
+                  </div>
                 </div>
               </c:forEach>  
               </div>
   
             </div>
           </c:forEach>
+             
+        </c:when>
+
+
+  
+        <c:when test="${what eq 'rev'}">
+          <c:forEach items="${list}" var="dto">
+            <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+              <div class="chef-member">
+                <div class="member-info">
+                  <h4>${dto.sellItemDTO.itemName}</h4>
+                  <span>${dto.revStartDate}</span>
+                  <p>${dto.memberCount}</p>
+                </div>
+            
+                <c:forEach items="${dto.fileDTOs}" var="fileDTO">
+
+                  <div class="member-img">
+                    <img src="/resources/upload/member/${fileDTOs.fileName}" class="img-fluid" alt="">
+                    <div class="social">
+                      <a href=""><i class="bi bi-trash3"></i></a>
+                      <a href=""><i class="bi bi-facebook"></i></a>
+                      <a href=""><i class="bi bi-instagram"></i></a>
+                      <a href=""><i class="bi bi-linkedin"></i></a>
+                    </div>
+                  </div>
+              </c:forEach>  
+              </div>
+  
+            </div>
+          </c:forEach>
+             
+        </c:when>
         
-            </c:otherwise>
+     
+
             </c:choose>
 
         </div>
 
-        
-
       </div>
     </section>
-
-
-
-  
-
 
 
   <!-- footer start -->
@@ -266,6 +296,17 @@
 
   <!-- Template Main JS File -->
   <script src="/resources/assets/js/main.js"></script>
+<script src="/resources/JS/follow.js"></script>
 
+<!-- <script>
+  function getParameter(name) {
+      name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+      var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+          results = regex.exec(location.search);
+      return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+
+      let what = getParameter(what);
+  }
+  </script> -->
 </body>
 </html>

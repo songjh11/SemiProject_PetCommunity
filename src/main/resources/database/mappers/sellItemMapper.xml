@@ -103,7 +103,7 @@
 	</delete>
 	
 	<select id="getMap" resultType="SellItemDTO">
-		SELECT ITEMADDRESS FROM SELLITEM WHERE ITEMNUM = 61
+		SELECT ITEMADDRESS FROM SELLITEM WHERE ITEMNUM = #{itemNum}
 	</select>
 	
 	

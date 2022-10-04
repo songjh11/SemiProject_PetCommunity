@@ -30,6 +30,7 @@
 		<typeAlias type="com.pet.home.sell.file.RvFileDTO" alias="RvFileDTO"/>
 		<typeAlias type="com.pet.home.sell.sellcategory.SellCategoryDTO" alias="SellCategoryDTO"/>
 		<typeAlias type="com.pet.home.sell.sellcategory.CategoryDTO" alias="CategoryDTO"/>
+		<typeAlias type="com.pet.home.sell.check.CheckDTO" alias="CheckDTO"/>
 		
 		<typeAlias type="com.pet.home.sell.ReservationDTO" alias="ReservationDTO"/>
 		<typeAlias type="com.pet.home.sell.SellItemDTO" alias="SellItemDTO"/>

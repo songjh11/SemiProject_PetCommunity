@@ -43,6 +43,11 @@ public class SellItemService {
 	@Autowired
 	private CheckDAO checkDAO;
 	
+	@Autowired
+	private SellQnaDAO sellQnaDAO;
+	@Autowired
+	private SellQnaCommentDAO sellQnaCommentDAO;
+	
 	public int setItemAdd(SellItemDTO itemDTO, MultipartFile [] files, ServletContext servletContext) throws Exception {
 		int result = itemDAO.setItemAdd(itemDTO);
 		SellCategoryDTO categoryDTO = new SellCategoryDTO();

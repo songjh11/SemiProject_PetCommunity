@@ -188,8 +188,8 @@
       <input type="hidden" id="itemPrice" name="itemPrice" value="${sellItemDTO.itemPrice}">
       <input type="hidden" id="buyer_email" value="${sessionScope.member.email}">
       <input type="hidden" id="buyer_name" value="${sessionScope.member.userName}">
-      <input type="text" id="buyer_tel" value="${sessionScope.member.phone}">
-      <input type="text" id="userId" value="${sessionScope.member.userId}">
+      <input type="hidden" id="buyer_tel" value="${sessionScope.member.phone}">
+      <input type="hidden" id="userId" value="${sessionScope.member.userId}">
 
       <div>
         <table class="table table-striped">
@@ -687,26 +687,7 @@
             위드독애견호텔은 작고 답답한 공간이 아닌 아늑하고 편안하게 휴식할 수 있는 넓은 객실을 갖춘 프리미엄 애견호텔 입니다.
             여행/출장 또는 장시간 집을 비워야 할 때 위드독애견호텔의 호텔링 / 데이케어(※ 산책 옵션 추가 가능)서비스를 이용해 보세요.</p>
         </div>
-      </div>
       <div class="tab-pane fade" role="tabpanel" id="rv">
-          <p>리뷰</p>
-          <a href="./reviewadd?itemNum=${sellItemDTO.itemNum}"><button type="button">리뷰쓰기</button></a>
-          <table class="table" id="review">
-            <th class="th" style="display: none;" >작성자</th>
-            <th class="th" style="display: none;" >제목</th>
-            <th class="th" style="display: none;" >내용</th>
-            <th class="th" style="display: none;" >평점</th>
-            <th class="th" style="display: none;" >리뷰사진</th>
-          </table>
-          <button id="more">더보기</button>
-      </div>
-      <div class="tab-pane fade" id="qna" role="tabpanel">
-          <p>문의</p>
-      </div>
-    </div>
-    <div id="myTabContent" class="tab-content">
-
-      <div class="tab-pane fade show active" role="tabpanel" id="rv">
         <p>리뷰</p>
       <table class="table" id="review">
         <th class="th" style="display: none;" >작성자</th>
@@ -717,18 +698,16 @@
       </table>
       <button id="more">더보기</button>
     </div>
+    <div class="tab-pane fade" id="q" role="tabpanel">
+      <p>문의</p>
+      <table class="table" id="qna">
+        <th class="th2" style="display: none;" >작성자</th>
+        <th class="th2" style="display: none;" >제목</th>
+        <th class="th2" style="display: none;" >내용</th>
+      </table>
+      <button id="moreqna">더보기</button>
+   </div>
   </div>
-  <div id="myTabContent" class="tab-content">
-  <div class="tab-pane fade show active" id="q" role="tabpanel">
-    <p>문의</p>
-    <table class="table" id="qna">
-      <th class="th2" style="display: none;" >작성자</th>
-      <th class="th2" style="display: none;" >제목</th>
-      <th class="th2" style="display: none;" >내용</th>
-    </table>
-    <button id="moreqna">더보기</button>
-  </div>
-
   </div>
 
 

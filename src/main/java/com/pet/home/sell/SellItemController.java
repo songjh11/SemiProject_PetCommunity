@@ -407,8 +407,9 @@ public class SellItemController {
 			
 			Payment payment = client.paymentByImpUid(imp_uid).getResponse();
 			String paymentResult = payment.getStatus();
-			System.out.println(payment);
-			System.out.println(payment.getStatus());
+			System.out.println("결제 객체: "+payment);
+			System.out.println("결제 상태: "+paymentResult);
+			System.out.println("token: "+token);
 			
 			if(paymentResult.equals("paid")) {
 				CheckDTO checkDTO = new CheckDTO();

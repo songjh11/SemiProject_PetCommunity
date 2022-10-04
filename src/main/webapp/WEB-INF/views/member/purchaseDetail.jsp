@@ -116,124 +116,114 @@
     <c:import url="/WEB-INF/views/template/header.jsp"></c:import>
     <!-- header end -->
   </div>
-<div style="margin-top: 100px;">  
-    <form action="purchaseDelete" method="post">
-        <table>
-                <tr>
-                <td><input type="text" id="imp_uid" name="imp_uid" value="${check.imp_uid}">${check.imp_uid}</td>
-                <td id="merchant_uid" name="merchant_uid" value="${check.merchant_uid}">${check.merchant_uid}</td>
-                <td>${check.memberDTO.userName}</td>
-                <td>${check.itemDTO.itemName}</td>
-                <td id="amount" name="amount" value="${check.amount}">${check.amount}</td>
-                </tr>    	
-        </table>
-        <button onclick="cancelPay()">환불하기</button>
-        <section class="mainSection">
-          <div class="mainContents row gy-1">
-              <!-- image 영역 -->
-              <div class="col-lg-6 col-md-6 d-flex">
-                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="width:100%; height:100%; display: block;">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                          <c:forEach items="${sellItemDTO.fileDTOs}" var="ar" end="0">
-                                        <img width="100%" height="100%" src="../resources/upload/sellfile/${ar.fileName}" class="d-block w-100" alt="...">
-                          </c:forEach>  
-                        </div>  
-                            <c:forEach items="${sellItemDTO.fileDTOs}" var="ar" begin="1">
-                                    <div class="carousel-item">
-                                        <img width="100%" height="100%" src="../resources/upload/sellfile/${ar.fileName}" class="d-block w-100" alt="...">
-                                    </div>
-                            </c:forEach>  
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Next</span>
-                    </button>
+  <div style="margin-top: 100px;">  
+      <form action="purchaseDelete" method="post">
+          <section class="mainSection">
+            <div class="mainContents row gy-1">
+              <div class="section-header">
+                <p><span>결제 상세 내역</span><p>
+              </div>
+              <!-- text 영역 -->
+              <div class="textAre col-lg-12 col-md-12 d-flex">
+                <div>
+                  <table class="table table-striped">
+                    <tbody>
+                      <tr>
+                        <td colspan="2">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase" viewBox="0 0 16 16">
+                          <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z"></path>
+                          </svg>
+                          <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>판매자명</strong></span>
+                          <p style="margin-top: 3px;"><span><h5>${check.itemDTO.userId}</h5></span></p></td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">
+                          <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>주문자명</strong></span>
+                          <p style="margin-top: 3px;"><span><h5>${check.memberDTO.userName}</h5></span></p></td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">
+                          <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>주문명</strong></span>
+                          <p style="margin-top: 3px;"><span><h5>${check.itemDTO.itemName}</h5></span></p></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>예약 인원 수</strong></span>
+                          <p style="margin-top: 3px;"><span><h5>${check.adultsCount}</h5></span></p></td>
+                        </td> 
+                        <td>
+                          <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>예약 반려견 수</strong></span>
+                          <p style="margin-top: 3px;"><span><h5>${check.dogCount}</h5></span></p></td>
+                        </td> 
+                    </tr>
+                      <tr>
+                        <td colspan="2">
+                          <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>결제 금액</strong></span>
+                          <p style="margin-top: 3px;"><span><h5>${check.amount} 원</h5></span></p></td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">
+                          <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>결제 일자</strong></span>
+                          <p style="margin-top: 3px;"><span><h5>${check.purchaseDate}</h5></span></p></td>
+                      </tr>
+                      <tr>
+                          <td>
+                            <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>시작 일자</strong></span>
+                            <p style="margin-top: 3px;"><span><h5>${check.revStartDate}</h5></span></p></td>
+                          </td> 
+                          <td>
+                            <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>종료 일자</strong></span>
+                            <p style="margin-top: 3px;"><span><h5>${check.revEndDate}</h5></span></p></td>
+                          </td> 
+                      </tr>
+                      </tbody>
+                      </table>
+                      <div style="margin-bottom: 15px; margin-top: 30px; text-align: center">
+                        <button class="btn btn-outline-danger" style="display: inline-block;" onclick="cancelPay()">환불하기</button>
+                      </div>
                 </div>
-              </div>
-            <!-- text 영역 -->
-            <div class="textAre col-lg-6 col-md-6 d-flex">
-              <input type="hidden" id="itemNum" name="itemNum" value="${sellItemDTO.itemNum}">
-              <input type="hidden" id="itemCatg" name="itemCatg" value="${sellItemDTO.itemCatg}">
-              <input type="hidden" id="itemPrice" name="itemPrice" value="${sellItemDTO.itemPrice}">
-              <input type="hidden" id="itemName" name="itemName" value="${sellItemDTO.itemName}">
-              <input type="hidden" id="itemAddress" name="itemAddress" value="${sellItemDTO.itemAddress}">
-              <input type="hidden" id="itemDeAddress" name="itemDeAddress" value="${sellItemDTO.itemDeAddress}">
-              <input type="hidden" id="buyer_email" value="${sessionScope.member.email}">
-              <input type="hidden" id="buyer_name" value="${sessionScope.member.userName}">
-              <input type="hidden" id="buyer_tel" value="${sessionScope.member.phone}">
-              <input type="hidden" id="userId" value="${sessionScope.member.userId}">
-        
-              <div>
-                <table class="table table-striped">
-                  <tbody>
-                    <tr>
-                      <td>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase" viewBox="0 0 16 16">
-                        <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z"></path>
-                        </svg>
-                        ${sellItemDTO.userId}</td>
-                    </tr>
-                    <tr>
-                      <td><h1>${sellItemDTO.itemName}</h1></td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>1일 이용 시</strong></span>
-                        <p style="margin-top: 3px;"><span>${sellItemDTO.itemPrice} 원</span></p></td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>유의사항</strong></span>
-                        <p style="line-height: 2; text-align: justify;">
-                          <span style="color: rgb(0, 0, 0);">
-                          <strong><span style="letter-spacing: -0.5px;">☑&nbsp;</span></strong>
-                          <span style="letter-spacing: -1px;">반려견 특성에 따라 교육 과정이 변경되거나 다를 수 있습니다.</span></span></p>
-                      </td>      
-                    </tr>
-                    <tr>
-                      <td>
-                        <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>환불규정</strong></span>
-                        <p style="line-height: 2; text-align: justify;">
-                          <span style="color: rgb(0, 0, 0);">
-                          <strong><span style="letter-spacing: -0.5px;">☑&nbsp;</span></strong>
-                          <span style="letter-spacing: -1px;"> 예약 일자 3일 전까지 환불처리 가능합니다.</span></span></p>
-                      </td>      
-                    </tr>
-                    </tbody>
-                    </table>
-              </div>
-      </form>
+                </div>
+            </div>
+          </section>  
+        </form>
+  </div>
 
+ <!-- footer start -->
+ <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
+ <!-- footer end -->
 
+ <!-- Vendor JS Files -->
+ <script src="/resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+ <script src="/resources/assets/vendor/aos/aos.js"></script>
+ <script src="/resources/assets/vendor/glightbox/js/glightbox.min.js"></script>
+ <script src="/resources/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+ <script src="/resources/assets/vendor/swiper/swiper-bundle.min.js"></script>
+ <script src="/resources/assets/vendor/php-email-form/validate.js"></script>
 
+ <!-- Template Main JS File -->
+  <script src="/resources/assets/js/main.js"></script>
 
-</div>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script><!-- jQuery CDN --->
-<script>
-  function cancelPay() {
-    const imp_uid = document.getElementById("imp_uid");
-    const merchant_uid = document.getElementById("merchant_uid")
-    let iuv = imp_uid.value;
-    let muv = merchant_uid.value;
-    jQuery.ajax({
-      "url": "member/purchaseDelete", // 예: http://www.myservice.com/payments/cancel
-      "type": "POST",
-      "contentType": "application/json",
-      "data": JSON.stringify({
-        "merchant_uid": muv, // 예: ORD20180131-0000011
-        "cancel_request_amount": 2000, // 환불금액
-        "reason": "테스트 결제 환불" // 환불사유
-      }),
-      "dataType": "json"
-    });
-  }
-</script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script><!-- jQuery CDN --->
+  <script>
+    function cancelPay() {
+      const imp_uid = document.getElementById("imp_uid");
+      const merchant_uid = document.getElementById("merchant_uid")
+      let iuv = imp_uid.value;
+      let muv = merchant_uid.value;
+      jQuery.ajax({
+        "url": "member/purchaseDelete", // 예: http://www.myservice.com/payments/cancel
+        "type": "POST",
+        "contentType": "application/json",
+        "data": JSON.stringify({
+          "merchant_uid": muv, // 예: ORD20180131-0000011
+          "cancel_request_amount": 2000, // 환불금액
+          "reason": "테스트 결제 환불" // 환불사유
+        }),
+        "dataType": "json"
+      });
+    }
+  </script>
 </body>
 </html>

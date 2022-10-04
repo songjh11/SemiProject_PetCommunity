@@ -140,4 +140,14 @@ public class SharingController {
 		return "redirect:./list";
 	}
 	
+	
+	//팔로워 추가
+	@PostMapping("addfollow")
+	@ResponseBody
+	public int setFollow(MemberDTO memberDTO) throws Exception{
+		int result = memberService.setFollow(memberDTO);
+		return result;
+	}
+	
+	
 }

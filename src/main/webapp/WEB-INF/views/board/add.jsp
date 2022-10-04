@@ -59,10 +59,10 @@
 			<c:if test="${board eq 'event'}">
         <div class="mb-3">
 		  		<label for="contents" class="form-label">적용할 쿠폰</label>
-		  		<select class="form-select" id="validationDefault04" required>
+		  		<select class="form-select" id="validationDefault04" required name ="couponNum">
             <option selected disabled value="">선택</option>
             <c:forEach items="${list}" var="coupon">
-              <option> 쿠폰명 : ${coupon.couponName} ( 할인율/할인금액 : ${coupon.discountRate} % )</option>
+              <option value="${coupon.couponNum}"> 쿠폰명 : ${coupon.couponName} ( 할인율/할인금액 : ${coupon.discountRate} % )</option>
             </c:forEach>
           </select>
 			</div>

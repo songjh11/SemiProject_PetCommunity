@@ -36,6 +36,15 @@ public class EventController {
 	}
 	
 	
+	@PostMapping("saveCoupon")
+	@ResponseBody
+	public int setCouponSave(CouponDTO couponDTO) throws Exception{
+		int result = eventService.setCouponSave(couponDTO);
+		return result;
+	}
+	
+	
+	
 	@PostMapping("fileDelete")
 	@ResponseBody
 	public int setFileDelete(BoardFileDTO boardFileDTO, HttpSession session) throws Exception{

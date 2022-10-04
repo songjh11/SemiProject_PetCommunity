@@ -100,4 +100,9 @@ public class EventService implements BoardService {
 	public CouponDTO getCouponDetail(CouponDTO couponDTO) throws Exception{
 		return eventDAO.getCouponDetail(couponDTO);
 	}
+	
+	public int setCouponSave(CouponDTO couponDTO) throws Exception{
+		return eventDAO.setCouponSave(couponDTO);
+	}
+	
 }

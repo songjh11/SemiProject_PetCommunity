@@ -82,4 +82,9 @@ public class EventDAO implements BoardDAO {
 	public CouponDTO getCouponDetail(CouponDTO couponDTO) throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getCouponDetail", couponDTO);
 	}
+	
+	public int setCouponSave(CouponDTO couponDTO) throws Exception{
+		return sqlSession.update(NAMESPACE+"setCouponSave", couponDTO);
+	}
+	
 }

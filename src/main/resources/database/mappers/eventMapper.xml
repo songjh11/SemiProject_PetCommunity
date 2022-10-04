@@ -95,4 +95,8 @@
 		SELECT * FROM COUPON WHERE COUPONNUM = #{couponNum}
 	</select>
 	
+	<update id="setCouponSave" parameterType="CouponDTO">
+		UPDATE USERCOUPON SET USERID = #{userId} WHERE NUM = #{num} AND COUPONNUM = #{couponNum}
+	</update>
+	
 </mapper>

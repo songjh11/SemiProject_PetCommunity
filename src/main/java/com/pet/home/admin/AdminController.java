@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.home.board.event.coupon.CouponDTO;
+import com.pet.home.member.MemberDTO;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -39,5 +40,11 @@ public class AdminController {
 		List<CouponDTO> list = adminService.getCouponList();
 		return list;
 	}
-
+	
+	@GetMapping("memberlist")
+	@ResponseBody
+	public List<MemberDTO> getMemberList() throws Exception{
+		return null;
+	}
+	
 }

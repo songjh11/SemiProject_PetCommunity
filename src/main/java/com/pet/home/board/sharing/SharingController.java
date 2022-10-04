@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.home.board.impl.BoardDTO;
+import com.pet.home.member.FollowDTO;
 import com.pet.home.member.MemberDTO;
 import com.pet.home.member.MemberService;
 import com.pet.home.util.BoardCommentPager;
@@ -144,8 +145,8 @@ public class SharingController {
 	//팔로워 추가
 	@PostMapping("addfollow")
 	@ResponseBody
-	public int setFollow(MemberDTO memberDTO) throws Exception{
-		int result = memberService.setFollow(memberDTO);
+	public int setFollow(FollowDTO followDTO) throws Exception{
+		int result = memberService.setFollow(followDTO);
 		return result;
 	}
 	

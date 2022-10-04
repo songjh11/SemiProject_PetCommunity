@@ -84,7 +84,7 @@
             </a><!-- End tab nav item -->
 
           <li class="nav-item">
-            <a class="nav-link"  href="./purchaseList?userId=${sessionScope.member.userId}">
+            <a class="nav-link"  href="./purchaseList">
               <h4>예약내역</h4>
             </a>
           </li><!-- End tab nav item -->

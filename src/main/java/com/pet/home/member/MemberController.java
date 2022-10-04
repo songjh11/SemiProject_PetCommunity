@@ -382,11 +382,11 @@ public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 	public ModelAndView getPurchaseList(HttpSession httpSession) throws Exception {
 		System.out.println("purchaseList");
 		MemberDTO memberDTO = (MemberDTO)httpSession.getAttribute("dto");
-		System.out.println(memberDTO.getUserId());
-		System.out.println(memberDTO.getEmail());
-		List<CheckDTO> checkList = sellItemService.getPurchaseList(memberDTO.getUserId());
+		List<CheckDTO> checkList = sellItemService.getPurchaseList("m5");
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("checkList", checkList);
+		mv.addObject("what","Purchase List");
+		mv.setViewName("member/follow");
 		for(CheckDTO c: checkList) {
 			System.out.println(c.getImp_uid());
 		}

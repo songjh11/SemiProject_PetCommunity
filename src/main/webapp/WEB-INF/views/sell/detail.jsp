@@ -43,6 +43,8 @@
   <!-- iamport.payment.js -->
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e46b315f965ac58fabe9c3e350d385de&libraries=services"></script>
+
   <style>
     .crq{
         justify-content: center;
@@ -186,6 +188,9 @@
       <input type="hidden" id="itemNum" name="itemNum" value="${sellItemDTO.itemNum}">
       <input type="hidden" id="itemCatg" name="itemCatg" value="${sellItemDTO.itemCatg}">
       <input type="hidden" id="itemPrice" name="itemPrice" value="${sellItemDTO.itemPrice}">
+      <input type="hidden" id="itemName" name="itemName" value="${sellItemDTO.itemName}">
+      <input type="hidden" id="itemAddress" name="itemAddress" value="${sellItemDTO.itemAddress}">
+      <input type="hidden" id="itemDeAddress" name="itemDeAddress" value="${sellItemDTO.itemDeAddress}">
       <input type="hidden" id="buyer_email" value="${sessionScope.member.email}">
       <input type="hidden" id="buyer_name" value="${sessionScope.member.userName}">
       <input type="hidden" id="buyer_tel" value="${sessionScope.member.phone}">
@@ -202,7 +207,7 @@
                 ${sellItemDTO.userId}</td>
             </tr>
             <tr>
-              <td id="itemName" name="itemName" value="${sellItemDTO.itemName}"><h1>${sellItemDTO.itemName}</h1></td>
+              <td><h1>${sellItemDTO.itemName}</h1></td>
             </tr>
             <tr>
               <td>
@@ -686,6 +691,7 @@
           <p>최고의 반려견 전문가들이 24시간 케어하는 애견호텔!
             위드독애견호텔은 작고 답답한 공간이 아닌 아늑하고 편안하게 휴식할 수 있는 넓은 객실을 갖춘 프리미엄 애견호텔 입니다.
             여행/출장 또는 장시간 집을 비워야 할 때 위드독애견호텔의 호텔링 / 데이케어(※ 산책 옵션 추가 가능)서비스를 이용해 보세요.</p>
+            <div id="map" style="width:500px; height:400px;"></div>
         </div>
       <div class="tab-pane fade" role="tabpanel" id="rv">
         <p>리뷰</p>
@@ -731,56 +737,10 @@
  <!-- Template Main JS File -->
  <script src="/resources/assets/js/main.js"></script>
 
-<!-- daum 지도 검색 api -->  
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- kakao 길 찾기 -->
+<script src="/resources/JS/map/map.js"></script>
 <script>
-       function execDaumPostcode() {
-         new daum.Postcode({
-           oncomplete: function(data) {
-               // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-               // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-               // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-               var addr = ''; // 주소 변수
-               var extraAddr = ''; // 참고항목 변수
-
-               //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-               if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                   addr = data.roadAddress;
-               } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                   addr = data.jibunAddress;
-               }
-
-               // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-               if(data.userSelectedType === 'R'){
-                   // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                   // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                   if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                       extraAddr += data.bname;
-                   }
-                   // 건물명이 있고, 공동주택일 경우 추가한다.
-                   if(data.buildingName !== '' && data.apartment === 'Y'){
-                       extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                   }
-                   // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                   if(extraAddr !== ''){
-                       extraAddr = ' (' + extraAddr + ')';
-                   }
-                   // 조합된 참고항목을 해당 필드에 넣는다.
-                   //document.getElementById("itemLongtitude").value = extraAddr;
-               
-               } else {
-                   document.getElementById("itemAddress").value = '';
-               }
-
-               // 우편번호와 주소 정보를 해당 필드에 넣는다.
-               document.getElementById('itemZipCode').value = data.zonecode;
-               document.getElementById("itemAddress").value = addr += extraAddr;
-               // 커서를 상세주소 필드로 이동한다.
-               document.getElementById("itemDeAddress").focus();
-           }
-       }).open();
-   }//kakao api 끝
+  mapMaker();
 </script>
   <!--모달 부트스트랩-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>

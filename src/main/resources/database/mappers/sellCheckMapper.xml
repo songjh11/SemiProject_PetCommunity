@@ -12,29 +12,45 @@
 	</insert>
 	
 	<select id="getPurchaseList" parameterType="String" resultMap="getPurchaseListResult">
-		SELECT  P.merchant_uid, P.IMP_UID, M.EMAIL, M.PHONE, SI.USERID, SI.ITEMNAME FROM 
-		PURCHASE P
-			RIGHT JOIN
-			MEMBER M
-			ON P.USERID = M.USERID
+		SELECT ROWNUM R, CHECKLIST.* FROM        
+		(SELECT  P.*, M.USERNAME, M.EMAIL, M.PHONE, SITEM.USERID BIZID, SITEM.ITEMNAME, SITEM.FILENAME FROM 
+			PURCHASE P
 				RIGHT JOIN
-				SELLITEM SI
-				ON P.ITEMNUM = SI.ITEMNUM
+				MEMBER M
+				ON P.USERID = M.USERID
+					RIGHT JOIN
+					(SELECT SII.* 
+	                    FROM 
+	                    (SELECT SI.ITEMNUM, SI.ITEMPRICE, SI.ITEMNAME, SI.ITEMCATG, SI.USERID, SI.ITEMADDRESS, SF.FILENAME
+	                        FROM SELLITEM SI
+	                        INNER JOIN
+	                        SELLFILE SF
+	                        ON SI.ITEMNUM = SF.ITEMNUM
+	                        ORDER BY SI.ITEMNUM DESC,SF.PHOTONUM ASC) SII) SITEM
+					ON P.ITEMNUM = SITEM.ITEMNUM
 		WHERE P.USERID = #{userId}
-		ORDER BY P.PURCHASEDATE DESC
+		ORDER BY P.PURCHASEDATE DESC) CHECKLIST	
 	</select>
 	
 	<select id="getPurchaseDetail" parameterType="CheckDTO" resultMap="getPurchaseListResult">
-		SELECT  P.*, M.USERNAME, M.EMAIL, M.PHONE, SI.USERID, SI.ITEMNAME FROM 
+		SELECT ROWNUM R, CHECKLIST.* FROM        
+		(SELECT  P.*, M.USERNAME, M.EMAIL, M.PHONE, SITEM.USERID BIZID, SITEM.ITEMNAME, SITEM.FILENAME FROM 
 		PURCHASE P
 			RIGHT JOIN
 			MEMBER M
 			ON P.USERID = M.USERID
 				RIGHT JOIN
-				SELLITEM SI
-				ON P.ITEMNUM = SI.ITEMNUM
+				(SELECT SII.* 
+                    FROM 
+                    (SELECT SI.ITEMNUM, SI.ITEMPRICE, SI.ITEMNAME, SI.ITEMCATG, SI.USERID, SI.ITEMADDRESS, SF.FILENAME
+                        FROM SELLITEM SI
+                        INNER JOIN
+                        SELLFILE SF
+                        ON SI.ITEMNUM = SF.ITEMNUM
+                        ORDER BY SI.ITEMNUM DESC,SF.PHOTONUM ASC) SII) SITEM
+				ON P.ITEMNUM = SITEM.ITEMNUM
 		WHERE P.MERCHANT_UID = #{merchant_uid}
-		ORDER BY P.PURCHASEDATE DESC
+		ORDER BY P.PURCHASEDATE DESC) CHECKLIST
 	</select>
 	
 	<delete id="setPurchaseDelete">
@@ -69,6 +85,11 @@
 				<result column="EMAIL" property="email"/>
 				<result column="PHONE" property="phone"/>
 				</association>
+			<collection property="fileDTOs" javaType="List" ofType="sellFileDTO">
+				<id column="PHOTONUM" property="photoNum"></id>
+				<result column="FILENAME" property="fileName"/>
+				<result column="ORINAME" property="oriName"/>
+			</collection>	
 	</resultMap>
 	
 </mapper>

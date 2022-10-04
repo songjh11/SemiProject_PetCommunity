@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>공지사항</title>
+  <title>${board} 상세 페이지</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -36,7 +36,7 @@
       </div>
     </div><!-- End Breadcrumbs -->
 
-
+	<c:if test="${board eq 'sharing'}">
 	<section id="hero" class="hero d-flex align-items-center section-bg">
 		<div class="container">
 		  <div class="row justify-content-between gy-5">
@@ -44,10 +44,10 @@
 			  <h2 data-aos="fade-up">${requestScope.member.userName}님 <br>프로필</h2>
 			  <p data-aos="fade-up" data-aos-delay="100">Pet 이름 : ${requestScope.member.petName}<br> Pet Category : ${requestScope.member.petCatg}</p>
 			  <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-				<a href="#book-a-table" class="btn-book-a-table">팔로우</a>
+				<a class="btn-book-a-table" id="follow">팔로우</a>
 				
 				<c:if test="${not empty sessionScope.member}">
-					<a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>1:1 채팅</span></a>
+					<a href="#" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>1:1 채팅</span></a>
 				</c:if>
 				
 			  </div>
@@ -58,7 +58,7 @@
 		  </div>
 		</div>
 	  </section><!-- End Hero Section -->
-
+	</c:if> 
 
     <section class="sample-page">
       <div class="container" data-aos="fade-up">
@@ -103,7 +103,11 @@
 	
 	
 		<a href="./delete?num=${requestScope.dto.num}" class="btn btn-primary">삭제</a>
-
+		<div class="row">
+			<c:if test="${board eq 'event'}">
+				<span>쿠폰명 : ${coupon.couponName}</span>
+			</c:if>
+		</div>
     </div>
 
     <c:if test="${board eq 'sharing'}">
@@ -132,7 +136,7 @@
 			</div>
 			<!--------COMMENT---------->
 
-		</div>
+		
 		<!--- Modal ----->
 		<div>
 			<button type="button" style="display: none;" id="up" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">댓글 수정</button>
@@ -178,7 +182,12 @@
 		let userName = "${requestScope.member.userName}";
 	</script>
 	<script type="text/javascript" src="/resources/JS/board/boardComment.js"></script>
-  	
+  	<script type="text/javascript">
+
+		let followee = "${requestScope.member.userId}";
+		let follower = "${sessionScope.member.userId}"
+		setFollow(followee, follower);
+	</script>
 </body>
 
 </html>

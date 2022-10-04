@@ -56,7 +56,17 @@
 		  		<textarea class="form-control" id="contents" rows="3" name="contents" placeholder="내용 입력"></textarea>
 			</div>
 			
-			
+			<c:if test="${board eq 'event'}">
+        <div class="mb-3">
+		  		<label for="contents" class="form-label">적용할 쿠폰</label>
+		  		<select class="form-select" id="validationDefault04" required name ="couponNum">
+            <option selected disabled value="">선택</option>
+            <c:forEach items="${list}" var="coupon">
+              <option value="${coupon.couponNum}"> 쿠폰명 : ${coupon.couponName} ( 할인율/할인금액 : ${coupon.discountRate} % )</option>
+            </c:forEach>
+          </select>
+			</div>
+      </c:if>
 		
 			<div id="addFiles">
 				<button type="button" class="btn btn-danger" id="fileAdd">파일 추가</button>

@@ -18,8 +18,8 @@
 
 
   <!-- Favicons -->
-  <link href="resources/assets/img/favicon.png" rel="icon">
-  <link href="resources/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="/resources/assets/img/favicon.png" rel="icon">
+  <link href="/resources/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,14 +27,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="resources/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="resources/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="resources/assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="resources/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="resources/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="/resources/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/resources/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/resources/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/resources/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/resources/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="resources/assets/css/main.css" rel="stylesheet">
+  <link href="/resources/assets/css/main.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: Yummy - v1.2.0
@@ -103,10 +103,31 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav><!-- .navbar -->
-	  <a class="btn-book-a-table" href="/member/login">Login</a>
-	  <a class="btn-book-a-table" href="/member/role">Join</a>
-    
-    <a href="./add"><button class="btn btn-outline-success me-2" type="button">Add Items</button></a>
+	  <!--로그인 성공했을 때-->
+    <c:if test="${not empty sessionScope.member}">
+      <h5>${sessionScope.member.userName} 님 환영합니다!</h5>
+       <a class="btn-book-a-table" href="/member/mypage">Mypage</a>
+       <a class="btn-book-a-table" href="/member/logout">Logout</a>
+
+       <!-- 역할번호에 따라 다른 메뉴바-->
+       <c:choose>
+       <c:when test="${dto.roleNum =='1'}">
+        <a href="/sell/add"><button class="btn btn-outline-success me-2" type="button">Add Items</button></a>
+       </c:when>
+       <c:when test="${dto.roleNum =='2'}">
+        <a class="btn-book-a-table" href="#">guest page</a>
+       </c:when>
+       <c:otherwise>
+        <a class="btn-book-a-table" href="/mypage/admin">admin page</a>
+        </c:otherwise>
+        </c:choose>
+
+       </c:if>
+       <!-- 로그인 실패했을 때 -->
+       <c:if test="${empty sessionScope.member}">
+	      <a class="btn-book-a-table" href="/member/login">Login</a>
+	       <a class="btn-book-a-table" href="/member/role">Join</a>
+	       </c:if>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 

@@ -18,18 +18,18 @@ import com.pet.home.util.Pager;
 
 @Service
 public class SharingService implements BoardService {
-	
+
 	@Autowired
 	private SharingDAO sharingDAO;
 	@Autowired
 	private FileManager fileManager;
-	
+
 	@Override
 	public List<BoardDTO> getList(Pager pager) throws Exception {
 		// TODO Auto-generated method stub
 		pager.getNum(sharingDAO.getCount(pager));
 		pager.getRowNum();
-		
+
 		return sharingDAO.getList(pager);
 	}
 
@@ -38,10 +38,10 @@ public class SharingService implements BoardService {
 			throws Exception {
 		// TODO Auto-generated method stub
 		int result = sharingDAO.setAdd(boardDTO);
-		
+
 		String path = "resources/upload/sharing";
-		for(MultipartFile multipartFile : multipartFiles) {
-			if(multipartFile.isEmpty()) {
+		for (MultipartFile multipartFile : multipartFiles) {
+			if (multipartFile.isEmpty()) {
 				continue;
 			}
 			String fileName = fileManager.saveFile(servletContext, path, multipartFile);
@@ -50,7 +50,7 @@ public class SharingService implements BoardService {
 			boardFileDTO.setOriName(multipartFile.getOriginalFilename());
 			boardFileDTO.setNum(boardDTO.getNum());
 		}
-		
+
 		return result;
 	}
 
@@ -76,37 +76,37 @@ public class SharingService implements BoardService {
 	public int setFileDelete(BoardFileDTO boardFileDTO, ServletContext servletContext) throws Exception {
 		// TODO Auto-generated method stub
 		boardFileDTO = sharingDAO.getFileDetail(boardFileDTO);
-		
+
 		int result = sharingDAO.setFileDelete(boardFileDTO);
-		
+
 		String path = "resources/upload/sharing";
-		
-		if(result>0) {
+
+		if (result > 0) {
 			fileManager.deleteFile(servletContext, boardFileDTO, path);
 		}
-		
+
 		return result;
 	}
-	
+
 	// 댓글 처리
-	
-	public List<ShCommentDTO> getCommentList(BoardCommentPager boardCommentPager) throws Exception{
+
+	public List<ShCommentDTO> getCommentList(BoardCommentPager boardCommentPager) throws Exception {
 		boardCommentPager.getRowNum();
 		boardCommentPager.makePage(sharingDAO.getCommentListTotalCount(boardCommentPager));
-		
+
 		return sharingDAO.getCommentList(boardCommentPager);
 	}
-	
-	public int setCommentAdd(ShCommentDTO shCommentDTO) throws Exception{
+
+	public int setCommentAdd(ShCommentDTO shCommentDTO) throws Exception {
 		return sharingDAO.setCommentAdd(shCommentDTO);
 	}
-	
-	public int setCommentDelete(ShCommentDTO shCommentDTO) throws Exception{
+
+	public int setCommentDelete(ShCommentDTO shCommentDTO) throws Exception {
 		return sharingDAO.setCommentDelete(shCommentDTO);
 	}
-	
-	public int setCommentUpdate(ShCommentDTO shCommentDTO) throws Exception{
+
+	public int setCommentUpdate(ShCommentDTO shCommentDTO) throws Exception {
 		return sharingDAO.setCommentUpdate(shCommentDTO);
 	}
-	
+
 }

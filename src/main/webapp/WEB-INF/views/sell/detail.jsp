@@ -129,11 +129,11 @@
 
  <div>
   <!-- Button trigger modal -->
-  <button type="button" id= "full" style="display: none;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+  <button type="button" id= "full" style="display: none;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal3">
     Launch demo modal
     </button>
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
         <div class="modal-header">
@@ -634,21 +634,23 @@
       <!-- reservation section end -->
        
       
+<a href="./reviewadd?itemNum=${sellItemDTO.itemNum}"><button type="button">리뷰쓰기</button></a>
+<a href="./sellqnaadd?itemNum=${sellItemDTO.itemNum}"><button type="button">문의쓰기</button></a>
       <!-- contents, review, qna -->
       <section>
         
       <div>
         <!-- Button trigger modal -->
-        <button type="button" id= "up" style="display:none" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button type="button" id= "up" style="display:none" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
           Launch demo modal
           </button>
       
           <!-- Modal -->
-          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
               <div class="modal-content">
               <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">댓글 수정</h5>
+                  <h5 class="modal-title" id="exampleModalLabel2">댓글 수정</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
@@ -673,7 +675,7 @@
           <a class="nav-link" data-bs-toggle="tab" href="#rv" id="reviewCheck" onclick="reviewList(); this.onclick=null;" data-item-num="${sellItemDTO.itemNum}" aria-selected="false" role="tab" tabindex="-1">리뷰</a>
         </li>
         <li class="nav-item" role="presentation" style="width: 30%;">
-          <a class="nav-link" data-bs-toggle="tab" href="#qna" aria-selected="false" role="tab" tabindex="-1">문의</a>
+          <a class="nav-link" data-bs-toggle="tab" href="#q" id="qnaCheck" onclick="qnaList(); this.onclick=null;" data-item-num2="${sellItemDTO.itemNum}" aria-selected="false" role="tab" tabindex="-1">문의</a>
         </li>
       </ul>
       <div id="myTabContent" class="tab-content">
@@ -701,6 +703,32 @@
       <div class="tab-pane fade" id="qna" role="tabpanel">
           <p>문의</p>
       </div>
+    </div>
+    <div id="myTabContent" class="tab-content">
+
+      <div class="tab-pane fade show active" role="tabpanel" id="rv">
+        <p>리뷰</p>
+      <table class="table" id="review">
+        <th class="th" style="display: none;" >작성자</th>
+        <th class="th" style="display: none;" >제목</th>
+        <th class="th" style="display: none;" >내용</th>
+        <th class="th" style="display: none;" >평점</th>
+        <th class="th" style="display: none;" >리뷰사진</th>
+      </table>
+      <button id="more">더보기</button>
+    </div>
+  </div>
+  <div id="myTabContent" class="tab-content">
+  <div class="tab-pane fade show active" id="q" role="tabpanel">
+    <p>문의</p>
+    <table class="table" id="qna">
+      <th class="th2" style="display: none;" >작성자</th>
+      <th class="th2" style="display: none;" >제목</th>
+      <th class="th2" style="display: none;" >내용</th>
+    </table>
+    <button id="moreqna">더보기</button>
+  </div>
+
   </div>
 
 
@@ -775,12 +803,10 @@
        }).open();
    }//kakao api 끝
 </script>
-
   <!--모달 부트스트랩-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
   <!-- 리뷰 리스트 js -->
   <script src="/resources/JS/review.js"></script>
-
 <!-- 결제 api -->
 <script src="/resources/JS/check.js"></script>
 

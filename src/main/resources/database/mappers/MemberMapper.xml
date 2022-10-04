@@ -4,6 +4,18 @@
 		    "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
 		    
 		 <mapper namespace="com.pet.home.member.MemberDAO">
+		 
+ <!-- =============LOGIN & JOIN =====================-->
+ 
+ <select id="getLogin" parameterType="MemberDTO" resultMap="getLoginResult">
+SELECT M.USERNAME, M.USERID, R.ROLENUM, R.ROLENAME
+		FROM MEMBER M
+    		INNER JOIN
+    		ROLE R
+    		ON M.ROLENUM = R.ROLENUM
+		WHERE M.USERID =#{userId} and M.PASSWORD =#{password}
+		ORDER BY R.ROLENUM ASC
+</select>
 
 <insert id="setJoin" parameterType="MemberDTO">	 
 INSERT INTO member (USERID,ROLENUM,USERNAME,PASSWORD,EMAIL,PHONE,ADDRESS,BLOCK,AGMAIL,AGVALUE,AGMES,DEADDRESS,ITEMZIPCODE)
@@ -24,6 +36,8 @@ VALUES (#{guestId},#{userId},#{roleNum},#{petCatg},#{petName})
 INSERT INTO BIZMEM (BIZNUM,USERID,ROLENUM,ITEMCATG,ITEMID)
 VALUES (#{bizNum},#{userId},#{roleNum},#{itemCatg},ITEM_SEQ.NEXTVAL)
 </insert>
+
+<!-- =============My Page =====================-->
 
 <select id="getGuestPage" parameterType="MemberDTO" resultMap="myPageResult">
     SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.DEADDRESS, M.ITEMZIPCODE,M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, G.PETCATG, G.PETNAME, MF.FILENAME, MF.ORINAME
@@ -62,16 +76,8 @@ SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE
 WHERE M.USERID=#{userId}
 </select>
 
-	 	 
-<select id="getLogin" parameterType="MemberDTO" resultMap="getLoginResult">
-SELECT M.USERNAME, M.USERID, M.EMAIL, M.PHONE, R.ROLENUM, R.ROLENAME
-		FROM MEMBER M
-    		INNER JOIN
-    		ROLE R
-    		ON M.ROLENUM = R.ROLENUM
-		WHERE M.USERID =#{userId} and M.PASSWORD =#{password}
-		ORDER BY R.ROLENUM ASC
-</select>
+
+<!-- =============FOLLOW =====================-->
 
 <select id="getFolloweeList" parameterType="MemberDTO" resultMap="getFollowList">
 SELECT F.FOLLOWEE, MF.FILENAME
@@ -91,13 +97,34 @@ ON (F.FOLLOWER = MF.USERID)
 WHERE FOLLOWEE =#{userId}
 </select>
 
-<select id="getFollowerCount" parameterType="MemberDTO" resultType="Long">
-SELECT COUNT(DISTINCT FOLLOWEE) FROM FOLLOW WHERE FOLLOWER=#{userId};
+<select id="getFollowerCount" parameterType="MemberDTO" resultType="Integer">
+SELECT COUNT(DISTINCT FOLLOWER) FROM FOLLOW WHERE FOLLOWEE=#{userId}
 </select>
 
-<select id="getFolloweeCount" parameterType="MemberDTO" resultType="Long">
-SELECT COUNT(DISTINCT FOLLOWER) FROM FOLLOW WHERE FOLLOWEE=#{userId};
+<select id="getFolloweeCount" parameterType="MemberDTO" resultType="Integer">
+SELECT COUNT(DISTINCT FOLLOWEE) FROM FOLLOW WHERE FOLLOWER=#{userId}
 </select>
+
+<insert id="setFollow" parameterType="MemberDTO">	 
+INSERT INTO FOLLOW (FOLLOWNUM, FOLLOWER, FOLLOWEE)
+VALUES(FOL_SEQ.NEXTVAL,#{follower},#{userId})
+</insert>
+
+<delete id="setFollowerDelete" parameterType="MemberDTO">
+DELETE FROM FOLLOW WHERE FOLLOWEE=#{userId} AND FOLLOWER=#{follower}
+</delete>
+
+<delete id="setFolloweeDelete" parameterType="MemberDTO">
+DELETE FROM FOLLOW WHERE FOLLOWEE=#{followee} AND FOLLOWER=#{userId}
+</delete>
+
+<!-- ==============coupon=================== -->
+
+<select id="getCouponList" parameterType="MemberDTO" resultType="CouponDTO">
+SELECT * FROM COUPON WHERE USERID=#{userId}
+</select>
+
+<!--================= Update & Delete============== -->
 
 <delete id="setMemDelete" parameterType="MemberDTO">
 DELETE FROM MEMBER WHERE USERID=#{userId}
@@ -173,26 +200,6 @@ UPDATE MEMFILE SET FILENAME=#{fileName}, ORINAME=#{oriName} where USERID=#{userI
       
    </resultMap>
    
-   <!-- Bizmem My page Result Map 
-	 <resultMap type="MemberDTO" id="GpageResult">
-      <id column="USERID" property="userId"/>
-      <result column="ROLENUM" property="roleNum"/>
-      <result column="USERNAME" property="userName"/>
-      <result column="EMAIL" property="email"/>
-      <result column="PHONE" property="phone"/>
-      <result column="ADDRESS" property="address"/>
-      <result column="BLOCK" property="block"/>
-      <result column="AGMES" property="agMes"/>
-      <result column="AGVALUE" property="agValue"/>
-      <result column="AGMAIL" property="agMail"/>
-      <result column="ITEMCATG" property="itemCatg"/>
-      <result column="ITEMID" property="itemId"/>
-      
-	  <association property="RoleDTO" javaType="RoleDTO">
-      <result column="ROLENAME" property="roleName"/>
-      </association>
-     
-   </resultMap> -->
 
 <select id="getPickList" parameterType="MemberDTO" resultMap="getPickListResult">
 SELECT M.USERID,P.PICKNUM,SI.ITEMNUM,SI.ITEMNAME,SI.ITEMPRICE,SI.ITEMCONTENTS,SF.FILENAME
@@ -206,7 +213,7 @@ FROM MEMBER M
      INNER JOIN
      SELLFILE SF
      ON SI.ITEMNUM = SF.ITEMNUM
-WHERE M.USERID = 'guest' ORDER BY P.PICKNUM DESC
+WHERE M.USERID =#{userId} ORDER BY P.PICKNUM DESC
 </select>
 <resultMap type="MemberDTO" id="getPickListResult">
 	<id column="USERID" property="userId"/>
@@ -233,7 +240,7 @@ FROM MEMBER M
      INNER JOIN
      SELLFILE SF
      ON SI.ITEMNUM = SF.ITEMNUM
-WHERE M.USERID = 'guest' ORDER BY S.SHOPNUM DESC
+WHERE M.USERID =#{userId} ORDER BY S.SHOPNUM DESC
 </select>
 <resultMap type="MemberDTO" id="getShopCartListResult">
 	<id column="USERID" property="userId"/>
@@ -260,4 +267,32 @@ FROM MEMBER M
 WHERE M.USERID = 'guest'
 </select>
 
+
+	<select id="getRevList" parameterType="MemberDTO" resultMap="getRevResult">
+	SELECT R.*, SF.FILENAME, SI.ITEMNAME
+	from RESERVATION R
+   	INNER JOIN
+	SELLITEM SI
+	ON R.ITEMNUM = SI.ITEMNUM
+	INNER JOIN 
+    SELLFILE SF
+	ON SI.ITEMNUM = SF.ITEMNUM
+	WHERE R.USERID=#{userId}
+	</select>
+	<resultMap type="ReservationDTO" id="getRevResult">
+		<id column="ITEMNUM" property="itemNum"/>
+		<result column="USERID" property="userId"/>
+		<result column="REVSTARTDATE" property="revStartDate"/>
+		<result column="REVENDDATE" property="revEndDate"/>
+		<result column="MEMBERCOUNT" property="memberCount"/>
+		<result column="REVPAYWAY" property="revPayway"/>
+		<result column="ITEMCATG" property="itemCatg"/>
+			<association property="sellItemDTO" javaType="SellItemDTO">
+				<result column="ITEMNAME" property="itemName"></result>   
+	 		</association>
+			<collection property="fileDTOs" javaType="List" ofType="sellFileDTO">
+				<result column="FILENAME" property="fileName"/>
+			</collection>
+	</resultMap>
+	
 </mapper>

@@ -16,9 +16,9 @@ public class TravelingController {
 
 	@Autowired
 	private SellItemService sellItemService;
-	
+
 	@GetMapping("/traveling/map")
-	public ModelAndView test(ModelAndView mv) throws Exception{
+	public ModelAndView test(ModelAndView mv) throws Exception {
 		List<SellItemDTO> list = sellItemService.getAllItemList();
 		mv.addObject("list", list);
 		mv.setViewName("traveling/test");

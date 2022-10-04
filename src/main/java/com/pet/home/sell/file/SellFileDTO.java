@@ -12,7 +12,4 @@ public class SellFileDTO extends FileDTO {
 		this.itemNum = itemNum;
 	}
 
-
-	
-
 }

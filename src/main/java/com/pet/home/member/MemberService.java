@@ -7,7 +7,7 @@ import java.util.UUID;
 import javax.servlet.ServletContext;
 import java.util.List;
 
-
+import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -156,5 +156,47 @@ public class MemberService {
 
 	}
 	
+	public MemberDTO getFindLogin(MemberDTO memberDTO) throws Exception{
+		return memberDAO.getFindLogin(memberDTO);
+	}
+	
+	public MemberDTO setUpdatePw(MemberDTO memberDTO) throws Exception{
+		return memberDAO.setUpdatePw(memberDTO);
+	}
+	
+	public void setEmail(MemberDTO memberDTO, String div) throws Exception{
+		
+		String charSet = "utf-8";
+		String hostSMTP= "smtp.naver.com";
+		String hostSMTPid ="네이버 아이디";
+		String hostSMTPpwd = "네이버 비번 ";
+		
+		String fromEmail ="jiwon1789@naver.com";
+		String fromName ="이지원";
+		String subject = "", msg="";
+		
+		if(div.equals("pwEmail")){
+			subject ="임시비밀번호입니다 : ";
+			msg += "<div>" + memberDTO.getPassword() + "</div>";
+		}
+		
+		String mail = memberDTO.getEmail();
+		HtmlEmail email = new HtmlEmail();
+		
+		email.setDebug(true);
+		email.setCharset(charSet);
+		email.setSSL(true);
+		email.setHostName(hostSMTP);
+		email.setSmtpPort(587);
+		
+		email.setAuthentication(hostSMTPid, hostSMTPpwd);
+		email.setTLS(true);
+		email.addTo(mail, charSet);
+		email.setFrom(fromEmail, fromName, charSet);
+		email.setSubject(subject);
+		email.setHtmlMsg(msg);
+		email.send();
+		
+	}
 
 }

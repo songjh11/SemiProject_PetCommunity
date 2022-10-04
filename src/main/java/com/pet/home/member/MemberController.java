@@ -2,6 +2,7 @@ package com.pet.home.member;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -364,6 +365,47 @@ public class MemberController {
 			mv.setViewName("member/follow");
 			return mv;
 		}
+		
+		@GetMapping("findlogin")
+		public String getFindLogin()throws Exception{
+
+			return "member/findlogin";
+		}
+		
+		@PostMapping("findlogin")
+		public ModelAndView getFindLogin(MemberDTO memberDTO,HttpServletRequest request)throws Exception{
+			ModelAndView mv = new ModelAndView();
+			
+			String email = request.getParameter("email");
+			String userId = request.getParameter("userId");
+			
+			memberDTO = memberService.getFindLogin(memberDTO);
+			String pw = memberDTO.getPassword();
+
+			if(memberDTO==null || !memberDTO.getEmail().equals(email)) {
+				mv.addObject("msg","일치하는 회원이 없습니다.");
+				mv.addObject("url","/member/findlogin");
+				mv.setViewName("member/alert");
+			}else {
+				
+				Random random = new Random();
+				pw =  Integer.toString(random.nextInt(888888));
+	
+			System.out.println(pw);
+			memberDTO.setPassword(pw);
+			memberService.setUpdatePw(memberDTO);
+			memberService.setEmail(memberDTO, "pwEmail");
+			
+			mv.addObject("msg","회원 메일로 임시 비밀번호를 전송하였습니다.");
+			mv.addObject("url","/member/login");
+			mv.setViewName("member/alert");
+			
+			}
+			
+			return mv;
+		}
+		
+		
 		
 	@GetMapping("test")
 	public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{

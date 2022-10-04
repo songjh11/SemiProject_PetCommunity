@@ -11,25 +11,6 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link href="/resources/assets/img/favicon.png" rel="icon">
-  <link href="/resources/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="/resources/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/resources/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="/resources/assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="/resources/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="/resources/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="/resources/assets/css/main.css" rel="stylesheet">
-
 	<style type="text/css">
 
 .testimonial-img {
@@ -38,13 +19,29 @@
   margin: 0 auto;
 }
 
- 
+#pf{
+  display: inline-block;
+  font-size: larger;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-left: 40px;
+}
+
+#minpf{
+  display: inline-block;
+  font-size: smaller;
+  color: dimgrey;
+}
+
+.col-sm-6{
+  display: block;
+}
 	</style>
   
 </head>
 <body>
 <!-- header start -->
-<c:import url="/WEB-INF/views/template/header.jsp"></c:import>
+<c:import url="/WEB-INF/views/template/testheader.jsp"></c:import>
 <!-- header end -->
 <!-- ======= mypage Section ======= -->
     <section id="book-a-table" class="book-a-table">
@@ -55,45 +52,94 @@
         </div>
 
         <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
-
-          <li class="nav-item">
-            <a class="nav-link" href="./cart">
-              <h4>장바구니</h4>
-            </a>
-          </li><!-- End tab nav item -->
-          <li class="nav-item">
-            <a class="nav-link" href="./pick">
-              <h4>찜 내역</h4>
-            </a>
-          </li><!-- End tab nav item -->
-          <li class="nav-item">
-            <a class="nav-link" href="./coupon">
-              <h4>보유쿠폰</h4>
-            </a>
-          </li><!-- End tab nav item -->
-
-          <li class="nav-item">
-            <a class="nav-link" href="./update">
-              <h4>회원수정</h4>
-            </a>
-          </li><!-- End tab nav item -->
-
-          <li class="nav-item">
-            <a class="nav-link" href="./delete">
-              <h4>회원탈퇴</h4>
-            </a><!-- End tab nav item -->
-
-          <li class="nav-item">
-            <a class="nav-link"  href="./rev">
-              <h4>예약내역</h4>
-            </a>
-          </li><!-- End tab nav item -->
-
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <h4>취소내역</h4>
-            </a>
-          </li><!-- End tab nav item -->
+          <c:choose>
+            <c:when test="${dto.roleNum eq 2}">
+              <li class="nav-item">
+                <a class="nav-link" href="./cart">
+                  <h4>장바구니</h4>
+                </a>
+              </li><!-- End tab nav item -->
+              <li class="nav-item">
+                <a class="nav-link" href="./pick">
+                  <h4>찜 내역</h4>
+                </a>
+              </li><!-- End tab nav item -->
+              <li class="nav-item">
+                <a class="nav-link" href="./coupon">
+                  <h4>보유쿠폰</h4>
+                </a>
+              </li><!-- End tab nav item -->
+    
+              <li class="nav-item">
+                <a class="nav-link" href="./update">
+                  <h4>회원수정</h4>
+                </a>
+              </li><!-- End tab nav item -->
+    
+              <li class="nav-item">
+                <a class="nav-link" href="./delete">
+                  <h4>회원탈퇴</h4>
+                </a><!-- End tab nav item -->
+    
+              <li class="nav-item">
+                <a class="nav-link"  href="./rev">
+                  <h4>예약내역</h4>
+                </a>
+              </li><!-- End tab nav item -->
+    
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <h4>취소내역</h4>
+                </a>
+              </li>
+            </c:when>
+            <c:when test="${dto.roleNum eq 1}">
+              <li class="nav-item">
+                <a class="nav-link" href="../sell/add">
+                  <h4>상품등록</h4>
+                </a>
+              </li><!-- End tab nav item -->
+              <li class="nav-item">
+                <a class="nav-link" href="./update">
+                  <h4>회원수정</h4>
+                </a>
+              </li><!-- End tab nav item -->
+    
+              <li class="nav-item">
+                <a class="nav-link" href="./delete">
+                  <h4>회원탈퇴</h4>
+                </a><!-- End tab nav item -->
+    
+              <li class="nav-item">
+                <a class="nav-link"  href="./rev">
+                  <h4>예약내역</h4>
+                </a>
+              </li><!-- End tab nav item -->
+    
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <h4>취소내역</h4>
+                </a>
+              </li>
+            </c:when>
+            <c:otherwise>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <h4>회원목록</h4>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <h4>상품목록</h4>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="../admin/mypage">
+                  <h4>쿠폰관리</h4>
+                </a>
+              </li>
+             </c:otherwise>
+             </c:choose>
         </ul>
           </section><!-- End Menu Section -->
   
@@ -125,64 +171,74 @@
       </div>
     </section><!-- End Stats Counter Section -->
 
-          <div class="col-lg-8 align-items-center">
+          <div class="col-lg-8 align-items-center" id="my">
             <form action="./delete" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data" id="updatefrm">
               <div class="row gy-4">
-                <div class="col-lg-8 col-md-12">
-                  <input type="text" name="userId" class="form-control" value="${dto.userId}" readonly>
-                  <div class="validate"></div>
+                <div id="profile">
+                <c:if test="${dto.roleNum eq 2}">
+                  <div class="col-lg-2 text-center" id="pf">
+                    <img src="../resources/upload/member/${dto.memberFileDTO.fileName}" class="img-fluid testimonial-img" alt="">
+                  </div>
+                  </c:if>
+                  <div id="pf">
+                  ${dto.userName}님 안녕하세요<br>
+                  <div id="minpf">${dto.petName} ${dto.petCatg}</div>
+                  </div> 
                 </div>
-                <div class="col-lg-8 col-md-12">
-                  <input type="text" name="userName" class="form-control" value="${dto.userName}" readonly>
-                  <div class="validate"></div>
-                </div>
-                <div class="col-lg-8 col-md-12">
+                <div class="col-sm-7">
                   <input type="number" name="phone" class="form-control" value="${dto.phone}" readonly>
                   <div class="validate"></div>
                 </div>
-                <div class="col-lg-8 col-md-12">
+                <div class="col-sm-7">
                   <input type="email" name="email" class="form-control" value="${dto.email}" readonly>
                   <div class="validate"></div>
                 </div>
 
-                <div class="col-lg-6 col-md-6">
+                <div class="col-sm-7">
                   <input type="text" name="itemZipCode" class="form-control" id="itemZipCode" value="${dto.itemZipCode}" readonly>
                    <div class="validate"></div>
                  </div>
-                 <div class="col-lg-12 col-md-12">
+                 <br>
+                 <div class="col-sm-7">
                   <input type="text" name="address" class="form-control" id="address" value="${dto.address}" readonly>
                  </div>
-                 <div class="col-lg-12 col-md-12">
+                 <br>
+                 <div class="col-sm-7">
                    <input type="text" name="deAddress" class="form-control" id="deAddress" value="${dto.deAddress}" readonly>
                    <div class="validate"></div>
                  </div>
+                 <br>
 
                 </div>
                 
                 <c:choose>
                     <c:when test="${dto.roleNum eq 1}">
-                        <div class="col-lg-8 col-md-6">
+                      <div class="col-sm-7">
+                        <br>
                           <input type="text" class="form-control" name="itemCatg" value="${dto.itemCatg}" readonly>
                           <div class="validate"></div>
                         </div>
-                          <div class="col-lg-8 col-md-6">
+                        <br>
+                        <div class="col-sm-7">
                             <input type="text" class="form-control" name="itemId" value="${dto.itemId}" readonly>
                             <div class="validate"></div>
                           </div>
+                          <br>
                         
                     </c:when>
                     <c:when test="${dto.roleNum eq 2}">
-                        <div class="col-lg-8 col-md-6">
+                      <div class="col-sm-7">
+                          <br>
                             <input type="text" class="form-control" name="petName" value="${dto.petName}" readonly>
                             <div class="validate"></div>
                           </div>
-                          <div class="col-lg-8 col-md-6">
+                          <br>
+                          <div class="col-sm-7">
                             <input type="text" class="form-control" name="petCatg" value="${dto.petCatg}" readonly>
                             <div class="validate"></div>
                           </div>
-                          <div class="col-lg-2 text-center">
-                        <img src="../resources/upload/member/${dto.memberFileDTO.fileName}" class="img-fluid testimonial-img" alt="">
-                        </div>
+                          <br>
+                
                     </c:when>
                 </c:choose>
 
@@ -212,12 +268,6 @@
              </c:choose>
               </div>
               <br>
-             <div class="text-center">
-                <button type="submit" class="btn-book-a-table">회원탈퇴</button>
-                <a href="./update" class="btn-book-a-table">정보수정</a>
-                <a href="./followee" class="btn-book-a-table">팔로잉 목록</a>
-                <a href="./follower" class="btn-book-a-table">팔로워 목록</a>
-             </div>
              
             </form>
           </div><!-- End Reservation Form -->
@@ -229,24 +279,8 @@
 
 
   <!-- footer start -->
-  <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
+  <c:import url="/WEB-INF/views/template/testfooter.jsp"></c:import>
   <!-- footer end -->
-
-    <!-- script start -->
-  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <div id="preloader"></div>
-
-  <!-- Vendor JS Files -->
-  <script src="/resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="/resources/assets/vendor/aos/aos.js"></script>
-  <script src="/resources/assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="/resources/assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="/resources/assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="/resources/assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="/resources/assets/js/main.js"></script>
 
 </body>
 </html>

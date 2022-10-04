@@ -249,7 +249,6 @@
                 </div>
             
                 <c:forEach items="${dto.fileDTOs}" var="fileDTO">
-
                   <div class="member-img">
                     <img src="/resources/upload/member/${fileDTOs.fileName}" class="img-fluid" alt="">
                     <div class="social">

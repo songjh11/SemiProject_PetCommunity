@@ -12,6 +12,7 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
+
 </head>
 
 <body>
@@ -42,12 +43,12 @@
 			<form action="add" method="post" enctype="multipart/form-data">
 				 
 			<div class="mb-3">
-		  		<label for="writer" class="form-label">작성자</label>
-		  		<input type="text" class="form-control" id="writer" name="writer" placeholder="작성자 입력">
+		
+		  		<input type="text" class="form-control" id="writer" name="writer" style="display: none;" value="${sessionScope.member.userName}">
 			</div>
 			<div class="mb-3">
 		  		<label for="title" class="form-label">제목</label>
-		  		<input type="text" class="form-control" id="title" name="title" placeholder="제목 입력">
+		  		<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력하세요">
 			</div>
 			
 			
@@ -86,6 +87,12 @@
   <c:import url="/WEB-INF/views/template/testfooter.jsp"></c:import>
   
   <script src="/resources/JS/board_file.js"></script>
+  <!-- include summernote css/js-->
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+  <script type="text/javascript">
+	$("#contents").summernote();
+	</script>
 </body>
 
 </html>

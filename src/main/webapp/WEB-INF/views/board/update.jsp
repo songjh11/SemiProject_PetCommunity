@@ -43,17 +43,17 @@
 				 
 			<div class="mb-3">
 		
-		  		<input type="text" class="form-control" id="writer" name="writer" style="display: none;" value="${sessionScope.member.userName}">
+		  		<input type="text" class="form-control" id="writer" name="writer"  value="${dto.writer}">
 			</div>
 			<div class="mb-3">
 		  		<label for="title" class="form-label">제목</label>
-		  		<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력하세요">
+		  		<input type="text" class="form-control" id="title" name="title" placeholder="${dto.title}">
 			</div>
 			
 			
 			<div class="mb-3">
 		  		<label for="contents" class="form-label">내용</label>
-		  		<textarea class="form-control" id="contents" rows="3" name="contents" placeholder="내용 입력"></textarea>
+		  		<textarea class="form-control" id="contents" rows="3" name="contents" placeholder="${dto.contents}"></textarea>
 			</div>
 			
 			<c:if test="${board eq 'event'}">
@@ -67,7 +67,14 @@
           </select>
 			</div>
       </c:if>
-		
+			
+			<c:forEach items="${dto.boardFileDTOs}" var="fileDTO">
+				<div class="mb-3">
+		  			<span class="form-control">${fileDTO.oriName}</span>
+		  			<button type="button" class="fileDelete" data-file-num = "${fileDTO.fileNum}">삭제</button>
+				</div>
+			</c:forEach>
+			
 			<div id="addFiles">
 				<button type="button" class="btn btn-danger" id="fileAdd">파일 추가</button>
 			</div>
@@ -84,11 +91,46 @@
   
   <c:import url="/WEB-INF/views/template/testfooter.jsp"></c:import>
   
-
-<script>
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+	 <script type="text/javascript">
 	
-</script>
+	 $('#contents').summernote('pasteHTML', '${dto.contents}');
+	 
+	 /* $("#contents").summernote({
+      height : 400,
+      lang : "ko-KR",
+      minHeight : null,
+      maxHeight : null,
+      focus : true,
+      callback : {
+        onImageUpload : function(files, editor, welEditable) {
+          for(let i=0; i<files.length; i++){
+            sendFile(files[i], this);
+          }
+        }
+      }
+  }); */
 
+  function sendFile(file,editor){
+    let form_data = new FormData();
+    form_data.append('file',file);
+    $.ajax({
+        data : form_data,
+        type : "POST",
+        url : '/notice/add',
+        cache : false,
+        contentType : false,
+        enctype : 'multipart/form-data',
+        processData : false,
+        success : function(url) {
+          $(editor).summernote('insertImage', url, function(){
+            $image.css('width',"25%");
+          });
+        }
+    })
+  }
+	</script>
 
 </body>
 

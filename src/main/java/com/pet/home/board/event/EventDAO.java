@@ -86,5 +86,13 @@ public class EventDAO implements BoardDAO {
 	public int setCouponSave(CouponDTO couponDTO) throws Exception{
 		return sqlSession.update(NAMESPACE+"setCouponSave", couponDTO);
 	}
+
+	@Override
+	public int setUpdateHit(BoardDTO boardDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.update(NAMESPACE+"setUpdateHit", boardDTO);
+	}
+	
+	
 	
 }

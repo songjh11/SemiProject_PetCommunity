@@ -72,4 +72,12 @@ public class NoticeDAO implements BoardDAO {
 		return sqlSession.delete(NAMESPACE + "setDelete", boardDTO);
 	}
 
+	@Override
+	public int setUpdateHit(BoardDTO boardDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.update(NAMESPACE+"setUpdateHit", boardDTO);
+	}
+	
+	
+	
 }

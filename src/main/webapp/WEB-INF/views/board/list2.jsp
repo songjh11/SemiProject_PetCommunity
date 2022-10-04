@@ -36,7 +36,7 @@
       </div>
     </div><!-- End Breadcrumbs -->
 
-<!-- ======= Chefs Section ======= -->
+<!-- ======= 같이해요 리스트 Section ======= -->
     <section id="chefs" class="chefs section-bg">
       <div class="container" data-aos="fade-up">
 
@@ -44,13 +44,12 @@
           <h2>같이해요</h2>
           <p>회원 <span>정보 공유</span> 게시판</p>
         </div>
-
         <div class="row gy-4">
 		<c:forEach items="${list}" var="dto">
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100" style=" cursor: pointer;" onclick="location.href='./detail?num=${dto.num}';">
             <div class="chef-member">
               <div class="member-img">
-                <img src="resources/assets/img/chefs/chefs-1.jpg" class="img-fluid" alt="">
+                <img src="/resources/upload/sharing/${pageScope.dto.boardFileDTOs[0].fileName}" class="img-fluid" alt="">
                 <div class="social">
                   <a href=""><i class="bi bi-twitter"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>
@@ -64,7 +63,7 @@
                 <p>by ${dto.writer}</p>
               </div>
             </div>
-          </div><!-- End Chefs Member -->
+          </div><!-- 글 리스트 -->
 
 		</c:forEach>
         </div>

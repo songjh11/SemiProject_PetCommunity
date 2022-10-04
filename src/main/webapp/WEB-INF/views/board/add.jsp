@@ -68,13 +68,18 @@
           </select>
 			</div>
       </c:if>
-		
+      
+      <c:if test = "${board eq 'sharing'}">
+        <label for="file" class="form-label">대표 사진</label>
+        <input class="form-control" type="file" id="file0" name="multipartFiles">
+      </c:if>
+
 			<div id="addFiles">
 				<button type="button" class="btn btn-danger" id="fileAdd">파일 추가</button>
 			</div>
 			
 			
-			<button class="btn btn-primary btn-lg btn-block" type="submit">Add</button>
+			<button class="btn btn-primary btn-lg btn-block" type="submit">작성하기</button>
 			</form>
 		</div>
 

@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.home.board.impl.BoardDTO;
 import com.pet.home.board.impl.BoardFileDTO;
+import com.pet.home.member.MemberDTO;
 import com.pet.home.util.Pager;
 
 @Controller
@@ -25,6 +26,8 @@ public class NoticeController {
 
 	@Autowired
 	private NoticeService noticeService;
+	@Autowired
+	private NoticeDAO noticeDAO;
 
 	@ModelAttribute("board")
 	public String getBoard() {
@@ -68,7 +71,18 @@ public class NoticeController {
 	}
 
 	@GetMapping("detail")
-	public ModelAndView getDetail(ModelAndView mv, BoardDTO boardDTO) throws Exception {
+	public ModelAndView getDetail(ModelAndView mv, BoardDTO boardDTO, HttpSession session) throws Exception {
+		
+		try {
+			
+			MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+			if(!(boardDTO.getWriter().equals(memberDTO.getUserName()))) {
+				noticeDAO.setUpdateHit(boardDTO);
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		boardDTO = noticeService.getDetail(boardDTO);
 
 		mv.addObject("dto", boardDTO);

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.pet.home.member.MemberDTO;
 import com.pet.home.sell.SellItemDTO;
+import com.pet.home.sell.file.SellFileDTO;
 
 public class CheckDTO {
 
@@ -26,8 +27,17 @@ public class CheckDTO {
     
     private SellItemDTO itemDTO;
     
+    private List<SellFileDTO> fileDTOs;
     
     
+    
+    
+	public List<SellFileDTO> getFileDTOs() {
+		return fileDTOs;
+	}
+	public void setFileDTOs(List<SellFileDTO> fileDTOs) {
+		this.fileDTOs = fileDTOs;
+	}
 	public MemberDTO getMemberDTO() {
 		return memberDTO;
 	}

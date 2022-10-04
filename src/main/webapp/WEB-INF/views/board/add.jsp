@@ -91,7 +91,39 @@
 	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
   <script type="text/javascript">
-	$("#contents").summernote();
+	$("#contents").summernote({
+      height : 400,
+      lang : "ko-KR",
+      minHeight : null,
+      maxHeight : null,
+      focus : true,
+      callback : {
+        onImageUpload : function(files, editor, welEditable) {
+          for(let i=0; i<files.length; i++){
+            sendFile(files[i], this);
+          }
+        }
+      }
+  });
+
+  function sendFile(file,editor){
+    let form_data = new FormData();
+    form_data.append('file',file);
+    $.ajax({
+        data : form_data,
+        type : "POST",
+        url : '/notice/add',
+        cache : false,
+        contentType : false,
+        enctype : 'multipart/form-data',
+        processData : false,
+        success : function(url) {
+          $(editor).summernote('insertImage', url, function(){
+            $image.css('width',"25%");
+          });
+        }
+    })
+  }
 	</script>
 </body>
 

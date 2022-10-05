@@ -120,4 +120,12 @@ public class MemberDAO {
 		return sqlSession.selectList(NAMESPACE+"getRevList", memberDTO);
 	}
 	
+	public MemberDTO getFindLogin(MemberDTO memberDTO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getFindLogin", memberDTO);
+	}
+	
+	public MemberDTO setUpdatePw(MemberDTO memberDTO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"setUpdatePw", memberDTO);
+	}
+	
 }

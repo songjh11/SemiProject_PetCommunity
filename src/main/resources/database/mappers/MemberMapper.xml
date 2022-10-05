@@ -157,6 +157,16 @@ UPDATE MEMFILE SET FILENAME=#{fileName}, ORINAME=#{oriName} where USERID=#{userI
 		</collection>
 	</resultMap>
 	
+<!-- 비밀번호 찾기 -->
+	<select id="getFindLogin" parameterType="MemberDTO" resultType="MemberDTO">
+	SELECT USERID,PASSWORD, EMAIL FROM MEMBER WHERE USERID=#{userId} AND EMAIL=#{email}
+	</select>
+
+
+	<update id="setUpdatePw" parameterType="MemberDTO">	 
+ 	UPDATE MEMBER SET PASSWORD=#{password}
+	WHERE USERID=#{userId}
+	</update>
 <!--  FOLLOW LIST -->
 	<resultMap type="MemberDTO" id="getFollowList">
 	<id column="USERID" property="userId"></id>

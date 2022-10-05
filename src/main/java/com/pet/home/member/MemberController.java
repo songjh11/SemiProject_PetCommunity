@@ -2,6 +2,7 @@ package com.pet.home.member;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.home.board.event.coupon.CouponDTO;
+import com.pet.home.sell.ReservationDTO;
 import com.pet.home.sell.SellItemController;
 import com.pet.home.sell.SellItemService;
 import com.pet.home.sell.check.CheckDTO;
@@ -276,90 +278,142 @@ public class MemberController {
 		
 	}
 
-	@GetMapping("followee")
-	public ModelAndView getFolloweeList(MemberDTO memberDTO,HttpSession session)throws Exception{
-		ModelAndView mv = new ModelAndView();
-		memberDTO = (MemberDTO)session.getAttribute("member");
+		@GetMapping("followee")
+		public ModelAndView getFolloweeList(MemberDTO memberDTO,HttpSession session)throws Exception{
+			ModelAndView mv = new ModelAndView();
+			memberDTO = (MemberDTO)session.getAttribute("member");
+			
+			List<MemberDTO> ar = memberService.getFolloweeList(memberDTO);
+			
+			mv.addObject("list", ar);
+			mv.addObject("what","followee");
+			mv.setViewName("member/follow");
+			return mv;
+		}
 		
-		List<MemberDTO> ar = memberService.getFolloweeList(memberDTO);
+		@GetMapping("follower")
+		public ModelAndView getFollowerList(MemberDTO memberDTO, HttpSession session)throws Exception{
+			ModelAndView mv = new ModelAndView();
+			memberDTO = (MemberDTO)session.getAttribute("member");
+			List<MemberDTO> ar = memberService.getFollowerList(memberDTO);
+			
+			mv.addObject("list", ar);
+			mv.addObject("what","follower");
+			mv.setViewName("member/follow");
+			return mv;
+		}
 		
-		mv.addObject("list", ar);
-		mv.addObject("what","followee");
-		mv.setViewName("member/follow");
-		return mv;
-	}
-	
-	@GetMapping("follower")
-	public ModelAndView getFollowerList(MemberDTO memberDTO, HttpSession session)throws Exception{
-		ModelAndView mv = new ModelAndView();
-		memberDTO = (MemberDTO)session.getAttribute("member");
-		List<MemberDTO> ar = memberService.getFollowerList(memberDTO);
+		@GetMapping("cart")
+		public ModelAndView getShopCartList(MemberDTO memberDTO, HttpSession session)throws Exception{
+			ModelAndView mv = new ModelAndView();
+			memberDTO = (MemberDTO)session.getAttribute("member");
+			List<MemberDTO> ar = memberService.getShopCartList(memberDTO);
+			
+			mv.addObject("list", ar);
+			mv.addObject("what","cart");
+			mv.setViewName("member/follow");
+			return mv;
+		}
 		
-		mv.addObject("list", ar);
-		mv.addObject("what","follower");
-		mv.setViewName("member/follow");
-		return mv;
-	}
-	
-	@GetMapping("cart")
-	public ModelAndView getShopCartList(MemberDTO memberDTO, HttpSession session)throws Exception{
-		ModelAndView mv = new ModelAndView();
-		memberDTO = (MemberDTO)session.getAttribute("member");
-		List<MemberDTO> ar = memberService.getShopCartList(memberDTO);
+		@GetMapping("pick")
+		public ModelAndView getPickList(MemberDTO memberDTO, HttpSession session)throws Exception{
+			ModelAndView mv = new ModelAndView();
+			memberDTO = (MemberDTO)session.getAttribute("member");
+			List<MemberDTO> ar = memberService.getPickList(memberDTO);
+			
+			mv.addObject("list", ar);
+			mv.addObject("what","pick");
+			mv.setViewName("member/follow");
+			return mv;
+		}
 		
-		mv.addObject("list", ar);
-		mv.addObject("what","cart");
-		mv.setViewName("member/follow");
-		return mv;
-	}
-	
-	@GetMapping("pick")
-	public ModelAndView getPickList(MemberDTO memberDTO, HttpSession session)throws Exception{
-		ModelAndView mv = new ModelAndView();
-		memberDTO = (MemberDTO)session.getAttribute("member");
-		List<MemberDTO> ar = memberService.getPickList(memberDTO);
-		
-		mv.addObject("list", ar);
-		mv.addObject("what","pick");
-		mv.setViewName("member/follow");
-		return mv;
-	}
-	
-	@GetMapping("coupon")
-	public ModelAndView getCouponList(MemberDTO memberDTO,HttpSession session)throws Exception{
-		ModelAndView mv = new ModelAndView();
-		memberDTO = (MemberDTO)session.getAttribute("member");
-		List<CouponDTO> ar = memberService.getCouponList(memberDTO);
+		@GetMapping("coupon")
+		public ModelAndView getCouponList(MemberDTO memberDTO,HttpSession session)throws Exception{
+			ModelAndView mv = new ModelAndView();
+			memberDTO = (MemberDTO)session.getAttribute("member");
+			List<CouponDTO> ar = memberService.getCouponList(memberDTO);
 
-		mv.addObject("list", ar);
-		mv.addObject("what","coupon");
-		mv.setViewName("member/follow");
-		return mv;
-	}
-	
-	@PostMapping("follower")
-	public ModelAndView setFollowerDelete(MemberDTO memberDTO,String follower, HttpSession session)throws Exception{
-		ModelAndView mv = new ModelAndView();
-		System.out.println("delete post");
-		memberDTO = (MemberDTO)session.getAttribute("member");
-
-		System.out.println(follower);
-		memberDTO.setFollower(follower);
-		int result = memberService.setFollowerDelete(memberDTO);
+			mv.addObject("list", ar);
+			mv.addObject("what","coupon");
+			mv.setViewName("member/follow");
+			return mv;
+		}
 		
-		if (result==1) {
-		mv.addObject("msg","follower가 삭제되었습니다.");
-		mv.addObject("url","/member/follower");
-		mv.setViewName("member/alert");}
-		else {
-			mv.addObject("msg","follower가 삭제 실패했습니다.");
+		@PostMapping("follower")
+		public ModelAndView setFollowerDelete(MemberDTO memberDTO,String follower, HttpSession session)throws Exception{
+			ModelAndView mv = new ModelAndView();
+			System.out.println("delete post");
+			memberDTO = (MemberDTO)session.getAttribute("member");
+
+			System.out.println(follower);
+			memberDTO.setFollower(follower);
+			int result = memberService.setFollowerDelete(memberDTO);
+			
+			if (result==1) {
+			mv.addObject("msg","follower가 삭제되었습니다.");
 			mv.addObject("url","/member/follower");
+			mv.setViewName("member/alert");}
+			else {
+				mv.addObject("msg","follower가 삭제 실패했습니다.");
+				mv.addObject("url","/member/follower");
+				mv.setViewName("member/alert");
+				
+			}
+			return mv;
+		}
+
+		@GetMapping("rev")
+		public ModelAndView getRevList(MemberDTO memberDTO,HttpSession session)throws Exception{
+			ModelAndView mv = new ModelAndView();
+			memberDTO = (MemberDTO)session.getAttribute("member");
+			
+			List<ReservationDTO> ar = memberService.getRevList(memberDTO);
+
+			mv.addObject("list", ar);
+			mv.addObject("what","rev");
+			mv.setViewName("member/follow");
+			return mv;
+		}
+		
+		@GetMapping("findlogin")
+		public String getFindLogin()throws Exception{
+
+			return "member/findlogin";
+		}
+		
+		@PostMapping("findlogin")
+		public ModelAndView getFindLogin(MemberDTO memberDTO,HttpServletRequest request)throws Exception{
+			ModelAndView mv = new ModelAndView();
+			
+			String email = request.getParameter("email");
+			String userId = request.getParameter("userId");
+			
+			memberDTO = memberService.getFindLogin(memberDTO);
+			String pw = memberDTO.getPassword();
+
+			if(memberDTO==null || !memberDTO.getEmail().equals(email)) {
+				mv.addObject("msg","일치하는 회원이 없습니다.");
+				mv.addObject("url","/member/findlogin");
+				mv.setViewName("member/alert");
+			}else {
+				
+				Random random = new Random();
+				pw =  Integer.toString(random.nextInt(888888));
+	
+			System.out.println(pw);
+			memberDTO.setPassword(pw);
+			memberService.setUpdatePw(memberDTO);
+			memberService.setEmail(memberDTO, "pwEmail");
+			
+			mv.addObject("msg","회원 메일로 임시 비밀번호를 전송하였습니다.");
+			mv.addObject("url","/member/login");
 			mv.setViewName("member/alert");
 			
+			}
+			
+			return mv;
 		}
-		return mv;
-	}
-	
+		
 @GetMapping("test")
 public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 	List<MemberDTO> ar = memberService.getPickList(memberDTO);

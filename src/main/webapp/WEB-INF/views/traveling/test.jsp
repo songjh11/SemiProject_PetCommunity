@@ -13,15 +13,13 @@
   <!-- 지도영역 -->
         
 
-      <hr>
-      <div>
-      위도 : <span id="latitude"></span><br>
-      경도 : <span id="longitude"></span><br>
-      날씨 : <img id="wicon" src=""><br>
-      기온 : <span id="tempr"></span>
-
-      </div>
-      <div id="map" style="width:100%; height:100vh;">
+  
+  <div id="map" style="width:100%; height:100vh;">
+    위도 : <span id="latitude"></span><br>
+    경도 : <span id="longitude"></span><br>
+    날씨 : <img id="wicon" src=""><br>
+    기온 : <span id="tempr"></span>
+    <hr>
       </div>
 
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c8a091a525c100bb59fb876c4c7b6bf9&libraries=services"></script>

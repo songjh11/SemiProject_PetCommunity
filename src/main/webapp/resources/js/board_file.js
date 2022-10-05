@@ -93,7 +93,7 @@ fileAdd.addEventListener("click", function(){
     fileAdd_div.append(fileAdd_input)
     fileAdd_div.append(filedelete);
 
-    addFiles.prepend(fileAdd_div);
+    addFiles.append(fileAdd_div);
 
    
 

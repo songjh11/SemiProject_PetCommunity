@@ -105,7 +105,7 @@
 		<a href="./delete?num=${requestScope.dto.num}" class="btn btn-primary">삭제</a>
 		<div class="row">
 			<c:if test="${board eq 'event'}">
-				<span>쿠폰명 : ${coupon.couponName}</span>
+				<button type="button" id="couponSave">${coupon.couponName}쿠폰 다운로드</button>
 			</c:if>
 		</div>
     </div>
@@ -185,8 +185,23 @@
   	<script type="text/javascript">
 
 		let followee = "${requestScope.member.userId}";
-		let follower = "${sessionScope.member.userId}"
-		setFollow(followee, follower);
+		let userId= "${sessionScope.member.userId}";
+		let couponNum = "${coupon.couponNum}"
+		let num = "${requestScope.dto.num}";
+		
+		try {
+			
+			setFollow(followee, userId);
+		} catch (error) {
+			
+		}
+		
+		try {
+			
+			saveCoupon(couponNum, userId, num);
+		} catch (error) {
+			
+		}
 	</script>
 </body>
 

@@ -105,9 +105,14 @@ public class EchoHandler extends TextWebSocketHandler {
 		
 //		sessionList.remove(session);
 		//log.info("{} 연결 끊김", session.getId());
-		System.out.println("{} 연결 끊김"+ m_id);
+//		System.out.println("{} 연결 끊김"+ m_id);
 		
-		users.remove(m_id);
+		try {
+			
+			users.remove(m_id);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
 
 	}

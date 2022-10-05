@@ -24,5 +24,7 @@ public interface BoardDAO {
 	public int setFileDelete(BoardFileDTO boardFileDTO) throws Exception;
 	//파일 세부정보 불러오기
 	public BoardFileDTO getFileDetail(BoardFileDTO boardFileDTO) throws Exception;
+	//파일 조회수 증가
+	public int setUpdateHit(BoardDTO boardDTO) throws Exception;
 	
 }

@@ -52,6 +52,7 @@
         </div>
 
         <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
+
           <c:choose>
             <c:when test="${dto.roleNum eq 2}">
               <li class="nav-item">
@@ -140,6 +141,7 @@
               </li>
              </c:otherwise>
              </c:choose>
+
         </ul>
           </section><!-- End Menu Section -->
   

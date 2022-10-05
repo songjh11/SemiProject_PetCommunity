@@ -100,8 +100,8 @@ public class MemberDAO {
 		return sqlSession.selectOne(NAMESPACE+"getFolloweeCount", memberDTO);
 	}
 	
-	public int setFollow(MemberDTO memberDTO)throws Exception{
-		return sqlSession.insert(NAMESPACE+"setFollow", memberDTO);
+	public int setFollow(FollowDTO followDTO)throws Exception{
+		return sqlSession.insert(NAMESPACE+"setFollow", followDTO);
 	}
 	
 	public int setFolloweeDelete(MemberDTO memberDTO)throws Exception{

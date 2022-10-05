@@ -20,6 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.home.board.event.coupon.CouponDTO;
 import com.pet.home.sell.ReservationDTO;
+import com.pet.home.sell.SellItemController;
+import com.pet.home.sell.SellItemService;
+import com.pet.home.sell.check.CheckDTO;
 import com.pet.home.util.FileManager;
  
 @Controller
@@ -31,6 +34,9 @@ public class MemberController {
 	
 	@Autowired
 	private FileManager fileManager;
+	
+	@Autowired 
+	private SellItemService sellItemService;
 	
 	@GetMapping("role")
 	public String getAgree()throws Exception{
@@ -70,6 +76,8 @@ public class MemberController {
 		}
 
 		//dto에 roleNum을 담아 main.jsp에서 메뉴 다르게 보이도록  
+
+
 		//member 세션의 userId
 		//getAdmPage 메소드 재활용하여 roleNum 가져오기
 		memberDTO = (MemberDTO)session.getAttribute("member");
@@ -80,6 +88,7 @@ public class MemberController {
 		
 		return mv;
 	}
+
 	
 	@GetMapping("logout")
 	public String logout (HttpSession session) throws Exception{
@@ -405,21 +414,57 @@ public class MemberController {
 			return mv;
 		}
 		
-		
-		
-	@GetMapping("test")
-	public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
-		List<MemberDTO> ar = memberService.getPickList(memberDTO);
-		List<MemberDTO> ar2 = memberService.getShopCartList(memberDTO);
-		MemberDTO ar3 = memberService.getTotalPrice(memberDTO);
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("list", ar);
-		mv.addObject("list2", ar2);
-		mv.addObject("list3", ar3);
-		mv.setViewName("member/test");
+@GetMapping("test")
+public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
+	List<MemberDTO> ar = memberService.getPickList(memberDTO);
+	List<MemberDTO> ar2 = memberService.getShopCartList(memberDTO);
+	MemberDTO ar3 = memberService.getTotalPrice(memberDTO);
+	ModelAndView mv = new ModelAndView();
+	mv.addObject("list", ar);
+	mv.addObject("list2", ar2);
+	mv.addObject("list3", ar3);
+	mv.setViewName("member/test");
 
+	return mv;
+}
+
+
+	
+	
+//결제 내역 리스트	
+	@GetMapping("purchaseList")
+	public ModelAndView getPurchaseList(HttpSession httpSession) throws Exception {
+		System.out.println("purchaseList");
+		MemberDTO memberDTO = (MemberDTO)httpSession.getAttribute("dto");
+		List<CheckDTO> checkList = sellItemService.getPurchaseList("m5");
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("checkList", checkList);
+		mv.addObject("what","Purchase List");
+		mv.setViewName("member/follow");
+		for(CheckDTO c: checkList) {
+			System.out.println(c.getImp_uid());
+		}
 		return mv;
 	}
 	
+//결제 상세 내역
+	@GetMapping("purchaseDetail")
+	public ModelAndView getPurchaseDetail(CheckDTO checkDTO) throws Exception {
+		checkDTO = sellItemService.getPurchaseDetail(checkDTO);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("check", checkDTO);
+		return mv;
+	}
+	
+//결제 취소
+	@PostMapping("purchaseDelete")
+	public ModelAndView setPurchaseDelete(CheckDTO checkDTO) throws Exception {
+		System.out.println(checkDTO.getImp_uid());
+		int result = sellItemService.setPurchaseDelete(checkDTO);
+		System.out.println("삭제 완");
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("member/mypage");
+		return mv;
+	}
 }
 	

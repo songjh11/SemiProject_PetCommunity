@@ -49,6 +49,7 @@ public class SharingService implements BoardService {
 			boardFileDTO.setFileName(fileName);
 			boardFileDTO.setOriName(multipartFile.getOriginalFilename());
 			boardFileDTO.setNum(boardDTO.getNum());
+			sharingDAO.setFileAdd(boardFileDTO);
 		}
 
 		return result;

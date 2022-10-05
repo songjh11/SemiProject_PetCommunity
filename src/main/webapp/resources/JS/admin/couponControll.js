@@ -126,12 +126,8 @@ for(let i=0; i<memberDetail.length; i++){
 }
 
 function getQnaList(){
-    const memberDetail = document.querySelectorAll(".memberDetail");
-for(let i=0; i<memberDetail.length; i++){
-    memberDetail[i].addEventListener("click",function(){
-        let userId = memberDetail[i].getAttribute("data-userId");
-
-        const xhttp = new XMLHttpRequest();
+    
+    const xhttp = new XMLHttpRequest();
         xhttp.open("POST","./boardlist");
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("userId="+userId);
@@ -139,15 +135,15 @@ for(let i=0; i<memberDetail.length; i++){
             if(this.readyState == 4 && this.status == 200){
                 let result = xhttp.responseText.trim();
                 result = JSON.parse(result);
-               
-                let sharing = result.qna;
-                
+                console.log(result);
+                let sharing = result.sharing;
+                console.log(sharing);
 
                 let btn = document.querySelector("#btn");
                 let boardlist = document.querySelector("#boardlist");
                 let tbody = document.querySelector("#tbody");
 
-                for(let i=0; i<qna.length ; i++){
+                for(let i=0; i<sharing.length ; i++){
                     let tr = document.createElement("tr");
                     
                     let td = document.createElement("td");
@@ -156,25 +152,18 @@ for(let i=0; i<memberDetail.length; i++){
                     tr.appendChild(td);
 
                     td=document.createElement("td");
-                    text = document.createTextNode(qna[i].regDate);
+                    text = document.createTextNode(sharing[i].regDate);
                     td.appendChild(text);
                     tr.appendChild(td);
 
                     td=document.createElement("td");
-                    text = document.createTextNode(qna[i].hit);
+                    text = document.createTextNode(sharing[i].hit);
                     td.appendChild(text);
                     tr.appendChild(td);
 
                     tbody.appendChild(tr);
 
                 }
-                
-                btn.click();
-                return;
-
             }
         }
-        return;
-    })
-}
 }

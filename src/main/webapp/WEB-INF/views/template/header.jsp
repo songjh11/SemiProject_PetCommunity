@@ -111,10 +111,10 @@
 
        <!-- 역할번호에 따라 다른 메뉴바-->
        <c:choose>
-       <c:when test="${dto.roleNum =='1'}">
+       <c:when test="${sessionScope.dto.roleNum =='1'}">
         <a href="/sell/add"><button class="btn btn-outline-success me-2" type="button">Add Items</button></a>
        </c:when>
-       <c:when test="${dto.roleNum =='2'}">
+       <c:when test="${sessionScope.dto.roleNum =='2'}">
         <a class="btn-book-a-table" href="#">guest page</a>
        </c:when>
        <c:otherwise>

@@ -7,15 +7,12 @@ pageEncoding="UTF-8"%>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Login page</title>
+<title>find pw page</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
-
 <style>
-  #minpf{
-  display: inline-block;
-  font-size: smaller;
-  color: dimgrey;
+  #my {
+  margin: 0 auto;
 }
 </style>
 </head>
@@ -28,26 +25,25 @@ pageEncoding="UTF-8"%>
   <div class="container" data-aos="fade-up">
 
     <div class="section-header">
-      <p><span>Login page</span></p>
+      <p><span>Find PW page</span></p>
     </div>
 
-      <div class="col-lg-8 align-items-center">
-        <form action="./login" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data"  id="loginfrm">
+      <div class="col-lg-8 align-items-center" id="my">
+        <form action="findlogin" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data"  id="loginfrm">
           <div class="row gy-4">
             <div class="col-lg-8 col-md-12">
               <input type="text" name="userId" class="form-control" placeholder="User ID"id="userId">
               <div class="validate"></div>
             </div>
             <div class="col-lg-8 col-md-12">
-              <input type="text" name="password" class="form-control" placeholder="password" id="pw">
+              <input type="text" name="email" class="form-control" placeholder="email" id="email">
               <div class="validate"></div>
             </div>
           </div>
           <br>
          <div class="text-center">
-           <button type="button" id="login" class="btn-book-a-table">Login</button>
+           <button type="submit" id="findpw" class="btn-book-a-table">Login</button>
          </div>
-         <div id="minpf"><a href="./findlogin">비밀번호를 잊어버리셨다면</a></div>
         </form>
       </div>
 
@@ -79,8 +75,5 @@ pageEncoding="UTF-8"%>
 
 <!-- daum 지도 검색 api -->  
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
-<script src="/resources/JS/login.js"></script>
-
 </body>
 </html>

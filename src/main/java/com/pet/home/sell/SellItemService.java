@@ -63,7 +63,6 @@ public class SellItemService {
 				String realPath = servletContext.getRealPath("resources/upload/sellfile");
 				
 				File file = new File(realPath);
-				
 				if(!file.exists()) {
 					file.mkdirs();
 				}

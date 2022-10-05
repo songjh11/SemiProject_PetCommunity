@@ -241,6 +241,7 @@
         <c:when test="${what eq 'Purchase List'}">
           <c:forEach items="${checkList}" var="check">
             <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+
                 <div class="chef-member">
                     <div class="member-img">
                         <img src="/resources/upload/sellfile/${check.fileDTOs[0].fileName}" class="img-fluid" alt="">

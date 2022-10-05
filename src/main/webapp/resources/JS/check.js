@@ -43,9 +43,6 @@ priceCount.addEventListener("click", function (){
   rev = revEndDate.value;
   ac = adultsCount.value;
   dc = dogCount.value;
-  inv = itemName.value;
-
-  console.log("ipv", ipv);
 
   if(rsv.length<=0||rev.length<=0){
   alert("날짜를 입력하세요")
@@ -71,7 +68,6 @@ if(dateResult){
       return;
     } else{
       const tdate = (redateC - rsdateC) / (1000*60*60*24);
-      console.log(tdate);
       let priceC = tdate*ipv+ac*10000+dc*10000;
       const totalPriceV = document.createAttribute("value");
       totalPriceV.value = priceC;
@@ -93,10 +89,10 @@ rvBtnFrm.addEventListener("click", function(){
     dc = dogCount.value;
     tpv = totalPrice.value;
     bev = buyer_email.value;
-    console.log(bev);
     bnv = buyer_name.value;
     btv = buyer_tel.value;
     uiv = userId.value;
+    inv = itemName.value;
   
     if(tpv.length<=0){
     alert("예상 결제 금액을 확인해주세요")
@@ -143,9 +139,9 @@ rvBtnFrm.addEventListener("click", function(){
                   'dogCount': dc,
                   'userId': uiv
               }
-          }).done(function () {
-            console.log(data);
-            if(data=="paid") {
+          }).done(function (paymentResult) {
+            console.log(paymentResult);
+            if(paymentResult=="paid") {
               alert("결제에 성공하였습니다!")
               window.location.href = 'http://localhost/member/purchaseList';
             }

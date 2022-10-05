@@ -110,6 +110,12 @@
           writing-mode: horizontal-tb;
         }
 
+        .crqSection{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
 
   </style>
 </head>
@@ -119,14 +125,22 @@
     <c:import url="/WEB-INF/views/template/header.jsp"></c:import>
     <!-- header end -->
 </div>
-<div style="margin-top: 100px;">  
-<a href="./update?itemNum=${sellItemDTO.itemNum}"><button>수정</button></a>
-<a href="./delete?itemNum=${sellItemDTO.itemNum}"><button id="deleteItem">삭제</button></a>
+
+<div align="right" style="width:80%; margin-top: 150px; margin-left: auto; margin-right: auto;">  
+  <c:choose>
+    <c:when test="${sessionScope.member.userId eq sellItemDTO.userId}">
+     <a href="./update?itemNum=${sellItemDTO.itemNum}"><button class="btn btn-danger">수정</button></a>
+     <a href="./delete?itemNum=${sellItemDTO.itemNum}"><button class="btn btn-danger" id="deleteItem">삭제</button></a>
+     </c:when>
+     <c:when test="${sessionScope.dto.roleNum =='0'}">
+       <a href="./update?itemNum=${sellItemDTO.itemNum}"><button class="btn btn-danger">수정</button></a>
+       <a href="./delete?itemNum=${sellItemDTO.itemNum}"><button class="btn btn-danger" id="deleteItem">삭제</button></a>
+       </c:when> 
+    <c:otherwise>
+    </c:otherwise>
+  </c:choose>
 </div>
 
-
-
- 
 
  <div>
   <!-- Button trigger modal -->
@@ -641,7 +655,7 @@
 <a href="./reviewadd?itemNum=${sellItemDTO.itemNum}"><button type="button">리뷰쓰기</button></a>
 <a href="./sellqnaadd?itemNum=${sellItemDTO.itemNum}"><button type="button">문의쓰기</button></a>
       <!-- contents, review, qna -->
-      <section>
+      <section class="crqSection">
         
       <div>
         <!-- Button trigger modal -->
@@ -690,7 +704,7 @@
           <p>최고의 반려견 전문가들이 24시간 케어하는 애견호텔!
             위드독애견호텔은 작고 답답한 공간이 아닌 아늑하고 편안하게 휴식할 수 있는 넓은 객실을 갖춘 프리미엄 애견호텔 입니다.
             여행/출장 또는 장시간 집을 비워야 할 때 위드독애견호텔의 호텔링 / 데이케어(※ 산책 옵션 추가 가능)서비스를 이용해 보세요.</p>
-            <div id="map" style="width:500px; height:400px;"></div>
+            <div id="map" style="width:100%; height:400px; margin-bottom: 50px;"></div>
         </div>
       <div class="tab-pane fade" role="tabpanel" id="rv">
         <p>리뷰</p>
@@ -715,10 +729,12 @@
   </div>
   </div>
 
+<section>
 
- <!-- footer start -->
- <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
- <!-- footer end -->
+  <!-- footer start -->
+  <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
+  <!-- footer end -->
+</section>
 
    <!-- script start -->
  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

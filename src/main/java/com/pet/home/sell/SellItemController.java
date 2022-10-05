@@ -114,7 +114,7 @@ public class SellItemController {
 
 	@GetMapping("update")
 	public Model setItemUpdate(SellItemDTO dto, Model model) throws Exception {
-		System.out.println("update");
+		System.out.println("itemupdate");
 		List<SellFileDTO> ar = dto.getFileDTOs();
 		dto = itemService.getDetailOne(dto);
 		model.addAttribute("dto", dto);
@@ -409,7 +409,8 @@ public class SellItemController {
 			String paymentResult = payment.getStatus();
 			System.out.println("결제 객체: "+payment);
 			System.out.println("결제 상태: "+paymentResult);
-			System.out.println("token: "+token);
+			System.out.println("Code: "+token.getCode());
+			System.out.println("token: "+token.getResponse().getToken());
 			
 			if(paymentResult.equals("paid")) {
 				CheckDTO checkDTO = new CheckDTO();

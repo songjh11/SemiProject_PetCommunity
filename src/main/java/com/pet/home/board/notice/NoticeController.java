@@ -3,6 +3,8 @@ package com.pet.home.board.notice;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,18 +73,9 @@ public class NoticeController {
 	}
 
 	@GetMapping("detail")
-	public ModelAndView getDetail(ModelAndView mv, BoardDTO boardDTO, HttpSession session) throws Exception {
+	public ModelAndView getDetail(ModelAndView mv, BoardDTO boardDTO, HttpServletRequest request) throws Exception {
 		
-		try {
-			
-			MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
-			if(!(boardDTO.getWriter().equals(memberDTO.getUserName()))) {
-				noticeDAO.setUpdateHit(boardDTO);
-			}
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		noticeDAO.setUpdateHit(boardDTO);
 		boardDTO = noticeService.getDetail(boardDTO);
 
 		mv.addObject("dto", boardDTO);

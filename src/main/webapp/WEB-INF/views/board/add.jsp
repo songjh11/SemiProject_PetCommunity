@@ -68,13 +68,18 @@
           </select>
 			</div>
       </c:if>
-		
+      
+      <c:if test = "${board eq 'sharing'}">
+        <label for="file" class="form-label">대표 사진</label>
+        <input class="form-control" type="file" id="file0" name="multipartFiles">
+      </c:if>
+
 			<div id="addFiles">
 				<button type="button" class="btn btn-danger" id="fileAdd">파일 추가</button>
 			</div>
 			
 			
-			<button class="btn btn-primary btn-lg btn-block" type="submit">Add</button>
+			<button class="btn btn-primary btn-lg btn-block" type="submit">작성하기</button>
 			</form>
 		</div>
 
@@ -91,7 +96,39 @@
 	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
   <script type="text/javascript">
-	$("#contents").summernote();
+	$("#contents").summernote({
+      height : 400,
+      lang : "ko-KR",
+      minHeight : null,
+      maxHeight : null,
+      focus : true,
+      callback : {
+        onImageUpload : function(files, editor, welEditable) {
+          for(let i=0; i<files.length; i++){
+            sendFile(files[i], this);
+          }
+        }
+      }
+  });
+
+  function sendFile(file,editor){
+    let form_data = new FormData();
+    form_data.append('file',file);
+    $.ajax({
+        data : form_data,
+        type : "POST",
+        url : '/notice/add',
+        cache : false,
+        contentType : false,
+        enctype : 'multipart/form-data',
+        processData : false,
+        success : function(url) {
+          $(editor).summernote('insertImage', url, function(){
+            $image.css('width',"25%");
+          });
+        }
+    })
+  }
 	</script>
 </body>
 

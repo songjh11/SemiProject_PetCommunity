@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.home.board.impl.BoardDTO;
+import com.pet.home.board.impl.BoardFileDTO;
 import com.pet.home.member.FollowDTO;
 import com.pet.home.member.MemberDTO;
 import com.pet.home.member.MemberService;
@@ -79,9 +80,10 @@ public class SharingController {
 	public ModelAndView getList(ModelAndView mv) throws Exception{
 		Pager pager = new Pager(10L, 5L);
 		List<BoardDTO> ar = sharingService.getList(pager);
+		
 		mv.addObject("list", ar);
 		mv.addObject("pager", pager);
-		mv.setViewName("board/list");
+		mv.setViewName("board/list2");
 		
 		return mv;
 	}

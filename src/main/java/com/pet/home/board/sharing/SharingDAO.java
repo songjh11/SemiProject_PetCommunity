@@ -94,5 +94,13 @@ public class SharingDAO implements BoardDAO {
 	public int setCommentUpdate(ShCommentDTO shCommentDTO) throws Exception{
 		return sqlSession.update(NAMESPACE+"setCommentUpdate", shCommentDTO);
 	}
+
+	@Override
+	public int setUpdateHit(BoardDTO boardDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.update(NAMESPACE+"setUpdateHit", boardDTO);
+	}
+	
+	
 	
 }

@@ -80,4 +80,12 @@ public class QnaDAO implements BoardDAO {
 		return sqlSession.update(NAMESPACE + "setStepUpdate", qnaDTO);
 	}
 
+	@Override
+	public int setUpdateHit(BoardDTO boardDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.update(NAMESPACE+"setUpdateHit", boardDTO);
+	}
+	
+	
+	
 }

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pet.home.board.event.coupon.CouponDTO;
+import com.pet.home.board.qna.QnaDTO;
+import com.pet.home.board.sharing.SharingDTO;
 import com.pet.home.sell.ReservationDTO;
 
 @Repository
@@ -127,5 +129,17 @@ public class MemberDAO {
 	public MemberDTO setUpdatePw(MemberDTO memberDTO) throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"setUpdatePw", memberDTO);
 	}
+	
+	//모든 멤버 리스트
+	//1. 게스트
+	public List<MemberDTO> getAllGuest() throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getAllGuest");
+	}
+	
+	//2. 사업자
+	public List<MemberDTO> getAllBizmen() throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getAllBizmen");
+	}
+		
 	
 }

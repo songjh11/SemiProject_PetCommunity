@@ -22,4 +22,17 @@
 		SELECT * FROM COUPON
 	</select>
 	
+	<delete id="setDeleteCoupon" parameterType="CouponDTO">
+		DELETE COUPON WHERE COUPONNUM = #{couponNum}
+	</delete>
+	
+	<select id="getMemberQnaList" parameterType="BoardDTO" resultType="QnaDTO">
+		SELECT * FROM QNA WHERE WRITER = #{writer}
+	</select>
+	
+	<select id="getMemberSharingList" parameterType="BoardDTO" resultType="SharingDTO">
+		SELECT * FROM SHARING WHERE WRITER = #{writer}
+	</select>
+	
+	
 </mapper>

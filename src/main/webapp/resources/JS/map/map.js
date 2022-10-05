@@ -1,10 +1,9 @@
 const itemAddress = document.getElementById("itemAddress");
-const itemDeAddress = document.getElementById("itemDeAddress");
 const itemName2 = document.getElementById("itemName");
 
 // kakao 길 찾기 -->
 function mapMaker(){
-    let address = itemAddress.value+itemDeAddress.value;
+    let address = itemAddress.value;
     let inv = itemName2.value;
     console.log(address);
     console.log(inv);

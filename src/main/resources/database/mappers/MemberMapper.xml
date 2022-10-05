@@ -8,7 +8,7 @@
  <!-- =============LOGIN & JOIN =====================-->
  
  <select id="getLogin" parameterType="MemberDTO" resultMap="getLoginResult">
-SELECT M.USERNAME, M.USERID, R.ROLENUM, R.ROLENAME
+SELECT M.USERNAME, M.USERID, M.EMAIL, M.PHONE, R.ROLENUM, R.ROLENAME
 		FROM MEMBER M
     		INNER JOIN
     		ROLE R

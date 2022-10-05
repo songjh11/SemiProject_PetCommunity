@@ -8,6 +8,7 @@ const priceCount = document.getElementById("priceCount");
 const itemPrice = document.getElementById("itemPrice");
 let ipv = "";
 const itemName = document.getElementById("itemName");
+let inv = "";
 const itemNum2 = document.getElementById("itemNum");
 let itn = "";
 const itemCatg = document.getElementById("itemCatg");
@@ -43,8 +44,6 @@ priceCount.addEventListener("click", function (){
   ac = adultsCount.value;
   dc = dogCount.value;
 
-  console.log("ipv", ipv);
-
   if(rsv.length<=0||rev.length<=0){
   alert("날짜를 입력하세요")
   return;
@@ -69,7 +68,6 @@ if(dateResult){
       return;
     } else{
       const tdate = (redateC - rsdateC) / (1000*60*60*24);
-      console.log(tdate);
       let priceC = tdate*ipv+ac*10000+dc*10000;
       const totalPriceV = document.createAttribute("value");
       totalPriceV.value = priceC;
@@ -94,6 +92,7 @@ rvBtnFrm.addEventListener("click", function(){
     bnv = buyer_name.value;
     btv = buyer_tel.value;
     uiv = userId.value;
+    inv = itemName.value;
   
     if(tpv.length<=0){
     alert("예상 결제 금액을 확인해주세요")
@@ -114,7 +113,7 @@ rvBtnFrm.addEventListener("click", function(){
         pg: "html5_inicis",
         pay_method: "card",
         merchant_uid: merchant_uid,
-        name: $('#itemName').text(),
+        name: inv,
         amount: 100,//tpv
         buyer_email: bev,
         buyer_name: bnv,
@@ -140,15 +139,15 @@ rvBtnFrm.addEventListener("click", function(){
                   'dogCount': dc,
                   'userId': uiv
               }
-          }).done(function (data) {
-            console.log(data);
-            if(data=="paid") {
+          }).done(function (paymentResult) {
+            console.log(paymentResult);
+            if(paymentResult=="paid") {
               alert("결제에 성공하였습니다!")
               window.location.href = 'http://localhost/member/purchaseList';
             }
         })} else {
           alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
-          location.reload(); 
+          // location.reload(); 
         }
       })
   };

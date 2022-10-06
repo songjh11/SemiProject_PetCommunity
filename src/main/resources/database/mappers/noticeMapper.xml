@@ -70,6 +70,10 @@
 		WHERE NUM = #{num}
 	</update>
 	
+	<update id="setUpdateHit" parameterType="BoardDTO">
+		UPDATE NOTICE SET HIT = HIT + 1 WHERE NUM = #{num}
+	</update>
+	
 	<delete id="setDelete" parameterType="BoardDTO">
 		DELETE NOTICE WHERE NUM = #{num}
 	</delete>

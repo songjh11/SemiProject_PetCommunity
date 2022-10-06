@@ -1,68 +1,288 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+ <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Mypage</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+	<style type="text/css">
+
+.testimonial-img {
+  border-radius: 50%;
+  border: 4px solid #fff;
+  margin: 0 auto;
+}
+
+#pf{
+  display: inline-block;
+  font-size: larger;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-left: 40px;
+}
+
+#minpf{
+  display: inline-block;
+  font-size: smaller;
+  color: dimgrey;
+}
+
+.col-sm-6{
+  display: block;
+}
+	</style>
+  
 </head>
 <body>
+<!-- header start -->
+<c:import url="/WEB-INF/views/template/testheader.jsp"></c:import>
+<!-- header end -->
+<!-- ======= mypage Section ======= -->
+    <section id="book-a-table" class="book-a-table">
+      <div class="container" data-aos="fade-up">
+        <section id="menu" class="menu">
+        <div class="section-header">
+        <p><span>${dto.roleDTO.roleName}'s My Page</span></p>
+        </div>
 
-    <form action="./delete" enctype="multipart/form-data">
-    <h1>${dto.roleDTO.roleName}'s My Page</h1>
-    <p>이름: ${dto.userName}</p>
+        <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
 
-    <c:choose>
-		<c:when test="${dto.roleNum eq 1}">
-            <p>아이템카테고리: ${dto.itemCatg}</p>
-            <p>아이템아이디: ${dto.itemId}</p>
-            
-        </c:when>
-        <c:when test="${dto.roleNum eq 2}">
-            <p>펫이름: ${dto.petName}</p>
-            <p>펫카테고리: ${dto.petCatg}</p>
-            <img src="../resources/upload/member/${dto.memberFileDTO.fileName}" alt="">
-            <a href="../resources/upload/member/${dto.memberFileDTO.fileName}">${dto.memberFileDTO.oriName}</a>
-        </c:when>
-	</c:choose>
-    <p>번호: ${dto.phone}</p>
-    <p>메일: ${dto.email}</p>
-    <p>주소: ${dto.itemZipCode} + ${dto.deAddress} + ${dto.address}</p>
-    <c:choose>
-		<c:when test="${dto.agValue  eq 1}">
-            <p>정보제공동의여부: 동의</p>
-        </c:when>
-        <c:when test="${dto.agValue  eq 0}">
-            <p>정보제공동의여부: 비동의</p>
-        </c:when>
-    </c:choose>
-    <c:choose>
-        <c:when test="${dto.agMail  eq 1}">
-            <p>메일수신동의여부: 동의</p>
-        </c:when>
-        <c:when test="${dto.agMail  eq 0}">
-            <p>메일수신동의여부: 비동의</p>
-        </c:when>
-    </c:choose>
-    <c:choose>
-        <c:when test="${dto.agMes  eq 1}">
-            <p>문자수신동의여부: 동의</p>
-        </c:when>
-        <c:when test="${dto.agMes  eq 0}">
-            <p>문자수신동의여부: 비동의</p>
-        </c:when>
-     </c:choose>
-     <button type="submit" class="btn-book-a-table">회원탈퇴</button>
-     <a href="./update" class="btn-book-a-table">정보수정</a>
-    </form>
-   
+          <c:choose>
+            <c:when test="${dto.roleNum eq 2}">
+              <li class="nav-item">
+                <a class="nav-link" href="./cart">
+                  <h4>장바구니</h4>
+                </a>
+              </li><!-- End tab nav item -->
+              <li class="nav-item">
+                <a class="nav-link" href="./pick">
+                  <h4>찜 내역</h4>
+                </a>
+              </li><!-- End tab nav item -->
+              <li class="nav-item">
+                <a class="nav-link" href="./coupon">
+                  <h4>보유쿠폰</h4>
+                </a>
+              </li><!-- End tab nav item -->
+    
+              <li class="nav-item">
+                <a class="nav-link" href="./update">
+                  <h4>회원수정</h4>
+                </a>
+              </li><!-- End tab nav item -->
+    
+              <li class="nav-item">
+                <a class="nav-link" href="./delete">
+                  <h4>회원탈퇴</h4>
+                </a><!-- End tab nav item -->
+    
+              <li class="nav-item">
+                <a class="nav-link"  href="./rev">
+                  <h4>예약내역</h4>
+                </a>
+              </li><!-- End tab nav item -->
+    
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <h4>취소내역</h4>
+                </a>
+              </li>
+            </c:when>
+            <c:when test="${dto.roleNum eq 1}">
+              <li class="nav-item">
+                <a class="nav-link" href="../sell/add">
+                  <h4>상품등록</h4>
+                </a>
+              </li><!-- End tab nav item -->
+              <li class="nav-item">
+                <a class="nav-link" href="./update">
+                  <h4>회원수정</h4>
+                </a>
+              </li><!-- End tab nav item -->
+    
+              <li class="nav-item">
+                <a class="nav-link" href="./delete">
+                  <h4>회원탈퇴</h4>
+                </a><!-- End tab nav item -->
+    
+              <li class="nav-item">
+                <a class="nav-link"  href="./rev">
+                  <h4>예약내역</h4>
+                </a>
+              </li><!-- End tab nav item -->
+    
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <h4>취소내역</h4>
+                </a>
+              </li>
+            </c:when>
+            <c:otherwise>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <h4>회원목록</h4>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <h4>상품목록</h4>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="../admin/mypage">
+                  <h4>쿠폰관리</h4>
+                </a>
+              </li>
+             </c:otherwise>
+             </c:choose>
+
+        </ul>
+          </section><!-- End Menu Section -->
+  
+
+        <!-- ======= Stats Counter Section ======= -->
+    <section id="stats-counter" class="stats-counter">
+      <div class="container" data-aos="zoom-out">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100" OnClick="location.href ='follower'" style="cursor:pointer;">
+              <span data-purecounter-start="0" data-purecounter-end="${followernum}" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Follower</p>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100" OnClick="location.href ='followee'" style="cursor:pointer;">
+              <span data-purecounter-start="0" data-purecounter-end="${followeenum}" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Followee</p>
+            </div>
+          </div><!-- End Stats Item -->
+
+          </div><!-- End Stats Item -->
+
+        </div>
+
+      </div>
+    </section><!-- End Stats Counter Section -->
+
+          <div class="col-lg-8 align-items-center" id="my">
+            <form action="./delete" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data" id="updatefrm">
+              <div class="row gy-4">
+                <div id="profile">
+                <c:if test="${dto.roleNum eq 2}">
+                  <div class="col-lg-2 text-center" id="pf">
+                    <img src="../resources/upload/member/${dto.memberFileDTO.fileName}" class="img-fluid testimonial-img" alt="">
+                  </div>
+                  </c:if>
+                  <div id="pf">
+                  ${dto.userName}님 안녕하세요<br>
+                  <div id="minpf">${dto.petName} ${dto.petCatg}</div>
+                  </div> 
+                </div>
+                <div class="col-sm-7">
+                  <input type="number" name="phone" class="form-control" value="${dto.phone}" readonly>
+                  <div class="validate"></div>
+                </div>
+                <div class="col-sm-7">
+                  <input type="email" name="email" class="form-control" value="${dto.email}" readonly>
+                  <div class="validate"></div>
+                </div>
+
+                <div class="col-sm-7">
+                  <input type="text" name="itemZipCode" class="form-control" id="itemZipCode" value="${dto.itemZipCode}" readonly>
+                   <div class="validate"></div>
+                 </div>
+                 <br>
+                 <div class="col-sm-7">
+                  <input type="text" name="address" class="form-control" id="address" value="${dto.address}" readonly>
+                 </div>
+                 <br>
+                 <div class="col-sm-7">
+                   <input type="text" name="deAddress" class="form-control" id="deAddress" value="${dto.deAddress}" readonly>
+                   <div class="validate"></div>
+                 </div>
+                 <br>
+
+                </div>
+                
+                <c:choose>
+                    <c:when test="${dto.roleNum eq 1}">
+                      <div class="col-sm-7">
+                        <br>
+                          <input type="text" class="form-control" name="itemCatg" value="${dto.itemCatg}" readonly>
+                          <div class="validate"></div>
+                        </div>
+                        <br>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" name="itemId" value="${dto.itemId}" readonly>
+                            <div class="validate"></div>
+                          </div>
+                          <br>
+                        
+                    </c:when>
+                    <c:when test="${dto.roleNum eq 2}">
+                      <div class="col-sm-7">
+                          <br>
+                            <input type="text" class="form-control" name="petName" value="${dto.petName}" readonly>
+                            <div class="validate"></div>
+                          </div>
+                          <br>
+                          <div class="col-sm-7">
+                            <input type="text" class="form-control" name="petCatg" value="${dto.petCatg}" readonly>
+                            <div class="validate"></div>
+                          </div>
+                          <br>
+                
+                    </c:when>
+                </c:choose>
+
+                <c:choose>
+                <c:when test="${dto.agValue  eq 1}">
+                    <p>정보제공동의여부: 동의</p>
+                </c:when>
+                <c:when test="${dto.agValue  eq 0}">
+                    <p>정보제공동의여부: 비동의</p>
+                </c:when>
+            </c:choose>
+            <c:choose>
+                <c:when test="${dto.agMail  eq 1}">
+                    <p>메일수신동의여부: 동의</p>
+                </c:when>
+                <c:when test="${dto.agMail  eq 0}">
+                    <p>메일수신동의여부: 비동의</p>
+                </c:when>
+            </c:choose>
+            <c:choose>
+                <c:when test="${dto.agMes  eq 1}">
+                    <p>문자수신동의여부: 동의</p>
+                </c:when>
+                <c:when test="${dto.agMes  eq 0}">
+                    <p>문자수신동의여부: 비동의</p>
+                </c:when>
+             </c:choose>
+              </div>
+              <br>
+             
+            </form>
+          </div><!-- End Reservation Form -->
+
+        </div>
+
+    </section><!-- End Add Items Section -->
 
 
 
-<!-- 
-    M.USERID, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS,
-  M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, G.PETCATG, G.PETNAME, MF.FILENAME, MF.ORINAME -->
+  <!-- footer start -->
+  <c:import url="/WEB-INF/views/template/testfooter.jsp"></c:import>
+  <!-- footer end -->
 
 </body>
 </html>

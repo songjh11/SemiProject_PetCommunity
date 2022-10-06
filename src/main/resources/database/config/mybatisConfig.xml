@@ -30,7 +30,9 @@
 		<typeAlias type="com.pet.home.sell.file.RvFileDTO" alias="RvFileDTO"/>
 		<typeAlias type="com.pet.home.sell.sellcategory.SellCategoryDTO" alias="SellCategoryDTO"/>
 		<typeAlias type="com.pet.home.sell.sellcategory.CategoryDTO" alias="CategoryDTO"/>
+		<typeAlias type="com.pet.home.sell.check.CheckDTO" alias="CheckDTO"/>
 		
+		<typeAlias type="com.pet.home.sell.ReservationDTO" alias="ReservationDTO"/>
 		<typeAlias type="com.pet.home.sell.SellItemDTO" alias="SellItemDTO"/>
 		<typeAlias type="com.pet.home.sell.file.SellFileDTO" alias="SellFileDTO"/>
       	<typeAlias type="com.pet.home.sell.sellcategory.SellCategoryDTO" alias="SellCategoryDTO"/>
@@ -48,6 +50,7 @@
 		<typeAlias type="java.util.List" alias="List"/>
 		<typeAlias type="java.lang.String" alias="String"/>
 		<typeAlias type="java.util.Map" alias="Map"/>
+		<typeAlias type="java.lang.Integer" alias="Integer"/>
 
 	</typeAliases>
 

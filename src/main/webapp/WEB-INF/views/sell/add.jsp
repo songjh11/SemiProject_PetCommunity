@@ -76,7 +76,7 @@
             <form action="add" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data" id="addItemFrm">
               <div class="row gy-4">
                 <div class="col-lg-8 col-md-12">
-                  <input type="text" name="userId" class="form-control" id="userId" placeholder="User ID">
+                  <input type="text" name="userId" class="form-control" id="userId" value="${member.userId}" readonly>
                   <div class="validate"></div>
                 </div>
                 <div class="col-lg-8 col-md-6">
@@ -128,7 +128,7 @@
               </div>
               <br>
              <div class="text-center">
-             	<button type="submit" id="addItemBtn">상품 등록</button>
+             	<button type="button" id="addItemBtn">상품 등록</button>
              </div>
              
             </form>
@@ -212,8 +212,7 @@
     }//kakao api 끝
 </script>
 
-<script src="/resources/JS/sell.js"></script>
-
+<script src="/resources/JS/sellAdd.js"></script>
   
 </body>
 </html>

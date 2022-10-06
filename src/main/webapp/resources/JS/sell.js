@@ -113,7 +113,7 @@ imgDiv.addEventListener("click", function(event){
 
 //update page: 파일 삭제
 uFileDelete.forEach(function(f){
-    f.addEventListener("click", function(event){
+    f.addEventListener("click", function(){
         console.log(f.parentNode);
         let result = window.confirm("삭제하시겠습니까?");
         if(!result){
@@ -147,8 +147,7 @@ uFileDelete.forEach(function(f){
 //파일 삭제 끝=================================================
 
 //detail page: 파일 폴더에서 삭제=============================================================
-deleteItem.addEventListener("click", function(event){
-    console.log(f.parentNode);
+deleteItem.addEventListener("click", function(){
     let result = window.confirm("삭제하시겠습니까?");
     if(!result){
         return;
@@ -176,13 +175,7 @@ deleteItem.addEventListener("click", function(event){
 
 });
 
-// 모달
-var myModal = document.getElementById('myModal')
-var myInput = document.getElementById('myInput')
 
-myModal.addEventListener('shown.bs.modal', function () {
-  myInput.focus()
-})
 
 
 

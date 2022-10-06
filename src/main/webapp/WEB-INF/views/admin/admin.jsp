@@ -27,13 +27,7 @@
 				<c:forEach items="${requestScope.list}" var="dto">
 				<tr>
 					<td>${pageScope.dto.couponNum}</td>
-					<td>
-					<%-- for(int i = begin; i<= end; i++ --%>
-					<c:catch>
-					<c:forEach begin="1" end="${dto.depth}">&ensp;</c:forEach>
-					</c:catch>
-					${pageScope.dto.couponName}
-					</td>
+					<td>${pageScope.dto.couponName}</td>
 					<td>${pageScope.dto.expDate}</td>
 					<td>${pageScope.dto.regDate}</td>
 					<td>${pageScope.dto.discountRate}</td>

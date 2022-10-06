@@ -9,7 +9,6 @@
 <head>
 
 <meta charset="UTF-8">
-<title>${category.categoryName}</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
  <meta charset="utf-8">
@@ -43,6 +42,8 @@
   <!-- iamport.payment.js -->
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e46b315f965ac58fabe9c3e350d385de&libraries=services"></script>
+
   <style>
     .crq{
         justify-content: center;
@@ -71,22 +72,25 @@
           border-style: solid;
           border-color: gainsboro;
           border-radius: 10px;
-
         }
 
         .innerBox{
-          display:flex;
+          display: flex;
           justify-content: space-between;
           align-items:center;
-          width: 80%; 
-          padding:10px;
+          padding: 10px;
+          border-width: 1px;
+          border-style: solid;
+          border-color: gainsboro;
+          border-radius: 10px;
         }
 
-        .buttonBox{
+         .buttonBox{
           display:flex;
           justify-content: space-between;
           align-items:center;
           padding:10px;
+          writing-mode: horizontal-tb;
         }
 
         .textAre{
@@ -102,6 +106,15 @@
           color: orange;
         }
         
+        #rvBtnFrmP{
+          writing-mode: horizontal-tb;
+        }
+
+        .crqSection{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
 
 
   </style>
@@ -112,14 +125,22 @@
     <c:import url="/WEB-INF/views/template/header.jsp"></c:import>
     <!-- header end -->
 </div>
-<div style="margin-top: 100px;">  
-<a href="./update?itemNum=${sellItemDTO.itemNum}"><button>수정</button></a>
-<a href="./delete?itemNum=${sellItemDTO.itemNum}"><button id="deleteItem">삭제</button></a>
+
+<div align="right" style="width:80%; margin-top: 150px; margin-left: auto; margin-right: auto;">  
+  <c:choose>
+    <c:when test="${sessionScope.member.userId eq sellItemDTO.userId}">
+     <a href="./update?itemNum=${sellItemDTO.itemNum}"><button class="btn btn-danger">수정</button></a>
+     <a href="./delete?itemNum=${sellItemDTO.itemNum}"><button class="btn btn-danger" id="deleteItem">삭제</button></a>
+     </c:when>
+     <c:when test="${sessionScope.dto.roleNum =='0'}">
+       <a href="./update?itemNum=${sellItemDTO.itemNum}"><button class="btn btn-danger">수정</button></a>
+       <a href="./delete?itemNum=${sellItemDTO.itemNum}"><button class="btn btn-danger" id="deleteItem">삭제</button></a>
+       </c:when> 
+    <c:otherwise>
+    </c:otherwise>
+  </c:choose>
 </div>
 
-
-
- 
 
  <div>
   <!-- Button trigger modal -->
@@ -177,6 +198,17 @@
       </div>
     <!-- text 영역 -->
     <div class="textAre col-lg-6 col-md-6 d-flex">
+      <input type="hidden" id="itemNum" name="itemNum" value="${sellItemDTO.itemNum}">
+      <input type="hidden" id="itemCatg" name="itemCatg" value="${sellItemDTO.itemCatg}">
+      <input type="hidden" id="itemPrice" name="itemPrice" value="${sellItemDTO.itemPrice}">
+      <input type="hidden" id="itemName" name="itemName" value="${sellItemDTO.itemName}">
+      <input type="hidden" id="itemAddress" name="itemAddress" value="${sellItemDTO.itemAddress}">
+      <input type="hidden" id="itemDeAddress" name="itemDeAddress" value="${sellItemDTO.itemDeAddress}">
+      <input type="hidden" id="buyer_email" value="${sessionScope.member.email}">
+      <input type="hidden" id="buyer_name" value="${sessionScope.member.userName}">
+      <input type="hidden" id="buyer_tel" value="${sessionScope.member.phone}">
+      <input type="hidden" id="userId" value="${sessionScope.member.userId}">
+
       <div>
         <table class="table table-striped">
           <tbody>
@@ -188,7 +220,7 @@
                 ${sellItemDTO.userId}</td>
             </tr>
             <tr>
-              <td id="itemName" value="${sellItemDTO.itemName}"><h1>${sellItemDTO.itemName}</h1></td>
+              <td><h1>${sellItemDTO.itemName}</h1></td>
             </tr>
             <tr>
               <td>
@@ -543,69 +575,88 @@
 
 
 <!-- reservation section -->
-  <div style="width: 80%; margin-top: 50px;">
-    <div class="block-32 aos-init aos-animate" data-aos="fade-up" data-aos-offset="-200">
-          <div class="outerBox">
-            <div class="innerBox">
-              <div class="col-md-6 mb-3 mb-lg-0 col-lg-3">
-                <label for="checkin_date" class="font-weight-bold text-black">Check In</label>
-                <div class="field-icon-wrap">
-                  <div class="icon"><span class="icon-calendar"></span></div>
-                  <input type="date" id="revStartDate" class="form-control">
-                </div>
-              </div>
-              <div class="col-md-6 mb-3 mb-lg-0 col-lg-3">
-                <label for="checkout_date" class="font-weight-bold text-black">Check Out</label>
-                <div class="field-icon-wrap">
-                  <div class="icon"><span class="icon-calendar"></span></div>
-                  <input type="date" id="revEndDate" class="form-control">
-                </div>
-              </div>
-              <div class="col-md-6 mb-3 mb-md-0 col-lg-3">
-                <div class="row">
-                  <div class="col-md-6 mb-3 mb-md-0">
-                    <label for="adults" class="font-weight-bold text-black">Adults</label>
-                    <div class="field-icon-wrap">
-                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                      <select id="adultsCount" class="form-control">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                      </select>
+        <div style="width: 80%; margin-top: 50px;">
+          <div class="block-32 aos-init aos-animate" data-aos="fade-up" data-aos-offset="-200">
+                <div class="outerBox">
+                    <div>
+                      <label for="checkin_date" class="font-weight-bold text-black">Check In</label>
+                      <div class="field-icon-wrap">
+                        <div class="icon"><span class="icon-calendar"></span></div>
+                        <input type="date" id="revStartDate" name="revStartDate" class="form-control">
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-md-6 mb-3 mb-md-0">
-                    <label for="Dog" class="font-weight-bold text-black">Dog</label>
-                    <div class="field-icon-wrap">
-                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                      <select id="dogCount" class="form-control">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                      </select>
+                    <div>
+                      <label for="checkout_date" class="font-weight-bold text-black">Check Out</label>
+                      <div class="field-icon-wrap">
+                        <div class="icon"><span class="icon-calendar"></span></div>
+                        <input type="date" id="revEndDate" name="revEndDate" class="form-control">
+                      </div>
                     </div>
-                  </div>
+                    <div>
+                      <div class="row">
+                          <label for="adults" class="font-weight-bold text-black">Adults</label>
+                          <div class="field-icon-wrap">
+                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                            <select id="adultsCount" name="adultsCount" class="form-control">
+                              <option value="" selected>-- 인원 수 선택 --</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                            </select>
+                          </div>
+                      </div>
+                    </div>  
+                    <div>
+                        <div class="row">
+                          <label for="Dog" class="font-weight-bold text-black">Dog</label>
+                          <div class="field-icon-wrap">
+                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                            <select id="dogCount" name="dogCount" class="form-control">
+                              <option value="" selected>-- 강아지 수 선택 --</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                            </select>
+                          </div>
+                        </div>
+                    </div>
+                    <div>
+                      <label for="priceCount" class="font-weight-bold text-black"></label>
+                      <div class="field-icon-wrap">
+                        <input type="button" id="priceCount" class="btn btn-outline-danger" value="예상 금액 계산">
+                      </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-            <div class="buttonBox">
-              <div class="col-md-6 col-lg-3 align-self-end">
-                <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-outline-danger" id="rvBtnFrm">
-                    예약/결제하기
-                  </button>
-              </div>
-            </div>  
           </div>
         </div>
-      </div>
+
+      <div style="width: 80%; margin-top: 20px;">
+          <div class="innerBox">
+            <div>
+              <label for="priceCount" class="font-weight-bold text-black">예상 금액 확인</label>
+              <div class="field-icon-wrap">
+                <input type="text" id="totalPrice" readonly class="form-control">
+              </div>
+            </div>
+            <div>
+                <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-outline-danger" id="rvBtnFrm">
+                    예약/결제
+                  </button>
+            </div>
+          </div>  
+      </div>  
+  </div>
   </section>
 </form>    
       <!-- reservation section end -->
        
+      
 <a href="./reviewadd?itemNum=${sellItemDTO.itemNum}"><button type="button">리뷰쓰기</button></a>
 <a href="./sellqnaadd?itemNum=${sellItemDTO.itemNum}"><button type="button">문의쓰기</button></a>
       <!-- contents, review, qna -->
+      <section class="crqSection">
+        
       <div>
         <!-- Button trigger modal -->
         <button type="button" id= "up" style="display:none" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
@@ -653,6 +704,7 @@
           <p>최고의 반려견 전문가들이 24시간 케어하는 애견호텔!
             위드독애견호텔은 작고 답답한 공간이 아닌 아늑하고 편안하게 휴식할 수 있는 넓은 객실을 갖춘 프리미엄 애견호텔 입니다.
             여행/출장 또는 장시간 집을 비워야 할 때 위드독애견호텔의 호텔링 / 데이케어(※ 산책 옵션 추가 가능)서비스를 이용해 보세요.</p>
+            <div id="map" style="width:100%; height:400px; margin-bottom: 50px;"></div>
         </div>
       </div>
     </div>
@@ -664,7 +716,7 @@
       </table>
       <button id="more" style="display: none;">더보기</button>
     </div>
-  </div>
+   </div>
   <div id="myTabContent" class="tab-content">
   <div class="tab-pane fade show active" id="q" role="tabpanel">
     <table class="table" id="qna">
@@ -674,13 +726,15 @@
     </table>
     <button id="moreqna" style="display: none;">더보기</button>
   </div>
-
+  
   </div>
 
+<section>
 
- <!-- footer start -->
- <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
- <!-- footer end -->
+  <!-- footer start -->
+  <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
+  <!-- footer end -->
+</section>
 
    <!-- script start -->
  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -698,56 +752,10 @@
  <!-- Template Main JS File -->
  <script src="/resources/assets/js/main.js"></script>
 
-<!-- daum 지도 검색 api -->  
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- kakao 길 찾기 -->
+<script src="/resources/JS/map/map.js"></script>
 <script>
-       function execDaumPostcode() {
-         new daum.Postcode({
-           oncomplete: function(data) {
-               // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-               // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-               // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-               var addr = ''; // 주소 변수
-               var extraAddr = ''; // 참고항목 변수
-
-               //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-               if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                   addr = data.roadAddress;
-               } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                   addr = data.jibunAddress;
-               }
-
-               // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-               if(data.userSelectedType === 'R'){
-                   // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                   // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                   if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                       extraAddr += data.bname;
-                   }
-                   // 건물명이 있고, 공동주택일 경우 추가한다.
-                   if(data.buildingName !== '' && data.apartment === 'Y'){
-                       extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                   }
-                   // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                   if(extraAddr !== ''){
-                       extraAddr = ' (' + extraAddr + ')';
-                   }
-                   // 조합된 참고항목을 해당 필드에 넣는다.
-                   //document.getElementById("itemLongtitude").value = extraAddr;
-               
-               } else {
-                   document.getElementById("itemAddress").value = '';
-               }
-
-               // 우편번호와 주소 정보를 해당 필드에 넣는다.
-               document.getElementById('itemZipCode').value = data.zonecode;
-               document.getElementById("itemAddress").value = addr += extraAddr;
-               // 커서를 상세주소 필드로 이동한다.
-               document.getElementById("itemDeAddress").focus();
-           }
-       }).open();
-   }//kakao api 끝
+  mapMaker();
 </script>
   <!--모달 부트스트랩-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
@@ -756,6 +764,6 @@
 <!-- 결제 api -->
 <script src="/resources/JS/check.js"></script>
 
-<script src="/resources/JS/sell.js"></script> 
+
  </body>
 </html>

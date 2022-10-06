@@ -709,7 +709,7 @@
       </div>
     <div id="myTabContent" class="tab-content">
 
-      <div class="tab-pane fade show active" role="tabpanel" id="rv">
+      <div class="tab-pane fade" role="tabpanel" id="rv">
       <table class="table" id="review">
         
       </table>
@@ -717,7 +717,7 @@
     </div>
   </div>
   	<div id="myTabContent" class="tab-content">
-  	<div class="tab-pane fade show active" id="q" role="tabpanel">
+  	<div class="tab-pane fade" id="q" role="tabpanel">
     	<table class="table" id="qna">
       		<th class="th2" style="display: none;" >작성자</th>
       		<th class="th2" style="display: none;" >제목</th>

@@ -237,6 +237,7 @@ public class SellItemService {
 	public List<ReviewDTO> getReviewList(com.pet.home.util.CommentPager commentPager)throws Exception{
 		commentPager.getRowNum();
 		Long totalCount = reviewDAO.getReviewListTotalCount(commentPager);
+		System.out.println(totalCount);
 		commentPager.makePage(totalCount);
 		return reviewDAO.getReviewList(commentPager);
 	}

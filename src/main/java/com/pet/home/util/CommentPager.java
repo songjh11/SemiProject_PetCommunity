@@ -11,8 +11,10 @@ public class CommentPager {
 
 	public void makePage(Long totalCount) {
 		this.totalPage = totalCount/this.getPerPage();
+		System.out.println(this.getPage());
 		if(totalCount%this.getPage() != 0) {
 			this.totalPage++;
+			System.out.println(this.totalPage);
 		}
 	}
 	

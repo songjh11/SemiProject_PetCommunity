@@ -42,7 +42,7 @@
 					<td>${pageScope.dto.regDate}</td>
 					<td>${pageScope.dto.discountRate}</td>
 					<td>${pageScope.dto.discountPrice}</td>
-					<td class="deleteCoupon" data-couponNum = "${pageScope.dto.couponNum}">삭제</td>
+					<td class="deleteCoupon" data-couponNum = "${pageScope.dto.couponNum}" onclick="deleteCoupon()">삭제</td>
 				</tr>
 				</c:forEach>
 			</tbody>
@@ -115,17 +115,19 @@
 			<tbody>
 				<c:forEach items="${guest}" var="gue">
 				<tr>
-					<td><button class="memberDetail" data-userId="${gue.userId}">${gue.userId}</button></td>
+					<td>${gue.userId}</td>
 					<td>${gue.userName}</td>
-					<td class="deleteMember" data-userId="${gue.userId}">추방</td>
+					<td class="deleteMember" data-userId="${gue.userId}" onclick="deleteMember()">추방</td>
+					<td><button class="memberSharing" onclick="getList('1','${gue.userId}')" data-userId="${gue.userId}">같이해요 작성한 글</button></td>
+					<td><button class="memberQna" data-userId="${gue.userId}">QnA 작성한 글</button></td>
+					<td><button class="memberItem" data-userId="${gue.userId}">구매 목록</button></td>
 				</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 	</div>
 	<!-- Button trigger modal -->
-	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="btn" style="display: none;">
-  </button>
+	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="btn" style="display: none;"></button>
   
   <!-- Modal -->
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -136,28 +138,17 @@
 		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
 		<div class="modal-body" id="boardlist">
-			<div class="row">
-				<ul class="nav nav-tabs nav-fill" role="tablist">
-					<li class="nav-item" role="presentation" style="width: 30%;">
-					<a class="nav-link active" data-bs-toggle="tab" aria-selected="true" role="tab">같이해요</a>
-					</li>
-					<li class="nav-item" role="presentation" style="width: 30%;">
-					<a class="nav-link" data-bs-toggle="tab"  id="qnaList" onclick="getQnaList(); this.onclick=null;" data-item-num="${sellItemDTO.itemNum}" aria-selected="false" role="tab" tabindex="-1">QNA</a>
-					</li>
-					<li class="nav-item" role="presentation" style="width: 30%;">
-					<a class="nav-link" data-bs-toggle="tab"  id="itemList" onclick="qnaList(); this.onclick=null;" data-item-num2="${sellItemDTO.itemNum}" aria-selected="false" role="tab" tabindex="-1">구매목록</a>
-					</li>
-			  	</ul>
-			</div>  
-		<table class="table">
-			<thead>
-				<tr>
-					<th>글 제목</th><th>작성일</th><th>조회수</th>
-				</tr>
-			</thead>
-			<tbody id="tbody">
-			</tbody>
-		  </table>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>글 제목</th><th>작성일</th><th>조회수</th>
+					</tr>
+				</thead>
+				<tbody id="tbody1">
+				</tbody>
+		  	</table>
+			  <button id="more" class="btn btn-danger">더 보기</button>
+
 		</div>
 		<div class="modal-footer">
 		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

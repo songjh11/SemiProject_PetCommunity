@@ -15,9 +15,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.pet.home.board.event.coupon.CouponDTO;
 import com.pet.home.board.impl.BoardDTO;
 import com.pet.home.board.qna.QnaDTO;
+import com.pet.home.board.sharing.SharingDAO;
 import com.pet.home.board.sharing.SharingDTO;
 import com.pet.home.member.MemberDAO;
 import com.pet.home.member.MemberDTO;
+import com.pet.home.util.CommentPager;
+import com.pet.home.util.Pager;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -27,6 +30,8 @@ public class AdminController {
 	private AdminService adminService;
 	@Autowired
 	private MemberDAO memberDAO;
+	@Autowired
+	private SharingDAO sharingDAO;
 
 	@GetMapping("mypage")
 	public ModelAndView test(ModelAndView mv) throws Exception {
@@ -74,22 +79,29 @@ public class AdminController {
 		
 	}
 	
-	//멤버별 쓴글, 상품목록 불러오기
-	@PostMapping("boardlist")
+	//멤버별 쓴글, 상품목록 불러오기 (같이해요)
+	@GetMapping("sharinglist")
 	@ResponseBody
-	public Map<String, Object> getMemberBoardList(MemberDTO memberDTO) throws Exception{
-		BoardDTO boardDTO = new BoardDTO();
-		boardDTO.setWriter(memberDTO.getUserId());
-		List<SharingDTO> sharing = adminService.getMemberSharingList(boardDTO);
-		List<QnaDTO> qna = adminService.getMemberQnaList(boardDTO);
+	public Map<String, Object> getMemberBoardList(MemberDTO memberDTO, Pager pager) throws Exception{
+		pager.setSearch(memberDTO.getUserId());
+		List<SharingDTO> sharing = adminService.getMemberSharingList(pager);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pager", pager);
 		map.put("sharing", sharing);
-		map.put("qna", qna);
+
 		
 		return map;
 		
 	}
+	
+	@PostMapping("/sharingdelete")
+	@ResponseBody
+	public int setDeleteMemSharing(BoardDTO boardDTO) throws Exception{
+		int result = sharingDAO.setDelete(boardDTO);
+		return result;
+	}
+	
 	
 	//멤버별 결제한 상품 불러오기
 	public void getMemberItemList() throws Exception{

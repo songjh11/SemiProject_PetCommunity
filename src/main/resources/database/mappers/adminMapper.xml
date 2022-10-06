@@ -26,12 +26,38 @@
 		DELETE COUPON WHERE COUPONNUM = #{couponNum}
 	</delete>
 	
-	<select id="getMemberQnaList" parameterType="BoardDTO" resultType="QnaDTO">
-		SELECT * FROM QNA WHERE WRITER = #{writer}
+	<select id="getMemberQnaList" parameterType="Pager" resultType="QnaDTO">
+		SELECT * FROM 
+		(SELECT ROWNUM R, Q.* FROM
+		(SELECT * FROM QNA 
+		WHERE WRITER = #{search}
+		 ORDER BY NUM DESC) Q)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
 	</select>
 	
-	<select id="getMemberSharingList" parameterType="BoardDTO" resultType="SharingDTO">
-		SELECT * FROM SHARING WHERE WRITER = #{writer}
+	<select id="getQnaCount" parameterType="Pager" resultType="Long">
+		SELECT COUNT(ROWNUM) FROM 
+		(SELECT ROWNUM R, Q.* FROM
+		(SELECT * FROM QNA 
+		WHERE WRITER = #{search}
+		 ORDER BY NUM DESC) Q)
+	</select>
+	
+	<select id="getMemberSharingList" parameterType="Pager" resultType="SharingDTO">
+		SELECT * FROM 
+		(SELECT ROWNUM R, S.* FROM
+		(SELECT * FROM SHARING 
+		 WHERE WRITER = #{search}
+		 ORDER BY NUM DESC) S)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
+	</select>
+	
+	<select id="getSharingCount" parameterType="Pager" resultType="Long">
+		SELECT COUNT(ROWNUM) FROM
+		(SELECT ROWNUM R, S.* FROM
+		(SELECT * FROM SHARING 
+		 WHERE WRITER = #{search}
+		 ORDER BY NUM DESC) S)
 	</select>
 	
 	

@@ -11,6 +11,8 @@ import com.pet.home.board.impl.BoardDTO;
 import com.pet.home.board.qna.QnaDTO;
 import com.pet.home.board.sharing.SharingDTO;
 import com.pet.home.member.MemberDTO;
+import com.pet.home.util.CommentPager;
+import com.pet.home.util.Pager;
 
 @Repository
 public class AdminDAO {
@@ -31,11 +33,20 @@ public class AdminDAO {
 		return sqlSession.delete(NAMESPACE+"setDeleteCoupon", couponDTO);
 	}
 	
-	public List<QnaDTO> getMemberQnaList(BoardDTO boardDTO) throws Exception{
-		return sqlSession.selectList(NAMESPACE+"getMemberQnaList", boardDTO);
+	public List<QnaDTO> getMemberQnaList(Pager pager) throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getMemberQnaList", pager);
 	}
-	public List<SharingDTO> getMemberSharingList(BoardDTO boardDTO) throws Exception{
-		return sqlSession.selectList(NAMESPACE+"getMemberSharingList", boardDTO);
+	
+	public Long getQnaCount(Pager pager) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getQnaCount", pager);
+	}
+	
+	public List<SharingDTO> getMemberSharingList(Pager pager) throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getMemberSharingList", pager);
 	}	
+	
+	public Long getSharingCount(Pager pager) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getSharingCount", pager);
+	}
 
 }

@@ -7,7 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pet.home.board.event.coupon.CouponDTO;
+
 import com.pet.home.sell.PickDTO;
+
+import com.pet.home.board.qna.QnaDTO;
+import com.pet.home.board.sharing.SharingDTO;
+
 import com.pet.home.sell.ReservationDTO;
 import com.pet.home.sell.ShopCartDTO;
 
@@ -130,6 +135,7 @@ public class MemberDAO {
 		return sqlSession.selectOne(NAMESPACE+"setUpdatePw", memberDTO);
 	}
 	
+
 	public int setPickDelete(PickDTO pickDTO)throws Exception{
 		return sqlSession.delete(NAMESPACE+"setPickDelete", pickDTO);
 	}
@@ -137,5 +143,18 @@ public class MemberDAO {
 	public int setCartDelete(ShopCartDTO shopCartDTO)throws Exception{
 		return sqlSession.delete(NAMESPACE+"setCartDelete", shopCartDTO);
 	}
+
+	//모든 멤버 리스트
+	//1. 게스트
+	public List<MemberDTO> getAllGuest() throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getAllGuest");
+	}
+	
+	//2. 사업자
+	public List<MemberDTO> getAllBizmen() throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getAllBizmen");
+	}
+		
+
 	
 }

@@ -3,12 +3,15 @@ package com.pet.home.board.impl;
 import java.sql.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class BoardDTO {
 
 	private Long num;
 	private String title;
 	private String writer;
 	private String contents;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date regDate;
 	private Long hit;
 	

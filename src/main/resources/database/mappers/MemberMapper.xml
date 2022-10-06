@@ -318,4 +318,32 @@ WHERE M.USERID = 'guest'
 			</collection>
 	</resultMap>
 	
+	<!-- 멤버 리스트 불러오기 -->
+	<!--  1. 게스트  -->
+	<select id="getAllGuest" resultType="MemberDTO">
+		SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.DEADDRESS, M.ITEMZIPCODE,M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, G.PETCATG, G.PETNAME, MF.FILENAME, MF.ORINAME
+      FROM MEMBER M
+      INNER JOIN
+      GUEST G
+      ON M.USERID = G.USERID
+      INNER JOIN 
+      ROLE R
+      ON M.ROLENUM =R.ROLENUM
+      
+      INNER JOIN
+           MEMFILE MF
+      ON M.USERID = MF.USERID
+	</select>
+	<!-- 2. 사업자 -->
+	<select id="getAllBizmen" resultType="MemberDTO">
+		SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.DEADDRESS, M.ITEMZIPCODE, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, B.ITEMCATG, B.ITEMID
+      FROM MEMBER M
+      INNER JOIN
+       ROLE R
+      ON M.ROLENUM =R.ROLENUM
+      INNER JOIN 
+        BIZMEM B
+      ON M.USERID = B.USERID
+	</select>
+	
 </mapper>

@@ -707,7 +707,6 @@
             <div id="map" style="width:100%; height:400px; margin-bottom: 50px;"></div>
         </div>
       </div>
-    </div>
     <div id="myTabContent" class="tab-content">
 
       <div class="tab-pane fade show active" role="tabpanel" id="rv">
@@ -716,18 +715,18 @@
       </table>
       <button id="more" style="display: none;">더보기</button>
     </div>
-   </div>
-  <div id="myTabContent" class="tab-content">
-  <div class="tab-pane fade show active" id="q" role="tabpanel">
-    <table class="table" id="qna">
-      <th class="th2" style="display: none;" >작성자</th>
-      <th class="th2" style="display: none;" >제목</th>
-      <th class="th2" style="display: none;" >내용</th>
-    </table>
+  </div>
+  	<div id="myTabContent" class="tab-content">
+  	<div class="tab-pane fade show active" id="q" role="tabpanel">
+    	<table class="table" id="qna">
+      		<th class="th2" style="display: none;" >작성자</th>
+      		<th class="th2" style="display: none;" >제목</th>
+      		<th class="th2" style="display: none;" >내용</th>
+    	</table>
     <button id="moreqna" style="display: none;">더보기</button>
-  </div>
-  
-  </div>
+    </div>
+   </div>
+ </div>
 
 <section>
 

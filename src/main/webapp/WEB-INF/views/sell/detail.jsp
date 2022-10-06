@@ -137,7 +137,7 @@
           <img src="" id="fullimage">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >닫기</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
         </div>
         </div>
     </div>
@@ -659,26 +659,20 @@
     <div id="myTabContent" class="tab-content">
 
       <div class="tab-pane fade show active" role="tabpanel" id="rv">
-        <p>리뷰</p>
       <table class="table" id="review">
-        <th class="th" style="display: none;" >작성자</th>
-        <th class="th" style="display: none;" >제목</th>
-        <th class="th" style="display: none;" >내용</th>
-        <th class="th" style="display: none;" >평점</th>
-        <th class="th" style="display: none;" >리뷰사진</th>
+        
       </table>
-      <button id="more">더보기</button>
+      <button id="more" style="display: none;">더보기</button>
     </div>
   </div>
   <div id="myTabContent" class="tab-content">
   <div class="tab-pane fade show active" id="q" role="tabpanel">
-    <p>문의</p>
     <table class="table" id="qna">
       <th class="th2" style="display: none;" >작성자</th>
       <th class="th2" style="display: none;" >제목</th>
       <th class="th2" style="display: none;" >내용</th>
     </table>
-    <button id="moreqna">더보기</button>
+    <button id="moreqna" style="display: none;">더보기</button>
   </div>
 
   </div>

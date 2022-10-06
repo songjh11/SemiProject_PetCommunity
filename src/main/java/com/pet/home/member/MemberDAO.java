@@ -144,16 +144,6 @@ public class MemberDAO {
 		return sqlSession.delete(NAMESPACE+"setCartDelete", shopCartDTO);
 	}
 
-	//모든 멤버 리스트
-	//1. 게스트
-	public List<MemberDTO> getAllGuest() throws Exception{
-		return sqlSession.selectList(NAMESPACE+"getAllGuest");
-	}
-	
-	//2. 사업자
-	public List<MemberDTO> getAllBizmen() throws Exception{
-		return sqlSession.selectList(NAMESPACE+"getAllBizmen");
-	}
 		
 
 	

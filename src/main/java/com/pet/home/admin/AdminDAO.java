@@ -25,8 +25,12 @@ public class AdminDAO {
 		return sqlSession.insert(NAMESPACE + "setAddCoupon", couponDTO);
 	}
 
-	public List<CouponDTO> getCouponList() throws Exception {
-		return sqlSession.selectList(NAMESPACE + "getCouponList");
+	public List<CouponDTO> getCouponList(Pager pager) throws Exception {
+		return sqlSession.selectList(NAMESPACE + "getCouponList", pager);
+	}
+	
+	public Long getCouponCount() throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getCouponCount");
 	}
 	
 	public int setDeleteCoupon(CouponDTO couponDTO) throws Exception{
@@ -48,5 +52,23 @@ public class AdminDAO {
 	public Long getSharingCount(Pager pager) throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getSharingCount", pager);
 	}
+	
+	
+	public List<MemberDTO> getAllGuset(Pager pager) throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getAllGuest", pager);
+	}
+	
+	public Long getAllGuestCount() throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getAllGuestCount");
+	}
+	
+	public List<MemberDTO> getAllBizmen(Pager pager) throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getAllBizmen", pager);
+	}
+	
+	public Long getAllBizmenCount() throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getAllBizmenCount");
+	}
+	
 
 }

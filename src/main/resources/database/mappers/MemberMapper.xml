@@ -362,4 +362,5 @@ WHERE M.USERID = 'guest'
 			</collection>
 	</resultMap>
 	
+	
 </mapper>

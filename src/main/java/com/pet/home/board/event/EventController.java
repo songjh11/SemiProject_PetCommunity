@@ -67,8 +67,8 @@ public class EventController {
 	}
 	
 	@GetMapping("add")
-	public ModelAndView setAdd(ModelAndView mv) throws Exception{
-		List<CouponDTO> list = adminService.getCouponList();
+	public ModelAndView setAdd(ModelAndView mv, Pager pager) throws Exception{
+		List<CouponDTO> list = adminService.getCouponList(pager);
 		mv.addObject("list", list);
 		mv.setViewName("board/add");
 		return mv;

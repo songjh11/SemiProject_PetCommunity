@@ -158,7 +158,7 @@
           <img src="" id="fullimage">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >닫기</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
         </div>
         </div>
     </div>
@@ -612,7 +612,7 @@
                           <div class="field-icon-wrap">
                             <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                             <select id="dogCount" name="dogCount" class="form-control">
-                              <option value="" selected>-- 강아지 수 선택 --</option>
+                              <option value="" selected>-- 반려견 수 선택 --</option>
                               <option value="1">1</option>
                               <option value="2">2</option>
                               <option value="3">3</option>
@@ -706,31 +706,31 @@
             여행/출장 또는 장시간 집을 비워야 할 때 위드독애견호텔의 호텔링 / 데이케어(※ 산책 옵션 추가 가능)서비스를 이용해 보세요.</p>
             <div id="map" style="width:100%; height:400px; margin-bottom: 50px;"></div>
         </div>
+      </div>
+    <div id="myTabContent" class="tab-content">
+
       <div class="tab-pane fade" role="tabpanel" id="rv">
-        <p>리뷰</p>
       <table class="table" id="review">
-        <th class="th" style="display: none;" >작성자</th>
-        <th class="th" style="display: none;" >제목</th>
-        <th class="th" style="display: none;" >내용</th>
-        <th class="th" style="display: none;" >평점</th>
-        <th class="th" style="display: none;" >리뷰사진</th>
+        
       </table>
-      <button id="more">더보기</button>
+      <button id="more" style="display: none;">더보기</button>
     </div>
-    <div class="tab-pane fade" id="q" role="tabpanel">
-      <p>문의</p>
-      <table class="table" id="qna">
-        <th class="th2" style="display: none;" >작성자</th>
-        <th class="th2" style="display: none;" >제목</th>
-        <th class="th2" style="display: none;" >내용</th>
-      </table>
-      <button id="moreqna">더보기</button>
+  </div>
+  	<div id="myTabContent" class="tab-content">
+  	<div class="tab-pane fade" id="q" role="tabpanel">
+    	<table class="table" id="qna">
+      		<th class="th2" style="display: none;" >작성자</th>
+      		<th class="th2" style="display: none;" >제목</th>
+      		<th class="th2" style="display: none;" >내용</th>
+    	</table>
+    <button id="moreqna" style="display: none;">더보기</button>
+    </div>
    </div>
   </div>
   </div>
+</section>
 
-<section>
-
+<section >
   <!-- footer start -->
   <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
   <!-- footer end -->

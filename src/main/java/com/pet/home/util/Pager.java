@@ -19,6 +19,7 @@ public class Pager {
 	private Long lastRow;
 	private Long perPage;
 	private Long perBlock;
+	private Long totalPage;
 	
 	//이전 블럭 유무 판단
 	private boolean pre;
@@ -96,7 +97,7 @@ public class Pager {
 			totalPage++;
 		}
 		
-
+		this.totalPage = totalPage;
 		
 		//1.1 totalPage보다 page가 더 클경우
 		if(this.getPage() > totalPage) {
@@ -187,6 +188,14 @@ public class Pager {
 	}
 	public void setPerBlock(Long perBlock) {
 		this.perBlock = perBlock;
+	}
+
+	public Long getTotalPage() {
+		return totalPage;
+	}
+
+	public void setTotalPage(Long totalPage) {
+		this.totalPage = totalPage;
 	}
 	
 	

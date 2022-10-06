@@ -5,6 +5,65 @@
 		    
 <mapper namespace="com.pet.home.admin.AdminDAO">
 	
+	<!-- 멤버 리스트 불러오기 -->
+	<!--  1. 게스트  -->
+	<select id="getAllGuest" parameterType="Pager" resultType="MemberDTO">
+		SELECT * FROM
+		(SELECT ROWNUM R, GU.* FROM
+		(SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.DEADDRESS, M.ITEMZIPCODE,M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, G.PETCATG, G.PETNAME, MF.FILENAME, MF.ORINAME
+	      FROM MEMBER M
+	      INNER JOIN
+	      GUEST G
+	      ON M.USERID = G.USERID
+	      INNER JOIN 
+	      ROLE R
+	      ON M.ROLENUM =R.ROLENUM
+	      
+	      INNER JOIN
+	           MEMFILE MF
+	      ON M.USERID = MF.USERID)GU)
+	      WHERE R BETWEEN #{startRow} AND #{lastRow}
+	</select>
+	<select id="getAllGuestCount" resultType="Long">
+		SELECT COUNT(M.USERID)
+			FROM MEMBER M
+		      INNER JOIN
+		      GUEST G
+		      ON M.USERID = G.USERID
+		      INNER JOIN 
+		      ROLE R
+		      ON M.ROLENUM =R.ROLENUM
+		      
+		      INNER JOIN
+		           MEMFILE MF
+		      ON M.USERID = MF.USERID
+	</select>
+	<!-- 2. 사업자 -->
+	<select id="getAllBizmen" parameterType="Pager" resultType="MemberDTO">
+		SELECT * FROM
+		(SELECT ROWNUM R , BI.* FROM
+		(SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.DEADDRESS, M.ITEMZIPCODE, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, B.ITEMCATG, B.ITEMID
+	      FROM MEMBER M
+	      INNER JOIN
+	       ROLE R
+	      ON M.ROLENUM =R.ROLENUM
+	      INNER JOIN 
+	        BIZMEM B
+	      ON M.USERID = B.USERID) BI)
+	      WHERE R BETWEEN #{startRow} AND #{lastRow}
+	</select>
+	<select id="getAllBizmenCount" resultType="Long">
+		SELECT COUNT(M.USERID)
+			FROM MEMBER M
+		      INNER JOIN
+		       ROLE R
+		      ON M.ROLENUM =R.ROLENUM
+		      INNER JOIN 
+		        BIZMEM B
+		      ON M.USERID = B.USERID
+	</select>
+	
+	
 	<insert id="setAddCoupon" parameterType="CouponDTO">
 		<choose>
 			<when test="discountMethod == 0">
@@ -18,8 +77,61 @@
 		</choose>
 	</insert>
 	
-	<select id="getCouponList" resultType="CouponDTO">
-		SELECT * FROM COUPON
+	<select id="getCouponList" parameterType="Pager" resultType="CouponDTO">
+		SELECT * FROM 
+		(SELECT ROWNUM R, C.* FROM
+		(SELECT * FROM COUPON 
+		 ORDER BY COUPONNUM DESC) C)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
 	</select>
+	
+	<select id="getCouponCount" resultType="Long">
+		SELECT COUNT(ROWNUM) FROM 
+		(SELECT ROWNUM R, C.* FROM
+		(SELECT * FROM COUPON 
+		 ORDER BY COUPONNUM DESC) C)
+	</select>
+	
+	<delete id="setDeleteCoupon" parameterType="CouponDTO">
+		DELETE COUPON WHERE COUPONNUM = #{couponNum}
+	</delete>
+	
+	<select id="getMemberQnaList" parameterType="Pager" resultType="QnaDTO">
+		SELECT * FROM 
+		(SELECT ROWNUM R, Q.* FROM
+		(SELECT * FROM QNA 
+		WHERE WRITER = #{search}
+		 ORDER BY NUM DESC) Q)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
+	</select>
+	
+	<select id="getQnaCount" parameterType="Pager" resultType="Long">
+		SELECT COUNT(ROWNUM) FROM 
+		(SELECT ROWNUM R, Q.* FROM
+		(SELECT * FROM QNA 
+		WHERE WRITER = #{search}
+		 ORDER BY NUM DESC) Q)
+	</select>
+	
+	<select id="getMemberSharingList" parameterType="Pager" resultType="SharingDTO">
+		SELECT * FROM 
+		(SELECT ROWNUM R, S.* FROM
+		(SELECT * FROM SHARING 
+		 WHERE WRITER = #{search}
+		 ORDER BY NUM DESC) S)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
+	</select>
+	
+	<select id="getSharingCount" parameterType="Pager" resultType="Long">
+		SELECT COUNT(ROWNUM) FROM
+		(SELECT ROWNUM R, S.* FROM
+		(SELECT * FROM SHARING 
+		 WHERE WRITER = #{search}
+		 ORDER BY NUM DESC) S)
+	</select>
+	
+	
+	
+	
 	
 </mapper>

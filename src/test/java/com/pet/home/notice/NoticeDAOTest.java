@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.pet.home.MyAbstractTest;
 import com.pet.home.board.notice.NoticeDAO;
 import com.pet.home.board.notice.NoticeDTO;
+import com.pet.home.board.sharing.SharingDAO;
+import com.pet.home.board.sharing.SharingDTO;
 import com.pet.home.util.Pager;
 
 public class NoticeDAOTest extends MyAbstractTest {
@@ -16,7 +18,8 @@ public class NoticeDAOTest extends MyAbstractTest {
 	@Autowired
 	private NoticeDAO noticeDAO;
 
-	@Test
+
+	//@Test
 	public void getListTest() throws Exception {
 
 		for (int i = 1; i < 101; i++) {
@@ -29,5 +32,7 @@ public class NoticeDAOTest extends MyAbstractTest {
 
 		System.out.println("finish");
 	}
+	
+	
 
 }

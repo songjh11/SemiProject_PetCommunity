@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Yummy Bootstrap Template - Index</title>
+  <title>WALWAL</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -45,26 +45,41 @@
 </head>
 
 <body>
-
-  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center" style="display: block;">
-    <div style="display: block; padding: auto;">
-      <nav class="navbar navbar-light bg-light">
-        <div class="row align-items-start">
-          <form class="d-flex" action="search" method="get" id="searchFrm">
-            <div>
-              <select name="itemCatg" class="form-control" id="searchItemCatg" value="${param.itemCatg}">
-                <option value="" selected>-- 상품 카테고리 선택 --</option>
-                <option value="1">호텔링</option>
-                <option value="2">원데이클래스</option>
-                <option value="3">트레이닝</option>
-              </select>
+        <!-- Modal -->
+        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Search</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form class="d-flex" action="search" method="get" id="searchFrm">
+              <div class="modal-body">
+                <div>
+                  <select name="itemCatg" class="form-control" id="searchItemCatg">
+                    <option value="">-- 상품 카테고리 선택 --</option>
+                    <option value="1">호텔링</option>
+                    <option value="2">원데이클래스</option>
+                    <option value="3">트레이닝</option>
+                  </select>
+                </div>
+                <input class="form-control me-2" type="text" name="search" placeholder="검색어 입력" aria-label="Search" value="">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success" id="searchBtn">Search</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >닫기</button>
+              </div>
+            </form>
             </div>
-            <input class="form-control me-2" type="text" name="search" placeholder="검색어 입력" aria-label="Search" value="${param.search}">
-            <button class="btn btn-outline-success" id="searchBtn" type="button">Search</button>
-          </form>
         </div>
-      </nav>
+        </div>
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+    <div>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn-book-a-table" data-bs-toggle="modal" data-bs-target="#searchModal" style="border:0px;">
+        <i class="bi bi-search"></i>
+        </button>
     </div>
     <div style="display: block;">
     <div class="container d-flex align-items-center justify-content-between">
@@ -138,8 +153,8 @@
     <div id="msgStack">
     </div>
   </header><!-- End Header -->
-<body>
-
+   <!--모달 부트스트랩-->
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
   <script src="/resources/JS/sellHeader.js"></script>
 </body>
 </html>

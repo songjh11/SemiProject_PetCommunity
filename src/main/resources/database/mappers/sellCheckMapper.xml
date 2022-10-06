@@ -2,18 +2,22 @@
 <!DOCTYPE mapper
 		    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pet.home.sell.check.CheckDAO">
+<mapper namespace="com.pet.home.sell.purchase.PurchaseDAO">
 	
 		
-	<insert id="setCheck" parameterType="CheckDTO">
+	<insert id="setPurchase" parameterType="PurchaseDTO">
 		INSERT INTO PURCHASE 
 		VALUES 
-		(#{imp_uid}, #{merchant_uid}, #{itemNum}, #{amount}, #{userId}, #{revStartDate}, #{revEndDate}, #{adultsCount}, #{dogCount}, sysdate)
+		(#{imp_uid}, #{merchant_uid}, #{itemNum}, #{amount}, #{userId}, #{revStartDate}, #{revEndDate}, #{adultsCount}, #{dogCount}, sysdate, 1)
 	</insert>
 	
-	<select id="getPurchaseList" parameterType="String" resultMap="getPurchaseListResult">
+	<update id="setPurchaseStatus" parameterType="String">
+		UPDATE PURCHASE SET PURCHASESTATUS = 0 WHERE MERCHANT_UID = #{merchant_uid}
+	</update>
+	
+	<select id="getPurchaseList" parameterType="PurchaseDTO" resultMap="getPurchaseListResult">
 		SELECT ROWNUM R, CHECKLIST.* FROM        
-		(SELECT  P.*, M.USERNAME, M.EMAIL, M.PHONE, SITEM.USERID BIZID, SITEM.ITEMNAME, SITEM.FILENAME FROM 
+		(SELECT  P.*, M.USERNAME, M.EMAIL, M.PHONE, SITEM.USERID as BIZID, SITEM.ITEMNAME, SITEM.FILENAME FROM 
 			PURCHASE P
 				RIGHT JOIN
 				MEMBER M
@@ -28,13 +32,34 @@
 	                        ON SI.ITEMNUM = SF.ITEMNUM
 	                        ORDER BY SI.ITEMNUM DESC,SF.PHOTONUM ASC) SII) SITEM
 					ON P.ITEMNUM = SITEM.ITEMNUM
-		WHERE P.USERID = #{userId}
+		WHERE (P.USERID = #{userId} AND P.PURCHASESTATUS=#{purchaseStatus})
 		ORDER BY P.PURCHASEDATE DESC) CHECKLIST	
 	</select>
 	
-	<select id="getPurchaseDetail" parameterType="CheckDTO" resultMap="getPurchaseListResult">
+	<select id="getPurchaseCancleList" parameterType="String" resultMap="getPurchaseListResult">
 		SELECT ROWNUM R, CHECKLIST.* FROM        
-		(SELECT  P.*, M.USERNAME, M.EMAIL, M.PHONE, SITEM.USERID BIZID, SITEM.ITEMNAME, SITEM.FILENAME FROM 
+		(SELECT  P.*, M.USERNAME, M.EMAIL, M.PHONE, SITEM.USERID as BIZID, SITEM.ITEMNAME, SITEM.FILENAME FROM 
+			PURCHASE P
+				RIGHT JOIN
+				MEMBER M
+				ON P.USERID = M.USERID
+					RIGHT JOIN
+					(SELECT SII.* 
+	                    FROM 
+	                    (SELECT SI.ITEMNUM, SI.ITEMPRICE, SI.ITEMNAME, SI.ITEMCATG, SI.USERID, SI.ITEMADDRESS, SF.FILENAME
+	                        FROM SELLITEM SI
+	                        INNER JOIN
+	                        SELLFILE SF
+	                        ON SI.ITEMNUM = SF.ITEMNUM
+	                        ORDER BY SI.ITEMNUM DESC,SF.PHOTONUM ASC) SII) SITEM
+					ON P.ITEMNUM = SITEM.ITEMNUM
+		WHERE (P.USERID = #{userId} AND P.PURCHASESTATUS=0)
+		ORDER BY P.PURCHASEDATE DESC) CHECKLIST	
+	</select>
+	
+	<select id="getPurchaseDetail" parameterType="PurchaseDTO" resultMap="getPurchaseListResult">
+		SELECT ROWNUM R, CHECKLIST.* FROM        
+		(SELECT  P.*, M.USERNAME, M.EMAIL, M.PHONE, SITEM.USERID as BIZID, SITEM.ITEMNAME, SITEM.FILENAME FROM 
 		PURCHASE P
 			RIGHT JOIN
 			MEMBER M
@@ -57,7 +82,7 @@
 		DELETE PURCHASE WHERE IMP_UID = #{imp_uid}
 	</delete>
 	
-	<resultMap type="CheckDTO" id="getPurchaseListResult">
+	<resultMap type="PurchaseDTO" id="getPurchaseListResult">
 		<id column="IMP_UID" property="imp_uid"/>
 				<result column="MERCHANT_UID" property="merchant_uid"/>
 				<result column="ITEMNUM" property="itemNum"/>
@@ -68,9 +93,10 @@
 				<result column="ADULTSCOUNT" property="adultsCount"/>
 				<result column="DOGCOUNT" property="dogCount"/>
 				<result column="PURCHASEDATE" property="purchaseDate"/>
+				<result column="PURCHASESTATUS" property="purchaseStatus"/>
 			<association property="itemDTO" javaType="SellItemDTO">
 				<id column="ITEMNUM" property="itemNum"/>
-				<result column="USERID" property="userId"/>
+				<result column="BIZID" property="userId"/>
 				<result column="ITEMNAME" property="itemName"/>
 				<result column="ITEMPRICE" property="itemPrice"/>
 				<result column="ITEMCONTENTS" property="itemContents"/>

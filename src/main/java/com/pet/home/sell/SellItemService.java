@@ -15,15 +15,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pet.home.member.MemberDTO;
-import com.pet.home.sell.check.CheckDAO;
-import com.pet.home.sell.check.CheckDTO;
 import com.pet.home.sell.file.RvFileDTO;
 import com.pet.home.sell.file.SellFileDTO;
+import com.pet.home.sell.purchase.PurchaseDAO;
+import com.pet.home.sell.purchase.PurchaseDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
 import com.pet.home.sell.sellcategory.SellCategoryDTO;
 import com.pet.home.util.FileManager;
 import com.pet.home.util.Pager;
 import com.pet.home.util.SellPager;
+import com.siot.IamportRestClient.IamportClient;
+import com.siot.IamportRestClient.response.AccessToken;
+import com.siot.IamportRestClient.response.IamportResponse;
 
 @Service
 public class SellItemService {
@@ -41,12 +44,21 @@ public class SellItemService {
 	@Autowired
 	private RvCommentDAO rvCommentDAO;
 	@Autowired
-	private CheckDAO checkDAO;
+	private PurchaseDAO purchaseDAO;
 	
 	@Autowired
 	private SellQnaDAO sellQnaDAO;
 	@Autowired
 	private SellQnaCommentDAO sellQnaCommentDAO;
+	
+	
+	private IamportClient client;
+	
+	public IamportClient getClient() {
+		this.client = new IamportClient("7768266328715148", "uETnhxe3MbNMjFN4Gs6U5PuiYYR6TWf9SFcGncxj9SWEcDAysad8JZmNnOYpChUkXzIdw7Ld9uTaSWuP");
+		return client;
+	}
+	
 	
 	public int setItemAdd(SellItemDTO itemDTO, MultipartFile [] files, ServletContext servletContext) throws Exception {
 		int result = itemDAO.setItemAdd(itemDTO);
@@ -243,6 +255,7 @@ public class SellItemService {
 	public List<ReviewDTO> getReviewList(com.pet.home.util.CommentPager commentPager)throws Exception{
 		commentPager.getRowNum();
 		Long totalCount = reviewDAO.getReviewListTotalCount(commentPager);
+		System.out.println(totalCount);
 		commentPager.makePage(totalCount);
 		return reviewDAO.getReviewList(commentPager);
 	}
@@ -380,23 +393,36 @@ public class SellItemService {
 	}
 	
 	//결제
-	public int setCheck(CheckDTO checkDTO) {
-		int result = checkDAO.setCheck(checkDTO);
+	public int setPurchase(PurchaseDTO purchaseDTO) {
+		int result = purchaseDAO.setPurchase(purchaseDTO);
 		return result;
 	}
 	
-	public List<CheckDTO> getPurchaseList(String userId) throws Exception{
-		return checkDAO.getPurchaseList(userId);
+	public List<PurchaseDTO> getPurchaseList(PurchaseDTO purchaseDTO) throws Exception{
+		return purchaseDAO.getPurchaseList(purchaseDTO);
 	}
 	
-	public CheckDTO getPurchaseDetail(CheckDTO checkDTO) throws Exception{
-		return checkDAO.getPurchaseDetail(checkDTO); 
+	public PurchaseDTO getPurchaseDetail(PurchaseDTO purchaseDTO) throws Exception{
+		return purchaseDAO.getPurchaseDetail(purchaseDTO); 
 	}
 	
-	public int setPurchaseDelete(CheckDTO checkDTO) throws Exception{
-		return checkDAO.setPurchaseDelete(checkDTO); 
+	public int setPurchaseDelete(PurchaseDTO purchaseDTO) throws Exception{
+		return purchaseDAO.setPurchaseDelete(purchaseDTO); 
 	}
 	
+	public int setPurchaseStatus(String merchant_uid) throws Exception {
+		return purchaseDAO.setPurchaseStatus(merchant_uid);
+	}
 	
+	//token
+	public IamportResponse<AccessToken> getToken() throws Exception {
+		//client 생성
+		IamportClient client = getClient();
+		
+		//토큰 발급
+		IamportResponse<AccessToken> token = client.getAuth();
+		return token;
+	}
+
 }
 	

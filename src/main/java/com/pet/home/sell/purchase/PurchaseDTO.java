@@ -1,4 +1,4 @@
-package com.pet.home.sell.check;
+package com.pet.home.sell.purchase;
 
 import java.sql.Date;
 import java.util.List;
@@ -7,7 +7,7 @@ import com.pet.home.member.MemberDTO;
 import com.pet.home.sell.SellItemDTO;
 import com.pet.home.sell.file.SellFileDTO;
 
-public class CheckDTO {
+public class PurchaseDTO {
 
 	private String imp_uid;
 	//가맹점번호
@@ -21,7 +21,7 @@ public class CheckDTO {
     private Long adultsCount;
     private Long dogCount;
     private Date purchaseDate;
-    
+    private Long purchaseStatus;
     
     private MemberDTO memberDTO;
     
@@ -38,6 +38,7 @@ public class CheckDTO {
 	public void setFileDTOs(List<SellFileDTO> fileDTOs) {
 		this.fileDTOs = fileDTOs;
 	}
+
 	public MemberDTO getMemberDTO() {
 		return memberDTO;
 	}
@@ -49,6 +50,15 @@ public class CheckDTO {
 	}
 	public void setItemDTO(SellItemDTO itemDTO) {
 		this.itemDTO = itemDTO;
+	}
+	
+	
+	
+	public Long getPurchaseStatus() {
+		return purchaseStatus;
+	}
+	public void setPurchaseStatus(Long purchaseStatus) {
+		this.purchaseStatus = purchaseStatus;
 	}
 	public Date getPurchaseDate() {
 		return purchaseDate;

@@ -40,10 +40,44 @@
 </head>
 
 <body>
-
-  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
-    <div class="container d-flex align-items-center justify-content-between">
+  <!-- Modal -->
+  <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Search</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form class="d-flex" action="../sell/search" method="get" id="searchFrm">
+        <div class="modal-body">
+          <div>
+            <select name="itemCatg" class="form-control" id="searchItemCatg" value="${param.itemCatg}">
+              <option value="" selected>-- 상품 카테고리 선택 --</option>
+              <option value="1">호텔링</option>
+              <option value="2">원데이클래스</option>
+              <option value="3">트레이닝</option>
+            </select>
+          </div>
+          <input class="form-control me-2" type="text" name="search" placeholder="검색어 입력" aria-label="Search" value="${param.search}">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-success" id="searchBtn">Search</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >닫기</button>
+        </div>
+      </form>
+      </div>
+  </div>
+  </div>
+<!-- ======= Header ======= -->
+<header id="header" class="header fixed-top d-flex align-items-center">
+  <div class="container d-flex align-items-center justify-content-between">
+<div>
+<!-- Button trigger modal -->
+<button type="button" class="btn-book-a-table" data-bs-toggle="modal" data-bs-target="#searchModal" style="border:0px;">
+  <i class="bi bi-search"></i>
+  </button>
+</div>
+    
 
       <a href="/" class="logo d-flex align-items-center me-auto me-lg-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
@@ -1110,7 +1144,7 @@
 
   <!-- Template Main JS File -->
   <script src="resources/assets/js/main.js"></script>
-
+  <script src="/resources/JS/sellHeader.js"></script>
 </body>
 
 </html>

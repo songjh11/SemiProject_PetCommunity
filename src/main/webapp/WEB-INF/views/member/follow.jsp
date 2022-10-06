@@ -292,7 +292,7 @@
         </c:when>
   
         <c:when test="${what eq 'Purchase List'}">
-          <c:forEach items="${checkList}" var="check">
+          <c:forEach items="${purchaseList}" var="check">
             <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
 
                 <div class="chef-member">

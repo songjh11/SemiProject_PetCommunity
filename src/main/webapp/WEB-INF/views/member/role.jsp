@@ -38,6 +38,10 @@
   width: 300px;
   margin: 0px;
 }
+
+.jg{
+  margin-left: 25%;
+}
 	</style>
   
 </head>
@@ -64,6 +68,7 @@
 
       
               <form action="./join" id="frm">
+                <div class="jg">
               <div class="col-xs-6" data-aos="fade-up" data-aos-delay="200" id="btn1">
                 <div class="icon-box d-flex flex-column justify-content-center align-items-center">
                   <i class="bi bi-person"></i>
@@ -81,6 +86,7 @@
                   <p>-</p>
                 </div>
               </div><!-- End Icon Box -->
+            </div>
             </form>
         
             

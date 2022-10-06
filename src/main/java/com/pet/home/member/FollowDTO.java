@@ -4,6 +4,15 @@ public class FollowDTO {
 
 	private String follower;
 	private String followee;
+	private MemberFileDTO memberFileDTO;
+
+	public MemberFileDTO getMemberFileDTO() {
+		return memberFileDTO;
+	}
+
+	public void setMemberFileDTO(MemberFileDTO memberFileDTO) {
+		this.memberFileDTO = memberFileDTO;
+	}
 
 	public String getFollower() {
 		return follower;

@@ -91,6 +91,7 @@
 					<fieldset class="rating">
 						평점
 						<input type="radio" id="star5" name="rvRate" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+
 						<input type="radio" id="star4half" name="rvRate" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
 						<input type="radio" id="star4" name="rvRate" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
 						<input type="radio" id="star3half" name="rvRate" value="3.5" /><label  class="half" for="star3half" title="Meh - 3.5 stars"></label>
@@ -100,27 +101,29 @@
 						<input type="radio" id="star1half" name="rvRate" value="1.5" /><label  class="half" for="star1half" title="Meh - 1.5 stars"></label>
 						<input type="radio" id="star1" name="rvRate" value="1" /><label  class = "full" for="star1" title="Sucks big time - 1 star"></label>
 						<input type="radio" id="starhalf" name="rvRate" value="0.5" checked="checked" /><label  class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+
 					  </fieldset>
 				</c:if>
 				<c:if test="${reviewDTO.rvRate == 1}">
 					<fieldset class="rating">
 						평점
 						<input type="radio" id="star5" name="rvRate" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-						<input type="radio" id="star4half" name="rvRate" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+						<input type="radio" id="star4half" name="rvRate" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
 						<input type="radio" id="star4" name="rvRate" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-						<input type="radio" id="star3half" name="rvRate" value="3 and a half" /><label  class="half" for="star3half" title="Meh - 3.5 stars"></label>
+						<input type="radio" id="star3half" name="rvRate" value="3.5" /><label  class="half" for="star3half" title="Meh - 3.5 stars"></label>
 						<input type="radio" id="star3" name="rvRate" value="3" /><label  class = "full" for="star3" title="Meh - 3 stars"></label>
-						<input type="radio" id="star2half" name="rvRate" value="2 and a half" /><label  class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+						<input type="radio" id="star2half" name="rvRate" value="2.5" /><label  class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
 						<input type="radio" id="star2" name="rvRate" value="2" /><label  class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-						<input type="radio" id="star1half" name="rvRate" value="1 and a half" /><label  class="half" for="star1half" title="Meh - 1.5 stars"></label>
+						<input type="radio" id="star1half" name="rvRate" value="1.5" /><label  class="half" for="star1half" title="Meh - 1.5 stars"></label>
 						<input type="radio" id="star1" name="rvRate" value="1" checked="checked" /><label  class = "full" for="star1" title="Sucks big time - 1 star"></label>
-						<input type="radio" id="starhalf" name="rvRate" value="half" /><label  class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+						<input type="radio" id="starhalf" name="rvRate" value="0.5" /><label  class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
 					  </fieldset>
 				</c:if>
 				<c:if test="${reviewDTO.rvRate == 1.5}">
 					<fieldset class="rating">
 						평점
 						<input type="radio" id="star5" name="rvRate" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+
 						<input type="radio" id="star4half" name="rvRate" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
 						<input type="radio" id="star4" name="rvRate" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
 						<input type="radio" id="star3half" name="rvRate" value="3.5" /><label  class="half" for="star3half" title="Meh - 3.5 stars"></label>
@@ -130,12 +133,14 @@
 						<input type="radio" id="star1half" name="rvRate" value="1.5" checked="checked" /><label  class="half" for="star1half" title="Meh - 1.5 stars"></label>
 						<input type="radio" id="star1" name="rvRate" value="1" /><label  class = "full" for="star1" title="Sucks big time - 1 star"></label>
 						<input type="radio" id="starhalf" name="rvRate" value="0.5" /><label  class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+
 					  </fieldset>
 				</c:if>
 				<c:if test="${reviewDTO.rvRate == 2}">
 					<fieldset class="rating">
 						평점
 						<input type="radio" id="star5" name="rvRate" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+
 						<input type="radio" id="star4half" name="rvRate" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
 						<input type="radio" id="star4" name="rvRate" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
 						<input type="radio" id="star3half" name="rvRate" value="3.5" /><label  class="half" for="star3half" title="Meh - 3.5 stars"></label>
@@ -145,12 +150,14 @@
 						<input type="radio" id="star1half" name="rvRate" value="1.5" /><label  class="half" for="star1half" title="Meh - 1.5 stars"></label>
 						<input type="radio" id="star1" name="rvRate" value="1" /><label  class = "full" for="star1" title="Sucks big time - 1 star"></label>
 						<input type="radio" id="starhalf" name="rvRate" value="0.5" /><label  class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+
 					  </fieldset>
 				</c:if>
 				<c:if test="${reviewDTO.rvRate == 2.5}">
 					<fieldset class="rating">
 						평점
 						<input type="radio" id="star5" name="rvRate" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+
 						<input type="radio" id="star4half" name="rvRate" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
 						<input type="radio" id="star4" name="rvRate" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
 						<input type="radio" id="star3half" name="rvRate" value="3.5" /><label  class="half" for="star3half" title="Meh - 3.5 stars"></label>
@@ -160,12 +167,14 @@
 						<input type="radio" id="star1half" name="rvRate" value="1.5" /><label  class="half" for="star1half" title="Meh - 1.5 stars"></label>
 						<input type="radio" id="star1" name="rvRate" value="1" /><label  class = "full" for="star1" title="Sucks big time - 1 star"></label>
 						<input type="radio" id="starhalf" name="rvRate" value="0.5" /><label  class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+
 					  </fieldset>
 				</c:if>
 				<c:if test="${reviewDTO.rvRate == 3}">
 					<fieldset class="rating">
 						평점
 						<input type="radio" id="star5" name="rvRate" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+
 						<input type="radio" id="star4half" name="rvRate" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
 						<input type="radio" id="star4" name="rvRate" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
 						<input type="radio" id="star3half" name="rvRate" value="3.5" /><label  class="half" for="star3half" title="Meh - 3.5 stars"></label>
@@ -175,12 +184,14 @@
 						<input type="radio" id="star1half" name="rvRate" value="1.5" /><label  class="half" for="star1half" title="Meh - 1.5 stars"></label>
 						<input type="radio" id="star1" name="rvRate" value="1" /><label  class = "full" for="star1" title="Sucks big time - 1 star"></label>
 						<input type="radio" id="starhalf" name="rvRate" value="0.5" /><label  class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+
 					  </fieldset>
 				</c:if>
 				<c:if test="${reviewDTO.rvRate == 3.5}">
 					<fieldset class="rating">
 						평점
 						<input type="radio" id="star5" name="rvRate" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+
 						<input type="radio" id="star4half" name="rvRate" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
 						<input type="radio" id="star4" name="rvRate" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
 						<input type="radio" id="star3half" name="rvRate" value="3.5" checked="checked" /><label  class="half" for="star3half" title="Meh - 3.5 stars"></label>
@@ -190,12 +201,14 @@
 						<input type="radio" id="star1half" name="rvRate" value="1.5" /><label  class="half" for="star1half" title="Meh - 1.5 stars"></label>
 						<input type="radio" id="star1" name="rvRate" value="1" /><label  class = "full" for="star1" title="Sucks big time - 1 star"></label>
 						<input type="radio" id="starhalf" name="rvRate" value="0.5" /><label  class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+
 					  </fieldset>
 				</c:if>
 				<c:if test="${reviewDTO.rvRate == 4}">
 					<fieldset class="rating">
 						평점
 						<input type="radio" id="star5" name="rvRate" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+
 						<input type="radio" id="star4half" name="rvRate" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
 						<input type="radio" id="star4" name="rvRate" value="4" checked="checked" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
 						<input type="radio" id="star3half" name="rvRate" value="3.5" /><label  class="half" for="star3half" title="Meh - 3.5 stars"></label>
@@ -205,12 +218,14 @@
 						<input type="radio" id="star1half" name="rvRate" value="1.5" /><label  class="half" for="star1half" title="Meh - 1.5 stars"></label>
 						<input type="radio" id="star1" name="rvRate" value="1" /><label  class = "full" for="star1" title="Sucks big time - 1 star"></label>
 						<input type="radio" id="starhalf" name="rvRate" value="0.5" /><label  class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+
 					  </fieldset>
 				</c:if>
 				<c:if test="${reviewDTO.rvRate == 4.5}">
 					<fieldset class="rating">
 						평점
 						<input type="radio" id="star5" name="rvRate" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+
 						<input type="radio" id="star4half" name="rvRate" value="4.5" checked="checked" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
 						<input type="radio" id="star4" name="rvRate" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
 						<input type="radio" id="star3half" name="rvRate" value="3.5" /><label  class="half" for="star3half" title="Meh - 3.5 stars"></label>
@@ -220,12 +235,16 @@
 						<input type="radio" id="star1half" name="rvRate" value="1.5" /><label  class="half" for="star1half" title="Meh - 1.5 stars"></label>
 						<input type="radio" id="star1" name="rvRate" value="1" /><label  class = "full" for="star1" title="Sucks big time - 1 star"></label>
 						<input type="radio" id="starhalf" name="rvRate" value="0.5" /><label  class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+
+						
+
 					  </fieldset>
 				</c:if>
 				<c:if test="${reviewDTO.rvRate == 5}">
 					<fieldset class="rating">
 						평점
 						<input type="radio" id="star5" name="rvRate" value="5" checked="checked" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+
 						<input type="radio" id="star4half" name="rvRate" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
 						<input type="radio" id="star4" name="rvRate" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
 						<input type="radio" id="star3half" name="rvRate" value="3.5" /><label  class="half" for="star3half" title="Meh - 3.5 stars"></label>
@@ -235,6 +254,9 @@
 						<input type="radio" id="star1half" name="rvRate" value="1.5" /><label  class="half" for="star1half" title="Meh - 1.5 stars"></label>
 						<input type="radio" id="star1" name="rvRate" value="1" /><label  class = "full" for="star1" title="Sucks big time - 1 star"></label>
 						<input type="radio" id="starhalf" name="rvRate" value="0.5" /><label  class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+
+						  
+
 					  </fieldset>
 				</c:if>
 				<input type="hidden" name="itemNum" value="${reviewDTO.itemNum}">

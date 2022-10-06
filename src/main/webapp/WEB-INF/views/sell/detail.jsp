@@ -707,7 +707,6 @@
             <div id="map" style="width:100%; height:400px; margin-bottom: 50px;"></div>
         </div>
       </div>
-    
     <div id="myTabContent" class="tab-content">
 
       <div class="tab-pane fade show active" role="tabpanel" id="rv">
@@ -726,7 +725,7 @@
     	</table>
     <button id="moreqna" style="display: none;">더보기</button>
     </div>
-  </div>
+   </div>
  </div>
 
 <section>

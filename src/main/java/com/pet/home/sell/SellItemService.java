@@ -102,6 +102,8 @@ public class SellItemService {
 	
 	public List<SellItemDTO> getItemList(SellPager sellPager) throws Exception {
 		sellPager.getRowNum();
+		System.out.println("start : "+sellPager.getStartRow());
+		System.out.println("last : "+sellPager.getLastRow());
 		sellPager.getNum(itemDAO.getItemCount(sellPager));
 		return itemDAO.getItemList(sellPager);
 	}

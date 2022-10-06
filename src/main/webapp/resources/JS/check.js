@@ -114,7 +114,7 @@ rvBtnFrm.addEventListener("click", function(){
         pay_method: "card",
         merchant_uid: merchant_uid,
         name: inv,
-        amount: 100,//tpv
+        amount: tpv,//tpv
         buyer_email: bev,
         buyer_name: bnv,
         buyer_tel: btv,
@@ -149,7 +149,7 @@ rvBtnFrm.addEventListener("click", function(){
                 console.log(paymentResult);
                 if(paymentResult=="paid") {
                   alert("결제에 성공하였습니다!")
-                  window.location.href = 'http://localhost/member/purchaseList';
+                  // window.location.href = 'http://localhost/member/purchaseList?purchaseStatus=1';
               }
               }})
           // .done(function (paymentResult) {

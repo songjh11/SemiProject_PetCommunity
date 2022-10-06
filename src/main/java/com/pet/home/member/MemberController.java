@@ -488,8 +488,8 @@ public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 		if(result>0) {
 			System.out.println("상태 변경 완");
 			msg = "resultSuccess";
-			IamportResponse<AccessToken> token = sellItemService.getToken();
-			mv.addObject("token", token.getResponse().getToken());
+//			IamportResponse<AccessToken> token = sellItemService.getToken();
+//			mv.addObject("token", token.getResponse().getToken());
 			mv.addObject("reason", reason);
 		} else {
 			msg = "error";

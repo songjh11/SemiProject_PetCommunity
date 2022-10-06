@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -408,22 +411,42 @@ public class SellItemController {
 			System.out.println("Code: "+token.getCode());
 			System.out.println("token: "+token.getResponse().getToken());
 			
-			if(paymentResult.equals("paid")) {
-				PurchaseDTO purchaseDTO = new PurchaseDTO();
-				purchaseDTO.setImp_uid(imp_uid);
-				purchaseDTO.setMerchant_uid(merchant_uid);
-				purchaseDTO.setItemNum(Long.parseLong(itemNum));
-				purchaseDTO.setAmount(Long.parseLong(amount));
-				purchaseDTO.setRevStartDate(revStartDate);
-				purchaseDTO.setRevEndDate(revEndDate);
-				purchaseDTO.setAdultsCount(Long.parseLong(adultsCount));
-				purchaseDTO.setDogCount(Long.parseLong(dogCount));
-				purchaseDTO.setUserId(userId);
-				
-				int result = itemService.setPurchase(purchaseDTO);
-				
-				return paymentResult;
-				
+			//결제되어야 할 금액 계산
+			SellItemDTO itemDTO = new SellItemDTO();
+			itemDTO.setItemNum(Long.parseLong(itemNum));
+			itemDTO = itemService.getDetailOne(itemDTO);
+			Long itemPrice = itemDTO.getItemPrice();
+			System.out.println("itemPrice: "+itemPrice);
+			
+			Date start = new SimpleDateFormat("yyyy-MM-dd").parse(revStartDate);
+	        Date end = new SimpleDateFormat("yyyy-MM-dd").parse(revEndDate);
+	        Long diffSec = (end.getTime() - start.getTime()) / 1000; //초 차이
+	        Long revDays = diffSec / (24*60*60); //일자수 차이
+	        System.out.println("revDays: "+revDays);
+			Long totalPrice = (itemPrice * revDays)+(10000*Long.parseLong(adultsCount))+(10000*Long.parseLong(dogCount));
+			System.out.println("totalPrice: "+totalPrice);
+			
+			//실제 결제 금액과 DB상 결제되어야 하는 금액 비교
+			if(amount.equals(totalPrice.toString())) {
+				if(paymentResult.equals("paid")) {
+					PurchaseDTO purchaseDTO = new PurchaseDTO();
+					purchaseDTO.setImp_uid(imp_uid);
+					purchaseDTO.setMerchant_uid(merchant_uid);
+					purchaseDTO.setItemNum(Long.parseLong(itemNum));
+					purchaseDTO.setAmount(Long.parseLong(amount));
+					purchaseDTO.setRevStartDate(revStartDate);
+					purchaseDTO.setRevEndDate(revEndDate);
+					purchaseDTO.setAdultsCount(Long.parseLong(adultsCount));
+					purchaseDTO.setDogCount(Long.parseLong(dogCount));
+					purchaseDTO.setUserId(userId);
+					
+					int result = itemService.setPurchase(purchaseDTO);
+					
+					return paymentResult;
+					
+				} else {
+					return paymentResult;
+				}
 			} else {
 				return paymentResult;
 				

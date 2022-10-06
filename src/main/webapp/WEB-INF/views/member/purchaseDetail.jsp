@@ -233,11 +233,11 @@
           let access_token = result.token;
           let checksum = result.checksum;
           $.ajax({
-          url: "https://api.iamport.kr/payments/cancel", // 예: http://www.myservice.com/payments/cancel
+          url: "http://api.iamport.kr/payments/cancel", // 예: http://www.myservice.com/payments/cancel
           type: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin" : "https://api.iamport.kr/payments/cancel",
+            "Access-Control-Allow-Origin" : "http://api.iamport.kr/payments/cancel",
             "Authorization": access_token // 아임포트 서버로부터 발급받은 엑세스 토큰
           },
           data: {

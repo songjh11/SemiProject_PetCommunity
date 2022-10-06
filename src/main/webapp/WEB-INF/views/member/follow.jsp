@@ -73,6 +73,10 @@
     #inputDiv{
       display: none;
     }
+
+    h5 {
+      display: none;
+    }
 	</style>
   
 </head>
@@ -80,8 +84,6 @@
 <!-- header start -->
 <c:import url="/WEB-INF/views/template/header.jsp"></c:import>
 <!-- header end -->
-<!-- ======= Follow Section ======= -->
-
     <section id="chefs" class="chefs section-bg">
       <div class="container" data-aos="fade-up">
 
@@ -94,90 +96,113 @@
           <c:choose>
 
             <c:when test="${what eq 'followee'}">
-              <c:forEach items="${list}" var="dto">
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-            <div class="chef-member">
-              <div class="member-img">
-                <img src="/resources/upload/member/${dto.memberFileDTO.fileName}" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-trash3"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
+          <c:forEach items="${list}" var="dto">
+            <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+              <div class="chef-member">
+                <div class="member-img">
+                  <img src="/resources/upload/member/${dto.memberFileDTO.fileName}" class="img-fluid" alt="">
                 </div>
+                <c:forEach items="${dto.followDTOs}" var="followDTOs">
+                <div class="member-info">
+                  <h4>${followDTOs.followee}</h4>
+                  <span>guest</span>
+                  <p>안녕하세요.</p>
+                  <div class="social">
+                    <button class="followeedel" type="button"><i class="bi bi-trash3"></i></button>
+                    <a href=""><i class="bi bi-facebook"></i></a>
+                    <a href=""><i class="bi bi-instagram"></i></a>
+                    <a href=""><i class="bi bi-linkedin"></i></a>
+                  </div>
+                </div>
+              </c:forEach>  
               </div>
-              <c:forEach items="${dto.followDTOs}" var="followDTOs">
-              <div class="member-info">
-                <h4>${followDTOs.followee}</h4>
-                <span>guest</span>
-                <p>안녕하세요.</p>
-              </div>
-            </c:forEach>  
+  
             </div>
-
-          </div>
-        </c:forEach>
+          </c:forEach>
+             
         </c:when>
 
+
+        <c:when test="${what eq 'follower'}">
+          <c:forEach items="${list}" var="dto">
+            <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+              <div class="chef-member">
+                <div class="member-img">
+                  <img src="/resources/upload/member/${dto.memberFileDTO.fileName}" class="img-fluid" alt="">
+                </div>
+                <c:forEach items="${dto.followDTOs}" var="followDTOs">
+                <div class="member-info">
+                  <h4>${followDTOs.follower}</h4>
+                  <span>guest</span>
+                  <p>안녕하세요.</p>
+                  <div class="social">
+                    <button class="followerdel" type="button"><i class="bi bi-trash3"></i></button>
+                    <a href=""><i class="bi bi-facebook"></i></a>
+                    <a href=""><i class="bi bi-instagram"></i></a>
+                    <a href=""><i class="bi bi-linkedin"></i></a>
+                  </div>
+                </div>
+              </c:forEach>  
+              </div>
+  
+            </div>
+          </c:forEach>
+             
+        </c:when>
 
         <c:when test="${what eq 'pick'}">
 
-              <c:forEach items="${list}" var="dto">
-
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                  <c:forEach items="${list.itemDTOs}" var="itemDTO">
+             
+                  <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                   <div class="chef-member">
                     <div class="member-img">
-                      <img src="/resources/upload/sellfile/${dto.fileDTOs.fileName}" class="img-fluid" alt="">
-                      <div class="social">
-                        <a href=""><i class="bi bi-trash3"></i></a>
-						 <a href=""><i class="bi bi-facebook"></i></a>
-                        <a href=""><i class="bi bi-instagram"></i></a>
-                        <a href=""><i class="bi bi-linkedin"></i></a>
-                      </div>
+                      <img src="/resources/upload/sellfile/${itemDTO.fileDTOs['0'].fileName}" class="img-fluid" alt="">
                     </div>
-                    <c:forEach items="${dto.itemDTOs}" var="itemDTOs">
-                      <div class="member-info">
-                        <h4>${itemDTOs.itemName}</h4>
-                        <span>${itemDTOs.itemPrice}</span>
-                        <p>${itemDTOs.itemContents}</p>
+                    <div class="member-info">
+                      <h5>${itemDTO.itemNum}</h5>
+                      <h4>${itemDTO.itemName}</h4>
+                      <span>₩ ${itemDTO.itemPrice}</span>
+                      <p>${itemDTO.itemContents}</p>
+                    <div class="social">
+                      <button class="pickdel" type="button"><i class="bi bi-trash3"></i></button>
+                       <a href=""><i class="bi bi-facebook"></i></a>
+                      <a href=""><i class="bi bi-instagram"></i></a>
+                      <a href=""><i class="bi bi-linkedin"></i></a>
                     </div>
-                  </c:forEach>  
+                  </div>
                   </div>
       
                 </div>
-              </c:forEach>
+              </c:forEach>  
               </c:when>
 
-
         <c:when test="${what eq 'cart'}">
-		<c:forEach items="${list}" var="dto">
+		<c:forEach items="${list.itemDTOs}" var="itemDTO">
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
             <div class="chef-member">
               <div class="member-img">
-                <img src="/resources/upload/sellfile/${dto.fileDTOs.fileName}" class="img-fluid" alt="">
-                <div class="social">
-
-                  <a href=""><i class="bi bi-trash3"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
+                <img src="/resources/upload/sellfile/${itemDTO.fileDTOs['0'].fileName}" class="img-fluid" alt="">
               </div>
-              <c:forEach items="${dto.itemDTOs}" var="itemDTOs">
                 <div class="member-info">
-                  <h4>${itemDTOs.itemName}</h4>
-                  <span>${itemDTOs.itemPrice}</span>
-                  <p>${itemDTOs.itemContents}</p>
+                  <h5>${itemDTO.itemNum}</h5>
+                  <h4>${itemDTO.itemName}</h4>
+                  <span>${itemDTO.itemPrice}</span>
+                  <p>${itemDTO.itemContents}</p>
+                  <div class="social">
+                    <button class="cartdel" type="button"><i class="bi bi-trash3"></i></button>
+                    <a href=""><i class="bi bi-facebook"></i></a>
+                    <a href=""><i class="bi bi-instagram"></i></a>
+                    <a href=""><i class="bi bi-linkedin"></i></a>
+                  </div>
               </div>
-            </c:forEach>  
+       
             </div>
 
           </div>
         </c:forEach>
         </c:when>
-
 
         <c:when test="${what eq 'coupon'}">
 
@@ -205,38 +230,6 @@
       </div>
           
         </c:when>
-
-
-      
-        <c:when test="${what eq 'follower'}">
-          <c:forEach items="${list}" var="dto">
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-              <div class="chef-member">
-                <div class="member-img">
-                  <img src="/resources/upload/member/${dto.memberFileDTO.fileName}" class="img-fluid" alt="">
-                </div>
-            
-                <c:forEach items="${dto.followDTOs}" var="followDTOs">
-                <div class="member-info">
-                  <h4>${followDTOs.follower}</h4>
-                  <span>guest</span>
-                  <p>안녕하세요.</p>
-                  <div class="social">
-                    <button class="del" type="button" value="${followDTOs.follower}"><i class="bi bi-trash3"></i></button>
-                    <a href=""><i class="bi bi-facebook"></i></a>
-                    <a href=""><i class="bi bi-instagram"></i></a>
-                    <a href=""><i class="bi bi-linkedin"></i></a>
-                  </div>
-                </div>
-              </c:forEach>  
-              </div>
-  
-            </div>
-          </c:forEach>
-             
-        </c:when>
-
-
   
         <c:when test="${what eq 'Purchase List'}">
           <c:forEach items="${checkList}" var="check">

@@ -145,6 +145,14 @@ UPDATE Guest SET PETCATG=#{petCatg}, PETNAME=#{petName} where USERID=#{userId}
 UPDATE MEMFILE SET FILENAME=#{fileName}, ORINAME=#{oriName} where USERID=#{userId}
 </update>
 
+<delete id="setPickDelete" parameterType="PickDTO">
+DELETE FROM PICK WHERE ITEMNUM=#{itemNum} AND USERID=#{userId}
+</delete>
+
+<delete id="setCartDelete" parameterType="ShopCartDTO">
+DELETE FROM SHOPCART WHERE ITEMNUM=#{itemNum} AND USERID=#{userId}
+</delete>
+
 
 <resultMap type="MemberDTO" id="getLoginResult">
 		<id column="USERID" property="userId" />
@@ -168,7 +176,7 @@ UPDATE MEMFILE SET FILENAME=#{fileName}, ORINAME=#{oriName} where USERID=#{userI
 	WHERE USERID=#{userId}
 	</update>
 <!--  FOLLOW LIST -->
-	<resultMap type="MemberDTO" id="getFollowList">
+<resultMap type="MemberDTO" id="getFollowList">
 	<id column="USERID" property="userId"></id>
 	
 	<association property="memberFileDTO" javaType="MemberFileDTO">
@@ -235,10 +243,12 @@ WHERE M.USERID =#{userId} ORDER BY P.PICKNUM DESC
 		<result column="ITEMNAME" property="itemName"/>
 		<result column="ITEMPRICE" property="itemPrice"/>
 		<result column="ITEMCONTENTS" property="itemContents"/>
-		<collection property="fileDTOs" javaType="List" ofType="sellFileDTO">
+
+		<collection property="fileDTOs" javaType="List" ofType="SellFileDTO">
 			<result column="FILENAME" property="fileName"/>
 		</collection>
 	</collection>
+	
 </resultMap>
 
 <select id="getShopCartList" parameterType="MemberDTO" resultMap="getShopCartListResult">
@@ -265,7 +275,7 @@ WHERE M.USERID =#{userId} ORDER BY S.SHOPNUM DESC
 		<collection property="shopCartDTOs" javaType="List" ofType="ShopCartDTO">
 		<result column="TOTALCOUNT" property="totalCount"/>
 		</collection>
-		<collection property="fileDTOs" javaType="List" ofType="sellFileDTO">
+		<collection property="fileDTOs" javaType="List" ofType="SellFileDTO">
 			<result column="FILENAME" property="fileName"/>
 		</collection>
 	</collection>

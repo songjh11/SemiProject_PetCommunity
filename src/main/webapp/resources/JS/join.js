@@ -210,26 +210,23 @@ join.addEventListener("click", function(){
 
     
         phone.addEventListener("blur", function(){
-    
+ 
         if(phone.value.length<1){
             phone.focus();
             phoneCheck=false;
             d4.innerHTML='번호를 입력해주세요.';
-        }else {
-            phoneCheck=true;
-            d4.innerHTML='';
-        }
+        }else{ phoneCheck=true;
+            d4.innerHTML='';}
     
         });
-
            
         email.addEventListener("blur", function(){
-            const em = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+            const e = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
             if(email.value.length<1){
                 email.focus();
                 emailCheck=false;
                 d5.innerHTML='이메일을 입력해주세요.';
-            }else if(em.test(email.value) == false){
+            }else if(e.test(email.value) == false){
                 email.focus();
                 emailCheck=false;
                 d5.innerHTML='올바르지 않은 이메일입니다.';

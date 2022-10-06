@@ -9,6 +9,8 @@ const full = document.getElementById("full");
 const fullimage = document.getElementById("fullimage");
 const rv = document.getElementById("rv");
 const q = document.getElementById("q");
+const more = document.getElementById("more");
+const moreqna = document.getElementById("moreqna");
 let page=1;
 function reviewList(){
     const xHttp = new XMLHttpRequest();
@@ -24,44 +26,72 @@ function reviewList(){
             for(let c=0;c<th.length;c++){
                 th[c].setAttribute("style","");
             }
+            
+            more.setAttribute("style","");
+    
             for(let i=0;i<ar.length;i++){
                 console.log(ar[i].rvFileDTOs[0].fileName);
                 if(!ar[i].rvCommentDTOs[0].rvcNum){
                     
                     let tr = document.createElement("tr"); // <tr></tr>
+                    let tr2 = document.createElement("tr2"); // <tr></tr>
                     let td = document.createElement("td"); // <td></td>
+                    tdstyle = document.createAttribute("style");
+                    tdstyle.value = "width:10%;";
+                    td.setAttributeNode(tdstyle);
                     let tdText = document.createTextNode(ar[i].userId);
                     td.appendChild(tdText);           
                     tr.appendChild(td);
     
                     td = document.createElement("td");
+                    tdstyle = document.createAttribute("style");
+                    tdstyle.value = "width:16%;";
+                    td.setAttributeNode(tdstyle);
                     tdText = document.createTextNode(ar[i].rvTitle);
                     td.appendChild(tdText);
                     tr.appendChild(td);
     
                     td = document.createElement("td");
+                    tdstyle = document.createAttribute("style");
+                    tdstyle.value = "width:18%;";
+                    td.setAttributeNode(tdstyle);
                     tdText = document.createTextNode(ar[i].rvContents);
                     td.appendChild(tdText);
                     tr.appendChild(td);
     
-                    td = document.createElement("td");
-                    tdText = document.createTextNode(ar[i].rvRate);
-                    td.appendChild(tdText);
                     if(ar[i].rvRate == "0.5"){
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "width:14%;";
+                        td.setAttributeNode(tdstyle);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star-half-full checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
+                        tdText = document.createTextNode(ar[i].rvRate);
+                        td.appendChild(tdText);
+                        tr.appendChild(td);
                     }
                     else if(ar[i].rvRate == "1"){
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "width:14%;";
+                        td.setAttributeNode(tdstyle);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
+                        tdText = document.createTextNode(ar[i].rvRate);
+                        td.appendChild(tdText);
+                        tr.appendChild(td);
                     }
                     else if(ar[i].rvRate == "1.5"){
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "width:14%;";
+                        td.setAttributeNode(tdstyle);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
@@ -72,8 +102,15 @@ function reviewList(){
                         starclass.value = "fa fa-star-half-full checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
+                        tdText = document.createTextNode(ar[i].rvRate);
+                        td.appendChild(tdText);
+                        tr.appendChild(td);
                     }
                     else if(ar[i].rvRate == "2"){
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "width:14%;";
+                        td.setAttributeNode(tdstyle);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
@@ -84,8 +121,15 @@ function reviewList(){
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
+                        tdText = document.createTextNode(ar[i].rvRate);
+                        td.appendChild(tdText);
+                        tr.appendChild(td);
                     }
                     else if(ar[i].rvRate == "2.5"){
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "width:14%;";
+                        td.setAttributeNode(tdstyle);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
@@ -101,8 +145,15 @@ function reviewList(){
                         starclass.value = "fa fa-star-half-full checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
+                        tdText = document.createTextNode(ar[i].rvRate);
+                        td.appendChild(tdText);
+                        tr.appendChild(td);
                     }
                     else if(ar[i].rvRate == "3"){
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "width:14%;";
+                        td.setAttributeNode(tdstyle);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
@@ -118,8 +169,15 @@ function reviewList(){
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
+                        tdText = document.createTextNode(ar[i].rvRate);
+                        td.appendChild(tdText);
+                        tr.appendChild(td);
                     }
                     else if(ar[i].rvRate == "3.5"){
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "width:14%;";
+                        td.setAttributeNode(tdstyle);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
@@ -140,8 +198,15 @@ function reviewList(){
                         starclass.value = "fa fa-star-half-full checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
+                        tdText = document.createTextNode(ar[i].rvRate);
+                        td.appendChild(tdText);
+                        tr.appendChild(td);
                     }
                     else if(ar[i].rvRate == "4"){
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "width:14%;";
+                        td.setAttributeNode(tdstyle);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
@@ -162,8 +227,15 @@ function reviewList(){
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
+                        tdText = document.createTextNode(ar[i].rvRate);
+                        td.appendChild(tdText);
+                        tr.appendChild(td);
                     }
                     else if(ar[i].rvRate == "4.5"){
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "width:14%;";
+                        td.setAttributeNode(tdstyle);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
@@ -189,8 +261,15 @@ function reviewList(){
                         starclass.value = "fa fa-star-half-full checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
+                        tdText = document.createTextNode(ar[i].rvRate);
+                        td.appendChild(tdText);
+                        tr.appendChild(td);
                     }
                     else if(ar[i].rvRate == "5"){
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "width:14%;";
+                        td.setAttributeNode(tdstyle);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
@@ -216,11 +295,13 @@ function reviewList(){
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
+                        tdText = document.createTextNode(ar[i].rvRate);
+                        td.appendChild(tdText);
+                        tr.appendChild(td);
                     }
-                    tr.appendChild(td);
     
-                    td = document.createElement("td");
                     for(let f=0; f<ar[i].rvFileDTOs.length; f++){
+                        td = document.createElement("td");
 
                         btnimage = document.createElement("button");
                         imagetype = document.createAttribute("type");
@@ -232,7 +313,13 @@ function reviewList(){
                         info = document.createAttribute("data-photo-name");
                         info.value = "/resources/upload/reviewfile/"+ar[i].rvFileDTOs[f].fileName;
                         btnimage.setAttributeNode(info);
+                        btnStyle = document.createAttribute("style");
+                        btnStyle.value = "border: 0px; outline: 0px;";
+                        btnimage.setAttributeNode(btnStyle);
                         img = document.createElement("img");
+                        imgStyle = document.createAttribute("style");
+                        imgStyle.value = "border-radius: 10px;";
+                        img.setAttributeNode(imgStyle);
                         src = document.createAttribute("src");
                         src.value="/resources/upload/reviewfile/"+ar[i].rvFileDTOs[f].fileName;
                         img.setAttributeNode(src);
@@ -241,15 +328,58 @@ function reviewList(){
                         img.setAttributeNode(a);
                         btnimage.appendChild(img);
                         td.appendChild(btnimage);
+                        tr2.appendChild(td);
                     }
+                    
+                    td = document.createElement("td");
+                    tdstyle = document.createAttribute("style");
+                    tdstyle.value = "width:12%;";
+                    td.setAttributeNode(tdstyle);
+                    btnZero = document.createElement("button");
+                    btnZeroType = document.createAttribute("type");
+                    btnZeroType.value = "button";
+                    btnZero.setAttributeNode(btnZeroType);
+                    btnNot = document.createAttribute("disabled");
+                    btnZero.setAttributeNode(btnNot);
+                    btnStyle = document.createAttribute("style");
+                    btnStyle.value = "border: 1px solid gray; border-radius: 10px;";
+                    btnZero.setAttributeNode(btnStyle);
+                    btnimage = document.createElement("img");
+                    imgsrc = document.createAttribute("src");
+                    imgsrc.value = "/resources/images/review-ico-comment-off.png";
+                    btnimage.setAttributeNode(imgsrc);
+                    imgalt = document.createAttribute("alt");
+                    imgalt.value = "댓글";
+                    btnimage.setAttributeNode(imgalt);
+                    btnZero.appendChild(btnimage);
+                    tdText = document.createTextNode("0");
+                    btnZero.appendChild(tdText);
+                    td.appendChild(btnZero);
                     tr.appendChild(td);
     
                     td = document.createElement("td");
-                    tdText = document.createTextNode("댓글수 0");
-                    td.appendChild(tdText);
+                    tdstyle = document.createAttribute("style");
+                    tdstyle.value = "width:10%;";
+                    td.setAttributeNode(tdstyle);
+                    button = document.createElement("button");
+                    type = document.createAttribute("type");
+                    type.value = "button";
+                    button.setAttributeNode(type);
+                    let attr3 = document.createAttribute("class");
+                    attr3.value = "reviewcommentadd btn btn-outline-success";
+                    button.setAttributeNode(attr3);
+                    attr3 = document.createAttribute("data-review-num");
+                    attr3.value = ar[i].rvNum;
+                    button.setAttributeNode(attr3);
+                    btnText = document.createTextNode("댓글쓰기");
+                    button.appendChild(btnText);
+                    td.appendChild(button);
                     tr.appendChild(td);
-    
+
                     td = document.createElement("td");
+                    tdstyle = document.createAttribute("style");
+                    tdstyle.value = "width:10%;";
+                    td.setAttributeNode(tdstyle);
                     let al = document.createElement("a");
                     href = document.createAttribute("href");
                     href.value = "./reviewupdate?rvNum="+ar[i].rvNum;
@@ -257,6 +387,9 @@ function reviewList(){
                     btntype = document.createAttribute("type");
                     btntype.value = "button";
                     button.setAttributeNode(btntype);
+                    attr3 = document.createAttribute("class");
+                    attr3.value = "btn btn-outline-warning";
+                    button.setAttributeNode(attr3);
                     btnText = document.createTextNode("리뷰수정");
                     button.appendChild(btnText);
                     al.setAttributeNode(href);
@@ -266,12 +399,15 @@ function reviewList(){
                     
 
                     td = document.createElement("td");
+                    tdstyle = document.createAttribute("style");
+                    tdstyle.value = "width:10%;";
+                    td.setAttributeNode(tdstyle);
                     button = document.createElement("button");
                     type = document.createAttribute("type");
                     type.value = "button";
                     button.setAttributeNode(type);
                     let attr2 = document.createAttribute("class");
-                    attr2.value = "reviewdelete";
+                    attr2.value = "reviewdelete btn btn-outline-danger";
                     button.setAttributeNode(attr2); 
                     attr2 = document.createAttribute("data-review-num");
                     attr2.value = ar[i].rvNum;
@@ -284,63 +420,74 @@ function reviewList(){
                     td.appendChild(button);
                     tr.appendChild(td);
 
-                    td = document.createElement("td");
-                    button = document.createElement("button");
-                    type = document.createAttribute("type");
-                    type.value = "button";
-                    button.setAttributeNode(type);
-                    let attr3 = document.createAttribute("class");
-                    attr3.value = "reviewcommentadd";
-                    button.setAttributeNode(attr3); 
-                    attr3 = document.createAttribute("data-review-num");
-                    attr3.value = ar[i].rvNum;
-                    button.setAttributeNode(attr3);
-                    btnText = document.createTextNode("댓글쓰기");
-                    button.appendChild(btnText);
-                    td.appendChild(button);
-                    tr.appendChild(td);
-    
+                    review.append(tr2);
                     review.append(tr);
                 }
 
                 else{
                     let tr = document.createElement("tr"); // <tr></tr>
+                    let tr2 = document.createElement("tr"); // <tr></tr>
                     let trid = document.createAttribute("id");
                     trid.value = "id"+ar[i].rvNum;
                     tr.setAttributeNode(trid);
                     let td = document.createElement("td"); // <td></td>
+                    tdstyle = document.createAttribute("style");
+                    tdstyle.value = "width:10%;";
+                    td.setAttributeNode(tdstyle);
                     let tdText = document.createTextNode(ar[i].userId);
                     td.appendChild(tdText);           
                     tr.appendChild(td);
     
                     td = document.createElement("td");
+                    tdstyle = document.createAttribute("style");
+                    tdstyle.value = "width:16%;";
+                    td.setAttributeNode(tdstyle);
                     tdText = document.createTextNode(ar[i].rvTitle);
                     td.appendChild(tdText);
                     tr.appendChild(td);
     
                     td = document.createElement("td");
+                    tdstyle = document.createAttribute("style");
+                    tdstyle.value = "width:18%;";
+                    td.setAttributeNode(tdstyle);
                     tdText = document.createTextNode(ar[i].rvContents);
                     td.appendChild(tdText);
                     tr.appendChild(td);
     
-                    td = document.createElement("td");
-                    tdText = document.createTextNode(ar[i].rvRate);
-                    td.appendChild(tdText);
+                    
                     if(ar[i].rvRate == "0.5"){
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "width:14%;";
+                        td.setAttributeNode(tdstyle);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star-half-full checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
+                        tdText = document.createTextNode(ar[i].rvRate);
+                        td.appendChild(tdText);
+                        tr.appendChild(td);
                     }
                     else if(ar[i].rvRate == "1"){
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "width:14%;";
+                        td.setAttributeNode(tdstyle);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
+                        tdText = document.createTextNode(ar[i].rvRate);
+                        td.appendChild(tdText);
+                        tr.appendChild(td);
                     }
                     else if(ar[i].rvRate == "1.5"){
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "width:14%;";
+                        td.setAttributeNode(tdstyle);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
@@ -351,8 +498,15 @@ function reviewList(){
                         starclass.value = "fa fa-star-half-full checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
+                        tdText = document.createTextNode(ar[i].rvRate);
+                        td.appendChild(tdText);
+                        tr.appendChild(td);
                     }
                     else if(ar[i].rvRate == "2"){
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "width:14%;";
+                        td.setAttributeNode(tdstyle);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
@@ -363,8 +517,15 @@ function reviewList(){
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
+                        tdText = document.createTextNode(ar[i].rvRate);
+                        td.appendChild(tdText);
+                        tr.appendChild(td);
                     }
                     else if(ar[i].rvRate == "2.5"){
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "width:14%;";
+                        td.setAttributeNode(tdstyle);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
@@ -380,8 +541,15 @@ function reviewList(){
                         starclass.value = "fa fa-star-half-full checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
+                        tdText = document.createTextNode(ar[i].rvRate);
+                        td.appendChild(tdText);
+                        tr.appendChild(td);
                     }
                     else if(ar[i].rvRate == "3"){
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "width:14%;";
+                        td.setAttributeNode(tdstyle);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
@@ -397,8 +565,15 @@ function reviewList(){
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
+                        tdText = document.createTextNode(ar[i].rvRate);
+                        td.appendChild(tdText);
+                        tr.appendChild(td);
                     }
                     else if(ar[i].rvRate == "3.5"){
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "width:14%;";
+                        td.setAttributeNode(tdstyle);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
@@ -419,8 +594,15 @@ function reviewList(){
                         starclass.value = "fa fa-star-half-full checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
+                        tdText = document.createTextNode(ar[i].rvRate);
+                        td.appendChild(tdText);
+                        tr.appendChild(td);
                     }
                     else if(ar[i].rvRate == "4"){
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "width:14%;";
+                        td.setAttributeNode(tdstyle);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
@@ -441,8 +623,15 @@ function reviewList(){
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
+                        tdText = document.createTextNode(ar[i].rvRate);
+                        td.appendChild(tdText);
+                        tr.appendChild(td);
                     }
                     else if(ar[i].rvRate == "4.5"){
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "width:14%;";
+                        td.setAttributeNode(tdstyle);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
@@ -468,8 +657,15 @@ function reviewList(){
                         starclass.value = "fa fa-star-half-full checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
+                        tdText = document.createTextNode(ar[i].rvRate);
+                        td.appendChild(tdText);
+                        tr.appendChild(td);
                     }
                     else if(ar[i].rvRate == "5"){
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "width:14%;";
+                        td.setAttributeNode(tdstyle);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
@@ -495,12 +691,16 @@ function reviewList(){
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
+                        tdText = document.createTextNode(ar[i].rvRate);
+                        td.appendChild(tdText);
+                        tr.appendChild(td);
                     }
-                    tr.appendChild(td);
+                    
+                    
     
-                    td = document.createElement("td");
                     for(let f=0; f<ar[i].rvFileDTOs.length; f++){
-
+                        td = document.createElement("td");
+                        
                         btnimage = document.createElement("button");
                         imagetype = document.createAttribute("type");
                         imagetype.value = "button";
@@ -511,7 +711,13 @@ function reviewList(){
                         info = document.createAttribute("data-photo-name");
                         info.value = "/resources/upload/reviewfile/"+ar[i].rvFileDTOs[f].fileName;
                         btnimage.setAttributeNode(info);
+                        btnStyle = document.createAttribute("style");
+                        btnStyle.value = "border: 0px; outline: 0px;";
+                        btnimage.setAttributeNode(btnStyle);
                         img = document.createElement("img");
+                        imgStyle = document.createAttribute("style");
+                        imgStyle.value = "border-radius: 10px;";
+                        img.setAttributeNode(imgStyle);
                         src = document.createAttribute("src");
                         src.value="/resources/upload/reviewfile/"+ar[i].rvFileDTOs[f].fileName;
                         img.setAttributeNode(src);
@@ -520,11 +726,13 @@ function reviewList(){
                         img.setAttributeNode(a);
                         btnimage.appendChild(img);
                         td.appendChild(btnimage);
+                        tr2.appendChild(td);
                     }
-                    tr.appendChild(td);
 
                     td = document.createElement("td");
-                    tdText = document.createTextNode("댓글수 "+ar[i].rvCommentDTOs.length);
+                    tdstyle = document.createAttribute("style");
+                    tdstyle.value = "width:12%;";
+                    td.setAttributeNode(tdstyle);
                     btnreply = document.createElement("button");
                     type = document.createAttribute("type");
                     type.value = "button";
@@ -535,13 +743,45 @@ function reviewList(){
                     attr4 = document.createAttribute("data-review-num");
                     attr4.value = ar[i].rvNum;
                     btnreply.setAttributeNode(attr4);
-                    btnText = document.createTextNode("댓글보기");
-                    btnreply.appendChild(btnText);
+                    btnStyle = document.createAttribute("style");
+                    btnStyle.value = "border: 1px solid gray; border-radius: 10px;";
+                    btnreply.setAttributeNode(btnStyle);
+                    btnimage = document.createElement("img");
+                    imgsrc = document.createAttribute("src");
+                    imgsrc.value = "/resources/images/review-ico-comment-off.png";
+                    btnimage.setAttributeNode(imgsrc);
+                    imgalt = document.createAttribute("alt");
+                    imgalt.value = "댓글보기";
+                    btnimage.setAttributeNode(imgalt);
+                    btnText = document.createTextNode(ar[i].rvCommentDTOs.length);
+                    btnreply.appendChild(btnimage);
+                    btnreply.appendChild(btnText); 
                     td.appendChild(btnreply);
-                    td.appendChild(tdText);
                     tr.appendChild(td);
 
                     td = document.createElement("td");
+                    tdstyle = document.createAttribute("style");
+                    tdstyle.value = "width:10%;";
+                    td.setAttributeNode(tdstyle);
+                    button = document.createElement("button");
+                    type = document.createAttribute("type");
+                    type.value = "button";
+                    button.setAttributeNode(type);
+                    let attr3 = document.createAttribute("class");
+                    attr3.value = "reviewcommentadd btn btn-outline-success";
+                    button.setAttributeNode(attr3);
+                    attr3 = document.createAttribute("data-review-num");
+                    attr3.value = ar[i].rvNum;
+                    button.setAttributeNode(attr3);
+                    btnText = document.createTextNode("댓글쓰기");
+                    button.appendChild(btnText);
+                    td.appendChild(button);
+                    tr.appendChild(td);
+
+                    td = document.createElement("td");
+                    tdstyle = document.createAttribute("style");
+                    tdstyle.value = "width:10%;";
+                    td.setAttributeNode(tdstyle);
                     let al = document.createElement("a");
                     href = document.createAttribute("href");
                     href.value = "./reviewupdate?rvNum="+ar[i].rvNum;
@@ -549,6 +789,9 @@ function reviewList(){
                     btntype = document.createAttribute("type");
                     btntype.value = "button";
                     button.setAttributeNode(btntype);
+                    attr3 = document.createAttribute("class");
+                    attr3.value = "btn btn-outline-warning";
+                    button.setAttributeNode(attr3);
                     btnText = document.createTextNode("리뷰수정");
                     button.appendChild(btnText);
                     al.setAttributeNode(href);
@@ -557,12 +800,15 @@ function reviewList(){
                     tr.appendChild(td);
     
                     td = document.createElement("td");
+                    tdstyle = document.createAttribute("style");
+                    tdstyle.value = "width:10%;";
+                    td.setAttributeNode(tdstyle);
                     button = document.createElement("button");
                     type = document.createAttribute("type");
                     type.value = "button";
                     button.setAttributeNode(type);
                     let attr2 = document.createAttribute("class");
-                    attr2.value = "reviewdelete";
+                    attr2.value = "reviewdelete btn btn-outline-danger";
                     button.setAttributeNode(attr2); 
                     attr2 = document.createAttribute("data-review-num");
                     attr2.value = ar[i].rvNum;
@@ -575,29 +821,13 @@ function reviewList(){
                     td.appendChild(button);
                     tr.appendChild(td);
 
-                    td = document.createElement("td");
-                    button = document.createElement("button");
-                    type = document.createAttribute("type");
-                    type.value = "button";
-                    button.setAttributeNode(type);
-                    let attr3 = document.createAttribute("class");
-                    attr3.value = "reviewcommentadd";
-                    button.setAttributeNode(attr3); 
-                    attr3 = document.createAttribute("data-review-num");
-                    attr3.value = ar[i].rvNum;
-                    button.setAttributeNode(attr3);
-                    btnText = document.createTextNode("댓글쓰기");
-                    button.appendChild(btnText);
-                    td.appendChild(button);
-                    tr.appendChild(td);
-
+                    review.append(tr2);
                     review.append(tr);
 
                    
                 }
-
+                console.log(pager.totalPage);
                 if(page >= pager.totalPage){
-
                     more.classList.add("disabled");
                 }
                 else{
@@ -711,11 +941,15 @@ function reviewList(){
                             let id = document.getElementById("id"+ar[i].rvNum);
                             const comment = document.getElementsByClassName("comment"+ar[i].rvNum);
                             console.log(comment);
+
                             for(let c=0;c<comment.length;c++){
                                 comment[c].addEventListener("click",function(){
                                     console.log("다시");
-                                    if(comment[c].innerText == "댓글보기"){
-                                        comment[c].innerText = "댓글닫기";
+                                    console.log(comment[c].firstChild.getAttribute("alt"))
+                                    if(comment[c].firstChild.getAttribute("alt") == "댓글보기"){
+                                        comment[c].firstChild.setAttribute("alt","댓글닫기");
+                                        comment[c].firstChild.setAttribute("src","/resources/images/review-ico-comment-on.png");
+                                        comment[c].setAttribute("style","border: 1px solid red; border-radius: 10px;")
                                         for(let j=ar[i].rvCommentDTOs.length;j>0;j--){
                                                 let tr = document.createElement("tr");
                                                 let check = document.createAttribute("class");
@@ -730,9 +964,9 @@ function reviewList(){
                                                 tr.appendChild(td);
                             
                                                 td = document.createElement("td");
-                                                colspan = document.createAttribute("colspan");
-                                                colspan.value = 2;
-                                                td.setAttributeNode(colspan);
+                                                tdcolspan = document.createAttribute("colspan");
+                                                tdcolspan.value = 5;
+                                                td.setAttributeNode(tdcolspan);
                                                 console.log(i);
                                                 console.log(j);
                                                 tdText = document.createTextNode(ar[i].rvCommentDTOs[j-1].rvcContents);
@@ -741,9 +975,6 @@ function reviewList(){
                                                 tr.appendChild(td);
                             
                                                 td = document.createElement("td");
-                                                colspan = document.createAttribute("colspan");
-                                                colspan.value = 3;
-                                                td.setAttributeNode(colspan);
                                                 button = document.createElement("button");
                                                 type = document.createAttribute("type");
                                                 type.value = "button";
@@ -754,15 +985,15 @@ function reviewList(){
                                                 attr = document.createAttribute("data-reviewcomment-num");
                                                 attr.value = ar[i].rvCommentDTOs[j-1].rvcNum;
                                                 button.setAttributeNode(attr);
+                                                attr = document.createAttribute("class");
+                                                attr.value = "btn btn-outline-warning";
+                                                button.setAttributeNode(attr);
                                                 btnText = document.createTextNode("댓글수정");
                                                 button.appendChild(btnText);
                                                 td.appendChild(button);
                                                 tr.appendChild(td);
                     
                                                 td = document.createElement("td");
-                                                colspan = document.createAttribute("colspan");
-                                                colspan.value = 3;
-                                                td.setAttributeNode(colspan);
                                                 button = document.createElement("button");
                                                 type = document.createAttribute("type");
                                                 type.value = "button";
@@ -773,6 +1004,9 @@ function reviewList(){
                                                 attr1 = document.createAttribute("data-reviewcomment-num");
                                                 attr1.value = ar[i].rvCommentDTOs[j-1].rvcNum;
                                                 button.setAttributeNode(attr1);
+                                                attr = document.createAttribute("class");
+                                                attr.value = "btn btn-outline-danger";
+                                                button.setAttributeNode(attr);
                                                 btnText = document.createTextNode("댓글삭제");
                                                 button.appendChild(btnText);
                                                 td.appendChild(button);
@@ -782,8 +1016,10 @@ function reviewList(){
                                             }
                                         }
                         
-                                        else if(comment[c].innerText == "댓글닫기"){
-                                            comment[c].innerText = "댓글보기";
+                                        else if(comment[c].firstChild.getAttribute("alt") == "댓글닫기"){
+                                            comment[c].firstChild.setAttribute("alt","댓글보기");
+                                            comment[c].firstChild.setAttribute("src","/resources/images/review-ico-comment-off.png");
+                                            comment[c].setAttribute("style","border: 1px solid gray; border-radius: 10px;");
                                             let check = document.getElementsByClassName("class"+ar[i].rvNum);
                                             for(let p=check.length;p>0;p--){
                                                 console.log(check.length);
@@ -929,6 +1165,9 @@ function qnaList(){
             for(let c=0;c<th2.length;c++){
                 th2[c].setAttribute("style","");
             }
+
+            moreqna.setAttribute("style","");
+    
             for(let i=0; i<ar.length; i++){
                 if(!ar[i].sellQnaCommentDTOs[0].sqNum){
                     let tr = document.createElement("tr"); // <tr></tr>
@@ -948,10 +1187,44 @@ function qnaList(){
                     tr.appendChild(td);
 
                     td = document.createElement("td");
-                    tdText = document.createTextNode("댓글수 0");
-                    td.appendChild(tdText);
+                    btnZero = document.createElement("button");
+                    btnZeroType = document.createAttribute("type");
+                    btnZeroType.value = "button";
+                    btnZero.setAttributeNode(btnZeroType);
+                    btnNot = document.createAttribute("disabled");
+                    btnZero.setAttributeNode(btnNot);
+                    btnStyle = document.createAttribute("style");
+                    btnStyle.value = "border: 1px solid gray; border-radius: 10px;";
+                    btnZero.setAttributeNode(btnStyle);
+                    btnimage = document.createElement("img");
+                    imgsrc = document.createAttribute("src");
+                    imgsrc.value = "/resources/images/review-ico-comment-off.png";
+                    btnimage.setAttributeNode(imgsrc);
+                    imgalt = document.createAttribute("alt");
+                    imgalt.value = "댓글";
+                    btnimage.setAttributeNode(imgalt);
+                    btnZero.appendChild(btnimage);
+                    tdText = document.createTextNode("0");
+                    btnZero.appendChild(tdText);
+                    td.appendChild(btnZero);
                     tr.appendChild(td);
     
+                    td = document.createElement("td");
+                    button = document.createElement("button");
+                    type = document.createAttribute("type");
+                    type.value = "button";
+                    button.setAttributeNode(type);
+                    let attr3 = document.createAttribute("class");
+                    attr3.value = "qnacommentadd btn btn-outline-success";
+                    button.setAttributeNode(attr3); 
+                    attr3 = document.createAttribute("data-qna-num");
+                    attr3.value = ar[i].qnaNum;
+                    button.setAttributeNode(attr3);
+                    btnText = document.createTextNode("댓글쓰기");
+                    button.appendChild(btnText);
+                    td.appendChild(button);
+                    tr.appendChild(td);
+
                     td = document.createElement("td");
                     let al = document.createElement("a");
                     href = document.createAttribute("href");
@@ -960,6 +1233,9 @@ function qnaList(){
                     btntype = document.createAttribute("type");
                     btntype.value = "button";
                     button.setAttributeNode(btntype);
+                    attr3 = document.createAttribute("class");
+                    attr3.value = "btn btn-outline-warning";
+                    button.setAttributeNode(attr3);
                     btnText = document.createTextNode("QNA수정");
                     button.appendChild(btnText);
                     al.setAttributeNode(href);
@@ -974,7 +1250,7 @@ function qnaList(){
                     type.value = "button";
                     button.setAttributeNode(type);
                     let attr2 = document.createAttribute("class");
-                    attr2.value = "qnadelete";
+                    attr2.value = "qnadelete btn btn-outline-danger";
                     button.setAttributeNode(attr2); 
                     attr2 = document.createAttribute("data-qna-num");
                     attr2.value = ar[i].qnaNum;
@@ -984,21 +1260,6 @@ function qnaList(){
                     td.appendChild(button);
                     tr.appendChild(td);
 
-                    td = document.createElement("td");
-                    button = document.createElement("button");
-                    type = document.createAttribute("type");
-                    type.value = "button";
-                    button.setAttributeNode(type);
-                    let attr3 = document.createAttribute("class");
-                    attr3.value = "qnacommentadd";
-                    button.setAttributeNode(attr3); 
-                    attr3 = document.createAttribute("data-qna-num");
-                    attr3.value = ar[i].qnaNum;
-                    button.setAttributeNode(attr3);
-                    btnText = document.createTextNode("댓글쓰기");
-                    button.appendChild(btnText);
-                    td.appendChild(button);
-                    tr.appendChild(td);
     
                     qna.append(tr);
                 }
@@ -1022,22 +1283,48 @@ function qnaList(){
                     td.appendChild(tdText);
                     tr.appendChild(td);
 
+
                     td = document.createElement("td");
-                    tdText = document.createTextNode("댓글수 "+ar[i].sellQnaCommentDTOs.length);
                     btnreply = document.createElement("button");
                     type = document.createAttribute("type");
                     type.value = "button";
                     btnreply.setAttributeNode(type);
-                    let attr4 = document.createAttribute("class");
+                    attr4 = document.createAttribute("class");
                     attr4.value = "qnacomment"+ar[i].qnaNum;
                     btnreply.setAttributeNode(attr4); 
                     attr4 = document.createAttribute("data-qna-num");
                     attr4.value = ar[i].qnaNum;
                     btnreply.setAttributeNode(attr4);
-                    btnText = document.createTextNode("댓글보기");
+                    btnStyle = document.createAttribute("style");
+                    btnStyle.value = "border: 1px solid gray; border-radius: 10px;";
+                    btnreply.setAttributeNode(btnStyle);
+                    btnimage = document.createElement("img");
+                    imgsrc = document.createAttribute("src");
+                    imgsrc.value = "/resources/images/review-ico-comment-off.png";
+                    btnimage.setAttributeNode(imgsrc);
+                    imgalt = document.createAttribute("alt");
+                    imgalt.value = "댓글보기";
+                    btnimage.setAttributeNode(imgalt);
+                    btnText = document.createTextNode(ar[i].sellQnaCommentDTOs.length);
+                    btnreply.appendChild(btnimage);
                     btnreply.appendChild(btnText);
                     td.appendChild(btnreply);
-                    td.appendChild(tdText);
+                    tr.appendChild(td);
+
+                    td = document.createElement("td");
+                    button = document.createElement("button");
+                    type = document.createAttribute("type");
+                    type.value = "button";
+                    button.setAttributeNode(type);
+                    let attr3 = document.createAttribute("class");
+                    attr3.value = "qnacommentadd btn btn-outline-success";
+                    button.setAttributeNode(attr3); 
+                    attr3 = document.createAttribute("data-qna-num");
+                    attr3.value = ar[i].qnaNum;
+                    button.setAttributeNode(attr3);
+                    btnText = document.createTextNode("댓글쓰기");
+                    button.appendChild(btnText);
+                    td.appendChild(button);
                     tr.appendChild(td);
 
                     td = document.createElement("td");
@@ -1048,6 +1335,9 @@ function qnaList(){
                     btntype = document.createAttribute("type");
                     btntype.value = "button";
                     button.setAttributeNode(btntype);
+                    attr3 = document.createAttribute("class");
+                    attr3.value = "btn btn-outline-warning";
+                    button.setAttributeNode(attr3);
                     btnText = document.createTextNode("QNA수정");
                     button.appendChild(btnText);
                     al.setAttributeNode(href);
@@ -1061,7 +1351,7 @@ function qnaList(){
                     type.value = "button";
                     button.setAttributeNode(type);
                     let attr2 = document.createAttribute("class");
-                    attr2.value = "qnadelete";
+                    attr2.value = "qnadelete btn btn-outline-danger";
                     button.setAttributeNode(attr2); 
                     attr2 = document.createAttribute("data-qna-num");
                     attr2.value = ar[i].qnaNum;
@@ -1071,21 +1361,6 @@ function qnaList(){
                     td.appendChild(button);
                     tr.appendChild(td);
 
-                    td = document.createElement("td");
-                    button = document.createElement("button");
-                    type = document.createAttribute("type");
-                    type.value = "button";
-                    button.setAttributeNode(type);
-                    let attr3 = document.createAttribute("class");
-                    attr3.value = "qnacommentadd";
-                    button.setAttributeNode(attr3); 
-                    attr3 = document.createAttribute("data-qna-num");
-                    attr3.value = ar[i].qnaNum;
-                    button.setAttributeNode(attr3);
-                    btnText = document.createTextNode("댓글쓰기");
-                    button.appendChild(btnText);
-                    td.appendChild(button);
-                    tr.appendChild(td);
 
                     qna.append(tr);
                 }
@@ -1175,8 +1450,10 @@ function qnaList(){
                     const qnacomment = document.getElementsByClassName("qnacomment"+ar[i].qnaNum);
                     for(let c=0;c<qnacomment.length;c++){
                         qnacomment[c].addEventListener("click",function(){
-                            if(qnacomment[c].innerText == "댓글보기"){
-                                qnacomment[c].innerText = "댓글닫기";
+                            if(qnacomment[c].firstChild.getAttribute("alt") == "댓글보기"){
+                                qnacomment[c].firstChild.setAttribute("alt","댓글닫기");
+                                qnacomment[c].firstChild.setAttribute("src","/resources/images/review-ico-comment-on.png");
+                                qnacomment[c].setAttribute("style","border: 1px solid red; border-radius: 10px;")
                                 for(let j=ar[i].sellQnaCommentDTOs.length;j>0;j--){
                                         let tr = document.createElement("tr");
                                         let check = document.createAttribute("class");
@@ -1192,7 +1469,7 @@ function qnaList(){
                     
                                         td = document.createElement("td");
                                         colspan = document.createAttribute("colspan");
-                                        colspan.value = 2;
+                                        colspan.value = 4;
                                         td.setAttributeNode(colspan);
                                         console.log(i);
                                         console.log(j);
@@ -1202,9 +1479,6 @@ function qnaList(){
                                         tr.appendChild(td);
                     
                                         td = document.createElement("td");
-                                        colspan = document.createAttribute("colspan");
-                                        colspan.value = 3;
-                                        td.setAttributeNode(colspan);
                                         button = document.createElement("button");
                                         type = document.createAttribute("type");
                                         type.value = "button";
@@ -1215,15 +1489,15 @@ function qnaList(){
                                         attr = document.createAttribute("data-qnacomment-num");
                                         attr.value = ar[i].sellQnaCommentDTOs[j-1].sqNum;
                                         button.setAttributeNode(attr);
+                                        attr = document.createAttribute("class");
+                                        attr.value = "btn btn-outline-warning";
+                                        button.setAttributeNode(attr);
                                         btnText = document.createTextNode("댓글수정");
                                         button.appendChild(btnText);
                                         td.appendChild(button);
                                         tr.appendChild(td);
             
                                         td = document.createElement("td");
-                                        colspan = document.createAttribute("colspan");
-                                        colspan.value = 3;
-                                        td.setAttributeNode(colspan);
                                         button = document.createElement("button");
                                         type = document.createAttribute("type");
                                         type.value = "button";
@@ -1234,6 +1508,9 @@ function qnaList(){
                                         attr1 = document.createAttribute("data-qnacomment-num");
                                         attr1.value = ar[i].sellQnaCommentDTOs[j-1].sqNum;
                                         button.setAttributeNode(attr1);
+                                        attr = document.createAttribute("class");
+                                        attr.value = "btn btn-outline-danger";
+                                        button.setAttributeNode(attr);
                                         btnText = document.createTextNode("댓글삭제");
                                         button.appendChild(btnText);
                                         td.appendChild(button);
@@ -1243,8 +1520,10 @@ function qnaList(){
                                     }
                 
                             }
-                            else if(qnacomment[c].innerText == "댓글닫기"){
-                                qnacomment[c].innerText = "댓글보기";
+                            else if(qnacomment[c].firstChild.getAttribute("alt") == "댓글닫기"){
+                                qnacomment[c].firstChild.setAttribute("alt","댓글보기");
+                                qnacomment[c].firstChild.setAttribute("src","/resources/images/review-ico-comment-off.png");
+                                qnacomment[c].setAttribute("style","border: 1px solid gray; border-radius: 10px;");
                                 let check = document.getElementsByClassName("class"+ar[i].qnaNum);
                                 for(let p=check.length;p>0;p--){
                                     check[p-1].remove();

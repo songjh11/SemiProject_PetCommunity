@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>review add</title>
+<title>Add Review</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
  
@@ -71,62 +71,62 @@
       <div class="container" data-aos="fade-up">
 
         <div class="section-header">
-          <p><span>Add Item</span></p>
+          <p><span>Add Review</span></p>
         </div>
 
           <div class="col-lg-8 align-items-center">
-            <form action="reviewadd" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data" id="addItemFrm">
+            <form action="reviewadd" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data">
               <div class="row gy-4">
-                <div class="col-lg-8 col-md-12">
-                  <input type="text" name="userId" class="form-control" id="userId" placeholder="User ID">
-                  <div class="validate"></div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                   <button type="button" id="sellfileAdd">상품 사진 추가</button>
-                  </div>
-                <div class="col-lg-4 col-md-6">  
-                <div id="sellFileImages">
-                  <div id= "inputDiv"></div>
-                  <div id = "imgDiv"></div>
-                </div>
-                </div>
+                	<div class="col-lg-8 col-md-12">
+                  		<input type="text" name="userId" class="form-control" id="userId" placeholder="User ID">
+                  		<div class="validate"></div>
+                	</div>
+                	<div class="col-lg-4 col-md-6">
+                   		<button type="button" id="sellfileAdd">상품 사진 추가</button>
+                	</div>
+                	<div class="col-lg-4 col-md-6">  
+                	<div id="sellFileImages">
+                  		<div id= "inputDiv"></div>
+                  		<div id = "imgDiv"></div>
+                	</div>
+                	</div>
                              
-                <div class="col-lg-12 col-md-12">
-                  <input type="text" class="form-control" name="rvTitle" id="rvTitle" placeholder="Review Title">
-                  <div class="validate"></div>
-                </div>
-                <div class="form-group mt-3">
-	                <textarea class="form-control" name="rvContents" rows="5" placeholder="Review Contents"></textarea>
-	                <div class="validate"></div>
-                </div>
+                	<div class="col-lg-12 col-md-12">
+                  		<input type="text" class="form-control" name="rvTitle" id="rvTitle" placeholder="Review Title">
+                  		<div class="validate"></div>
+                	</div>
+                	<div class="form-group mt-3">
+	                	<textarea class="form-control" name="rvContents" rows="5" placeholder="Review Contents"></textarea>
+	                	<div class="validate"></div>
+                	</div>
                 
-                <fieldset class="rating">
-                  평점
-                  <input type="radio" id="star5" name="rvRate" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-                  <input type="radio" id="star4half" name="rvRate" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-                  <input type="radio" id="star4" name="rvRate" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-                  <input type="radio" id="star3half" name="rvRate" value="3 and a half" /><label  class="half" for="star3half" title="Meh - 3.5 stars"></label>
-                  <input type="radio" id="star3" name="rvRate" value="3" /><label  class = "full" for="star3" title="Meh - 3 stars"></label>
-                  <input type="radio" id="star2half" name="rvRate" value="2 and a half" /><label  class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-                  <input type="radio" id="star2" name="rvRate" value="2" /><label  class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-                  <input type="radio" id="star1half" name="rvRate" value="1 and a half" /><label  class="half" for="star1half" title="Meh - 1.5 stars"></label>
-                  <input type="radio" id="star1" name="rvRate" value="1" /><label  class = "full" for="star1" title="Sucks big time - 1 star"></label>
-                  <input type="radio" id="starhalf" name="rvRate" value="half" /><label  class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
-                </fieldset>
+                	<fieldset class="rating">
+                  	평점
+                  	<input type="radio" id="star5" name="rvRate" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                  	<input type="radio" id="star4half" name="rvRate" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+                  	<input type="radio" id="star4" name="rvRate" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+                  	<input type="radio" id="star3half" name="rvRate" value="3.5" /><label  class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                  	<input type="radio" id="star3" name="rvRate" value="3" /><label  class = "full" for="star3" title="Meh - 3 stars"></label>
+                  	<input type="radio" id="star2half" name="rvRate" value="2.5" /><label  class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                  	<input type="radio" id="star2" name="rvRate" value="2" /><label  class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+                  	<input type="radio" id="star1half" name="rvRate" value="1.5" /><label  class="half" for="star1half" title="Meh - 1.5 stars"></label>
+                  	<input type="radio" id="star1" name="rvRate" value="1" /><label  class = "full" for="star1" title="Sucks big time - 1 star"></label>
+                  	<input type="radio" id="starhalf" name="rvRate" value="0.5" /><label  class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                	</fieldset>
                 
-                 <div class="col-lg-6 col-md-6">
-                 <input type="hidden" name="itemNum" class="form-control" id="itemNum" value="${reviewDTO.itemNum }">
-                  <div class="validate"></div>
+                 	<div class="col-lg-6 col-md-6">
+                 		<input type="hidden" name="itemNum" class="form-control" id="itemNum" value="${reviewDTO.itemNum }">
+                  		<div class="validate"></div>
+                	</div>
                 </div>
-              <br>
+              	<br>
              <div class="text-left">
-             	<button type="submit" id="reviewAddBtn">리뷰 등록</button>
+             	<button type="submit">리뷰 등록</button>
              </div>
-             
-            </form>
+           </form>
+           
           </div><!-- End Reservation Form -->
-
-        </div>
+		</div>
 
     </section><!-- End Add Items Section -->
 
@@ -150,8 +150,8 @@
   <script src="/resources/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="/resources/assets/js/main.js"></script>
-  <script src="/resources/JS/sell.js"></script>
+<script src="/resources/assets/js/main.js"></script>
+<script src="/resources/JS/sell.js"></script>
 
 </body>
 </html>

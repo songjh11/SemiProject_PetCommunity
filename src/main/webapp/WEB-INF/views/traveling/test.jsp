@@ -6,6 +6,177 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+
+.side-menu {
+            top: 50px;
+            width: 45px;
+            z-index: 10;
+            background: #ff5858;
+            border-right: 1px solid rgba(0, 0, 0, 0.07);
+            bottom: 50px;
+            height: 100%;
+            margin-bottom: -70px;
+            margin-top: 0px;
+            padding-bottom: 70px;
+            position: fixed;
+            box-shadow: 0 0px 24px 0 rgb(0 0 0 / 6%), 0 1px 0px 0 rgb(0 0 0 / 2%);
+        }
+
+        .sidebar-inner {
+            height: 100%;
+            padding-top: 30px;
+        }
+
+        #sidebar-menu,
+        #sidebar-menu ul,
+        #sidebar-menu li,
+        #sidebar-menu a {
+            border: 0;
+            font-weight: normal;
+            line-height: 1;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            text-decoration: none;
+        }
+
+        #sidebar-menu>ul>li a {
+            color: #fff;
+            font-size: 20px;
+            display: block;
+            padding: 14px 0px;
+            margin: 0px 0px 0px 8px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            width: 28px;
+            cursor: pointer;
+        }
+
+        #sidebar-menu .fas {
+            padding-left: 6px;
+        }
+
+        /* 사이드 메뉴 */
+        input[type="search"] {
+            width: 180px;
+            margin: 0 auto;
+            margin-left: 9px;
+            border: 2px solid #797979;
+            font-size: 14px;
+            margin-top: 10px;
+            padding: 4px 0 4px 14px;
+            border-radius: 50px;
+        }
+
+        .left_sub_menu {
+            position: fixed;
+            top: 50px;
+            width: 200px;
+            z-index: 10;
+            left: 45px;
+            background: white;
+            border-right: 1px solid rgba(0, 0, 0, 0.07);
+            bottom: 50px;
+            height: 100%;
+            margin-bottom: -70px;
+            margin-top: 0px;
+            padding-bottom: 0px;
+            box-shadow: 0 0px 24px 0 rgb(0 0 0 / 6%), 0 1px 0px 0 rgb(0 0 0 / 2%);
+            color: black;
+        }
+
+        .sub_menu {
+            margin-top: 50px;
+        }
+
+        .left_sub_menu>.sub_menu li:hover {
+            color: ff5858;
+            background-color: #e1e1e1;
+        }
+
+        .left_sub_menu>.sub_menu li {
+            color: #333;
+            font-size: 17px;
+            font-weight: 600;
+            padding: 20px 0px 8px 14px;
+            border-bottom: 1px solid #e1e1e1;
+        }
+
+        .sub_menu>h2 {
+            padding-bottom: 4px;
+            border-bottom: 3px solid #797979;
+            margin-top: 30px;
+            font-size: 21px;
+            font-weight: 600;
+            color: #333;
+            margin-left: 10px;
+            margin-right: 10px;
+            font-family: 'NotoKrB';
+            line-height: 35px;
+        }
+
+        .sub_menu .fas {
+            color: #ff5858;
+            font-size: 20px;
+            line-height: 20px;
+            float: right;
+            margin-right: 20px;
+        }
+
+        .sub_menu>.big_menu>.small_menu li {
+            color: #333;
+            font-size: 14px;
+            font-weight: 600;
+            border-bottom: 0px solid #e1e1e1;
+            margin-left: 14px;
+            padding-top: 8px;
+        }
+
+        .big_menu {
+            cursor: pointer;
+        }
+
+        ul {
+            padding-inline-start: 0px;
+        }
+
+        a {
+            color: #797979;
+            text-decoration: none;
+            background-color: transparent;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        ol,
+        ul {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .has_sub {
+            width: 100%;
+        }
+
+        .overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .hide_sidemenu {
+            display: none;
+        }
+
+        
+
+
+</style>
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </head>
@@ -13,21 +184,79 @@
   <!-- 지도영역 -->
         
 
-  
-  <div id="map" style="width:100%; height:100vh;">
-    위도 : <span id="latitude"></span><br>
-    경도 : <span id="longitude"></span><br>
-    날씨 : <img id="wicon" src=""><br>
-    기온 : <span id="tempr"></span>
-    <hr>
+  <div class="map_wrap" style="position: relative;">
+      <div id="map" style="width:100%; height:100vh; position:relative; overflow:hidden; z-index: 1;">
+          
+        <div id="wrapper">
+          <div class="topbar" style="position: absolute; top:0;">
+            <div id="menu_wrap" class="bg_white" style="z-index: 2; color: crimson; position:absolute">
+            <span id="latitude" style="display: none;"></span><br>
+            <span id="longitude"style="display: none;"></span><br>
+            현재 날씨 : <img id="wicon" src=""><br>
+            기온 : <span id="tempr"></span>
+          </div>
+              <!-- 왼쪽 메뉴 -->
+              <div class="left side-menu">
+                  <div class="sidebar-inner">
+                      <div id="sidebar-menu">
+                          <ul>
+                              <li class="has_sub"><a href="javascript:void(0);" class="waves-effect">
+                                  <i class="fas fa-bars"></i>
+                              </a></li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+              <!-- 왼쪽 서브 메뉴 -->
+              <div class="left_sub_menu">
+                  <div class="sub_menu">
+                      <input type="search" name="SEARCH" placeholder="SEARCH">
+                      <h2>TITLE</h2>
+                      <ul class="big_menu">
+                          <li>MENU 1 <i class="arrow fas fa-angle-right"></i></li>
+                          <ul class="small_menu">
+                              <li><a href="#" id="item">소메뉴1-1</a></li>
+                              <li><a href="#">소메뉴1-2</a></li>
+                              <li><a href="">소메뉴1-3</a></li>
+                              <li><a href="#">소메뉴1-4</a></li>
+                          </ul>
+                      </ul>
+                      <ul class="big_menu">
+                          <li>MENU 2 <i class="arrow fas fa-angle-right"></i></li>
+                          <ul class="small_menu">
+                              <li><a href="#">소메뉴2-1</a></li>
+                              <li><a href="#"></a>소메뉴2-2</a></li>
+                          </ul>
+                      </ul>
+                      <ul class="big_menu">
+                          <li>MYPAGE</li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="overlay"></div>
+          </div>
+      
       </div>
+      <hr>
+  </div>
 
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c8a091a525c100bb59fb876c4c7b6bf9&libraries=services"></script>
   <script src="http://code.jquery.com/jquery-latest.js"></script> 
   <script>
-       let list = [];
+       let list = new Array();
     <c:forEach items="${list}" var="dto">
-      list.push("${dto.itemAddress}");
+      list.push({
+        itemNum: "${dto.itemNum}",
+        userId: "${dto.userId}",
+        itemName : "${dto.itemName}",
+        itemPrice : "${dto.itemPrice}",
+        itemContents : "${dto.itemContents}",
+        itemZipCode : "${dto.itemZipCode}",
+        itemAddress : "${dto.itemAddress}",
+        itemDeAdress : "${dto.itemDeAddress}",
+        itemCatg : "${dto.itemCatg}",
+        fileDTOs : "${dto.fileDTOs}"
+      });
     </c:forEach>
         
     
@@ -104,12 +333,12 @@
 
  
     
-    function sellItemMarker(list){
+    function sellItemMarker(ist){
       var geocoder = new kakao.maps.services.Geocoder();
 
       for(let i=0; i<list.length; i++){
         // 주소로 좌표를 검색합니다
-        geocoder.addressSearch(list[i], function(result, status) {
+        geocoder.addressSearch(list[i].itemAddress, function(result, status) {
 
             // 정상적으로 검색이 완료됐으면 
             if (status === kakao.maps.services.Status.OK) {
@@ -124,10 +353,25 @@
 
                 // 인포윈도우로 장소에 대한 설명을 표시합니다
                 var infowindow = new kakao.maps.InfoWindow({
-                    content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+                    content: '<div style="width:150px;text-align:center;padding:6px 0;">'+list[i].itemName+'</div>'
                 });
                 infowindow.open(map, marker);
+                
+                kakao.maps.event.addListener(marker, 'click', function() {
+                  // 마커 위에 인포윈도우를 표시합니다
+                  console.log("클릭");
+                  let item = document.querySelector("#item");
+                  item.innerHTML = ""+list[i].itemName +"/"+ list[i].itemPrice+"";
+                  
+                  infowindow = new kakao.maps.InfoWindow({
+                    content: '<img src="/resources/upload/sellfile/'+list[i].fileDTOs[0].fileName+'>'
+                              +'<div style="width:150px;text-align:center;padding:6px 0;">'+list[i].itemName+'</div><br>'
+                              +'<div style="width:150px; text-align:center;padding:6px 0;">'+list[i].itemPrice+'</div>'
 
+                            });
+                            infowindow.open(map, marker);
+
+                });
                 // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
                 // map.setCenter(coords);
               
@@ -136,6 +380,8 @@
         });    
     }
   }
+
+
 
 
     function showLocation(event) {

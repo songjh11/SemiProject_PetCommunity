@@ -2,6 +2,8 @@ package com.pet.home.sell;
 
 import java.sql.Date;
 
+import com.pet.home.member.MemberDTO;
+
 public class PickDTO {
 	
 	private Long pickNum;
@@ -9,6 +11,7 @@ public class PickDTO {
 	private String userId;
 	private Date pickDate;
 	private Long pickValue;
+
 	public Long getPickNum() {
 		return pickNum;
 	}

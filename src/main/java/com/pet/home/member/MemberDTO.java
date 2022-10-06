@@ -3,6 +3,7 @@ package com.pet.home.member;
 import java.util.List;
 
 import com.pet.home.board.event.coupon.CouponDTO;
+import com.pet.home.sell.PickDTO;
 import com.pet.home.sell.ReservationDTO;
 import com.pet.home.sell.SellItemDTO;
 import com.pet.home.sell.ShopCartDTO;
@@ -42,6 +43,15 @@ public class MemberDTO {
 	private MemberFileDTO memberFileDTO;
 	private ReservationDTO reservationDTO;
 	private String follower;
+	private String followee;
+
+	public String getFollowee() {
+		return followee;
+	}
+
+	public void setFollowee(String followee) {
+		this.followee = followee;
+	}
 
 	public String getFollower() {
 		return follower;

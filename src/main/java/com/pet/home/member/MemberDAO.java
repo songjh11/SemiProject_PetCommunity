@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pet.home.board.event.coupon.CouponDTO;
+import com.pet.home.sell.ReservationDTO;
 
 @Repository
 public class MemberDAO {
@@ -91,24 +92,40 @@ public class MemberDAO {
 		return sqlSession.selectList(NAMESPACE+"getFollowerList",memberDTO);
 	}
 
-	public int getFollowerount(MemberDTO memberDTO)throws Exception{
+	public int getFollowerCount(MemberDTO memberDTO)throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getFollowerCount", memberDTO);
 	}
 	
-	public int getFolloweeount(MemberDTO memberDTO)throws Exception{
+	public int getFolloweeCount(MemberDTO memberDTO)throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getFolloweeCount", memberDTO);
 	}
 	
-	public int setFollow(MemberDTO memberDTO)throws Exception{
-		return sqlSession.insert(NAMESPACE+"setFollow", memberDTO);
+	public int setFollow(FollowDTO followDTO)throws Exception{
+		return sqlSession.insert(NAMESPACE+"setFollow", followDTO);
 	}
 	
-	public int setFollowDelete(MemberDTO memberDTO)throws Exception{
-		return sqlSession.delete(NAMESPACE+"setFollowDelete", memberDTO);
+	public int setFolloweeDelete(MemberDTO memberDTO)throws Exception{
+		return sqlSession.delete(NAMESPACE+"setFolloweeDelete", memberDTO);
+	}
+	
+	public int setFollowerDelete(MemberDTO memberDTO)throws Exception{
+		return sqlSession.delete(NAMESPACE+"setFollowerDelete", memberDTO);
 	}
 	
 	public List<CouponDTO> getCouponList(MemberDTO memberDTO){
 		return sqlSession.selectList(NAMESPACE+"getCouponList", memberDTO);
+	}
+	
+	public List<ReservationDTO> getRevList(MemberDTO memberDTO){
+		return sqlSession.selectList(NAMESPACE+"getRevList", memberDTO);
+	}
+	
+	public MemberDTO getFindLogin(MemberDTO memberDTO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getFindLogin", memberDTO);
+	}
+	
+	public MemberDTO setUpdatePw(MemberDTO memberDTO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"setUpdatePw", memberDTO);
 	}
 	
 }

@@ -13,65 +13,71 @@ import com.pet.home.util.Pager;
 
 @Repository
 public class NoticeDAO implements BoardDAO {
-	
+
 	@Autowired
 	private SqlSession sqlSession;
 	private final String NAMESPACE = "com.pet.home.board.notice.NoticeDAO.";
-	
-	
+
 	@Override
 	public List<BoardDTO> getList(Pager pager) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(NAMESPACE+"getList",pager);
+		return sqlSession.selectList(NAMESPACE + "getList", pager);
 	}
-	
+
 	@Override
 	public Long getCount(Pager pager) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(NAMESPACE+"getCount", pager);
+		return sqlSession.selectOne(NAMESPACE + "getCount", pager);
 	}
-
 
 	@Override
 	public int setAdd(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.insert(NAMESPACE+"setAdd", boardDTO);
+		return sqlSession.insert(NAMESPACE + "setAdd", boardDTO);
 	}
-	
+
 	@Override
 	public int setFileAdd(BoardFileDTO boardFileDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.insert(NAMESPACE+"setFileAdd", boardFileDTO);
+		return sqlSession.insert(NAMESPACE + "setFileAdd", boardFileDTO);
 	}
-	
+
 	@Override
 	public int setFileDelete(BoardFileDTO boardFileDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.delete(NAMESPACE+"setFileDelete", boardFileDTO);
+		return sqlSession.delete(NAMESPACE + "setFileDelete", boardFileDTO);
 	}
-	
+
 	@Override
 	public BoardFileDTO getFileDetail(BoardFileDTO boardFileDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(NAMESPACE+"getFileDetail", boardFileDTO);
+		return sqlSession.selectOne(NAMESPACE + "getFileDetail", boardFileDTO);
 	}
-	
+
 	@Override
 	public BoardDTO getDetail(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(NAMESPACE+"getDetail", boardDTO);
+		return sqlSession.selectOne(NAMESPACE + "getDetail", boardDTO);
 	}
-	
+
 	@Override
 	public int setUpdate(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.update(NAMESPACE+"setUpdate", boardDTO);
+		return sqlSession.update(NAMESPACE + "setUpdate", boardDTO);
 	}
-	
+
 	@Override
 	public int setDelete(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.delete(NAMESPACE+"setDelete", boardDTO);
+		return sqlSession.delete(NAMESPACE + "setDelete", boardDTO);
 	}
+
+	@Override
+	public int setUpdateHit(BoardDTO boardDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.update(NAMESPACE+"setUpdateHit", boardDTO);
+	}
+	
+	
 	
 }

@@ -5,6 +5,15 @@ const realsellfileAdd = document.getElementById("realsellfileAdd");
 const inputDiv = document.getElementById("inputDiv");
 const imgDiv = document.getElementById("imgDiv");
 const uFileDelete = document.querySelectorAll(".uFileDelete");
+const itemName = document.getElementById("itemName");
+const itemPrice = document.getElementById("itemPrice");
+const itemContents = document.getElementById("itemContents");
+const itemZipCode = document.getElementById("itemZipCode");
+const itemAddress = document.getElementById("itemAddress");
+const itemDeAddress = document.getElementById("itemDeAddress");
+const itemCatg = document.getElementById("itemCatg");
+const addItemBtn = document.getElementById("addItemBtn");
+const addItemFrm = document.getElementById("addItemFrm");
 
 let count=0;
 let idx=0;
@@ -111,75 +120,74 @@ imgDiv.addEventListener("click", function(event){
 
 //삭제 끝------------------------------------------------
 
-//update page: 파일 삭제
-uFileDelete.forEach(function(f){
-    f.addEventListener("click", function(){
-        console.log(f.parentNode);
-        let result = window.confirm("삭제하시겠습니까?");
-        if(!result){
-            return;
-        }
+// add 조건 설정
 
-        let photoNum = f.getAttribute("data-photo-num");
-        console.log(photoNum);
+addItemBtn.addEventListener("click", function(){
+    console.log("b");
 
-        const xhttp = new XMLHttpRequest();
-        xhttp.open("post","./filedelete");
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send("photoNum="+photoNum);
+    let inResult = false;
+    let ipResult = false;
+    let imgResult = false;
+    let izResult = false;
+    let iaResult = false;
+    let idaResult = false;
+    let catResult = false;
 
-        xhttp.onreadystatechange=function(){
-            if(xhttp.readyState==4&&xhttp.status==200){
-                let result = xhttp.responseText.trim();
-                if(result>0){
-                    console.log("삭제완");
-                    f.parentNode.remove();
-                    count--;
-                } else{
-                    console.log("삭제 실패");
-                }
-            }
-        }
-  
-    })
+    if(itemName.value.length<1){
+        alert("상품명을 입력하세요");
+        itemName.focus();
+    } else{
+        inResult = true;
+    }
 
-});
-//파일 삭제 끝=================================================
+    if(itemPrice.value.length<1){
+        alert("이용 가격을 입력하세요")
+        itemPrice.focus();
+    } else{
+        ipResult = true;
+    }
 
-//detail page: 파일 폴더에서 삭제=============================================================
-deleteItem.addEventListener("click", function(){
-    let result = window.confirm("삭제하시겠습니까?");
-    if(!result){
+    if(inputDiv.childElementCount<1){
+        alert("상품 사진을 추가하세요")
+    } else{
+        imgResult = true;
+    }
+
+    if(itemZipCode.value.length<1){
+        alert("우편번호를 입력하세요")
+        itemZipCode.focus();
+    } else{
+        izResult = true;
+    }
+
+    if(itemAddress.value.length<1){
+        alert("주소를 입력하세요")
+        itemAddress.focus();
+    } else{
+        iaResult = true;
+    }
+
+    if(itemDeAddress.value.length<1){
+        alert("상세 주소를 입력하세요")
+        itemDeAddress.focus();
+    } else{
+        idaResult = true;
+    }
+
+    if(itemCatg.value.length<1){
+        alert("카테고리를 입력하세요")
+        itemCatg.focus();
+    } else{
+        catResult = true;
+
+    }
+
+    if(inResult&&ipResult&&imgResult&&izResult&&iaResult&&idaResult&&catResult){
+        addItemFrm.submit();
+    } else{
         return;
     }
-
-    let photoNum = deleteItem.getAttribute("data-photo-num");
-    console.log(photoNum);
-
-    const xhttp = new XMLHttpRequest();
-    xhttp.open("post","./filedelete");
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("photoNum="+photoNum);
-
-    xhttp.onreadystatechange=function(){
-        if(xhttp.readyState==4&&xhttp.status==200){
-            let result = xhttp.responseText.trim();
-            if(result>0){
-                console.log("삭제완");
-                f.parentNode.remove();
-            } else{
-                console.log("삭제 실패");
-            }
-        }
-    }
-
 });
 
-
-
-
-
-
-
-
-
+  
+   

@@ -77,11 +77,19 @@ fileAdd.addEventListener("click", function(){
     let fileAdd_div = document.createElement("div");
     fileAdd_div.setAttribute("class", "mb-3");
 
+    let fileImage = document.createElement("img");
+    fileImage.setAttribute("id","preview");
+    fileImage.setAttribute("width","200");
+    fileImage.setAttribute("height","200");
+
     let fileAdd_input = document.createElement("input");
     fileAdd_input.setAttribute("class", "form-control");
     fileAdd_input.setAttribute("type","file");
     fileAdd_input.setAttribute("id","file"+idx);
     fileAdd_input.setAttribute("name","multipartFiles");
+    fileAdd_input.setAttribute("onchange","readURL(this);");
+
+    
 
     let filedelete = document.createElement("button");
     filedelete.innerHTML="삭제";
@@ -89,11 +97,11 @@ fileAdd.addEventListener("click", function(){
     filedelete.setAttribute("type","button");
     filedelete.setAttribute("title",idx);
 
-    
+    fileAdd_div.append(fileImage);
     fileAdd_div.append(fileAdd_input)
     fileAdd_div.append(filedelete);
 
-    addFiles.prepend(fileAdd_div);
+    addFiles.append(fileAdd_div);
 
    
 
@@ -107,3 +115,16 @@ addFiles.addEventListener("click", function(event){
         count--;
     }
 })
+
+function readURL(input){
+    if(input.files && input.files[0]){
+        let reader = new FileReader();
+        reader.onload = function(e){
+            document.getElementById('preview').src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+  } else {
+    document.getElementById('preview').src = "";
+  }
+}
+    

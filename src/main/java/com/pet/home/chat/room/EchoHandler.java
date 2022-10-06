@@ -105,9 +105,14 @@ public class EchoHandler extends TextWebSocketHandler {
 		
 //		sessionList.remove(session);
 		//log.info("{} 연결 끊김", session.getId());
-		System.out.println("{} 연결 끊김"+ m_id);
+//		System.out.println("{} 연결 끊김"+ m_id);
 		
-		users.remove(m_id);
+		try {
+			
+			users.remove(m_id);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
 
 	}
@@ -122,11 +127,16 @@ public class EchoHandler extends TextWebSocketHandler {
 	}
 
 	//접속한 유저의 Http세션을 조회하여 userName을 불러옴
-	private String getUserName(WebSocketSession session) {
+	private String getUserName(WebSocketSession session) throws Exception {
 		Map<String, Object> map = session.getAttributes();
 		MemberDTO memberDTO = (MemberDTO)map.get("member");
-		String m_id = memberDTO.getUserName();
-		return m_id==null? null : m_id;
+		if(memberDTO != null) {
+			String m_id = memberDTO.getUserName();
+			return m_id;
+		}else{
+			return null;
+		}
+		
 	}
 	
 	

@@ -12,6 +12,7 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
+
 </head>
 
 <body>
@@ -42,12 +43,12 @@
 			<form action="add" method="post" enctype="multipart/form-data">
 				 
 			<div class="mb-3">
-		  		<label for="writer" class="form-label">작성자</label>
-		  		<input type="text" class="form-control" id="writer" name="writer" placeholder="작성자 입력">
+		
+		  		<input type="text" class="form-control" id="writer" name="writer" style="display: none;" value="${sessionScope.member.userName}">
 			</div>
 			<div class="mb-3">
 		  		<label for="title" class="form-label">제목</label>
-		  		<input type="text" class="form-control" id="title" name="title" placeholder="제목 입력">
+		  		<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력하세요">
 			</div>
 			
 			
@@ -59,21 +60,26 @@
 			<c:if test="${board eq 'event'}">
         <div class="mb-3">
 		  		<label for="contents" class="form-label">적용할 쿠폰</label>
-		  		<select class="form-select" id="validationDefault04" required>
+		  		<select class="form-select" id="validationDefault04" required name ="couponNum">
             <option selected disabled value="">선택</option>
             <c:forEach items="${list}" var="coupon">
-              <option> 쿠폰명 : ${coupon.couponName} ( 할인율/할인금액 : ${coupon.discountRate} % )</option>
+              <option value="${coupon.couponNum}"> 쿠폰명 : ${coupon.couponName} ( 할인율/할인금액 : ${coupon.discountRate} % )</option>
             </c:forEach>
           </select>
 			</div>
       </c:if>
-		
+      
+      <c:if test = "${board eq 'sharing'}">
+        <label for="file" class="form-label">대표 사진</label>
+        <input class="form-control" type="file" id="file0" name="multipartFiles">
+      </c:if>
+
 			<div id="addFiles">
 				<button type="button" class="btn btn-danger" id="fileAdd">파일 추가</button>
 			</div>
 			
 			
-			<button class="btn btn-primary btn-lg btn-block" type="submit">Add</button>
+			<button class="btn btn-primary btn-lg btn-block" type="submit">작성하기</button>
 			</form>
 		</div>
 
@@ -86,6 +92,44 @@
   <c:import url="/WEB-INF/views/template/testfooter.jsp"></c:import>
   
   <script src="/resources/JS/board_file.js"></script>
+  <!-- include summernote css/js-->
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+  <script type="text/javascript">
+	$("#contents").summernote({
+      height : 400,
+      lang : "ko-KR",
+      minHeight : null,
+      maxHeight : null,
+      focus : true,
+      callback : {
+        onImageUpload : function(files, editor, welEditable) {
+          for(let i=0; i<files.length; i++){
+            sendFile(files[i], this);
+          }
+        }
+      }
+  });
+
+  function sendFile(file,editor){
+    let form_data = new FormData();
+    form_data.append('file',file);
+    $.ajax({
+        data : form_data,
+        type : "POST",
+        url : '/notice/add',
+        cache : false,
+        contentType : false,
+        enctype : 'multipart/form-data',
+        processData : false,
+        success : function(url) {
+          $(editor).summernote('insertImage', url, function(){
+            $image.css('width',"25%");
+          });
+        }
+    })
+  }
+	</script>
 </body>
 
 </html>

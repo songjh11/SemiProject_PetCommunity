@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pet.home.board.event.coupon.CouponDTO;
 import com.pet.home.board.impl.BoardDTO;
 import com.pet.home.board.impl.BoardFileDTO;
 import com.pet.home.board.impl.BoardService;
@@ -54,6 +55,7 @@ public class EventService implements BoardService {
 			eventDAO.setFileAdd(boardFileDTO);
 		}
 		
+		
 		return result;
 	}
 
@@ -91,6 +93,16 @@ public class EventService implements BoardService {
 		return result;
 	}
 	
+	public int setCouponAdd(CouponDTO couponDTO) throws Exception{
+		return eventDAO.setCouponAdd(couponDTO);
+	}
 	
+	public CouponDTO getCouponDetail(CouponDTO couponDTO) throws Exception{
+		return eventDAO.getCouponDetail(couponDTO);
+	}
+	
+	public int setCouponSave(CouponDTO couponDTO) throws Exception{
+		return eventDAO.setCouponSave(couponDTO);
+	}
 	
 }

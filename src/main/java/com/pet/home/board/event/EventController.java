@@ -36,6 +36,15 @@ public class EventController {
 	}
 	
 	
+	@PostMapping("saveCoupon")
+	@ResponseBody
+	public int setCouponSave(CouponDTO couponDTO) throws Exception{
+		int result = eventService.setCouponSave(couponDTO);
+		return result;
+	}
+	
+	
+	
 	@PostMapping("fileDelete")
 	@ResponseBody
 	public int setFileDelete(BoardFileDTO boardFileDTO, HttpSession session) throws Exception{
@@ -66,10 +75,10 @@ public class EventController {
 	}
 	
 	@PostMapping("add")
-	public ModelAndView setAdd(ModelAndView mv, NoticeDTO noticeDTO,MultipartFile [] multipartFiles, HttpSession session) throws Exception{
-		int result = eventService.setAdd(noticeDTO, multipartFiles, session.getServletContext());
-		List<CouponDTO> list = adminService.getCouponList();
-		mv.addObject("list", list);
+	public ModelAndView setAdd(ModelAndView mv,CouponDTO couponDTO, EventDTO eventDTO,MultipartFile [] multipartFiles, HttpSession session) throws Exception{
+		int result = eventService.setAdd(eventDTO, multipartFiles, session.getServletContext());
+		couponDTO.setNum(eventDTO.getNum());
+		int result2 = eventService.setCouponAdd(couponDTO);
 		mv.setViewName("redirect:./list");
 		
 		return mv;
@@ -78,8 +87,12 @@ public class EventController {
 	
 	@GetMapping("detail")
 	public ModelAndView getDetail(ModelAndView mv, BoardDTO boardDTO) throws Exception{
-		boardDTO = eventService.getDetail(boardDTO);
+		EventDTO eventDTO = (EventDTO) eventService.getDetail(boardDTO);
+		CouponDTO couponDTO = eventDTO.getCouponDTO();
+		System.out.println(couponDTO.getCouponNum());
+		couponDTO = eventService.getCouponDetail(couponDTO);
 		
+		mv.addObject("coupon", couponDTO);
 		mv.addObject("dto", boardDTO);
 		mv.setViewName("board/detail");
 		

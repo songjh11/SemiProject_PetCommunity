@@ -12,7 +12,25 @@ public class CouponDTO {
 	private Long discountRate;
 	private Long discountPrice;
 	
+	private Long num;
 	
+	private String userId;
+	
+	
+	
+	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public Long getNum() {
+		return num;
+	}
+	public void setNum(Long num) {
+		this.num = num;
+	}
 	public Long getCouponNum() {
 		return couponNum;
 	}

@@ -40,10 +40,12 @@
 	</insert>
 	
 	<select id="getDetail" parameterType="BoardDTO" resultMap="getDetailResult">
-		SELECT E.*, EF.*
+		SELECT E.*, EF.*, UC.*
 		FROM EVENT E 
 		LEFT JOIN EVENTFILE EF
 		ON E.NUM = EF.NUM
+		LEFT JOIN USERCOUPON UC
+		ON E.NUM = UC.NUM
 		WHERE E.NUM = #{num}
 	</select>
 	
@@ -54,6 +56,10 @@
 		<result column="WRITER" property="writer"/>
 		<result column="REGDATE" property="regDate"/>
 		<result column="HIT" property="hit"/>
+		
+		<association property="couponDTO" javaType="CouponDTO">
+			<result column="COUPONNUM" property="couponNum"/>
+		</association>
 		
 		<collection property="boardFileDTOs" javaType="List" ofType="BoardFileDTO">
 			<id column="FILENUM" property="fileNum"/>
@@ -79,5 +85,18 @@
 		DELETE EVENTFILE WHERE FILENUM = #{fileNum}
 	</delete>
 	
+	<!-- 쿠폰 -->
+	<insert id="setCouponAdd" parameterType="CouponDTO">
+		INSERT INTO USERCOUPON(NUM, COUPONNUM)
+		VALUES(#{num}, #{couponNum})
+	</insert>
+	
+	<select id="getCouponDetail" parameterType="CouponDTO" resultType="CouponDTO">
+		SELECT * FROM COUPON WHERE COUPONNUM = #{couponNum}
+	</select>
+	
+	<update id="setCouponSave" parameterType="CouponDTO">
+		UPDATE USERCOUPON SET USERID = #{userId} WHERE NUM = #{num} AND COUPONNUM = #{couponNum}
+	</update>
 	
 </mapper>

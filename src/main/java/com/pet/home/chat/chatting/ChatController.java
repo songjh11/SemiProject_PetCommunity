@@ -23,37 +23,34 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class ChatController {
-	
+
 	@Autowired
 	private ChattingService chattingService;
-	
+
 	@Autowired
 	private MemberService memberService;
-	
-	//채팅방 (이전 채팅 목록 불러오기)
+
+	// 채팅방 (이전 채팅 목록 불러오기)
 	@RequestMapping("/chat")
 	public String chat(Model model, ChattingDTO chattingDTO, HttpServletRequest request) throws Exception {
-		//log.info("[Controller] : chat");
-		
+		// log.info("[Controller] : chat");
+
 		HttpSession session = request.getSession();
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
 		chattingDTO.setUserName(memberDTO.getUserName());
-		List<ChattingDTO> chattingDTOs= chattingService.getList(chattingDTO);
+		List<ChattingDTO> chattingDTOs = chattingService.getList(chattingDTO);
 		model.addAttribute("dto", chattingDTO);
 		model.addAttribute("list", chattingDTOs);
-		
+
 		return "chat/chatting";
 	}
-	
-	
+
 	// 채팅 입력마다 DB 추가
 	@PostMapping("/chat/add")
 	@ResponseBody
-	public void addChat(ChattingDTO chattingDTO) throws Exception{
-		
+	public void addChat(ChattingDTO chattingDTO) throws Exception {
+
 		int result = chattingService.setAdd(chattingDTO);
 	}
-	
-	
-	
+
 }

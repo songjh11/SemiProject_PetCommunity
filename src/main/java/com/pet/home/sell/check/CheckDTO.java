@@ -1,36 +1,66 @@
 package com.pet.home.sell.check;
 
+import java.sql.Date;
+import java.util.List;
+
+import com.pet.home.member.MemberDTO;
+import com.pet.home.sell.SellItemDTO;
+import com.pet.home.sell.file.SellFileDTO;
+
 public class CheckDTO {
-	private String pg;
-	//: "html5_inicis",
-    private String pay_method;
-    //: "card",
+
+	private String imp_uid;
+	//가맹점번호
     private String merchant_uid;
-    //시퀀스: "ORD20180131-0000011",
+    //결제번호
     private Long itemNum;
-    private String itemName;
     private Long amount;
-    private String email;
-    private String userName;
     private String userId;
-    private Long buyer_tel;
     private String revStartDate;
     private String revEndDate;
     private Long adultsCount;
     private Long dogCount;
-    private Long itemCatg;
+    private Date purchaseDate;
     
-	public String getPg() {
-		return pg;
+    
+    private MemberDTO memberDTO;
+    
+    private SellItemDTO itemDTO;
+    
+    private List<SellFileDTO> fileDTOs;
+    
+    
+    
+    
+	public List<SellFileDTO> getFileDTOs() {
+		return fileDTOs;
 	}
-	public void setPg(String pg) {
-		this.pg = pg;
+	public void setFileDTOs(List<SellFileDTO> fileDTOs) {
+		this.fileDTOs = fileDTOs;
 	}
-	public String getPay_method() {
-		return pay_method;
+	public MemberDTO getMemberDTO() {
+		return memberDTO;
 	}
-	public void setPay_method(String pay_method) {
-		this.pay_method = pay_method;
+	public void setMemberDTO(MemberDTO memberDTO) {
+		this.memberDTO = memberDTO;
+	}
+	public SellItemDTO getItemDTO() {
+		return itemDTO;
+	}
+	public void setItemDTO(SellItemDTO itemDTO) {
+		this.itemDTO = itemDTO;
+	}
+	public Date getPurchaseDate() {
+		return purchaseDate;
+	}
+	public void setPurchaseDate(Date purchaseDate) {
+		this.purchaseDate = purchaseDate;
+	}
+	public String getImp_uid() {
+		return imp_uid;
+	}
+	public void setImp_uid(String imp_uid) {
+		this.imp_uid = imp_uid;
 	}
 	public String getMerchant_uid() {
 		return merchant_uid;
@@ -44,41 +74,17 @@ public class CheckDTO {
 	public void setItemNum(Long itemNum) {
 		this.itemNum = itemNum;
 	}
-	public String getItemName() {
-		return itemName;
-	}
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
-	}
 	public Long getAmount() {
 		return amount;
 	}
 	public void setAmount(Long amount) {
 		this.amount = amount;
 	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
 	public String getUserId() {
 		return userId;
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-	public Long getBuyer_tel() {
-		return buyer_tel;
-	}
-	public void setBuyer_tel(Long buyer_tel) {
-		this.buyer_tel = buyer_tel;
 	}
 	public String getRevStartDate() {
 		return revStartDate;
@@ -104,13 +110,5 @@ public class CheckDTO {
 	public void setDogCount(Long dogCount) {
 		this.dogCount = dogCount;
 	}
-	public Long getItemCatg() {
-		return itemCatg;
-	}
-	public void setItemCatg(Long itemCatg) {
-		this.itemCatg = itemCatg;
-	}
-    
-    
     
 }

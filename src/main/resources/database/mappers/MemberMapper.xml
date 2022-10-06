@@ -8,7 +8,7 @@
  <!-- =============LOGIN & JOIN =====================-->
  
  <select id="getLogin" parameterType="MemberDTO" resultMap="getLoginResult">
-SELECT M.USERNAME, M.USERID, R.ROLENUM, R.ROLENAME
+SELECT M.USERNAME, M.USERID, M.EMAIL, M.PHONE, R.ROLENUM, R.ROLENAME
 		FROM MEMBER M
     		INNER JOIN
     		ROLE R
@@ -97,33 +97,40 @@ ON (F.FOLLOWER = MF.USERID)
 WHERE FOLLOWEE =#{userId}
 </select>
 
-<select id="getFollowerCount" parameterType="MemberDTO" resultType="Long">
-SELECT COUNT(DISTINCT FOLLOWEE) FROM FOLLOW WHERE FOLLOWER=#{userId}
-</select>
-
-<select id="getFolloweeCount" parameterType="MemberDTO" resultType="Long">
+<select id="getFollowerCount" parameterType="MemberDTO" resultType="Integer">
 SELECT COUNT(DISTINCT FOLLOWER) FROM FOLLOW WHERE FOLLOWEE=#{userId}
 </select>
 
-<insert id="setFollow" parameterType="MemberDTO">	 
+<select id="getFolloweeCount" parameterType="MemberDTO" resultType="Integer">
+SELECT COUNT(DISTINCT FOLLOWEE) FROM FOLLOW WHERE FOLLOWER=#{userId}
+</select>
+
+<insert id="setFollow" parameterType="FollowDTO">	 
 INSERT INTO FOLLOW (FOLLOWNUM, FOLLOWER, FOLLOWEE)
-VALUES(FOL_SEQ.NEXTVAL,#{follower},#{userId})
+VALUES(FOL_SEQ.NEXTVAL,#{follower},#{followee})
 </insert>
 
-<delete id="setFollowDelete" parameterType="MemberDTO">
-DELETE FROM FOLLOW WHERE FOLLOWEE=#{userId}
+<delete id="setFollowerDelete" parameterType="MemberDTO">
+DELETE FROM FOLLOW WHERE FOLLOWEE=#{userId} AND FOLLOWER=#{follower}
+</delete>
+
+<delete id="setFolloweeDelete" parameterType="MemberDTO">
+DELETE FROM FOLLOW WHERE FOLLOWEE=#{followee} AND FOLLOWER=#{userId}
 </delete>
 
 <!-- ==============coupon=================== -->
 
 <select id="getCouponList" parameterType="MemberDTO" resultType="CouponDTO">
-SELECT * FROM COUPON WHERE USERID=#{userId}
+SELECT C.*, UC.*
+FROM COUPON C
+LEFT JOIN USERCOUPON UC ON C.COUPONNUM = UC.COUPONNUM
+WHERE UC.USERID = #{userId}
 </select>
 
 <!--================= Update & Delete============== -->
 
 <delete id="setMemDelete" parameterType="MemberDTO">
-DELETE FROM MEMBER WHERE FOLLOWEE=#{userId} AND FOLLOWER=#{follower}
+DELETE FROM MEMBER WHERE USERID=#{userId}
 </delete>
 
 <update id="setMemUpdate" parameterType="MemberDTO" >
@@ -142,12 +149,24 @@ UPDATE MEMFILE SET FILENAME=#{fileName}, ORINAME=#{oriName} where USERID=#{userI
 <resultMap type="MemberDTO" id="getLoginResult">
 		<id column="USERID" property="userId" />
 		<result column="USERNAME" property="userName" />
+		<result column="PHONE" property="phone"/>
+		<result column="EMAIL" property="email"/>
 		<collection property="roleDTO" javaType="RoleDTO" ofType="RoleDTO">
 			<id column="ROLENUM" property="roleNum" />
 			<result column="ROLENAME" property="roleName" />
 		</collection>
 	</resultMap>
 	
+<!-- 비밀번호 찾기 -->
+	<select id="getFindLogin" parameterType="MemberDTO" resultType="MemberDTO">
+	SELECT USERID,PASSWORD, EMAIL FROM MEMBER WHERE USERID=#{userId} AND EMAIL=#{email}
+	</select>
+
+
+	<update id="setUpdatePw" parameterType="MemberDTO">	 
+ 	UPDATE MEMBER SET PASSWORD=#{password}
+	WHERE USERID=#{userId}
+	</update>
 <!--  FOLLOW LIST -->
 	<resultMap type="MemberDTO" id="getFollowList">
 	<id column="USERID" property="userId"></id>
@@ -261,4 +280,32 @@ FROM MEMBER M
 WHERE M.USERID = 'guest'
 </select>
 
+
+	<select id="getRevList" parameterType="MemberDTO" resultMap="getRevResult">
+	SELECT R.*, SF.FILENAME, SI.ITEMNAME
+	from RESERVATION R
+   	INNER JOIN
+	SELLITEM SI
+	ON R.ITEMNUM = SI.ITEMNUM
+	INNER JOIN 
+    SELLFILE SF
+	ON SI.ITEMNUM = SF.ITEMNUM
+	WHERE R.USERID=#{userId}
+	</select>
+	<resultMap type="ReservationDTO" id="getRevResult">
+		<id column="ITEMNUM" property="itemNum"/>
+		<result column="USERID" property="userId"/>
+		<result column="REVSTARTDATE" property="revStartDate"/>
+		<result column="REVENDDATE" property="revEndDate"/>
+		<result column="MEMBERCOUNT" property="memberCount"/>
+		<result column="REVPAYWAY" property="revPayway"/>
+		<result column="ITEMCATG" property="itemCatg"/>
+			<association property="sellItemDTO" javaType="SellItemDTO">
+				<result column="ITEMNAME" property="itemName"></result>   
+	 		</association>
+			<collection property="fileDTOs" javaType="List" ofType="sellFileDTO">
+				<result column="FILENAME" property="fileName"/>
+			</collection>
+	</resultMap>
+	
 </mapper>

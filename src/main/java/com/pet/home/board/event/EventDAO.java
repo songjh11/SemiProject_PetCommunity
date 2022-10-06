@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pet.home.board.event.coupon.CouponDTO;
 import com.pet.home.board.impl.BoardDAO;
 import com.pet.home.board.impl.BoardDTO;
 import com.pet.home.board.impl.BoardFileDTO;
@@ -71,6 +72,25 @@ public class EventDAO implements BoardDAO {
 	public BoardFileDTO getFileDetail(BoardFileDTO boardFileDTO) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(NAMESPACE+"getFileDetail", boardFileDTO);
+	}
+	
+	
+	public int setCouponAdd(CouponDTO couponDTO) throws Exception{
+		return sqlSession.insert(NAMESPACE+"setCouponAdd",couponDTO);
+	}
+	
+	public CouponDTO getCouponDetail(CouponDTO couponDTO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getCouponDetail", couponDTO);
+	}
+	
+	public int setCouponSave(CouponDTO couponDTO) throws Exception{
+		return sqlSession.update(NAMESPACE+"setCouponSave", couponDTO);
+	}
+
+	@Override
+	public int setUpdateHit(BoardDTO boardDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.update(NAMESPACE+"setUpdateHit", boardDTO);
 	}
 	
 	

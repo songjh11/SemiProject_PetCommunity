@@ -13,6 +13,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.pet.home.member.MemberDTO;
+import com.pet.home.sell.check.CheckDAO;
+import com.pet.home.sell.check.CheckDTO;
 import com.pet.home.sell.file.RvFileDTO;
 import com.pet.home.sell.file.SellFileDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
@@ -37,6 +41,9 @@ public class SellItemService {
 	@Autowired
 	private RvCommentDAO rvCommentDAO;
 	@Autowired
+	private CheckDAO checkDAO;
+	
+	@Autowired
 	private SellQnaDAO sellQnaDAO;
 	@Autowired
 	private SellQnaCommentDAO sellQnaCommentDAO;
@@ -56,7 +63,6 @@ public class SellItemService {
 				String realPath = servletContext.getRealPath("resources/upload/sellfile");
 				
 				File file = new File(realPath);
-				
 				if(!file.exists()) {
 					file.mkdirs();
 				}
@@ -367,5 +373,24 @@ public class SellItemService {
 	public List<SellItemDTO> getAllItemList() throws Exception{
 		return itemDAO.getAllItemList();
 	}
+	
+	//결제
+	public int setCheck(CheckDTO checkDTO) {
+		int result = checkDAO.setCheck(checkDTO);
+		return result;
+	}
+	
+	public List<CheckDTO> getPurchaseList(String userId) throws Exception{
+		return checkDAO.getPurchaseList(userId);
+	}
+	
+	public CheckDTO getPurchaseDetail(CheckDTO checkDTO) throws Exception{
+		return checkDAO.getPurchaseDetail(checkDTO); 
+	}
+	
+	public int setPurchaseDelete(CheckDTO checkDTO) throws Exception{
+		return checkDAO.setPurchaseDelete(checkDTO); 
+	}
+	
 
 }

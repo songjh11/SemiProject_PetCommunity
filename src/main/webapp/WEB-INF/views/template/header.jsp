@@ -47,10 +47,10 @@
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
-    <div class="container d-flex align-items-center justify-content-between">
+  <header id="header" class="header fixed-top d-flex align-items-center" style="display: block;">
+    <div style="display: block; padding: auto;">
       <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid row align-items-start">
+        <div class="row align-items-start">
           <form class="d-flex" action="search" method="get" id="searchFrm">
             <div>
               <select name="itemCatg" class="form-control" id="searchItemCatg" value="${param.itemCatg}">
@@ -65,6 +65,9 @@
           </form>
         </div>
       </nav>
+    </div>
+    <div style="display: block;">
+    <div class="container d-flex align-items-center justify-content-between">
       <a href="/" class="logo d-flex align-items-center me-auto me-lg-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
@@ -103,35 +106,35 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav><!-- .navbar -->
-	  <!--로그인 성공했을 때-->
-    <c:if test="${not empty sessionScope.member}">
-      <h5>${sessionScope.member.userName} 님 환영합니다!</h5>
-       <a class="btn-book-a-table" href="/member/mypage">Mypage</a>
-       <a class="btn-book-a-table" href="/member/logout">Logout</a>
+      <!--로그인 성공했을 때-->
+      <c:if test="${not empty sessionScope.member}">
+        <h5>${sessionScope.member.userName} 님 환영합니다!</h5>
+        <a class="btn-book-a-table" href="/member/mypage">Mypage</a>
+        <a class="btn-book-a-table" href="/member/logout">Logout</a>
 
-       <!-- 역할번호에 따라 다른 메뉴바-->
-       <c:choose>
-       <c:when test="${dto.roleNum =='1'}">
-        <a href="/sell/add"><button class="btn btn-outline-success me-2" type="button">Add Items</button></a>
-       </c:when>
-       <c:when test="${dto.roleNum =='2'}">
-        <a class="btn-book-a-table" href="#">guest page</a>
-       </c:when>
-       <c:otherwise>
-        <a class="btn-book-a-table" href="/mypage/admin">admin page</a>
-        </c:otherwise>
-        </c:choose>
+        <!-- 역할번호에 따라 다른 메뉴바-->
+        <c:choose>
+        <c:when test="${sessionScope.dto.roleNum =='1'}">
+          <a href="/sell/add"><button class="btn btn-outline-success me-2" type="button">Add Items</button></a>
+        </c:when>
+        <c:when test="${sessionScope.dto.roleNum =='2'}">
+          <a class="btn-book-a-table" href="#">guest page</a>
+        </c:when>
+        <c:otherwise>
+          <a class="btn-book-a-table" href="/mypage/admin">admin page</a>
+          </c:otherwise>
+          </c:choose>
 
-       </c:if>
-       <!-- 로그인 실패했을 때 -->
-       <c:if test="${empty sessionScope.member}">
-	      <a class="btn-book-a-table" href="/member/login">Login</a>
-	       <a class="btn-book-a-table" href="/member/role">Join</a>
-	       </c:if>
-      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
-
+        </c:if>
+        <!-- 로그인 실패했을 때 -->
+        <c:if test="${empty sessionScope.member}">
+          <a class="btn-book-a-table" href="/member/login">Login</a>
+          <a class="btn-book-a-table" href="/member/role">Join</a>
+          </c:if>
+        <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+        <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
     </div>
+  </div>
     <div id="msgStack">
     </div>
   </header><!-- End Header -->

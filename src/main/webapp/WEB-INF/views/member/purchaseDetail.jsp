@@ -39,8 +39,6 @@
   <!-- iamport.payment.js -->
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
-  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e46b315f965ac58fabe9c3e350d385de&libraries=services"></script>
-
   <style>
     .crq{
         justify-content: center;
@@ -126,6 +124,8 @@
               <!-- text 영역 -->
               <div class="textAre col-lg-12 col-md-12 d-flex">
                 <div>
+                  <input type="hidden" id="merchant_uid" name="merchant_uid" value="${check.merchant_uid}"}>
+                  <input type="hidden" id="imp_uid" name="imp_uid" value="${check.imp_uid}"}>
                   <table class="table table-striped">
                     <tbody>
                       <tr>
@@ -178,9 +178,11 @@
                       </tr>
                       </tbody>
                       </table>
-                      <div style="margin-bottom: 15px; margin-top: 30px; text-align: center">
-                        <button class="btn btn-outline-danger" style="display: inline-block;" onclick="cancelPay()">환불하기</button>
-                      </div>
+                
+                        <div style="margin-bottom: 15px; margin-top: 30px; text-align: center">
+                          <button type="button" class="btn btn-outline-danger" style="display: inline-block;" onclick="cancelPay()">환불하기</button>
+                        </div>
+     
                 </div>
                 </div>
             </div>
@@ -212,18 +214,49 @@
       const merchant_uid = document.getElementById("merchant_uid")
       let iuv = imp_uid.value;
       let muv = merchant_uid.value;
-      jQuery.ajax({
-        "url": "member/purchaseDelete", // 예: http://www.myservice.com/payments/cancel
-        "type": "POST",
-        "contentType": "application/json",
-        "data": JSON.stringify({
-          "merchant_uid": muv, // 예: ORD20180131-0000011
-          "cancel_request_amount": 2000, // 환불금액
-          "reason": "테스트 결제 환불" // 환불사유
-        }),
-        "dataType": "json"
-      });
-    }
+      $.ajax({
+        url: "./purchaseDelete", // 예: http://www.myservice.com/payments/cancel
+        type: "POST",
+        data: {
+          'imp_uid': iuv,
+          'merchant_uid': muv, // 예: ORD20180131-0000011
+          'cancel_request_amount': 2000, // 환불금액
+          'reason': "테스트 결제 환불" // 환불사유
+        }
+      }).done(function(result) { // 환불 성공시 로직 
+          console.log(result.msg);
+          console.log(result.amount);
+          console.log(result.token);
+          let reason = result.reason;
+          let imp_uid = result.imp_uid;
+          let amount = result.amount;
+          let access_token = result.token;
+          let checksum = result.checksum;
+          $.ajax({
+          url: "http://api.iamport.kr/payments/cancel", // 예: http://www.myservice.com/payments/cancel
+          type: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin" : "http://api.iamport.kr/payments/cancel",
+            "Authorization": access_token // 아임포트 서버로부터 발급받은 엑세스 토큰
+          },
+          data: {
+            reason: reason, // 가맹점 클라이언트로부터 받은 환불사유
+            imp_uid: imp_uid, // imp_uid를 환불 `unique key`로 입력
+            amount: amount, // 가맹점 클라이언트로부터 받은 환불금액
+            checksum: checksum // [권장] 환불 가능 금액 입력
+          }, success : function(response){
+                    console.log(response);
+                      alert("결제취소!")
+                      window.location.href = 'http://localhost/member/purchaseList';
+                  }
+          })
+    }).fail(function(error) { // 환불 실패시 로직
+        console.log(error);
+        alert("환불 실패");
+    });
+  };
+    
   </script>
 </body>
 </html>

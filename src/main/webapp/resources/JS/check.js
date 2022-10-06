@@ -114,7 +114,7 @@ rvBtnFrm.addEventListener("click", function(){
         pay_method: "card",
         merchant_uid: merchant_uid,
         name: inv,
-        amount: 100,//tpv
+        amount: tpv,//tpv
         buyer_email: bev,
         buyer_name: bnv,
         buyer_tel: btv,
@@ -127,7 +127,6 @@ rvBtnFrm.addEventListener("click", function(){
           $.ajax({
               url: "./payments", // 예: https://www.myservice.com/payments/complete
               type: "POST",
-              dataType: 'json',
               data: {
                   'imp_uid': rsp.imp_uid,
                   'merchant_uid': rsp.merchant_uid,
@@ -138,14 +137,28 @@ rvBtnFrm.addEventListener("click", function(){
                   'adultsCount': ac,
                   'dogCount': dc,
                   'userId': uiv
+              },
+              error : function(xhr,status,error){
+                console.log(xhr.responseText);
+                console.log(status);
+                console.log(error);
+                let data = xhr.responseText;
+                console.log(data);
+              },
+              success : function(paymentResult){
+                console.log(paymentResult);
+                if(paymentResult=="paid") {
+                  alert("결제에 성공하였습니다!")
+                  // window.location.href = 'http://localhost/member/purchaseList?purchaseStatus=1';
               }
-          }).done(function (paymentResult) {
-            console.log(paymentResult);
-            if(paymentResult=="paid") {
-              alert("결제에 성공하였습니다!")
-              window.location.href = 'http://localhost/member/purchaseList';
-            }
-        })} else {
+              }})
+          // .done(function (paymentResult) {
+          //   console.log(paymentResult);
+          //   if(paymentResult=="paid") {
+          //     alert("결제에 성공하였습니다!")
+          //     window.location.href = 'http://localhost/member/purchaseList';
+          //   }
+        } else {
           alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
           // location.reload(); 
         }

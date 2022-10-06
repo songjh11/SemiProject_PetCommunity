@@ -103,7 +103,7 @@
                 </div>
                 
                 <div class="col-lg-6 col-md-6">
-                 <input type="text" name="itemZipCode" class="form-control" id="itemZipCode" placeholder="우편번호">
+                 <input type="text" name="itemZipCode"  class="form-control" id="itemZipCode" placeholder="우편번호">
                   <div class="validate"></div>
                 </div>
                 <div class="col-lg-6 col-md-6">

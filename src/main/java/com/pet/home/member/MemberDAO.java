@@ -138,4 +138,22 @@ public class MemberDAO {
 		return sqlSession.delete(NAMESPACE+"setCartDelete", shopCartDTO);
 	}
 	
+	public int getItemCount()throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getItemCount");
+	}
+	
+	
+	public int getMemCount()throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getMemCount");
+	}
+	
+	public List<MemberDTO> getMemList(){
+		return sqlSession.selectList(NAMESPACE+"getMemList");
+	}
+	
+	public List<MemberDTO> getFindMem(MemberDTO memberDTO){
+		return sqlSession.selectList(NAMESPACE+"getFindMem", memberDTO);
+	}
+	
+	
 }

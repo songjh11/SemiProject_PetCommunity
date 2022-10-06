@@ -95,6 +95,52 @@
 
           <c:choose>
 
+            <c:when test="${what eq 'memlist'}">
+
+
+                    <form class="d-flex" action="find" method="get" id="sfrm">
+                      <div>
+                        <select name="roleNum" class="form-control" id="whatrn" value="${param.roleNum}">
+                          <option value="" selected>-- 상품 카테고리 선택 --</option>
+                          <option value="1">사업자</option>
+                          <option value="2">개인회원</option>
+                          <option value="0">관리자</option>
+                        </select>
+                      </div>
+                      <input class="form-control me-2" type="text" name="search" placeholder="검색어 입력" aria-label="Search" value="${param.search}">
+                      <button class="btn btn-outline-success" id="sbtn" type="submit">Search</button>
+                    </form>
+
+
+
+              <c:forEach items="${list}" var="dto">
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                  <div class="chef-member">
+                    <div class="member-img">
+                      <c:if test="${empty dto.memberFileDTO.fileName}">
+                        <img src="/resources/images/seller.jpg" class="img-fluid" alt="">
+                      </c:if>
+                      <img src="/resources/upload/member/${dto.memberFileDTO.fileName}" class="img-fluid" alt="">
+                    </div>
+                    <div class="member-info">
+                      <h4>${dto.userId}</h4>
+                      <span>${dto.roleDTO.roleName}</span>
+                      <p>${dto.email}</p>
+                      <div class="social">
+                        <button class="followeedel" type="button"><i class="bi bi-trash3"></i></button>
+                        <a href=""><i class="bi bi-facebook"></i></a>
+                        <a href=""><i class="bi bi-instagram"></i></a>
+                        <a href=""><i class="bi bi-linkedin"></i></a>
+                      </div>
+                    </div>
+            
+                  </div>
+      
+                </div>
+              </c:forEach>
+                 
+            </c:when>
+
             <c:when test="${what eq 'followee'}">
           <c:forEach items="${list}" var="dto">
             <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
@@ -286,6 +332,7 @@
   <!-- Template Main JS File -->
   <script src="/resources/assets/js/main.js"></script>
 <script src="/resources/JS/follow.js"></script>
+<script src="/resources/JS/memlist.js"></script>
 
 <!-- <script>
   function getParameter(name) {

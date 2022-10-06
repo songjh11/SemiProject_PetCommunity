@@ -310,4 +310,5 @@ public class MemberDTO {
 		this.memberFileDTO = memberFileDTO;
 	}
 
+
 }

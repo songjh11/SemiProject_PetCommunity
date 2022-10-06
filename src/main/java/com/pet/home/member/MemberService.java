@@ -217,11 +217,21 @@ public class MemberService {
 		return memberDAO.getMemCount();
 	}
 
-	public List<MemberDTO> getMemList(){
+	public List<MemberDTO> getMemList()throws Exception{
 		return memberDAO.getMemList();
 	}
 	
-	public List<MemberDTO> getFindMem(MemberDTO memberDTO){
+	public List<MemberDTO> getFindMem(MemberDTO memberDTO)throws Exception{
 		return memberDAO.getFindMem(memberDTO);
+	}
+	
+	public int setBlock(MemberDTO memberDTO)throws Exception{
+		return memberDAO.setBlock(memberDTO);
+		
+	}
+	
+	public int setUnBlock(MemberDTO memberDTO)throws Exception{
+		return memberDAO.setUnBlock(memberDTO);
+		
 	}
 }

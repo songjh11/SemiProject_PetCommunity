@@ -77,6 +77,10 @@
     h5 {
       display: none;
     }
+
+    .blocked{
+      filter: brightness(20%); 
+    }
 	</style>
   
 </head>
@@ -108,7 +112,7 @@
                         </select>
                       </div>
                       <input class="form-control me-2" type="text" name="search" placeholder="검색어 입력" aria-label="Search" value="${param.search}">
-                      <button class="btn btn-outline-success" id="sbtn" type="submit">Search</button>
+                      <button class="btn btn-outline-success" id="sbtn" type="button">Search</button>
                     </form>
 
 
@@ -117,18 +121,28 @@
                 <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                   <div class="chef-member">
                     <div class="member-img">
+
                       <c:if test="${empty dto.memberFileDTO.fileName}">
-                        <img src="/resources/images/seller.jpg" class="img-fluid" alt="">
+                          <img src="/resources/images/seller.jpg" class="img-fluid blocked" alt="">
                       </c:if>
-                      <img src="/resources/upload/member/${dto.memberFileDTO.fileName}" class="img-fluid" alt="">
+                    <c:choose>
+                      <c:when test="${dto.block == 1}">
+                        <img src="/resources/upload/member/${dto.memberFileDTO.fileName}" class="img-fluid blocked" alt="">
+                      </c:when>
+                      <c:otherwise>
+                        <img src="/resources/upload/member/${dto.memberFileDTO.fileName}" class="img-fluid" alt="">
+                      </c:otherwise>
+                    </c:choose>
+                      
+                 
                     </div>
                     <div class="member-info">
                       <h4>${dto.userId}</h4>
                       <span>${dto.roleDTO.roleName}</span>
                       <p>${dto.email}</p>
                       <div class="social">
-                        <button class="followeedel" type="button"><i class="bi bi-trash3"></i></button>
-                        <a href=""><i class="bi bi-facebook"></i></a>
+                        <button class="blockbtn" type="button"><i class="bi bi-shield-slash-fill"></i></button> <!-- 멤버 차단-->
+                        <button class="unblockbtn" type="button"><i class="bi bi-shield-check"></i></button>
                         <a href=""><i class="bi bi-instagram"></i></a>
                         <a href=""><i class="bi bi-linkedin"></i></a>
                       </div>
@@ -332,7 +346,6 @@
   <!-- Template Main JS File -->
   <script src="/resources/assets/js/main.js"></script>
 <script src="/resources/JS/follow.js"></script>
-<script src="/resources/JS/memlist.js"></script>
 
 <!-- <script>
   function getParameter(name) {

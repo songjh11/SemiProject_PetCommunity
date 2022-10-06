@@ -147,12 +147,22 @@ public class MemberDAO {
 		return sqlSession.selectOne(NAMESPACE+"getMemCount");
 	}
 	
-	public List<MemberDTO> getMemList(){
+	public List<MemberDTO> getMemList()throws Exception{
 		return sqlSession.selectList(NAMESPACE+"getMemList");
 	}
 	
-	public List<MemberDTO> getFindMem(MemberDTO memberDTO){
+	public List<MemberDTO> getFindMem(MemberDTO memberDTO)throws Exception{
 		return sqlSession.selectList(NAMESPACE+"getFindMem", memberDTO);
+	}
+	
+	public int setBlock(MemberDTO memberDTO)throws Exception{
+		return sqlSession.update(NAMESPACE+"setBlock", memberDTO);
+		
+	}
+	
+	public int setUnBlock(MemberDTO memberDTO)throws Exception{
+		return sqlSession.update(NAMESPACE+"setUnBlock", memberDTO);
+		
 	}
 	
 	

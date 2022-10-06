@@ -209,6 +209,42 @@ public class MemberController {
 		return mv;
 	}
 	
+	@GetMapping("block")
+	public ModelAndView setBlock(MemberDTO memberDTO)throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		int result = memberService.setBlock(memberDTO);
+		
+		if(result == 1){
+			mv.addObject("msg", "회원이 차단되었습니다.");
+		}else {
+			mv.addObject("msg", "차단 실패했습니다.");
+		}
+			mv.addObject("url", "memlist");
+			mv.setViewName("member/alert");
+			
+			return mv;
+	}
+	
+	@GetMapping("unblock")
+	public ModelAndView setUnBlock(MemberDTO memberDTO)throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		int result = memberService.setUnBlock(memberDTO);
+		
+		if(result == 1){
+			mv.addObject("msg", "회원이 차단 해제되었습니다.");
+		}else {
+			mv.addObject("msg", "차단 해제 실패했습니다.");
+		}
+			mv.addObject("url", "memlist");
+			mv.setViewName("member/alert");
+			
+			return mv;
+	}
+	
+	
+	
 	@GetMapping("delete")
 	public String delete()throws Exception{
 		

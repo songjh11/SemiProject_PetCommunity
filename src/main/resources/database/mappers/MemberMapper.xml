@@ -165,6 +165,14 @@ WHERE UC.USERID = #{userId}
 
 <!--================= Update & Delete============== -->
 
+<update id="setBlock" parameterType="MemberDTO" >
+ UPDATE MEMBER SET BLOCK=1 WHERE USERID=#{userId}
+</update>
+
+<update id="setUnBlock" parameterType="MemberDTO" >
+ UPDATE MEMBER SET BLOCK=0 WHERE USERID=#{userId}
+</update>
+
 <delete id="setMemDelete" parameterType="MemberDTO">
 DELETE FROM MEMBER WHERE USERID=#{userId}
 </delete>

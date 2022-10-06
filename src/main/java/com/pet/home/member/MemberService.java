@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pet.home.board.event.coupon.CouponDTO;
+import com.pet.home.sell.PickDTO;
 import com.pet.home.sell.ReservationDTO;
+import com.pet.home.sell.ShopCartDTO;
 import com.pet.home.util.FileManager;
 
 @Service
@@ -102,12 +104,12 @@ public class MemberService {
 		
 	}
 
-	public  List<MemberDTO> getPickList(MemberDTO memberDTO) throws Exception{
+	public  MemberDTO getPickList(MemberDTO memberDTO) throws Exception{
 		return memberDAO.getPickList(memberDTO);
 
 	}
 	
-	public List<MemberDTO> getShopCartList(MemberDTO memberDTO) throws Exception{
+	public MemberDTO getShopCartList(MemberDTO memberDTO) throws Exception{
 		return memberDAO.getShopCartList(memberDTO);
 	}
 	
@@ -197,6 +199,14 @@ public class MemberService {
 		email.setHtmlMsg(msg);
 		email.send();
 		
+	}
+	
+	public int setPickDelete(PickDTO pickDTO)throws Exception{
+		return memberDAO.setPickDelete(pickDTO);
+	}
+	
+	public int setCartDelete(ShopCartDTO shopCartDTO)throws Exception{
+		return memberDAO.setCartDelete(shopCartDTO);
 	}
 
 }

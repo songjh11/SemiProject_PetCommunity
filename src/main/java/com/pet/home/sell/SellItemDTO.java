@@ -2,6 +2,7 @@ package com.pet.home.sell;
 
 import java.util.List;
 
+import com.pet.home.member.MemberDTO;
 import com.pet.home.sell.file.SellFileDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
 
@@ -19,7 +20,7 @@ public class SellItemDTO {
 
 	private List<SellFileDTO> fileDTOs;
 	private List<ShopCartDTO> shopCartDTOs;
-
+	
 	public List<ShopCartDTO> getShopCartDTOs() {
 		return shopCartDTOs;
 	}

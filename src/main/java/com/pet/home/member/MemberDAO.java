@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pet.home.board.event.coupon.CouponDTO;
+import com.pet.home.sell.PickDTO;
 import com.pet.home.sell.ReservationDTO;
+import com.pet.home.sell.ShopCartDTO;
 
 @Repository
 public class MemberDAO {
@@ -52,8 +54,8 @@ public class MemberDAO {
 		
 	}
 		
-	public List<MemberDTO> getPickList(MemberDTO memberDTO) throws Exception{
-		return sqlSession.selectList(NAMESPACE+"getPickList", memberDTO);
+	public MemberDTO getPickList(MemberDTO memberDTO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getPickList", memberDTO);
 	}
 	
 	public int setMemDelete(MemberDTO memberDTO)throws Exception{
@@ -75,8 +77,8 @@ public class MemberDAO {
 		
 	}
 
-	public List<MemberDTO> getShopCartList(MemberDTO memberDTO) throws Exception{
-		return sqlSession.selectList(NAMESPACE+"getShopCartList", memberDTO);
+	public MemberDTO getShopCartList(MemberDTO memberDTO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getShopCartList", memberDTO);
 	}
 	
 	public MemberDTO getTotalPrice(MemberDTO memberDTO) throws Exception{
@@ -126,6 +128,14 @@ public class MemberDAO {
 	
 	public MemberDTO setUpdatePw(MemberDTO memberDTO) throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"setUpdatePw", memberDTO);
+	}
+	
+	public int setPickDelete(PickDTO pickDTO)throws Exception{
+		return sqlSession.delete(NAMESPACE+"setPickDelete", pickDTO);
+	}
+	
+	public int setCartDelete(ShopCartDTO shopCartDTO)throws Exception{
+		return sqlSession.delete(NAMESPACE+"setCartDelete", shopCartDTO);
 	}
 	
 }

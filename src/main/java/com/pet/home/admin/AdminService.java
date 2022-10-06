@@ -33,6 +33,11 @@ public class AdminService {
 	}
 	
 	public List<QnaDTO> getMemberQnaList(Pager pager) throws Exception{
+		pager.getRowNum();
+		Long totalCount = adminDAO.getQnaCount(pager);
+		pager.getNum(totalCount);
+		
+		
 		return adminDAO.getMemberQnaList(pager);
 	}
 	public List<SharingDTO> getMemberSharingList(Pager pager) throws Exception{

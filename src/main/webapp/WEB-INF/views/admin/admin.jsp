@@ -118,8 +118,8 @@
 					<td>${gue.userId}</td>
 					<td>${gue.userName}</td>
 					<td class="deleteMember" data-userId="${gue.userId}" onclick="deleteMember()">추방</td>
-					<td><button class="memberSharing" onclick="getList('1','${gue.userId}')" data-userId="${gue.userId}">같이해요 작성한 글</button></td>
-					<td><button class="memberQna" data-userId="${gue.userId}">QnA 작성한 글</button></td>
+					<td><button class="memberSharing" onclick="getSharingList('1','${gue.userId}')" data-userId="${gue.userId}">같이해요 작성한 글</button></td>
+					<td><button class="memberQna" onclick="getQnaList('1','${gue.userId}')" data-userId="${gue.userId}">QnA 작성한 글</button></td>
 					<td><button class="memberItem" data-userId="${gue.userId}">구매 목록</button></td>
 				</tr>
 				</c:forEach>

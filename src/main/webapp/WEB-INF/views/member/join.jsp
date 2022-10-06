@@ -90,7 +90,7 @@
   
 
           <div class="col-lg-8 align-items-center">
-            <form action="join" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data" id="frm">
+            <form action="join" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data" id="joinfrm">
               <div class="row gy-4">
                 <div class="col-lg-8 col-md-12">
                   <input type="hidden" name="roleNum" value="${param.roleNum}">
@@ -374,7 +374,7 @@
 
 
 
-<script src="/resources/JS/member.js"></script>
+<script src="/resources/JS/join.js"></script>
 
 </body>
 </html>

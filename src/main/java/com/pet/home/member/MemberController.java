@@ -509,7 +509,8 @@ public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 	@GetMapping("purchaseList")
 	public ModelAndView getPurchaseList(HttpSession httpSession, String purchaseStatus) throws Exception {
 		System.out.println("purchaseList");
-		MemberDTO memberDTO = (MemberDTO)httpSession.getAttribute("dto");
+		MemberDTO memberDTO = (MemberDTO)httpSession.getAttribute("member");
+		System.out.println(memberDTO.getUserId());
 		PurchaseDTO purchaseDTO = new PurchaseDTO();
 		purchaseDTO.setUserId(memberDTO.getUserId());
 		purchaseDTO.setPurchaseStatus(Long.parseLong(purchaseStatus));

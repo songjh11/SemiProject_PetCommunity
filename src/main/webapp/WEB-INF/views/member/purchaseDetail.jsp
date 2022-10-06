@@ -114,7 +114,7 @@
     <c:import url="/WEB-INF/views/template/header.jsp"></c:import>
     <!-- header end -->
   </div>
-  <div style="margin-top: 100px;">  
+  <div style="margin-top: 100px; width: 80%;">  
       <form action="purchaseDelete" method="post">
           <section class="mainSection">
             <div class="mainContents row gy-1">

@@ -65,6 +65,8 @@ public class AdminController {
 		return map;
 	}
 	
+	@PostMapping("couponlist")
+	@ResponseBody
 	public Map<String, Object> getCouponList(Pager pager) throws Exception{
 		List<CouponDTO> list = adminService.getCouponList(pager);
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -150,6 +152,13 @@ public class AdminController {
 		return result;
 	}
 	
+	
+	@PostMapping("memberdetail")
+	@ResponseBody
+	public MemberDTO getMemberDetail(MemberDTO memberDTO) throws Exception{
+		memberDTO = memberDAO.getGuestPage(memberDTO);
+		return memberDTO;
+	}
 	
 	//멤버별 결제한 상품 불러오기
 	public void getMemberItemList() throws Exception{

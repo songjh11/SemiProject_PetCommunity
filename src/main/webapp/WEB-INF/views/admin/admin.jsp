@@ -139,6 +139,7 @@
 					<td><button class="memberSharing" onclick="getSharingList('1','${gue.userId}')" data-userId="${gue.userId}">같이해요 작성한 글</button></td>
 					<td><button class="memberQna" onclick="getQnaList('1','${gue.userId}')" data-userId="${gue.userId}">QnA 작성한 글</button></td>
 					<td><button class="memberItem" data-userId="${gue.userId}">구매 목록</button></td>
+					<td><button class="memberDetail" data-userId="${gue.userId}" onclick="getDetail('${gue.userId}')">회원 상세 프로필</button></td>
 				</tr>
 				</c:forEach>
 			</tbody>
@@ -170,7 +171,7 @@
 					<th>UserId</th><th>UserName</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="tbody4">
 				<c:forEach items="${biz}" var="bizmen">
 				<tr>
 					<td>${bizmen.userId}</td>
@@ -190,13 +191,13 @@
 		  <ul class="pagination justify-content-center">
 			
 			<li class="page-item ${bizPager.pre?'':'disabled'}">
-			  <a class="page-link" href="./list?page=${bizPager.startNum-1}&kind=${pager.kind}&search=${pager.search}">이전</a>
+			  <a class="page-link" id="previous3" data-page="${bizPager.startNum-1}">이전</a>
 			</li>
 			<c:forEach begin="${bizPager.startNum}" end="${bizPager.lastNum}" var="i">
-			<li class="page-item"><a class="page-link" href="./list?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
+			<li class="page-item"><a class="page-link 3" data-page="${i}">${i}</a></li>
 		   </c:forEach>
 			<li class="page-item ${bizPager.next?'':'disabled'}">
-			  <a class="page-link" href="./list?page=${pager.lastNum+1}&kind=${pager.kind}&search=${pager.search}">다음</a>
+			  <a class="page-link" id="next3" data-page="${bizPager.lastNum+1}">다음</a>
 			</li>
 		  </ul>
 		</nav>
@@ -216,7 +217,7 @@
 		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
 		<div class="modal-body" id="boardlist">
-			<table class="table">
+			<table class="table" id="tab">
 				<thead>
 					<tr>
 						<th>글 제목</th><th>작성일</th><th>조회수</th>
@@ -224,18 +225,20 @@
 				</thead>
 				<tbody id="tbody1">
 				</tbody>
-		  	</table>
-			  <button id="more" class="btn btn-danger">더 보기</button>
-
+			</table>
+			<button id="more" class="btn btn-danger">더 보기</button>
+			  
 		</div>
 		<div class="modal-footer">
-		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-		  <button type="button" class="btn btn-primary">Understood</button>
+		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close">닫기</button>
+		  <button type="button" class="btn btn-primary" id="check">확인</button>
 		</div>
 	  </div>
 	</div>
   </div>
 	
+
+
 </section>
 
 <c:import url="/WEB-INF/views/template/testfooter.jsp"></c:import>

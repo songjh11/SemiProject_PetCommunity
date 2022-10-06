@@ -33,9 +33,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.google.gson.JsonObject;
-import com.pet.home.sell.check.CheckDTO;
 import com.pet.home.sell.file.RvFileDTO;
 import com.pet.home.sell.file.SellFileDTO;
+import com.pet.home.sell.purchase.PurchaseDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
 import com.pet.home.util.SellPager;
 import com.siot.IamportRestClient.IamportClient;
@@ -51,12 +51,6 @@ public class SellItemController {
 
 	@Autowired
 	private SellItemService itemService;
-	
-	private IamportClient client;
-	
-	public SellItemController() {
-		this.client = new IamportClient("7768266328715148", "uETnhxe3MbNMjFN4Gs6U5PuiYYR6TWf9SFcGncxj9SWEcDAysad8JZmNnOYpChUkXzIdw7Ld9uTaSWuP");
-	}
 	
 	
 	@GetMapping("Test")
@@ -87,7 +81,7 @@ public class SellItemController {
 	}
 
 	@PostMapping("check")
-	public void setCheck(CheckDTO checkDTO) {
+	public void setCheck(PurchaseDTO checkDTO) {
 		System.out.println(checkDTO.getItemNum());
 	}
 
@@ -127,7 +121,7 @@ public class SellItemController {
 		System.out.println("updatepost");
 		int result = itemService.setItemUpdate(itemDTO, files, session.getServletContext());
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/sell/list?itemCatg=" + itemDTO.getItemCatg());
+		mv.setViewName("redirect:/sell/selllist?itemCatg=" + itemDTO.getItemCatg());
 		return mv;
 	}
 
@@ -391,7 +385,7 @@ public class SellItemController {
 	//결제 진행 후 DB 인서트
 	@PostMapping("payments")
 	@ResponseBody
-	public String setCheck(@RequestParam String imp_uid, 
+	public String setPurchase(@RequestParam String imp_uid, 
 			@RequestParam String merchant_uid, 
 			@RequestParam String itemNum,
 			@RequestParam String amount,
@@ -403,7 +397,9 @@ public class SellItemController {
 			HttpSession session) throws Exception {
 					
 			//토큰 발급
-			IamportResponse<AccessToken> token = client.getAuth();
+			IamportResponse<AccessToken> token = itemService.getToken();
+			
+			IamportClient client = itemService.getClient();
 			
 			Payment payment = client.paymentByImpUid(imp_uid).getResponse();
 			String paymentResult = payment.getStatus();
@@ -413,18 +409,18 @@ public class SellItemController {
 			System.out.println("token: "+token.getResponse().getToken());
 			
 			if(paymentResult.equals("paid")) {
-				CheckDTO checkDTO = new CheckDTO();
-				checkDTO.setImp_uid(imp_uid);
-				checkDTO.setMerchant_uid(merchant_uid);
-				checkDTO.setItemNum(Long.parseLong(itemNum));
-				checkDTO.setAmount(Long.parseLong(amount));
-				checkDTO.setRevStartDate(revStartDate);
-				checkDTO.setRevEndDate(revEndDate);
-				checkDTO.setAdultsCount(Long.parseLong(adultsCount));
-				checkDTO.setDogCount(Long.parseLong(dogCount));
-				checkDTO.setUserId(userId);
+				PurchaseDTO purchaseDTO = new PurchaseDTO();
+				purchaseDTO.setImp_uid(imp_uid);
+				purchaseDTO.setMerchant_uid(merchant_uid);
+				purchaseDTO.setItemNum(Long.parseLong(itemNum));
+				purchaseDTO.setAmount(Long.parseLong(amount));
+				purchaseDTO.setRevStartDate(revStartDate);
+				purchaseDTO.setRevEndDate(revEndDate);
+				purchaseDTO.setAdultsCount(Long.parseLong(adultsCount));
+				purchaseDTO.setDogCount(Long.parseLong(dogCount));
+				purchaseDTO.setUserId(userId);
 				
-				int result = itemService.setCheck(checkDTO);
+				int result = itemService.setPurchase(purchaseDTO);
 				
 				return paymentResult;
 				
@@ -439,7 +435,7 @@ public class SellItemController {
 	
 	//결제 리스트 출력
 	public ModelAndView getPurchaseList(String userId) throws Exception{
-		CheckDTO checkDTO = new CheckDTO();
+		PurchaseDTO checkDTO = new PurchaseDTO();
 		checkDTO.setUserId(userId);
 		System.out.println(checkDTO.getUserId());
 //		List<CheckDTO> checkList = itemService.getPurchaseList(checkDTO);
@@ -447,6 +443,8 @@ public class SellItemController {
 //		mv.addObject("checkList", checkList);
 		return mv;		
 	}
+	
+
 
 //public String getToken() {
 //		

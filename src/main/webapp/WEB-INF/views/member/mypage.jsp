@@ -83,13 +83,13 @@
                 </a><!-- End tab nav item -->
     
               <li class="nav-item">
-                <a class="nav-link"  href="./rev">
+                <a class="nav-link"  href="./purchaseList?purchaseStatus=1">
                   <h4>예약내역</h4>
                 </a>
               </li><!-- End tab nav item -->
     
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link"  href="./purchaseList?purchaseStatus=0">
                   <h4>취소내역</h4>
                 </a>
               </li>
@@ -112,7 +112,7 @@
                 </a><!-- End tab nav item -->
     
               <li class="nav-item">
-                <a class="nav-link"  href="./rev">
+                <a class="nav-link"  href="./purchaseList?purchaseStatus=1">
                   <h4>예약내역</h4>
                 </a>
               </li><!-- End tab nav item -->

@@ -33,7 +33,7 @@
 					<th>번호</th><th>쿠폰이름</th><th>만료기한</th><th>발행일</th><th>할인율/할인금액</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="tbody3">
 				<c:forEach items="${requestScope.list}" var="dto">
 				<tr>
 					<td>${pageScope.dto.couponNum}</td>
@@ -48,6 +48,24 @@
 			</tbody>
 		</table>
 	</div>
+
+	<div class="row">
+		<nav aria-label="Page navigation example">
+		  <ul class="pagination justify-content-center">
+			
+			<li class="page-item ${couponPager.pre?'':'disabled'}">
+			  <a class="page-link" id="previous1" data-page="${couponPager.startNum-1}">이전</a>
+			</li>
+			<c:forEach begin="${couponPager.startNum}" end="${couponPager.lastNum}" var="i">
+			<li class="page-item"><a class="page-link 2" data-page="${i}">${i}</a></li>
+		   </c:forEach>
+			<li class="page-item ${couponPager.next?'':'disabled'}">
+			  <a class="page-link" id="next1" data-page="${couponPager.lastNum+1}">다음</a>
+			</li>
+		  </ul>
+		</nav>
+	</div>
+
 	<!-- 쿠폰 발행 modal-->
 	<div>
 		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">쿠폰 발행하기</button>
@@ -112,7 +130,7 @@
 					<th>UserId</th><th>UserName</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="tbody2">
 				<c:forEach items="${guest}" var="gue">
 				<tr>
 					<td>${gue.userId}</td>
@@ -126,6 +144,66 @@
 			</tbody>
 		</table>
 	</div>
+	<!-- 게스트 목록 페이징-->
+	<div class="row">
+		<nav aria-label="Page navigation example">
+		  <ul class="pagination justify-content-center">
+			
+			<li class="page-item ${guestPager.pre?'':'disabled'}">
+			  <a class="page-link" id="previous2" data-page="${guestPager.startNum-1}">이전</a>
+			</li>
+			<c:forEach begin="${guestPager.startNum}" end="${guestPager.lastNum}" var="i">
+			<li class="page-item"><a class="page-link" data-page="${i}">${i}</a></li>
+		   </c:forEach>
+			<li class="page-item ${guestPager.next?'':'disabled'}">
+			  <a class="page-link" id="next2" data-page="${guestPager.lastNum+1}">다음</a>
+			</li>
+		  </ul>
+		</nav>
+	</div>
+
+	<div class="row">
+		<h3>사업자 리스트</h3>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>UserId</th><th>UserName</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${biz}" var="bizmen">
+				<tr>
+					<td>${bizmen.userId}</td>
+					<td>${bizmen.userName}</td>
+					<td class="deleteMember" data-userId="${bizmen.userId}" onclick="deleteMember()">추방</td>
+					<td><button class="memberSharing" onclick="getSharingList('1','${bizmen.userId}')" data-userId="${bizmen.userId}">이벤트 작성한 글</button></td>
+					<td><button class="memberQna" onclick="getQnaList('1','${bizmen.userId}')" data-userId="${bizmen.userId}">QnA 작성한 글</button></td>
+					<td><button class="memberItem" data-userId="${bizmen.userId}">판매 상품 목록</button></td>
+				</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
+	<!-- 사업자 목록 페이징-->
+	<div class="row">
+		<nav aria-label="Page navigation example">
+		  <ul class="pagination justify-content-center">
+			
+			<li class="page-item ${bizPager.pre?'':'disabled'}">
+			  <a class="page-link" href="./list?page=${bizPager.startNum-1}&kind=${pager.kind}&search=${pager.search}">이전</a>
+			</li>
+			<c:forEach begin="${bizPager.startNum}" end="${bizPager.lastNum}" var="i">
+			<li class="page-item"><a class="page-link" href="./list?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
+		   </c:forEach>
+			<li class="page-item ${bizPager.next?'':'disabled'}">
+			  <a class="page-link" href="./list?page=${pager.lastNum+1}&kind=${pager.kind}&search=${pager.search}">다음</a>
+			</li>
+		  </ul>
+		</nav>
+	</div>
+
+
+
 	<!-- Button trigger modal -->
 	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="btn" style="display: none;"></button>
   

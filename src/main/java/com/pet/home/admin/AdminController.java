@@ -37,17 +37,43 @@ public class AdminController {
 	private QnaDAO qnaDAO;
 
 	@GetMapping("mypage")
-	public ModelAndView test(ModelAndView mv) throws Exception {
-		List<MemberDTO> bizMembers = memberDAO.getAllBizmen();
-		List<MemberDTO> guestMembers = memberDAO.getAllGuest();
-		List<CouponDTO> list = adminService.getCouponList();
+	public ModelAndView getMyPage(ModelAndView mv) throws Exception {
+		Pager bizPager = new Pager();
+		List<MemberDTO> bizMembers = adminService.getBizmenList(bizPager);
+		Pager guestPager = new Pager();
+		List<MemberDTO> guestMembers = adminService.getGuestList(guestPager);
+		Pager couponPager = new Pager();
+		List<CouponDTO> list = adminService.getCouponList(couponPager);
+		mv.addObject("bizPager", bizPager);
+		mv.addObject("guestPager", guestPager);
+		mv.addObject("couponPager", couponPager);
 		mv.addObject("list", list);
 		mv.addObject("biz", bizMembers);
 		mv.addObject("guest", guestMembers);
 		mv.setViewName("admin/admin");
 		return mv;
 	}
-
+	
+	@PostMapping("guestlist")
+	@ResponseBody
+	public Map<String, Object> getGuestList(Pager pager) throws Exception{
+		List<MemberDTO> list = adminService.getGuestList(pager);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("pager", pager);
+		
+		return map;
+	}
+	
+	public Map<String, Object> getCouponList(Pager pager) throws Exception{
+		List<CouponDTO> list = adminService.getCouponList(pager);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("pager", pager);
+		
+		return map;
+	}
+	
 	@PostMapping("addcoupon")
 	@ResponseBody
 	public int setAddCoupon(CouponDTO couponDTO) throws Exception {
@@ -63,12 +89,6 @@ public class AdminController {
 		return result;
 	}
 
-	@GetMapping("couponlist")
-	@ResponseBody
-	public List<CouponDTO> getCouponList() throws Exception {
-		List<CouponDTO> list = adminService.getCouponList();
-		return list;
-	}
 	
 	//멤버 탈퇴
 	@PostMapping("deletemember")

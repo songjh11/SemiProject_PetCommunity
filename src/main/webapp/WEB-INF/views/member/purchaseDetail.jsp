@@ -119,13 +119,21 @@
           <section class="mainSection">
             <div class="mainContents row gy-1">
               <div class="section-header">
-                <p><span>결제 상세 내역</span><p>
+                <c:choose>
+                  <c:when test="${check.purchaseStatus eq 1}">
+                    <p><span>결제 상세 내역</span><p>
+                  </c:when>
+                  <c:when test="${check.purchaseStatus eq 0}">
+                    <p><span>결제 취소 내역</span><p></p>  
+                  </c:when>
+                </c:choose>
               </div>
               <!-- text 영역 -->
               <div class="textAre col-lg-12 col-md-12 d-flex">
                 <div>
                   <input type="hidden" id="merchant_uid" name="merchant_uid" value="${check.merchant_uid}"}>
                   <input type="hidden" id="imp_uid" name="imp_uid" value="${check.imp_uid}"}>
+                  <input type="hidden" id="amount" name="amount" value="${check.amount}"}>
                   <table class="table table-striped">
                     <tbody>
                       <tr>
@@ -169,19 +177,33 @@
                       <tr>
                           <td>
                             <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>시작 일자</strong></span>
-                            <p style="margin-top: 3px;"><span><h5>${check.revStartDate}</h5></span></p></td>
+                            <p style="margin-top: 3px;"><span><h5>${revStartDate}</h5></span></p></td>
                           </td> 
                           <td>
                             <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>종료 일자</strong></span>
-                            <p style="margin-top: 3px;"><span><h5>${check.revEndDate}</h5></span></p></td>
+                            <p style="margin-top: 3px;"><span><h5>${revEndDate}</h5></span></p></td>
                           </td> 
                       </tr>
+                      <c:if test="${check.purchaseStatus eq 0}">
+                        <tr>
+                          <td colspan="2">
+                            <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>취소 일자</strong></span>
+                            <p style="margin-top: 3px;"><span><h5>${check.cancelDTO.cancelDate}</h5></span></p></td>
+                        </tr>
+                        <tr>
+                          <td colspan="2">
+                            <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>환불 사유</strong></span>
+                            <p style="margin-top: 3px;"><span><h5>${check.cancelDTO.reason}</h5></span></p></td>
+                        </tr>
+                      </c:if>  
                       </tbody>
                       </table>
                 
+                      <c:if test="${check.purchaseStatus eq 1}">
                         <div style="margin-bottom: 15px; margin-top: 30px; text-align: center">
                           <button type="button" class="btn btn-outline-danger" style="display: inline-block;" onclick="cancelPay()">환불하기</button>
                         </div>
+                      </c:if>
      
                 </div>
                 </div>
@@ -212,16 +234,18 @@
     function cancelPay() {
       const imp_uid = document.getElementById("imp_uid");
       const merchant_uid = document.getElementById("merchant_uid")
+      const amount = document.getElementById("amount");
       let iuv = imp_uid.value;
       let muv = merchant_uid.value;
+      let av = amount.value;
       $.ajax({
         url: "./purchaseDelete", // 예: http://www.myservice.com/payments/cancel
         type: "POST",
         data: {
           'imp_uid': iuv,
           'merchant_uid': muv, // 예: ORD20180131-0000011
-          'cancel_request_amount': 2000, // 환불금액
-          'reason': "테스트 결제 환불" // 환불사유
+          'amount': av, // 환불금액
+          'reason': "구매자 결제 환불" // 환불사유
         }
       }).done(function(result) { // 환불 성공시 로직
               console.log(result.msg);

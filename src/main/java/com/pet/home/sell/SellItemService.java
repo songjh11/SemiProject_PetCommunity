@@ -25,6 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.pet.home.member.MemberDTO;
 import com.pet.home.sell.file.RvFileDTO;
 import com.pet.home.sell.file.SellFileDTO;
+import com.pet.home.sell.purchase.PurchaseCancelDAO;
+import com.pet.home.sell.purchase.PurchaseCancelDTO;
 import com.pet.home.sell.purchase.PurchaseDAO;
 import com.pet.home.sell.purchase.PurchaseDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
@@ -53,6 +55,8 @@ public class SellItemService {
 	private RvCommentDAO rvCommentDAO;
 	@Autowired
 	private PurchaseDAO purchaseDAO;
+	@Autowired
+	private PurchaseCancelDAO cancelDAO;
 	
 	@Autowired
 	private SellQnaDAO sellQnaDAO;
@@ -416,8 +420,8 @@ public class SellItemService {
 		return purchaseDAO.getPurchaseDetail(purchaseDTO); 
 	}
 	
+	//아임포트 서버에서 전액 환불 진행
 	public String setPurchaseCancel(IamportResponse<AccessToken> token, String reason, String imp_uid) throws Exception{
-		//아임포트 서버에서 전액 환불 진행
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json");
@@ -439,6 +443,17 @@ public class SellItemService {
 		return code;
 	}
 	
+	//결제 취소 리스트 출력
+	public List<PurchaseDTO> getPurchaseCancleList (String userId) {
+		return cancelDAO.getPurchaseCancleList(userId);
+	}
+	
+	//결제 취소 DB 인서트
+	public int setPurchaseCancelOne (PurchaseCancelDTO cancelDTO) {
+		return cancelDAO.setPurchaseCancelOne(cancelDTO);
+	}
+	
+	//결제 상태 변경
 	public int setPurchaseStatus(String merchant_uid) throws Exception {
 		return purchaseDAO.setPurchaseStatus(merchant_uid);
 	}

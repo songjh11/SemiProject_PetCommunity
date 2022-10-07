@@ -22,6 +22,11 @@ public class PurchaseDTO {
     private Long dogCount;
     private Date purchaseDate;
     private Long purchaseStatus;
+    //결제 완료: 1, 결제 취소: 0
+    private PurchaseCancelDTO cancelDTO;
+    
+    
+    
     
     private MemberDTO memberDTO;
     
@@ -32,6 +37,12 @@ public class PurchaseDTO {
     
     
     
+	public PurchaseCancelDTO getCancelDTO() {
+		return cancelDTO;
+	}
+	public void setCancelDTO(PurchaseCancelDTO cancelDTO) {
+		this.cancelDTO = cancelDTO;
+	}
 	public List<SellFileDTO> getFileDTOs() {
 		return fileDTOs;
 	}

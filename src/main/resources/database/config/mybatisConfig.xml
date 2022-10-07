@@ -31,6 +31,7 @@
 		<typeAlias type="com.pet.home.sell.sellcategory.SellCategoryDTO" alias="SellCategoryDTO"/>
 		<typeAlias type="com.pet.home.sell.sellcategory.CategoryDTO" alias="CategoryDTO"/>
 		<typeAlias type="com.pet.home.sell.purchase.PurchaseDTO" alias="PurchaseDTO"/>
+		<typeAlias type="com.pet.home.sell.purchase.PurchaseCancelDTO" alias="PurchaseCancelDTO"/>
 		
 		<typeAlias type="com.pet.home.sell.ReservationDTO" alias="ReservationDTO"/>
 		<typeAlias type="com.pet.home.sell.SellItemDTO" alias="SellItemDTO"/>

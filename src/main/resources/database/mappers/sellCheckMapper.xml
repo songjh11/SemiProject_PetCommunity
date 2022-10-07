@@ -11,6 +11,11 @@
 		(#{imp_uid}, #{merchant_uid}, #{itemNum}, #{amount}, #{userId}, #{revStartDate}, #{revEndDate}, #{adultsCount}, #{dogCount}, sysdate, 1)
 	</insert>
 	
+	<insert id="setPurchaseCancelOne" parameterType="PurchaseCancelDTO">
+		 INSERT INTO PURCHASECANCEL 
+		 VALUES (#{merchant_uid}, #{imp_uid}, #{reason}, sysdate)
+	</insert>
+	
 	<update id="setPurchaseStatus" parameterType="String">
 		UPDATE PURCHASE SET PURCHASESTATUS = 0 WHERE MERCHANT_UID = #{merchant_uid}
 	</update>
@@ -32,35 +37,41 @@
 	                        ON SI.ITEMNUM = SF.ITEMNUM
 	                        ORDER BY SI.ITEMNUM DESC,SF.PHOTONUM ASC) SII) SITEM
 					ON P.ITEMNUM = SITEM.ITEMNUM
-		WHERE (P.USERID = #{userId} AND P.PURCHASESTATUS=#{purchaseStatus})
+		WHERE (P.USERID = #{userId} AND P.PURCHASESTATUS=1)
 		ORDER BY P.PURCHASEDATE DESC) CHECKLIST	
 	</select>
 	
-	<select id="getPurchaseCancleList" parameterType="String" resultMap="getPurchaseListResult">
+	<select id="getPurchaseCancleList" parameterType="String" resultMap="getPurchaseCancelListResult">
 		SELECT ROWNUM R, CHECKLIST.* FROM        
-		(SELECT  P.*, M.USERNAME, M.EMAIL, M.PHONE, SITEM.USERID as BIZID, SITEM.ITEMNAME, SITEM.FILENAME FROM 
+		(SELECT  P.*, M.USERNAME, M.EMAIL, M.PHONE, SITEM.USERID as BIZID, SITEM.ITEMNAME, SITEM.FILENAME, PC.CANCELDATE, PC.REASON FROM 
 			PURCHASE P
 				RIGHT JOIN
-				MEMBER M
-				ON P.USERID = M.USERID
+				PURCHASECANCEL PC
+				ON P.MERCHANT_UID = PC.MERCHANT_UID
 					RIGHT JOIN
-					(SELECT SII.* 
-	                    FROM 
-	                    (SELECT SI.ITEMNUM, SI.ITEMPRICE, SI.ITEMNAME, SI.ITEMCATG, SI.USERID, SI.ITEMADDRESS, SF.FILENAME
-	                        FROM SELLITEM SI
-	                        INNER JOIN
-	                        SELLFILE SF
-	                        ON SI.ITEMNUM = SF.ITEMNUM
-	                        ORDER BY SI.ITEMNUM DESC,SF.PHOTONUM ASC) SII) SITEM
-					ON P.ITEMNUM = SITEM.ITEMNUM
-		WHERE (P.USERID = #{userId} AND P.PURCHASESTATUS=0)
-		ORDER BY P.PURCHASEDATE DESC) CHECKLIST	
+					MEMBER M
+					ON P.USERID = M.USERID
+						RIGHT JOIN
+						(SELECT SII.* 
+		                    FROM 
+		                    (SELECT SI.ITEMNUM, SI.ITEMPRICE, SI.ITEMNAME, SI.ITEMCATG, SI.USERID, SI.ITEMADDRESS, SF.FILENAME
+		                        FROM SELLITEM SI
+		                        INNER JOIN
+		                        SELLFILE SF
+		                        ON SI.ITEMNUM = SF.ITEMNUM
+		                        ORDER BY SI.ITEMNUM DESC,SF.PHOTONUM ASC) SII) SITEM
+						ON P.ITEMNUM = SITEM.ITEMNUM
+		WHERE P.USERID = #{userId}
+		ORDER BY PC.CANCELDATE DESC) CHECKLIST	
 	</select>
 	
 	<select id="getPurchaseDetail" parameterType="PurchaseDTO" resultMap="getPurchaseListResult">
 		SELECT ROWNUM R, CHECKLIST.* FROM        
-		(SELECT  P.*, M.USERNAME, M.EMAIL, M.PHONE, SITEM.USERID as BIZID, SITEM.ITEMNAME, SITEM.FILENAME FROM 
+		(SELECT  P.*, M.USERNAME, M.EMAIL, M.PHONE, SITEM.USERID as BIZID, SITEM.ITEMNAME, SITEM.FILENAME, PC.CANCELDATE, PC.REASON FROM 
 		PURCHASE P
+		LEFT JOIN
+		PURCHASECANCEL PC
+		ON P.MERCHANT_UID = PC.MERCHANT_UID		
 			RIGHT JOIN
 			MEMBER M
 			ON P.USERID = M.USERID
@@ -94,6 +105,50 @@
 				<result column="DOGCOUNT" property="dogCount"/>
 				<result column="PURCHASEDATE" property="purchaseDate"/>
 				<result column="PURCHASESTATUS" property="purchaseStatus"/>
+			<association property="cancelDTO" javaType="PurchaseCancelDTO">
+				<result column="CANCELDATE" property="cancelDate"/>
+				<result column="REASON" property="reason"/>
+			</association>		
+			<association property="itemDTO" javaType="SellItemDTO">
+				<id column="ITEMNUM" property="itemNum"/>
+				<result column="BIZID" property="userId"/>
+				<result column="ITEMNAME" property="itemName"/>
+				<result column="ITEMPRICE" property="itemPrice"/>
+				<result column="ITEMCONTENTS" property="itemContents"/>
+				<result column="ITEMZIPCODE" property="itemZipCode"/>
+				<result column="ITEMADDRESS" property="itemAddress"/>
+				<result column="ITEMDEADDRESS" property="itemDeAddress"/>
+				<result column="ITEMCATG" property="itemCatg"/>
+				</association>
+			<association property="memberDTO" javaType="MemberDTO">
+				<id column="USERID" property="userId"/>
+				<result column="USERNAME" property="userName"/>
+				<result column="EMAIL" property="email"/>
+				<result column="PHONE" property="phone"/>
+				</association>
+			<collection property="fileDTOs" javaType="List" ofType="sellFileDTO">
+				<id column="PHOTONUM" property="photoNum"></id>
+				<result column="FILENAME" property="fileName"/>
+				<result column="ORINAME" property="oriName"/>
+			</collection>	
+	</resultMap>
+	
+		<resultMap type="PurchaseDTO" id="getPurchaseCancelListResult">
+		<id column="IMP_UID" property="imp_uid"/>
+				<result column="MERCHANT_UID" property="merchant_uid"/>
+				<result column="ITEMNUM" property="itemNum"/>
+				<result column="AMOUNT" property="amount"/>
+				<result column="USERID" property="userId"/>
+				<result column="REVSTARTDATE" property="revStartDate"/>
+				<result column="REVENDDATE" property="revEndDate"/>
+				<result column="ADULTSCOUNT" property="adultsCount"/>
+				<result column="DOGCOUNT" property="dogCount"/>
+				<result column="PURCHASEDATE" property="purchaseDate"/>
+				<result column="PURCHASESTATUS" property="purchaseStatus"/>
+			<association property="cancelDTO" javaType="PurchaseCancelDTO">
+				<result column="CANCELDATE" property="cancelDate"/>
+				<result column="REASON" property="reason"/>
+			</association>	
 			<association property="itemDTO" javaType="SellItemDTO">
 				<id column="ITEMNUM" property="itemNum"/>
 				<result column="BIZID" property="userId"/>

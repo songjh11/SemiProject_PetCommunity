@@ -635,7 +635,7 @@
             <div>
               <label for="priceCount" class="font-weight-bold text-black">예상 금액 확인</label>
               <div class="field-icon-wrap">
-                <input type="text" id="totalPrice" readonly class="form-control">
+                <input type="text" id="totalPrice" readonly class="form-control" value="0">
               </div>
             </div>
             <div>

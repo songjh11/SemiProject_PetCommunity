@@ -10,7 +10,7 @@
 			FROM 
 				(SELECT SI.ITEMNUM, SI.ITEMPRICE, SI.ITEMNAME, SI.ITEMCATG, SI.ITEMADDRESS, SI.ITEMDEADDRESS, SF.FILENAME
 					FROM SELLITEM SI
-					INNER JOIN
+					LEFT JOIN
 					SELLFILE SF
 					ON SI.ITEMNUM = SF.ITEMNUM
 					WHERE SI.ITEMCATG= #{itemCatg}					
@@ -74,9 +74,21 @@
 	</insert>
 	
 	<select id="getItemList" parameterType="SellPager" resultMap="getItemResult">
-		SELECT * FROM
-			<include refid="search"></include>
-		WHERE R BETWEEN #{startRow} and #{lastRow}
+	   SELECT ITEM.*, SF.*
+	   FROM
+	    (SELECT * FROM
+	        (SELECT ROWNUM R, S.* FROM
+	            (SELECT * FROM SELLITEM 
+	                WHERE ITEMCATG=#{itemCatg} AND ITEMNAME LIKE '%'||#{search}||'%' 
+	                ORDER BY ITEMNUM DESC
+	            )S
+	        )
+	    WHERE R BETWEEN #{startRow} AND #{lastRow}
+	    ) ITEM
+	    INNER JOIN
+	    SELLFILE SF
+	    ON ITEM.ITEMNUM = SF.ITEMNUM
+	    ORDER BY ITEM.ITEMNUM DESC
 	</select>
 	
 	<select id="getItemCount" parameterType="SellPager" resultType="Long">

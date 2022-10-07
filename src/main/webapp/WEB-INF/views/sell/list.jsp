@@ -175,9 +175,11 @@
 
        
 
-   <!-- footer start -->
-   <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
-   <!-- footer end -->
+ <!-- footer start -->
+ <section>
+  <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
+</section>
+<!-- footer end -->
 
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

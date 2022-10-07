@@ -406,8 +406,8 @@ public class SellItemController {
 	}
 
 	//결제 진행 후 DB 인서트
-	@PostMapping("payments")
 	@ResponseBody
+	@RequestMapping(value = "payments", method = RequestMethod.POST, produces = "application/text; charset=utf8")
 	public String setPurchase(@RequestParam String imp_uid, 
 			@RequestParam String merchant_uid, 
 			@RequestParam String itemNum,
@@ -442,12 +442,16 @@ public class SellItemController {
 	        Date end = new SimpleDateFormat("yyyy-MM-dd").parse(revEndDate);
 	        Long diffSec = (end.getTime() - start.getTime()) / 1000; //초 차이
 	        Long revDays = diffSec / (24*60*60); //일자수 차이
+	        if(end.getTime() == start.getTime()) {
+	        	revDays = 1L;
+	        }
 	        System.out.println("revDays: "+revDays);
 			Long totalPrice = (itemPrice * revDays)+(10000*Long.parseLong(adultsCount))+(10000*Long.parseLong(dogCount));
 			System.out.println("totalPrice: "+totalPrice);
 			
 			//실제 결제 금액과 DB상 결제되어야 하는 금액 비교
 			if(amount.equals(totalPrice.toString())) {
+				//실결제 여부 검증
 				if(paymentResult.equals("paid")) {
 					PurchaseDTO purchaseDTO = new PurchaseDTO();
 					purchaseDTO.setImp_uid(imp_uid);
@@ -461,16 +465,30 @@ public class SellItemController {
 					purchaseDTO.setUserId(userId);
 					
 					int result = itemService.setPurchase(purchaseDTO);
-					
-					return paymentResult;
+						//디비 반영 검증
+						if(result>0) {
+							return paymentResult;
+						} else {
+							paymentResult = "결제 기록 오류가 발생했습니다. 고객센터에 문의해주세요.";
+							return paymentResult;
+						}
 					
 				} else {
+					paymentResult = "결제 진행에 오류가 있습니다. 카드사에 문의해주세요.";
 					return paymentResult;
 				}
-			} else {
-				return paymentResult;
-				
-			}
+			} else {//실결제 금액이 DB상 결제 금액과 다른 경우 DB에 인서트 되지 않고 결제 취소 진행
+					String reason = "결제 금액 상이함";
+					String code = itemService.setPurchaseCancel(token, reason, imp_uid);
+					if(code.equals("0")) {
+						paymentResult = "결제 금액 오류로 결제가 취소됩니다.";
+						return paymentResult;
+					} else {
+						paymentResult = "결제가 정상적으로 이루어지지 않았습니다. 카드사에 문의해주세요.";
+						return paymentResult;
+					}
+				}
+
 						
 //			IamportResponse<Payment> payment_response = client.paymentByImpUid(imp_uid);
                           	            

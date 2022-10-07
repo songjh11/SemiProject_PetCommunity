@@ -101,6 +101,11 @@
                 </a>
               </li><!-- End tab nav item -->
               <li class="nav-item">
+                <a class="nav-link" href="/sell/Sellerlist?itemCatg=3">
+                  <h4>상품목록</h4>
+                </a>
+              </li><!-- End tab nav item -->
+              <li class="nav-item">
                 <a class="nav-link" href="./update">
                   <h4>회원수정</h4>
                 </a>
@@ -125,12 +130,12 @@
             </c:when>
             <c:otherwise>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="./memlist">
                   <h4>회원목록</h4>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/sell/list?itemCatg=1">
                   <h4>상품목록</h4>
                 </a>
               </li>
@@ -152,6 +157,7 @@
 
         <div class="row gy-4">
 
+          <c:if test="${dto.roleNum eq 2}">
           <div class="col-lg-3 col-md-6">
             <div class="stats-item text-center w-100 h-100" OnClick="location.href ='follower'" style="cursor:pointer;">
               <span data-purecounter-start="0" data-purecounter-end="${followernum}" data-purecounter-duration="1" class="purecounter"></span>
@@ -165,6 +171,23 @@
               <p>Followee</p>
             </div>
           </div><!-- End Stats Item -->
+          </c:if>
+
+          <c:if test="${dto.roleNum eq 0}">
+            <div class="col-lg-3 col-md-6">
+              <div class="stats-item text-center w-100 h-100" OnClick="location.href ='./memlist'" style="cursor:pointer;">
+                <span data-purecounter-start="0" data-purecounter-end="${memnum}" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Member</p>
+              </div>
+            </div><!-- End Stats Item -->
+  
+            <div class="col-lg-3 col-md-6">
+              <div class="stats-item text-center w-100 h-100" OnClick="location.href ='/sell/list?itemCatg=1'" style="cursor:pointer;">
+                <span data-purecounter-start="0" data-purecounter-end="${sellnum}" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Item</p>
+              </div>
+            </div><!-- End Stats Item -->
+            </c:if>
 
           </div><!-- End Stats Item -->
 

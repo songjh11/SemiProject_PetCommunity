@@ -91,7 +91,7 @@
   
     <!-- ======= List Section ======= -->
 
-    <section id="chefs" class="chefs section-bg">
+    <setion id="chefs" class="chefs section-bg">
       <div class="container" data-aos="fade-up">
                    <section id="book-a-table" class="book-a-table">
                     <div class="container" data-aos="fade-up">
@@ -101,17 +101,17 @@
                        </div>
                    <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
                         <li class="nav-item">
-                          <a class="nav-link" href="/sell/list?itemCatg=1">
+                          <a class="nav-link" href="/sell/Sellerlist?itemCatg=1">
                             <h4>Hoteling</h4>
                           </a>
                         </li><!-- End tab nav item -->
                         <li class="nav-item">
-                          <a class="nav-link" href="/sell/list?itemCatg=2">
+                          <a class="nav-link" href="/sell/Sellerlist?itemCatg=2">
                             <h4>Ondday</h4>
                           </a>
                         </li><!-- End tab nav item -->
                         <li class="nav-item">
-                          <a class="nav-link" href="/sell/list?itemCatg=3">
+                          <a class="nav-link" href="/sell/Sellerlist?itemCatg=3">
                             <h4>Traning</h4>
                           </a>
                         </li><!-- End tab nav item -->

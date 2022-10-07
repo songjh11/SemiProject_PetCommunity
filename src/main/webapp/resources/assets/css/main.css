@@ -61,7 +61,7 @@ h6 {
 --------------------------------------------------------------*/
 section {
   overflow: hidden;
-  padding: 80px 0;
+  padding: 70px 0;
 }
 
 .section-bg {
@@ -86,6 +86,7 @@ section {
 
 .section-header p {
   margin: 0;
+  margin-top: 60px;
   font-size: 48px;
   font-weight: 400;
   font-family: var(--font-primary);
@@ -318,7 +319,7 @@ section {
 }
 
 section {
-  scroll-margin-top: 90px;
+  scroll-margin-top: 10px;
 }
 
 /*--------------------------------------------------------------

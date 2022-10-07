@@ -76,6 +76,42 @@ SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE
 WHERE M.USERID=#{userId}
 </select>
 
+<select id="getItemCount" resultType="Integer">
+        SELECT COUNT(ITEMNUM) FROM SELLITEM
+</select>
+
+<select id="getMemCount" resultType="Integer">
+        SELECT COUNT(USERID) FROM MEMBER
+</select>
+
+<select id="getMemList" resultMap="myPageResult">
+SELECT M.USERID, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.BLOCK, MF.FILENAME
+      FROM MEMBER M
+      INNER JOIN
+       ROLE R
+      ON M.ROLENUM =R.ROLENUM
+       LEFT JOIN
+           MEMFILE MF
+      ON M.USERID = MF.USERID
+</select>
+
+<!-- ========= 관리자 페이지 멤버 검색 ======== -->
+<select id="getFindMem" parameterType="MemberDTO" resultMap="myPageResult">
+      SELECT MR. *, MF.FILENAME
+      FROM
+      (SELECT M.USERID, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.BLOCK
+      FROM MEMBER M
+      INNER JOIN
+       ROLE R
+      ON M.ROLENUM =R.ROLENUM
+      where M.rolenum=#{roleNum}) MR
+        LEFT JOIN
+      MEMFILE MF
+      ON MR.USERID = MF.USERID
+      where MR.USERID LIKE '%'||#{search}||'%'  
+</select>
+
+
 
 <!-- =============FOLLOW =====================-->
 
@@ -128,6 +164,14 @@ WHERE UC.USERID = #{userId}
 </select>
 
 <!--================= Update & Delete============== -->
+
+<update id="setBlock" parameterType="MemberDTO" >
+ UPDATE MEMBER SET BLOCK=1 WHERE USERID=#{userId}
+</update>
+
+<update id="setUnBlock" parameterType="MemberDTO" >
+ UPDATE MEMBER SET BLOCK=0 WHERE USERID=#{userId}
+</update>
 
 <delete id="setMemDelete" parameterType="MemberDTO">
 DELETE FROM MEMBER WHERE USERID=#{userId}

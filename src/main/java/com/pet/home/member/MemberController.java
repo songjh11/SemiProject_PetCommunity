@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.fasterxml.jackson.annotation.JsonView;
 import com.pet.home.board.event.coupon.CouponDTO;
 import com.pet.home.file.FileDTO;
@@ -33,8 +32,10 @@ import com.pet.home.sell.ShopCartDTO;
 import com.pet.home.sell.file.SellFileDTO;
 import com.pet.home.sell.purchase.PurchaseDTO;
 import com.pet.home.util.FileManager;
+import com.pet.home.util.SellPager;
 import com.siot.IamportRestClient.response.AccessToken;
 import com.siot.IamportRestClient.response.IamportResponse;
+
  
 @Controller
 @RequestMapping(value= "/member/*")
@@ -162,6 +163,12 @@ public class MemberController {
 //		memberDTO = memberService.getMyPage(memberDTO);
 		int followernum = Integer.parseInt(String.valueOf(memberService.getFollowerCount(memberDTO)));
 		int followeenum = Integer.parseInt(String.valueOf(memberService.getFolloweeCount(memberDTO)));
+		int memnum = Integer.parseInt(String.valueOf(memberService.getMemCount()));
+		int sellnum = Integer.parseInt(String.valueOf(memberService.getItemCount()));
+
+
+		
+		
 		if(memberDTO.getRoleDTO().getRoleNum()==1){ 
 		memberDTO = memberService.getBizPage(memberDTO); //역할번호가 1번일 때 판매자 마이페이지 
 		}else if(memberDTO.getRoleDTO().getRoleNum()==2){
@@ -171,6 +178,9 @@ public class MemberController {
 		}else {
 		memberDTO = memberService.getMyPage(memberDTO); // 그 외 관리자 마이페이지  
 		}
+		
+		mv.addObject("memnum", memnum);
+		mv.addObject("sellnum", sellnum);
 		mv.addObject("followeenum", followeenum);
 		mv.addObject("followernum", followernum);
 		mv.addObject("dto", memberDTO);
@@ -179,18 +189,67 @@ public class MemberController {
 		return mv;
 	}
 	
+	@GetMapping("memlist")
+	public ModelAndView memlist()throws Exception{
+		ModelAndView mv = new ModelAndView();
+	List<MemberDTO> ar = memberService.getMemList();
 	
-	@GetMapping("search")
-	public String search()throws Exception {
-		
-		return "member/search";
+	mv.addObject("list", ar);
+	mv.addObject("what", "memlist");
+	mv.setViewName("member/follow");
+	 
+	return mv;
+	
 	}
 	
-	@PostMapping("search")
+	
+	@GetMapping("find")
 	public ModelAndView search(MemberDTO memberDTO)throws Exception {
 		ModelAndView mv = new ModelAndView();
+		List<MemberDTO> ar = memberService.getFindMem(memberDTO);
+		
+		mv.addObject("list", ar);
+		mv.addObject("what", "memlist");
+		mv.setViewName("member/follow");
+		
 		return mv;
 	}
+	
+	@GetMapping("block")
+	public ModelAndView setBlock(MemberDTO memberDTO)throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		int result = memberService.setBlock(memberDTO);
+		
+		if(result == 1){
+			mv.addObject("msg", "회원이 차단되었습니다.");
+		}else {
+			mv.addObject("msg", "차단 실패했습니다.");
+		}
+			mv.addObject("url", "memlist");
+			mv.setViewName("member/alert");
+			
+			return mv;
+	}
+	
+	@GetMapping("unblock")
+	public ModelAndView setUnBlock(MemberDTO memberDTO)throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		int result = memberService.setUnBlock(memberDTO);
+		
+		if(result == 1){
+			mv.addObject("msg", "회원이 차단 해제되었습니다.");
+		}else {
+			mv.addObject("msg", "차단 해제 실패했습니다.");
+		}
+			mv.addObject("url", "memlist");
+			mv.setViewName("member/alert");
+			
+			return mv;
+	}
+	
+	
 	
 	@GetMapping("delete")
 	public String delete()throws Exception{

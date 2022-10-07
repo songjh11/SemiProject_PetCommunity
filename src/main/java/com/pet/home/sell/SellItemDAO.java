@@ -36,6 +36,10 @@ public class SellItemDAO {
 		return session.selectList(NAMESPACE+"getItemList", sellPager);
 	}
 	
+	public List<SellItemDTO> getSellerList(SellPager sellPager) throws Exception{
+		return session.selectList(NAMESPACE+"getSellerList", sellPager);
+	}
+	
 	public Long getItemCount(SellPager sellPager) throws Exception{
 		return session.selectOne(NAMESPACE+"getItemCount", sellPager);
 	}

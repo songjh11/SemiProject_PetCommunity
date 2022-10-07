@@ -1,4 +1,4 @@
-package com.pet.home.sell;
+ package com.pet.home.sell;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,6 +36,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.google.gson.JsonObject;
+
+import com.pet.home.member.MemberDTO;
 import com.pet.home.sell.file.RvFileDTO;
 import com.pet.home.sell.file.SellFileDTO;
 import com.pet.home.sell.purchase.PurchaseDTO;
@@ -71,6 +73,24 @@ public class SellItemController {
 		mv.addObject("list", ar);
 		mv.addObject("pager", sellPager);
 		mv.addObject("category", categoryDTO);
+		return mv;
+	}
+	
+	@GetMapping("Sellerlist")
+	public ModelAndView getSellerList(SellPager sellPager, HttpSession session) throws Exception {
+		System.out.println(sellPager.getItemCatg());
+		ModelAndView mv = new ModelAndView();
+		
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		sellPager.setUserId(memberDTO.getUserId());
+
+		List<SellItemDTO> ar = itemService.getSellerList(sellPager);
+		CategoryDTO categoryDTO = itemService.getCategory(sellPager.getItemCatg());
+
+		mv.addObject("list", ar);
+		mv.addObject("pager", sellPager);
+		mv.addObject("category", categoryDTO);
+		mv.setViewName("sell/Sellerlist");
 		return mv;
 	}
 

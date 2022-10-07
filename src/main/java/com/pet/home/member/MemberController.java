@@ -1,5 +1,6 @@
 package com.pet.home.member;
 
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -10,18 +11,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.xml.xpath.XPathEvaluationResult.XPathResultType;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.core.JsonParser;
+import com.google.gson.JsonObject;
 import com.pet.home.board.event.coupon.CouponDTO;
 import com.pet.home.file.FileDTO;
 import com.pet.home.sell.PickDTO;
@@ -605,35 +615,32 @@ public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 		System.out.println(merchant_uid);
 		String msg = "";
 		ModelAndView mv = new ModelAndView("jsonView");
-		PurchaseDTO purchaseDTO = new PurchaseDTO();
-		purchaseDTO.setMerchant_uid(merchant_uid); 
-		purchaseDTO = sellItemService.getPurchaseDetail(purchaseDTO);
-		Long amount = purchaseDTO.getAmount(); 
-		Long cancel_amount = amount;
-		System.out.println("amount: "+amount+"cancel_amount: "+cancel_amount);
-		int result = sellItemService.setPurchaseStatus(merchant_uid);
-		if(result>0) {
-			System.out.println("상태 변경 완");
-			msg = "resultSuccess";
-//			IamportResponse<AccessToken> token = sellItemService.getToken();
-//			mv.addObject("token", token.getResponse().getToken());
-			mv.addObject("reason", reason);
-		} else {
-			msg = "error";
-			System.out.println("실패ㅠ");
-		}
 		
-//		String kind=aboutPayEnums.valueOf(merchant_uid.substring(0, 0)).getString();
-//		int result = sellItemService.setPurchaseDelete(checkDTO);
-//		String url = "./mypage";
-		mv.addObject("msg", msg);
-		mv.addObject("imp_uid", imp_uid);
-		mv.addObject("merchant_uid", merchant_uid);
-		mv.addObject("amount", amount);
-		mv.addObject("checksum", cancel_amount);
+		//토큰 발급
+		IamportResponse<AccessToken> token=null;
+		token = sellItemService.getToken();
 
-//		mv.addObject("url", url);
-		return mv;
+		String code = sellItemService.setPurchaseCancel(token, reason, imp_uid);
+
+			if(code.equals("0")) {
+				System.out.println("코드 0 ㅇㅋ");
+				//구매 상태 변경
+				int result = sellItemService.setPurchaseStatus(merchant_uid);
+				if(result>0) {
+					System.out.println("디비 변경 완");
+					msg = "success";
+				} else {
+					System.out.println("디비 변경 실패ㅠ");
+					msg = "error";
+				}
+				
+			} else {
+					System.out.println("실패ㅠ");
+					msg = "error";
+				}
+		
+			mv.addObject("msg", msg);
+			return mv;
 	}
 }
 	

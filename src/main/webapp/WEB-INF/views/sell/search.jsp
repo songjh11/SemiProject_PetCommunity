@@ -34,6 +34,46 @@
     ul{
     list-style: none;
     }
+      .pagination{
+        justify-content: center;
+      }
+
+      .pagination > li > a {
+        float: none;
+      }
+
+
+    .page-link {
+      color: rgb(98, 91, 91); 
+      background-color: #fff;
+      border: 1px solid #ccc; 
+    }
+
+    .page-item.active .page-link {
+    z-index: 1;
+    color: rgb(228, 145, 145);
+    font-weight:bold;
+    background-color: #f1f1f1;
+    border-color: #ccc;
+    
+    }
+
+    .page-link:focus, .page-link:hover {
+      color: rgb(238, 8, 8);
+      background-color: #fafafa; 
+      border-color: #ccc;
+    }
+
+    .btnsocial{
+      border: 0px;  
+      outline: 0px;
+      background-color: transparent;
+    }
+
+    .img-fluid{
+      height: 250px;
+    }
+
     </style>
 
 </head>
@@ -68,28 +108,52 @@
           <div class="row gy-1">	
             <c:forEach items="${list}" var="ar">
               <div class="col-lg-3 col-md-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-                <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 10px;">
+                <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 15px;">
                   <div class="member-img" style="width: 100%;">
                     <img src="/resources/upload/sellfile/${ar.fileDTOs[0].fileName}" class="img-fluid" alt="">
-                    <div class="social">
-                      <a href=""><i class="bi bi-twitter"></i></a>
-                      <a href=""><i class="bi bi-facebook"></i></a>
-                      <a href=""><i class="bi bi-instagram"></i></a>
-                      <a href=""><i class="bi bi-linkedin"></i></a>
+                    <div class="social d-flex">
+                      <button type="button" class="btnsocial" id="btnPick">
+                        <i class="bi bi-balloon-heart btnPick" style="cursor: pointer;" data-item-num="${ar.itemNum}"></i>
+                      </button>
+                        <i class="bi bi-facebook" style="cursor: pointer;" id="btnShopCart"></i></a>
+                      </p>
                     </div>
                   </div>
                   <div class="member-info" style="width: 100%; height: 115px;">
                     <h4><a href="./detail?itemNum=${ar.itemNum}">${ar.itemName}</a></h4>
+                    <!-- <p>${ar.itemAddress}</p> -->
                     <span>${ar.itemPrice}</span>
                   </div>
                 </div>
               </div>
             </c:forEach>
-          </div>
       </div>
       <!-- End grid1div -->
-      </div>
-    </section> 
+
+    </div>
+  </section> 
+  
+  <!-- pagination start -->
+  <div class="chefs section-bg" style="padding-bottom: 10px;">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item ${sellPager.pre?'':'disabled'}">
+          <a class="page-link" href="./search?page=${sellPager.startNum-1}&itemCatg=${sellPager.itemCatg}&search=${sellPager.search}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <c:forEach begin="${sellPager.startNum}" end="${sellPager.lastNum}" var="i">
+          <li class="page-item"><a class="page-link" href="./search?page=${i}&itemCatg=${sellPager.itemCatg}&search=${sellPager.search}"> ${i}</a> </li>
+        </c:forEach>
+        <li class="page-item ${pager.next?'':'disabled'}">
+          <a class="page-link" href="./search.do?page=${sellPager.lastNum+1}&itemCatg=${sellPager.itemCatg}&search=${sellPager.search}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <!-- pagination end -->  
 
    
 
@@ -97,7 +161,9 @@
        
 
  <!-- footer start -->
- <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
+ <section>
+   <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
+ </section>
  <!-- footer end -->
 
    <!-- script start -->

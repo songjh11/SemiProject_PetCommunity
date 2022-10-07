@@ -16,25 +16,21 @@
 .testimonial-img {
   border-radius: 50%;
   border: 4px solid #fff;
-  margin: 0 auto;
-}
-
-#pf{
-  display: inline-block;
-  font-size: larger;
-  font-weight: bold;
-  margin-top: 20px;
-  margin-left: 40px;
-}
-
-#minpf{
-  display: inline-block;
-  font-size: smaller;
-  color: dimgrey;
+margin-left:35%;
+margin-bottom: 5%;
+width: 300px;
+height: 250px;
 }
 
 .col-sm-6{
   display: block;
+}
+
+input[type=text]{
+  border: 0;
+  border-radius: 50px; 
+  background-color: #F4f4f4;
+
 }
 	</style>
   
@@ -196,116 +192,99 @@
       </div>
     </section><!-- End Stats Counter Section -->
 
-          <div class="col-lg-8 align-items-center" id="my">
-            <form action="./delete" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data" id="updatefrm">
-              <div class="row gy-4">
-                <div id="profile">
-                <c:if test="${dto.roleNum eq 2}">
-                  <div class="col-lg-2 text-center" id="pf">
-                    <img src="../resources/upload/member/${dto.memberFileDTO.fileName}" class="img-fluid testimonial-img" alt="">
-                  </div>
-                  </c:if>
-                  <div id="pf">
-                  ${dto.userName}님 안녕하세요<br>
-                  <div id="minpf">${dto.petName} ${dto.petCatg}</div>
-                  </div> 
-                </div>
-                <div class="col-sm-7">
-                  <input type="number" name="phone" class="form-control" value="${dto.phone}" readonly>
-                  <div class="validate"></div>
-                </div>
-                <div class="col-sm-7">
-                  <input type="email" name="email" class="form-control" value="${dto.email}" readonly>
-                  <div class="validate"></div>
-                </div>
 
-                <div class="col-sm-7">
-                  <input type="text" name="itemZipCode" class="form-control" id="itemZipCode" value="${dto.itemZipCode}" readonly>
-                   <div class="validate"></div>
-                 </div>
-                 <br>
-                 <div class="col-sm-7">
-                  <input type="text" name="address" class="form-control" id="address" value="${dto.address}" readonly>
-                 </div>
-                 <br>
-                 <div class="col-sm-7">
-                   <input type="text" name="deAddress" class="form-control" id="deAddress" value="${dto.deAddress}" readonly>
-                   <div class="validate"></div>
-                 </div>
-                 <br>
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
 
-                </div>
-                
-                <c:choose>
-                    <c:when test="${dto.roleNum eq 1}">
-                      <div class="col-sm-7">
-                        <br>
-                          <input type="text" class="form-control" name="itemCatg" value="${dto.itemCatg}" readonly>
-                          <div class="validate"></div>
-                        </div>
-                        <br>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" name="itemId" value="${dto.itemId}" readonly>
-                            <div class="validate"></div>
-                          </div>
-                          <br>
-                        
+        <div class="section-header">
+          <h2>Who am I</h2>
+          <p><span>Hello!</span>${dto.userId}</p>
+        </div>
+
+        <form action="./delete" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data" id="updatefrm">
+        <c:if test="${dto.roleNum eq 2}">
+            <img src="../resources/upload/member/${dto.memberFileDTO.fileName}" class="testimonial-img" alt="">
+          </c:if>
+        <div class="row gy-4">
+          <div class="col-md-6">
+            <div class="info-item d-flex align-items-center">
+              <i class="icon bi bi-envelope flex-shrink-0"></i>
+              <div>
+                <h3>Email</h3>
+                <p><input type="text" value="${dto.email}" name="email" readonly></p>
+              </div>
+            </div>
+          </div><!-- End Info Item -->
+
+          <div class="col-md-6">
+            <div class="info-item  d-flex align-items-center">
+              <i class="icon bi bi-telephone flex-shrink-0"></i>
+              <div>
+                <h3>Phone</h3>
+                <p><input type="text" value="${dto.email}" name="email" readonly></p>
+              </div>
+            </div>
+          </div><!-- End Info Item -->
+
+          <div class="col-md-6">
+            <div class="info-item  d-flex align-items-center">
+              <i class="icon bi bi-share flex-shrink-0"></i>
+              <div>
+                <h3>Agree</h3>
+                <div>
+                  <c:choose>
+                    <c:when test="${dto.agValue  eq 1}">
+                      <strong>정보제공동의여부:</strong> 동의<br>
                     </c:when>
-                    <c:when test="${dto.roleNum eq 2}">
-                      <div class="col-sm-7">
-                          <br>
-                            <input type="text" class="form-control" name="petName" value="${dto.petName}" readonly>
-                            <div class="validate"></div>
-                          </div>
-                          <br>
-                          <div class="col-sm-7">
-                            <input type="text" class="form-control" name="petCatg" value="${dto.petCatg}" readonly>
-                            <div class="validate"></div>
-                          </div>
-                          <br>
-                
+                    <c:when test="${dto.agValue  eq 0}">
+                      <strong>정보제공동의여부:</strong> 비동의<br>
                     </c:when>
                 </c:choose>
-
                 <c:choose>
-                <c:when test="${dto.agValue  eq 1}">
-                    <p>정보제공동의여부: 동의</p>
-                </c:when>
-                <c:when test="${dto.agValue  eq 0}">
-                    <p>정보제공동의여부: 비동의</p>
-                </c:when>
-            </c:choose>
-            <c:choose>
-                <c:when test="${dto.agMail  eq 1}">
-                    <p>메일수신동의여부: 동의</p>
-                </c:when>
-                <c:when test="${dto.agMail  eq 0}">
-                    <p>메일수신동의여부: 비동의</p>
-                </c:when>
-            </c:choose>
-            <c:choose>
-                <c:when test="${dto.agMes  eq 1}">
-                    <p>문자수신동의여부: 동의</p>
-                </c:when>
-                <c:when test="${dto.agMes  eq 0}">
-                    <p>문자수신동의여부: 비동의</p>
-                </c:when>
-             </c:choose>
+                    <c:when test="${dto.agMail  eq 1}">
+                      <strong>메일수신동의여부:</strong> 동의<br>
+                    </c:when>
+                    <c:when test="${dto.agMail  eq 0}">
+                      <strong>메일수신동의여부:</strong> 동의<br>
+                    </c:when>
+                </c:choose>
+                <c:choose>
+                    <c:when test="${dto.agMes  eq 1}">
+                      <strong>문자수신동의여부:</strong> 동의<br>
+                    </c:when>
+                    <c:when test="${dto.agMes  eq 0}">
+                      <strong>문자수신동의여부:</strong> 동의<br>
+                    </c:when>
+                 </c:choose>
+                </div>
               </div>
-              <br>
-             
-            </form>
-          </div><!-- End Reservation Form -->
+            </div>
+          </div><!-- End Info Item -->
+
+          <div class="col-md-6">
+            <div class="info-item  d-flex align-items-center">
+              <i class="icon bi bi-map flex-shrink-0"></i>
+              <div>
+                <h3>Our Address</h3>
+                <p><input type="text" value="${dto.address}" name="address" readonly>
+                  <p><input type="text" value=" ${dto.deAddress}" name="deAddress" readonly></p></p>
+              </div>
+            </div>
+          </div><!— End Info Item —>
 
         </div>
 
-    </section><!-- End Add Items Section -->
+      </form>
+        </div>
+        </section>
 
 
+          
 
-  <!-- footer start -->
+
+  <!— footer start —>
   <c:import url="/WEB-INF/views/template/testfooter.jsp"></c:import>
-  <!-- footer end -->
+  <!— footer end —>
 
 </body>
 </html>

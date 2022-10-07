@@ -65,19 +65,8 @@ public class MemberService {
 		return memberDAO.setGuest(memberDTO);
 	}
 	
-	
-	public int setBiz(MemberDTO memberDTO)throws Exception{
-		
-		return memberDAO.setBiz(memberDTO);
-	}
-	
-
 	public MemberDTO getGuestPage(MemberDTO memberDTO)throws Exception{
 		return memberDAO.getGuestPage(memberDTO);
-	}
-	
-	public MemberDTO getBizPage(MemberDTO memberDTO)throws Exception{
-		return memberDAO.getBizPage(memberDTO);
 	}
 	
 	public MemberDTO getMyPage(MemberDTO memberDTO)throws Exception{
@@ -89,8 +78,31 @@ public class MemberService {
 		return memberDAO.setMemDelete(memberDTO);
 	}
 	
-	public int setMemUpdate(MemberDTO memberDTO)throws Exception{
-		return memberDAO.setMemUpdate(memberDTO);
+	public int setMemUpdate(MemberDTO memberDTO, MultipartFile photo, ServletContext servletContext)throws Exception{
+
+		
+		
+		int result =memberDAO.setMemUpdate(memberDTO);
+	
+		
+		if(memberDTO.getRoleNum()==2){ 
+			//저장 경로 설정 
+			String path = "resources/upload/member";
+			String fileName = fileManager.saveFile(servletContext, path, photo);
+			
+			if(!photo.isEmpty()) {
+			
+				
+				MemberFileDTO memberFileDTO = new MemberFileDTO();
+				memberFileDTO.setFileName(fileName);
+				memberFileDTO.setOriName(photo.getOriginalFilename());
+				memberFileDTO.setUserId(memberDTO.getUserId());
+				memberDAO.setFileUpdate(memberFileDTO);
+				
+			}
+		}
+		return result;
+		
 		
 	}
 	
@@ -170,8 +182,8 @@ public class MemberService {
 		
 		String charSet = "utf-8";
 		String hostSMTP= "smtp.naver.com";
-		String hostSMTPid ="네이버 아이디";
-		String hostSMTPpwd = "네이버 비번 ";
+		String hostSMTPid ="g1room";
+		String hostSMTPpwd = "wldnjs1111";
 		
 		String fromEmail ="jiwon1789@naver.com";
 		String fromName ="이지원";
@@ -234,4 +246,6 @@ public class MemberService {
 		return memberDAO.setUnBlock(memberDTO);
 		
 	}
+
+
 }

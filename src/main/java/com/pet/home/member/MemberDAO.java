@@ -35,10 +35,6 @@ public class MemberDAO {
 	public int setGuest(MemberDTO memberDTO)throws Exception{
 		return sqlSession.insert(NAMESPACE+"setGuest", memberDTO);
 	}
-	
-	public int setBiz(MemberDTO memberDTO)throws Exception{
-		return sqlSession.insert(NAMESPACE+"setBiz", memberDTO);
-	}
 
 	public int setAddFile(MemberFileDTO memberFileDTO)throws Exception{
 		return sqlSession.insert(NAMESPACE+"setAddFile", memberFileDTO);
@@ -46,11 +42,6 @@ public class MemberDAO {
 	
 	public MemberDTO getGuestPage(MemberDTO memberDTO) {
 		return sqlSession.selectOne(NAMESPACE+"getGuestPage", memberDTO);
-		
-	}
-	
-	public MemberDTO getBizPage(MemberDTO memberDTO) {
-		return sqlSession.selectOne(NAMESPACE+"getBizPage", memberDTO);
 		
 	}
 	

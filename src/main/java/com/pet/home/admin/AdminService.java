@@ -24,8 +24,12 @@ public class AdminService {
 		return adminDAO.setAddCoupon(couponDTO);
 	}
 	
-	public List<CouponDTO> getCouponList() throws Exception{
-		return adminDAO.getCouponList();
+	public List<CouponDTO> getCouponList(Pager pager) throws Exception{
+		pager.getRowNum();
+		Long totalCount = adminDAO.getCouponCount();
+		pager.getNum(totalCount);
+		
+		return adminDAO.getCouponList(pager);
 	}
 	
 	public int setDeleteCoupon(CouponDTO couponDTO) throws Exception{
@@ -47,6 +51,22 @@ public class AdminService {
 
 		
 		return adminDAO.getMemberSharingList(pager);
-	}	
+	}
+	
+	public List<MemberDTO> getGuestList(Pager pager) throws Exception{
+		pager.getRowNum();
+		Long totalCount = adminDAO.getAllGuestCount();
+		pager.getNum(totalCount);
+		
+		return adminDAO.getAllGuset(pager);
+	}
+	
+	public List<MemberDTO> getBizmenList(Pager pager) throws Exception{
+		pager.getRowNum();
+		Long totalCount = adminDAO.getAllBizmenCount();
+		pager.getNum(totalCount);
+		
+		return adminDAO.getAllBizmen(pager);
+	}
 	
 }

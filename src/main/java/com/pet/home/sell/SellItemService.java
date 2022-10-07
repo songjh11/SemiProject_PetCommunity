@@ -106,6 +106,12 @@ public class SellItemService {
 		return itemDAO.getItemList(sellPager);
 	}
 	
+	public List<SellItemDTO> getSellerList(SellPager sellPager) throws Exception {
+		sellPager.getRowNum();
+		sellPager.getNum(itemDAO.getItemCount(sellPager));
+		return itemDAO.getSellerList(sellPager);
+	}
+	
 	public CategoryDTO getCategory(Long itemCatg) throws Exception{
 		return itemDAO.getCategory(itemCatg);
 	}
@@ -419,3 +425,4 @@ public class SellItemService {
 	}
 
 }
+	

@@ -9,14 +9,18 @@ public class SellPager {
 	private Long lastRow;
 	private Long startNum;
 	private Long lastNum;
-	
+	private String userId;
 	//검색 컬럼의 종류
-		private Long itemCatg;
-		private String search;
-		
-		
+	private Long itemCatg;
+	private String search;
 
+	public String getUserId() {
+		return userId;
+	}
 
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 		public Long getItemCatg() {
 			return itemCatg;
 		}

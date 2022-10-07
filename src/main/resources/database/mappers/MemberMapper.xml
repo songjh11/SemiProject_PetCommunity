@@ -76,6 +76,42 @@ SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE
 WHERE M.USERID=#{userId}
 </select>
 
+<select id="getItemCount" resultType="Integer">
+        SELECT COUNT(ITEMNUM) FROM SELLITEM
+</select>
+
+<select id="getMemCount" resultType="Integer">
+        SELECT COUNT(USERID) FROM MEMBER
+</select>
+
+<select id="getMemList" resultMap="myPageResult">
+SELECT M.USERID, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.BLOCK, MF.FILENAME
+      FROM MEMBER M
+      INNER JOIN
+       ROLE R
+      ON M.ROLENUM =R.ROLENUM
+       LEFT JOIN
+           MEMFILE MF
+      ON M.USERID = MF.USERID
+</select>
+
+<!-- ========= 관리자 페이지 멤버 검색 ======== -->
+<select id="getFindMem" parameterType="MemberDTO" resultMap="myPageResult">
+      SELECT MR. *, MF.FILENAME
+      FROM
+      (SELECT M.USERID, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.BLOCK
+      FROM MEMBER M
+      INNER JOIN
+       ROLE R
+      ON M.ROLENUM =R.ROLENUM
+      where M.rolenum=#{roleNum}) MR
+        LEFT JOIN
+      MEMFILE MF
+      ON MR.USERID = MF.USERID
+      where MR.USERID LIKE '%'||#{search}||'%'  
+</select>
+
+
 
 <!-- =============FOLLOW =====================-->
 
@@ -128,6 +164,14 @@ WHERE UC.USERID = #{userId}
 </select>
 
 <!--================= Update & Delete============== -->
+
+<update id="setBlock" parameterType="MemberDTO" >
+ UPDATE MEMBER SET BLOCK=1 WHERE USERID=#{userId}
+</update>
+
+<update id="setUnBlock" parameterType="MemberDTO" >
+ UPDATE MEMBER SET BLOCK=0 WHERE USERID=#{userId}
+</update>
 
 <delete id="setMemDelete" parameterType="MemberDTO">
 DELETE FROM MEMBER WHERE USERID=#{userId}
@@ -318,32 +362,5 @@ WHERE M.USERID = 'guest'
 			</collection>
 	</resultMap>
 	
-	<!-- 멤버 리스트 불러오기 -->
-	<!--  1. 게스트  -->
-	<select id="getAllGuest" resultType="MemberDTO">
-		SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.DEADDRESS, M.ITEMZIPCODE,M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, G.PETCATG, G.PETNAME, MF.FILENAME, MF.ORINAME
-      FROM MEMBER M
-      INNER JOIN
-      GUEST G
-      ON M.USERID = G.USERID
-      INNER JOIN 
-      ROLE R
-      ON M.ROLENUM =R.ROLENUM
-      
-      INNER JOIN
-           MEMFILE MF
-      ON M.USERID = MF.USERID
-	</select>
-	<!-- 2. 사업자 -->
-	<select id="getAllBizmen" resultType="MemberDTO">
-		SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.DEADDRESS, M.ITEMZIPCODE, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, B.ITEMCATG, B.ITEMID
-      FROM MEMBER M
-      INNER JOIN
-       ROLE R
-      ON M.ROLENUM =R.ROLENUM
-      INNER JOIN 
-        BIZMEM B
-      ON M.USERID = B.USERID
-	</select>
 	
 </mapper>

@@ -208,5 +208,30 @@ public class MemberService {
 	public int setCartDelete(ShopCartDTO shopCartDTO)throws Exception{
 		return memberDAO.setCartDelete(shopCartDTO);
 	}
+	
+	public int getItemCount()throws Exception{
+		return memberDAO.getItemCount();
+	}
+	
+	public int getMemCount()throws Exception{
+		return memberDAO.getMemCount();
+	}
 
+	public List<MemberDTO> getMemList()throws Exception{
+		return memberDAO.getMemList();
+	}
+	
+	public List<MemberDTO> getFindMem(MemberDTO memberDTO)throws Exception{
+		return memberDAO.getFindMem(memberDTO);
+	}
+	
+	public int setBlock(MemberDTO memberDTO)throws Exception{
+		return memberDAO.setBlock(memberDTO);
+		
+	}
+	
+	public int setUnBlock(MemberDTO memberDTO)throws Exception{
+		return memberDAO.setUnBlock(memberDTO);
+		
+	}
 }

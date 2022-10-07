@@ -39,10 +39,13 @@
 <!-- ======= 같이해요 리스트 Section ======= -->
     <section id="chefs" class="chefs section-bg">
       <div class="container" data-aos="fade-up">
-
+        
         <div class="section-header">
           <h2>같이해요</h2>
           <p>회원 <span>정보 공유</span> 게시판</p>
+        </div>
+        <div class="mb-3">
+          <a href="./add" class="btn btn-primary">새 글 작성하기</a>
         </div>
         <div class="row gy-4">
 		<c:forEach items="${list}" var="dto">

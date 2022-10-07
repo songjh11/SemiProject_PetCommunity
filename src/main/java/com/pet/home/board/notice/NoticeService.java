@@ -43,7 +43,11 @@ public class NoticeService implements BoardService {
 	public List<BoardDTO> getList(Pager pager) throws Exception {
 		// TODO Auto-generated method stub
 		pager.getRowNum();
-
+		
+		System.out.println("시작컬럼"+pager.getStartRow());
+		System.out.println("끝컬럼"+pager.getLastRow());
+		
+		System.out.println(noticeDAO.getCount(pager));
 		pager.getNum(noticeDAO.getCount(pager));
 
 		return noticeDAO.getList(pager);

@@ -48,6 +48,7 @@ public class NoticeController {
 	public ModelAndView getList(ModelAndView mv) throws Exception {
 		Pager pager = new Pager(10L, 5L);
 		List<BoardDTO> ar = noticeService.getList(pager);
+		System.out.println(ar.size());
 		mv.addObject("list", ar);
 		mv.addObject("pager", pager);
 		mv.setViewName("board/list");

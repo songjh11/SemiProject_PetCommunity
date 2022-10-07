@@ -138,7 +138,7 @@
 					<td class="deleteMember" data-userId="${gue.userId}" onclick="deleteMember()">추방</td>
 					<td><button class="memberSharing" onclick="getSharingList('1','${gue.userId}')" data-userId="${gue.userId}">같이해요 작성한 글</button></td>
 					<td><button class="memberQna" onclick="getQnaList('1','${gue.userId}')" data-userId="${gue.userId}">QnA 작성한 글</button></td>
-					<td><button class="memberItem" data-userId="${gue.userId}">구매 목록</button></td>
+					<td><button class="memberItem" data-userId="${gue.userId}"  onclick="getItemList('1','${gue.userId}','0')">구매 목록</button></td>
 					<td><button class="memberDetail" data-userId="${gue.userId}" onclick="getDetail('${gue.userId}')">회원 상세 프로필</button></td>
 				</tr>
 				</c:forEach>
@@ -179,7 +179,7 @@
 					<td class="deleteMember" data-userId="${bizmen.userId}" onclick="deleteMember()">추방</td>
 					<td><button class="memberSharing" onclick="getSharingList('1','${bizmen.userId}')" data-userId="${bizmen.userId}">이벤트 작성한 글</button></td>
 					<td><button class="memberQna" onclick="getQnaList('1','${bizmen.userId}')" data-userId="${bizmen.userId}">QnA 작성한 글</button></td>
-					<td><button class="memberItem" data-userId="${bizmen.userId}">판매 상품 목록</button></td>
+					<td><button class="memberItem" data-userId="${bizmen.userId}" onclick="getItmeList()">판매 상품 목록</button></td>
 				</tr>
 				</c:forEach>
 			</tbody>
@@ -217,7 +217,7 @@
 		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
 		<div class="modal-body" id="boardlist">
-			<table class="table" id="tab">
+			<table class="table">
 				<thead>
 					<tr>
 						<th>글 제목</th><th>작성일</th><th>조회수</th>

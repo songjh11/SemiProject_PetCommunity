@@ -19,7 +19,7 @@ public class NoticeDAOTest extends MyAbstractTest {
 	private NoticeDAO noticeDAO;
 
 
-	//@Test
+	@Test
 	public void getListTest() throws Exception {
 
 		for (int i = 1; i < 101; i++) {

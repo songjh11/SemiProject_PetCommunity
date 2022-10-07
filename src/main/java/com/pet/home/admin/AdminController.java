@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +22,9 @@ import com.pet.home.board.sharing.SharingDAO;
 import com.pet.home.board.sharing.SharingDTO;
 import com.pet.home.member.MemberDAO;
 import com.pet.home.member.MemberDTO;
+import com.pet.home.sell.ReservationDTO;
+import com.pet.home.sell.SellItemService;
+import com.pet.home.sell.purchase.PurchaseDTO;
 import com.pet.home.util.CommentPager;
 import com.pet.home.util.Pager;
 
@@ -35,6 +40,8 @@ public class AdminController {
 	private SharingDAO sharingDAO;
 	@Autowired
 	private QnaDAO qnaDAO;
+	@Autowired
+	private SellItemService sellItemService;
 
 	@GetMapping("mypage")
 	public ModelAndView getMyPage(ModelAndView mv) throws Exception {
@@ -65,6 +72,8 @@ public class AdminController {
 		return map;
 	}
 	
+	@PostMapping("couponlist")
+	@ResponseBody
 	public Map<String, Object> getCouponList(Pager pager) throws Exception{
 		List<CouponDTO> list = adminService.getCouponList(pager);
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -151,9 +160,22 @@ public class AdminController {
 	}
 	
 	
+	@PostMapping("memberdetail")
+	@ResponseBody
+	public MemberDTO getMemberDetail(MemberDTO memberDTO) throws Exception{
+		memberDTO = memberDAO.getGuestPage(memberDTO);
+		return memberDTO;
+	}
+	
 	//멤버별 결제한 상품 불러오기
-	public void getMemberItemList() throws Exception{
-		
+	@PostMapping("purchaselist")
+	@ResponseBody
+	public List<PurchaseDTO> getMemberItemList(MemberDTO memberDTO, String purchaseStatus) throws Exception{
+		PurchaseDTO purchaseDTO = new PurchaseDTO();
+		purchaseDTO.setUserId(memberDTO.getUserId());
+		purchaseDTO.setPurchaseStatus(Long.parseLong(purchaseStatus));
+		List<PurchaseDTO> list =  sellItemService.getPurchaseList(purchaseDTO);
+		return list;
 	}
 	
 	//1:1 문의 리스트 불러오기

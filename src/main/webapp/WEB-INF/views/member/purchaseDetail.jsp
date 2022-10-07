@@ -114,7 +114,7 @@
     <c:import url="/WEB-INF/views/template/header.jsp"></c:import>
     <!-- header end -->
   </div>
-  <div style="margin-top: 100px;">  
+  <div style="margin-top: 100px; width: 80%;">  
       <form action="purchaseDelete" method="post">
           <section class="mainSection">
             <div class="mainContents row gy-1">
@@ -223,34 +223,15 @@
           'cancel_request_amount': 2000, // 환불금액
           'reason': "테스트 결제 환불" // 환불사유
         }
-      }).done(function(result) { // 환불 성공시 로직 
-          console.log(result.msg);
-          console.log(result.amount);
-          console.log(result.token);
-          let reason = result.reason;
-          let imp_uid = result.imp_uid;
-          let amount = result.amount;
-          let access_token = result.token;
-          let checksum = result.checksum;
-          $.ajax({
-          url: "http://api.iamport.kr/payments/cancel", // 예: http://www.myservice.com/payments/cancel
-          type: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin" : "http://api.iamport.kr/payments/cancel",
-            "Authorization": access_token // 아임포트 서버로부터 발급받은 엑세스 토큰
-          },
-          data: {
-            reason: reason, // 가맹점 클라이언트로부터 받은 환불사유
-            imp_uid: imp_uid, // imp_uid를 환불 `unique key`로 입력
-            amount: amount, // 가맹점 클라이언트로부터 받은 환불금액
-            checksum: checksum // [권장] 환불 가능 금액 입력
-          }, success : function(response){
-                    console.log(response);
-                      alert("결제취소!")
-                      window.location.href = 'http://localhost/member/purchaseList';
-                  }
-          })
+      }).done(function(result) { // 환불 성공시 로직
+              console.log(result.msg);
+              if(result.msg=="success"){
+                alert("환불 성공!")
+                window.location.href = 'http://localhost/member/purchaseList?purchaseStatus=1';
+              } else{
+                alert("환불 실패");
+              }
+          
     }).fail(function(error) { // 환불 실패시 로직
         console.log(error);
         alert("환불 실패");

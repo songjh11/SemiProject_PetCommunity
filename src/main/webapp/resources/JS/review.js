@@ -27,7 +27,7 @@ function reviewList(){
                 th[c].setAttribute("style","");
             }
             
-            more.setAttribute("style","");
+ 
     
             for(let i=0;i<ar.length;i++){
                 console.log(ar[i].rvFileDTOs[0].fileName);
@@ -375,7 +375,7 @@ function reviewList(){
                     button.appendChild(btnText);
                     td.appendChild(button);
                     tr.appendChild(td);
-
+                    
                     td = document.createElement("td");
                     tdstyle = document.createAttribute("style");
                     tdstyle.value = "width:10%;";
@@ -607,22 +607,22 @@ function reviewList(){
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild(star);
+                        td.appendChild;
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild(star);
+                        td.appendChild;
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild(star);
+                        td.appendChild;
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild(star);
+                        td.appendChild;
                         tdText = document.createTextNode(ar[i].rvRate);
                         td.appendChild(tdText);
                         tr.appendChild(td);
@@ -636,27 +636,27 @@ function reviewList(){
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild(star);
+                        td.appendChild;
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild(star);
+                        td.appendChild;
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild(star);
+                        td.appendChild;
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild(star);
+                        td.appendChild;
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star-half-full checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild(star);
+                        td.appendChild;
                         tdText = document.createTextNode(ar[i].rvRate);
                         td.appendChild(tdText);
                         tr.appendChild(td);
@@ -670,27 +670,27 @@ function reviewList(){
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild(star);
+                        td.appendChild;
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild(star);
+                        td.appendChild;
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild(star);
+                        td.appendChild;
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild(star);
+                        td.appendChild;
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild(star);
+                        td.appendChild;
                         tdText = document.createTextNode(ar[i].rvRate);
                         td.appendChild(tdText);
                         tr.appendChild(td);

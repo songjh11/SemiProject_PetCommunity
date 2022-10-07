@@ -1,6 +1,7 @@
 package com.pet.home.sell;
 
 import java.io.File;
+
 import java.nio.file.Files;
 import java.util.Calendar;
 import java.util.List;
@@ -10,8 +11,15 @@ import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pet.home.member.MemberDTO;
@@ -402,8 +410,27 @@ public class SellItemService {
 		return purchaseDAO.getPurchaseDetail(purchaseDTO); 
 	}
 	
-	public int setPurchaseDelete(PurchaseDTO purchaseDTO) throws Exception{
-		return purchaseDAO.setPurchaseDelete(purchaseDTO); 
+	public String setPurchaseCancel(IamportResponse<AccessToken> token, String reason, String imp_uid) throws Exception{
+		//아임포트 서버에서 전액 환불 진행
+		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Type", "application/json");
+		headers.add("Authorization", token.getResponse().getToken());
+		
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		
+		params.add("reason", reason);
+		params.add("imp_uid", imp_uid);
+		
+		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String,String>>(params,headers);
+		
+		String response = restTemplate.postForObject("http://api.iamport.kr/payments/cancel", request, String.class);
+		System.out.println("response: "+response);
+		JSONParser jsonParser = new JSONParser();
+		JSONObject jsonObject = (JSONObject)jsonParser.parse(response);
+		String code = jsonObject.get("code").toString();
+
+		return code;
 	}
 	
 	public int setPurchaseStatus(String merchant_uid) throws Exception {

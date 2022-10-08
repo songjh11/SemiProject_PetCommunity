@@ -13,6 +13,7 @@ const more = document.getElementById("more");
 const moreqna = document.getElementById("moreqna");
 let page=1;
 function reviewList(){
+    
     const xHttp = new XMLHttpRequest();
     xHttp.open("GET","./reviewList?page="+page+"&itemNum="+itemNum);
     xHttp.send();
@@ -23,18 +24,22 @@ function reviewList(){
             let pager = result.pager;
             console.log(pager);
             let ar = result.list;
+            let member = result.member;
+            
             for(let c=0;c<th.length;c++){
                 th[c].setAttribute("style","");
             }
             
-            more.setAttribute("style","");
+            if(page<pager.totalPage){
+                more.setAttribute("style","");
+            }
     
             for(let i=0;i<ar.length;i++){
                 console.log(ar[i].rvFileDTOs[0].fileName);
                 if(!ar[i].rvCommentDTOs[0].rvcNum){
                     
                     let tr = document.createElement("tr"); // <tr></tr>
-                    let tr2 = document.createElement("tr2"); // <tr></tr>
+                    let tr2 = document.createElement("tr"); // <tr></tr>
                     let td = document.createElement("td"); // <td></td>
                     tdstyle = document.createAttribute("style");
                     tdstyle.value = "width:10%;";
@@ -68,7 +73,7 @@ function reviewList(){
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star-half-full checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild(star);
+                        td.appendChild(star); 
                         tdText = document.createTextNode(ar[i].rvRate);
                         td.appendChild(tdText);
                         tr.appendChild(td);
@@ -299,14 +304,91 @@ function reviewList(){
                         td.appendChild(tdText);
                         tr.appendChild(td);
                     }
-    
-                    for(let f=0; f<ar[i].rvFileDTOs.length; f++){
+                    
+                    if(!member){
                         td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "white-space:nowrap; padding:0 0 0 0;";
+                        td.setAttributeNode(tdstyle);
+                        if(ar[i].rvFileDTOs.length == 5){
+                            tdcolspan = document.createAttribute("colspan");
+                            tdcolspan.value = 3;
+                            td.setAttributeNode(tdcolspan);
+                            tdstyle.value = "white-space:nowrap; padding:0 180px 0 0;";
+                            td.setAttributeNode(tdstyle);
+                        }
+                        else if(ar[i].rvFileDTOs.length == 4){
+                            tdcolspan = document.createAttribute("colspan");
+                            tdcolspan.value = 3;
+                            td.setAttributeNode(tdcolspan);
+                            tdstyle.value = "white-space:nowrap; padding:0 280px 0 0;";
+                            td.setAttributeNode(tdstyle);
+                        }
+                        else if(ar[i].rvFileDTOs.length == 3){
+                            tdcolspan = document.createAttribute("colspan");
+                            tdcolspan.value = 2;
+                            td.setAttributeNode(tdcolspan);
+                            tdstyle.value = "white-space:nowrap; padding:0 120px 0 0;";
+                            td.setAttributeNode(tdstyle);
+                        }
+                        else if (ar[i].rvFileDTOs.length == 2){
+                            tdcolspan = document.createAttribute("colspan");
+                            tdcolspan.value = 2;
+                            td.setAttributeNode(tdcolspan);
+                            tdstyle.value = "white-space:nowrap; padding:0 220px 0 0;";
+                            td.setAttributeNode(tdstyle);
+                        }
+                        else if(ar[i].rvFileDTOs.length == 1){
+                            tdcolspan = document.createAttribute("colspan");
+                            tdcolspan.value = 1;
+                            td.setAttributeNode(tdcolspan);
+                        }
+                    }
 
+                    else if(member.userId == ar[i].userId || member.userId != ar[i].userId){
+
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "white-space:nowrap; padding:0 0 0 0;";
+                        td.setAttributeNode(tdstyle);
+                        if(ar[i].rvFileDTOs.length == 5){
+                            tdcolspan = document.createAttribute("colspan");
+                            tdcolspan.value = 3;
+                            td.setAttributeNode(tdcolspan);
+                        }
+                        else if(ar[i].rvFileDTOs.length == 4){
+                            tdcolspan = document.createAttribute("colspan");
+                            tdcolspan.value = 3;
+                            td.setAttributeNode(tdcolspan);
+                            tdstyle.value = "white-space:nowrap; padding:0 100px 0 0;";
+                            td.setAttributeNode(tdstyle);
+                        }
+                        else if(ar[i].rvFileDTOs.length == 3){
+                            tdcolspan = document.createAttribute("colspan");
+                            tdcolspan.value = 2;
+                            td.setAttributeNode(tdcolspan);
+                        }
+                        else if (ar[i].rvFileDTOs.length == 2){
+                            tdcolspan = document.createAttribute("colspan");
+                            tdcolspan.value = 2;
+                            td.setAttributeNode(tdcolspan);
+                            tdstyle.value = "white-space:nowrap; padding:0 100px 0 0;";
+                            td.setAttributeNode(tdstyle);
+                        }
+                        else if(ar[i].rvFileDTOs.length == 1){
+                            tdcolspan = document.createAttribute("colspan");
+                            tdcolspan.value = 1;
+                            td.setAttributeNode(tdcolspan);
+                        }
+                    }
+                    for(let f=0; f<ar[i].rvFileDTOs.length; f++){
                         btnimage = document.createElement("button");
                         imagetype = document.createAttribute("type");
                         imagetype.value = "button";
                         btnimage.setAttributeNode(imagetype);
+                        btnClass = document.createAttribute("class");
+                        btnClass.value = "flex-item";
+                        btnimage.setAttributeNode(btnClass);
                         imageid = document.createAttribute("id");
                         imageid.value = "image"+ar[i].rvFileDTOs[f].fileName;
                         btnimage.setAttributeNode(imageid);
@@ -314,7 +396,7 @@ function reviewList(){
                         info.value = "/resources/upload/reviewfile/"+ar[i].rvFileDTOs[f].fileName;
                         btnimage.setAttributeNode(info);
                         btnStyle = document.createAttribute("style");
-                        btnStyle.value = "border: 0px; outline: 0px;";
+                        btnStyle.value = "border: 0px; outline: 0px; width: 100px; height: 100px; display:inline-block";
                         btnimage.setAttributeNode(btnStyle);
                         img = document.createElement("img");
                         imgStyle = document.createAttribute("style");
@@ -328,8 +410,8 @@ function reviewList(){
                         img.setAttributeNode(a);
                         btnimage.appendChild(img);
                         td.appendChild(btnimage);
-                        tr2.appendChild(td);
                     }
+                    tr2.appendChild(td);
                     
                     td = document.createElement("td");
                     tdstyle = document.createAttribute("style");
@@ -359,7 +441,15 @@ function reviewList(){
     
                     td = document.createElement("td");
                     tdstyle = document.createAttribute("style");
-                    tdstyle.value = "width:10%;";
+                    if(!member){
+                        tdstyle.value = "width:10%; display: none;";
+                    }
+                    else if(member.userId == ar[i].userId){
+                        tdstyle.value = "width:10%;";
+                    }
+                    else if(member.userId != ar[i].userId){
+                        tdstyle.value = "width:10%;";
+                    }
                     td.setAttributeNode(tdstyle);
                     button = document.createElement("button");
                     type = document.createAttribute("type");
@@ -375,10 +465,18 @@ function reviewList(){
                     button.appendChild(btnText);
                     td.appendChild(button);
                     tr.appendChild(td);
-
+                    
                     td = document.createElement("td");
                     tdstyle = document.createAttribute("style");
-                    tdstyle.value = "width:10%;";
+                    if(!member){
+                        tdstyle.value = "width:10%; display: none;";
+                    }
+                    else if(member.userId == ar[i].userId){
+                        tdstyle.value = "width:10%;";
+                    }
+                    else if(member.userId != ar[i].userId){
+                        tdstyle.value = "width:10%; display: none;";
+                    }
                     td.setAttributeNode(tdstyle);
                     let al = document.createElement("a");
                     href = document.createAttribute("href");
@@ -396,11 +494,19 @@ function reviewList(){
                     al.appendChild(button);
                     td.appendChild(al);
                     tr.appendChild(td);
-                    
-
+                        
+    
                     td = document.createElement("td");
                     tdstyle = document.createAttribute("style");
-                    tdstyle.value = "width:10%;";
+                    if(!member){
+                        tdstyle.value = "width:10%; display: none;";
+                    }
+                    else if(member.userId == ar[i].userId){
+                        tdstyle.value = "width:10%;";
+                    }
+                    else if(member.userId != ar[i].userId){
+                        tdstyle.value = "width:10%; display: none;";
+                    }
                     td.setAttributeNode(tdstyle);
                     button = document.createElement("button");
                     type = document.createAttribute("type");
@@ -698,13 +804,92 @@ function reviewList(){
                     
                     
     
-                    for(let f=0; f<ar[i].rvFileDTOs.length; f++){
+                    
+                    if(!member){
                         td = document.createElement("td");
-                        
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "white-space:nowrap; padding:0 0 0 0;";
+                        td.setAttributeNode(tdstyle);
+                        if(ar[i].rvFileDTOs.length == 5){
+                            tdcolspan = document.createAttribute("colspan");
+                            tdcolspan.value = 3;
+                            td.setAttributeNode(tdcolspan);
+                            tdstyle.value = "white-space:nowrap; padding:0 180px 0 0;";
+                            td.setAttributeNode(tdstyle);
+                        }
+                        else if(ar[i].rvFileDTOs.length == 4){
+                            tdcolspan = document.createAttribute("colspan");
+                            tdcolspan.value = 3;
+                            td.setAttributeNode(tdcolspan);
+                            tdstyle.value = "white-space:nowrap; padding:0 280px 0 0;";
+                            td.setAttributeNode(tdstyle);
+                        }
+                        else if(ar[i].rvFileDTOs.length == 3){
+                            tdcolspan = document.createAttribute("colspan");
+                            tdcolspan.value = 2;
+                            td.setAttributeNode(tdcolspan);
+                            tdstyle.value = "white-space:nowrap; padding:0 120px 0 0;";
+                            td.setAttributeNode(tdstyle);
+                        }
+                        else if (ar[i].rvFileDTOs.length == 2){
+                            tdcolspan = document.createAttribute("colspan");
+                            tdcolspan.value = 2;
+                            td.setAttributeNode(tdcolspan);
+                            tdstyle.value = "white-space:nowrap; padding:0 220px 0 0;";
+                            td.setAttributeNode(tdstyle);
+                        }
+                        else if(ar[i].rvFileDTOs.length == 1){
+                            tdcolspan = document.createAttribute("colspan");
+                            tdcolspan.value = 1;
+                            td.setAttributeNode(tdcolspan);
+                        }
+                    }
+
+                    else if(member.userId == ar[i].userId || member.userId != ar[i].userId){
+
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "white-space:nowrap; padding:0 0 0 0;";
+                        td.setAttributeNode(tdstyle);
+                        if(ar[i].rvFileDTOs.length == 5){
+                            tdcolspan = document.createAttribute("colspan");
+                            tdcolspan.value = 3;
+                            td.setAttributeNode(tdcolspan);
+                        }
+                        else if(ar[i].rvFileDTOs.length == 4){
+                            tdcolspan = document.createAttribute("colspan");
+                            tdcolspan.value = 3;
+                            td.setAttributeNode(tdcolspan);
+                            tdstyle.value = "white-space:nowrap; padding:0 100px 0 0;";
+                            td.setAttributeNode(tdstyle);
+                        }
+                        else if(ar[i].rvFileDTOs.length == 3){
+                            tdcolspan = document.createAttribute("colspan");
+                            tdcolspan.value = 2;
+                            td.setAttributeNode(tdcolspan);
+                        }
+                        else if (ar[i].rvFileDTOs.length == 2){
+                            tdcolspan = document.createAttribute("colspan");
+                            tdcolspan.value = 2;
+                            td.setAttributeNode(tdcolspan);
+                            tdstyle.value = "white-space:nowrap; padding:0 100px 0 0;";
+                            td.setAttributeNode(tdstyle);
+                        }
+                        else if(ar[i].rvFileDTOs.length == 1){
+                            tdcolspan = document.createAttribute("colspan");
+                            tdcolspan.value = 1;
+                            td.setAttributeNode(tdcolspan);
+                        }
+                    }
+
+                    for(let f=0; f<ar[i].rvFileDTOs.length; f++){
                         btnimage = document.createElement("button");
                         imagetype = document.createAttribute("type");
                         imagetype.value = "button";
                         btnimage.setAttributeNode(imagetype);
+                        btnClass = document.createAttribute("class");
+                        btnClass.value = "flex-item";
+                        btnimage.setAttributeNode(btnClass);
                         imageid = document.createAttribute("id");
                         imageid.value = "image"+ar[i].rvFileDTOs[f].fileName;
                         btnimage.setAttributeNode(imageid);
@@ -712,7 +897,7 @@ function reviewList(){
                         info.value = "/resources/upload/reviewfile/"+ar[i].rvFileDTOs[f].fileName;
                         btnimage.setAttributeNode(info);
                         btnStyle = document.createAttribute("style");
-                        btnStyle.value = "border: 0px; outline: 0px;";
+                        btnStyle.value = "border: 0px; outline: 0px; width: 100px; height: 100px; display:inline-block";
                         btnimage.setAttributeNode(btnStyle);
                         img = document.createElement("img");
                         imgStyle = document.createAttribute("style");
@@ -726,8 +911,9 @@ function reviewList(){
                         img.setAttributeNode(a);
                         btnimage.appendChild(img);
                         td.appendChild(btnimage);
-                        tr2.appendChild(td);
                     }
+                    tr2.appendChild(td);
+
 
                     td = document.createElement("td");
                     tdstyle = document.createAttribute("style");
@@ -761,7 +947,15 @@ function reviewList(){
 
                     td = document.createElement("td");
                     tdstyle = document.createAttribute("style");
-                    tdstyle.value = "width:10%;";
+                    if(!member){
+                        tdstyle.value = "width:10%; display: none;";
+                    }
+                    else if(member.userId == ar[i].userId){
+                        tdstyle.value = "width:10%;";
+                    }
+                    else if(member.userId != ar[i].userId){
+                        tdstyle.value = "width:10%;";
+                    }
                     td.setAttributeNode(tdstyle);
                     button = document.createElement("button");
                     type = document.createAttribute("type");
@@ -777,10 +971,18 @@ function reviewList(){
                     button.appendChild(btnText);
                     td.appendChild(button);
                     tr.appendChild(td);
-
+ 
                     td = document.createElement("td");
                     tdstyle = document.createAttribute("style");
-                    tdstyle.value = "width:10%;";
+                    if(!member){
+                        tdstyle.value = "width:10%; display: none;";
+                    }
+                    else if(member.userId == ar[i].userId){
+                        tdstyle.value = "width:10%;";
+                    }
+                    else if(member.userId != ar[i].userId){
+                        tdstyle.value = "width:10%; display: none;";
+                    } 
                     td.setAttributeNode(tdstyle);
                     let al = document.createElement("a");
                     href = document.createAttribute("href");
@@ -798,10 +1000,18 @@ function reviewList(){
                     al.appendChild(button);
                     td.appendChild(al);
                     tr.appendChild(td);
-    
+        
                     td = document.createElement("td");
                     tdstyle = document.createAttribute("style");
-                    tdstyle.value = "width:10%;";
+                    if(!member){
+                        tdstyle.value = "width:10%; display: none;";
+                    }
+                    else if(member.userId == ar[i].userId){
+                        tdstyle.value = "width:10%;";
+                    }
+                    else if(member.userId != ar[i].userId){
+                        tdstyle.value = "width:10%; display: none;";
+                    }    
                     td.setAttributeNode(tdstyle);
                     button = document.createElement("button");
                     type = document.createAttribute("type");
@@ -828,6 +1038,7 @@ function reviewList(){
                 }
                 console.log(pager.totalPage);
                 if(page >= pager.totalPage){
+                    more.setAttribute("style","display: none;");
                     more.classList.add("disabled");
                 }
                 else{
@@ -929,8 +1140,10 @@ function reviewList(){
                         exampleModalLabel2.innerText = "댓글쓰기";
                         btnCheck.innerText = "작성";
                         let rvNum = ar[i].rvNum;
+                        let rvcWriter = member.userId;
                         document.getElementById("rvNum").value = rvNum;
                         document.getElementById("rvcContents").value = "";
+                        document.getElementById("rvcWriter").value = rvcWriter;
                         up.click();
                     });
 
@@ -959,22 +1172,50 @@ function reviewList(){
                                                 style.value = "";
                                                 tr.setAttributeNode(style);
                                                 let td = document.createElement("td");
+                                                colspan = document.createAttribute("colspan");
+                                                colspan.value = 1;
+                                                td.setAttributeNode(colspan);
                                                 let tdText = document.createTextNode(ar[i].rvCommentDTOs[j-1].rvcWriter);
                                                 td.appendChild(tdText);
                                                 tr.appendChild(td);
+
+                                                if(!member){
+                                                    td = document.createElement("td");
+                                                    tdcolspan = document.createAttribute("colspan");
+                                                    tdcolspan.value = 4;
+                                                    td.setAttributeNode(tdcolspan);
+                                                    console.log(i);
+                                                    console.log(j);
+                                                    tdText = document.createTextNode(ar[i].rvCommentDTOs[j-1].rvcContents);
+                                                    console.log(tdText);
+                                                    td.appendChild(tdText);
+                                                    tr.appendChild(td);
+                                                }
+                                                else if(member.userId == ar[i].userId || member.userId != ar[i].userId){
+                                                    td = document.createElement("td");
+                                                    tdcolspan = document.createAttribute("colspan");
+                                                    tdcolspan.value = 5;
+                                                    td.setAttributeNode(tdcolspan);
+                                                    console.log(i);
+                                                    console.log(j);
+                                                    tdText = document.createTextNode(ar[i].rvCommentDTOs[j-1].rvcContents);
+                                                    console.log(tdText);
+                                                    td.appendChild(tdText);
+                                                    tr.appendChild(td);
+                                                }
                             
                                                 td = document.createElement("td");
-                                                tdcolspan = document.createAttribute("colspan");
-                                                tdcolspan.value = 5;
-                                                td.setAttributeNode(tdcolspan);
-                                                console.log(i);
-                                                console.log(j);
-                                                tdText = document.createTextNode(ar[i].rvCommentDTOs[j-1].rvcContents);
-                                                console.log(tdText);
-                                                td.appendChild(tdText);
-                                                tr.appendChild(td);
-                            
-                                                td = document.createElement("td");
+                                                tdstyle = document.createAttribute("style");
+                                                if(!member){
+                                                    tdstyle.value = "display: none;";
+                                                }
+                                                else if(member.userId == ar[i].rvCommentDTOs[j-1].rvcWriter){
+                                                    tdstyle.value = "";
+                                                }
+                                                else if(member.userId != ar[i].rvCommentDTOs[j-1].rvcWriter){
+                                                    tdstyle.value = "display: none;";
+                                                }
+                                                td.setAttributeNode(tdstyle);
                                                 button = document.createElement("button");
                                                 type = document.createAttribute("type");
                                                 type.value = "button";
@@ -994,6 +1235,17 @@ function reviewList(){
                                                 tr.appendChild(td);
                     
                                                 td = document.createElement("td");
+                                                tdstyle = document.createAttribute("style");
+                                                if(!member){
+                                                    tdstyle.value = "display: none;";
+                                                }
+                                                else if(member.userId == ar[i].rvCommentDTOs[j-1].rvcWriter){
+                                                    tdstyle.value = "";
+                                                }
+                                                else if(member.userId != ar[i].rvCommentDTOs[j-1].rvcWriter){
+                                                    tdstyle.value = "display: none;";
+                                                }
+                                                td.setAttributeNode(tdstyle);
                                                 button = document.createElement("button");
                                                 type = document.createAttribute("type");
                                                 type.value = "button";
@@ -1126,10 +1378,12 @@ btnCheck.addEventListener("click",function(){
     if(btnCheck.innerHTML == "작성"){
         let rvNum = document.getElementById("rvNum").value;
         let rvcContents = document.getElementById("rvcContents").value;
+        let rvcWriter = document.getElementById("rvcWriter").value;
+
         const xHttp = new XMLHttpRequest();
         xHttp.open("POST","./reviewcommentadd");
         xHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xHttp.send("rvNum="+rvNum+"&rvcContents="+rvcContents);
+        xHttp.send("rvNum="+rvNum+"&rvcContents="+rvcContents+"&rvcWriter="+rvcWriter);
         xHttp.onreadystatechange = function(){
             if(xHttp.readyState == 4 && xHttp.status == 200){
                 let result = xHttp.responseText.trim();
@@ -1162,11 +1416,14 @@ function qnaList(){
             let pager = result.pager;
             console.log(pager);
             let ar = result.list;
+            let member = result.member;
             for(let c=0;c<th2.length;c++){
                 th2[c].setAttribute("style","");
             }
 
-            moreqna.setAttribute("style","");
+            if(page<pager.totalPage){
+                moreqna.setAttribute("style","");
+            }
     
             for(let i=0; i<ar.length; i++){
                 if(!ar[i].sellQnaCommentDTOs[0].sqNum){
@@ -1210,6 +1467,17 @@ function qnaList(){
                     tr.appendChild(td);
     
                     td = document.createElement("td");
+                    tdstyle = document.createAttribute("style");
+                    if(!member){
+                        tdstyle.value = "display: none;";
+                    }
+                    else if(member.userId == ar[i].userId){
+                        tdstyle.value = "";
+                    }
+                    else if(member.userId != ar[i].userId){
+                        tdstyle.value = "";
+                    }
+                    td.setAttributeNode(tdstyle);
                     button = document.createElement("button");
                     type = document.createAttribute("type");
                     type.value = "button";
@@ -1226,6 +1494,17 @@ function qnaList(){
                     tr.appendChild(td);
 
                     td = document.createElement("td");
+                    tdstyle = document.createAttribute("style");
+                    if(!member){
+                        tdstyle.value = "display: none;";
+                    }
+                    else if(member.userId == ar[i].userId){
+                        tdstyle.value = "";
+                    }
+                    else if(member.userId != ar[i].userId){
+                        tdstyle.value = "display: none;";
+                    }
+                    td.setAttributeNode(tdstyle);
                     let al = document.createElement("a");
                     href = document.createAttribute("href");
                     href.value = "./qnaupdate?qnaNum="+ar[i].qnaNum;
@@ -1245,6 +1524,17 @@ function qnaList(){
                     
 
                     td = document.createElement("td");
+                    tdstyle = document.createAttribute("style");
+                    if(!member){
+                        tdstyle.value = "display: none;";
+                    }
+                    else if(member.userId == ar[i].userId){
+                        tdstyle.value = "";
+                    }
+                    else if(member.userId != ar[i].userId){
+                        tdstyle.value = "display: none;";
+                    }
+                    td.setAttributeNode(tdstyle);
                     button = document.createElement("button");
                     type = document.createAttribute("type");
                     type.value = "button";
@@ -1312,6 +1602,17 @@ function qnaList(){
                     tr.appendChild(td);
 
                     td = document.createElement("td");
+                    tdstyle = document.createAttribute("style");
+                    if(!member){
+                        tdstyle.value = "display: none;";
+                    }
+                    else if(member.userId == ar[i].userId){
+                        tdstyle.value = "";
+                    }
+                    else if(member.userId != ar[i].userId){
+                        tdstyle.value = "";
+                    }
+                    td.setAttributeNode(tdstyle);
                     button = document.createElement("button");
                     type = document.createAttribute("type");
                     type.value = "button";
@@ -1328,6 +1629,17 @@ function qnaList(){
                     tr.appendChild(td);
 
                     td = document.createElement("td");
+                    tdstyle = document.createAttribute("style");
+                    if(!member){
+                        tdstyle.value = "display: none;";
+                    }
+                    else if(member.userId == ar[i].userId){
+                        tdstyle.value = "";
+                    }
+                    else if(member.userId != ar[i].userId){
+                        tdstyle.value = "display: none;";
+                    }
+                    td.setAttributeNode(tdstyle);
                     let al = document.createElement("a");
                     href = document.createAttribute("href");
                     href.value = "./qnaupdate?qnaNum="+ar[i].qnaNum;
@@ -1346,6 +1658,17 @@ function qnaList(){
                     tr.appendChild(td);
     
                     td = document.createElement("td");
+                    tdstyle = document.createAttribute("style");
+                    if(!member){
+                        tdstyle.value = "display: none;";
+                    }
+                    else if(member.userId == ar[i].userId){
+                        tdstyle.value = "";
+                    }
+                    else if(member.userId != ar[i].userId){
+                        tdstyle.value = "display: none;";
+                    }
+                    td.setAttributeNode(tdstyle);
                     button = document.createElement("button");
                     type = document.createAttribute("type");
                     type.value = "button";
@@ -1366,7 +1689,7 @@ function qnaList(){
                 }
 
                 if(page >= pager.totalPage){
-
+                    moreqna.setAttribute("style","display: none;");
                     moreqna.classList.add("disabled");
                 }
                 else{
@@ -1440,8 +1763,10 @@ function qnaList(){
                     exampleModalLabel2.innerText = "댓글쓰기";
                     btnCheck.innerText = "작성";
                     let qnaNum = ar[i].qnaNum;
+                    let sqWriter = member.userId;
                     document.getElementById("rvNum").value = qnaNum;
                     document.getElementById("rvcContents").value = "";
+                    document.getElementById("rvcWriter").value = sqWriter;
                     up.click();
                 });
                 if(ar[i].sellQnaCommentDTOs[0].sqNum){
@@ -1463,22 +1788,50 @@ function qnaList(){
                                         style.value = "";
                                         tr.setAttributeNode(style);
                                         let td = document.createElement("td");
+                                        colspan = document.createAttribute("colspan");
+                                        colspan.value = 1;
+                                        td.setAttributeNode(colspan);
                                         let tdText = document.createTextNode(ar[i].sellQnaCommentDTOs[j-1].sqWriter);
                                         td.appendChild(tdText);
                                         tr.appendChild(td);
+
+                                        if(!member){
+                                            td = document.createElement("td");
+                                            colspan = document.createAttribute("colspan");
+                                            colspan.value = 3;
+                                            td.setAttributeNode(colspan);
+                                            console.log(i);
+                                            console.log(j);
+                                            tdText = document.createTextNode(ar[i].sellQnaCommentDTOs[j-1].sqContents);
+                                            console.log(tdText);
+                                            td.appendChild(tdText);
+                                            tr.appendChild(td);
+                                        }
+                                        else if(member.userId == ar[i].userId || member.userId != ar[i].userId){
+                                            td = document.createElement("td");
+                                            colspan = document.createAttribute("colspan");
+                                            colspan.value = 4;
+                                            td.setAttributeNode(colspan);
+                                            console.log(i);
+                                            console.log(j);
+                                            tdText = document.createTextNode(ar[i].sellQnaCommentDTOs[j-1].sqContents);
+                                            console.log(tdText);
+                                            td.appendChild(tdText);
+                                            tr.appendChild(td);
+                                        }
                     
                                         td = document.createElement("td");
-                                        colspan = document.createAttribute("colspan");
-                                        colspan.value = 4;
-                                        td.setAttributeNode(colspan);
-                                        console.log(i);
-                                        console.log(j);
-                                        tdText = document.createTextNode(ar[i].sellQnaCommentDTOs[j-1].sqContents);
-                                        console.log(tdText);
-                                        td.appendChild(tdText);
-                                        tr.appendChild(td);
-                    
-                                        td = document.createElement("td");
+                                        tdstyle = document.createAttribute("style");
+                                        if(!member){
+                                            tdstyle.value = "display: none;";
+                                        }
+                                        else if(member.userId == ar[i].sellQnaCommentDTOs[j-1].sqWriter){
+                                            tdstyle.value = "";
+                                        }
+                                        else if(member.userId != ar[i].sellQnaCommentDTOs[j-1].sqWriter){
+                                            tdstyle.value = "display: none;";
+                                        }
+                                        td.setAttributeNode(tdstyle);
                                         button = document.createElement("button");
                                         type = document.createAttribute("type");
                                         type.value = "button";
@@ -1498,6 +1851,17 @@ function qnaList(){
                                         tr.appendChild(td);
             
                                         td = document.createElement("td");
+                                        tdstyle = document.createAttribute("style");
+                                        if(!member){
+                                            tdstyle.value = "display: none;";
+                                        }
+                                        else if(member.userId == ar[i].sellQnaCommentDTOs[j-1].sqWriter){
+                                            tdstyle.value = "";
+                                        }
+                                        else if(member.userId != ar[i].sellQnaCommentDTOs[j-1].sqWriter){
+                                            tdstyle.value = "display: none;";
+                                        }
+                                        td.setAttributeNode(tdstyle);
                                         button = document.createElement("button");
                                         type = document.createAttribute("type");
                                         type.value = "button";
@@ -1611,10 +1975,11 @@ btnCheck.addEventListener("click",function(){
     if(btnCheck.innerHTML == "작성"){
         let qnaNum = document.getElementById("rvNum").value;
         let sqContents = document.getElementById("rvcContents").value;
+        let sqWriter = document.getElementById("rvcWriter").value;
         const xHttp = new XMLHttpRequest();
         xHttp.open("POST","./qnacommentadd");
         xHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xHttp.send("qnaNum="+qnaNum+"&sqContents="+sqContents);
+        xHttp.send("qnaNum="+qnaNum+"&sqContents="+sqContents+"&sqWriter="+sqWriter);
         xHttp.onreadystatechange = function(){
             if(xHttp.readyState == 4 && xHttp.status == 200){
                 let result = xHttp.responseText.trim();

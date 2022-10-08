@@ -33,6 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.google.gson.JsonObject;
+import com.pet.home.member.MemberDTO;
 import com.pet.home.sell.check.CheckDTO;
 import com.pet.home.sell.file.RvFileDTO;
 import com.pet.home.sell.file.SellFileDTO;
@@ -218,12 +219,13 @@ public class SellItemController {
 
 	@GetMapping("reviewList")
 	@ResponseBody
-	public Map<String, Object> getReviewList(com.pet.home.util.CommentPager commentPager) throws Exception {
+	public Map<String, Object> getReviewList(com.pet.home.util.CommentPager commentPager, HttpSession session) throws Exception {
 		List<ReviewDTO> ar = itemService.getReviewList(commentPager);
 		System.out.println(ar.size());
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", ar);
 		map.put("pager", commentPager);
+		map.put("member", (MemberDTO)session.getAttribute("member"));
 		return map;
 	}
 
@@ -309,12 +311,13 @@ public class SellItemController {
 
 	@GetMapping("qnaList")
 	@ResponseBody
-	public Map<String, Object> getSellQnaList(com.pet.home.util.CommentPager commentPager) throws Exception {
+	public Map<String, Object> getSellQnaList(com.pet.home.util.CommentPager commentPager, HttpSession session) throws Exception {
 		List<SellQnaDTO> ar = itemService.getSellQnaList(commentPager);
 		System.out.println(ar.size());
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", ar);
 		map.put("pager", commentPager);
+		map.put("member", (MemberDTO)session.getAttribute("member"));
 		return map;
 	}
 

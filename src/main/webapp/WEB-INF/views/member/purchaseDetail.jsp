@@ -38,8 +38,10 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
   <!-- iamport.payment.js -->
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+  <script>history.scrollRestoration = "manual"</script>
 
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nabla&family=Nanum+Gothic:wght@700&family=Roboto:wght@100&display=swap');
     .crq{
         justify-content: center;
         text-align: center;
@@ -105,6 +107,37 @@
           writing-mode: horizontal-tb;
         }
 
+        span{
+          font-family: 'Gowun Dodum', sans-serif;
+          font-family: 'Nabla', cursive;
+          font-family: 'Nanum Gothic', sans-serif;
+          font-family: 'Roboto', sans-serif;
+        }
+        
+.tableWrapper{
+  border: 3px solid pink;
+  opacity: 0.8;
+  border-radius: 10px;
+}
+
+.t{
+  overflow: hidden;
+  width: 100%;
+  border-radius: 10px;
+}
+
+        .t>tbody>tr:nth-child(2n-1){
+          background-color: antiquewhite;
+        }
+
+        .t>tbody>tr{
+          border-bottom: 1px solid rgba(0,0,0,0.4);
+        }
+
+        .t>tbody>tr:last-child{
+          border: 0;
+        }
+
 
   </style>
 </head>
@@ -114,7 +147,7 @@
     <c:import url="/WEB-INF/views/template/header.jsp"></c:import>
     <!-- header end -->
   </div>
-  <div style="margin-top: 100px; width: 80%;">  
+  <div style="display: flex; justify-content: center;">  
       <form action="purchaseDelete" method="post">
           <section class="mainSection">
             <div class="mainContents row gy-1">
@@ -124,17 +157,17 @@
                     <p><span>결제 상세 내역</span><p>
                   </c:when>
                   <c:when test="${check.purchaseStatus eq 0}">
-                    <p><span>결제 취소 내역</span><p></p>  
+                    <p><span>결제 취소 내역</span></p>  
                   </c:when>
                 </c:choose>
               </div>
               <!-- text 영역 -->
               <div class="textAre col-lg-12 col-md-12 d-flex">
-                <div>
+                <div class="tableWrapper">
                   <input type="hidden" id="merchant_uid" name="merchant_uid" value="${check.merchant_uid}"}>
                   <input type="hidden" id="imp_uid" name="imp_uid" value="${check.imp_uid}"}>
                   <input type="hidden" id="amount" name="amount" value="${check.amount}"}>
-                  <table class="table table-striped">
+                  <table class="t">
                     <tbody>
                       <tr>
                         <td colspan="2">
@@ -164,11 +197,22 @@
                           <p style="margin-top: 3px;"><span><h5>${check.dogCount}</h5></span></p></td>
                         </td> 
                     </tr>
-                      <tr>
-                        <td colspan="2">
-                          <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>결제 금액</strong></span>
-                          <p style="margin-top: 3px;"><span><h5>${check.amount} 원</h5></span></p></td>
-                      </tr>
+                    <c:choose>
+                      <c:when test="${check.purchaseStatus eq 0}">
+                        <tr>
+                          <td colspan="2">
+                            <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>환불 금액</strong></span>
+                            <p style="margin-top: 3px;"><span><h5>${check.amount} 원</h5></span></p></td>
+                        </tr>
+                      </c:when>
+                      <c:when test="${check.purchaseStatus eq 1}">
+                        <tr>
+                          <td colspan="2">
+                            <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>결제 금액</strong></span>
+                            <p style="margin-top: 3px;"><span><h5>${check.amount} 원</h5></span></p></td>
+                        </tr>
+                      </c:when>
+                    </c:choose>
                       <tr>
                         <td colspan="2">
                           <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>결제 일자</strong></span>
@@ -204,9 +248,8 @@
                           <button type="button" class="btn btn-outline-danger" style="display: inline-block;" onclick="cancelPay()">환불하기</button>
                         </div>
                       </c:if>
-     
                 </div>
-                </div>
+              </div>
             </div>
           </section>  
         </form>

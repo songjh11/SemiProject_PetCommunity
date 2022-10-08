@@ -74,21 +74,33 @@
         </div>
         </div>
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
-    <div>
+  <header id="header" class="header d-flex align-items-center" style="position: fixed; top:0; width:100vw; justify-content: space-evenly;">
+    <!-- search button+logo start -->
+    <div style="display: flex; align-items: center;">
       <!-- Button trigger modal -->
-      <button type="button" class="btn-book-a-table" data-bs-toggle="modal" data-bs-target="#searchModal" style="border:0px;">
+      <button type="button" class="btn-book-a-table" data-bs-toggle="modal" data-bs-target="#searchModal" style="border:0px; margin: 0;">
         <i class="bi bi-search"></i>
         </button>
+          <a href="/" class="logo d-flex align-items-center me-auto me-lg-0">
+            <span style="font-size: 40px; color: black; font-weight: 700;">WALWAL.</span>
+          </a>
     </div>
-    <div style="display: block;">
-    <div class="container d-flex align-items-center justify-content-between">
-      <a href="/" class="logo d-flex align-items-center me-auto me-lg-0">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1>WALWAL<span>.</span></h1>
-      </a>
+    <!-- search button+logo end -->
 
+    <!-- 안내멘트 -->
+    <div>
+      <!--로그인 성공했을 때-->
+      <c:if test="${not empty sessionScope.member}">
+        <h5>${sessionScope.member.userName} 님<br> 환영합니다!</h5>
+      </c:if>
+      <!-- 로그인 안했을 때 -->
+      <c:if test="${empty sessionScope.member}">
+        <h8>원활한 이용을 위해<br> 로그인해주세요</h8>
+      </c:if>  
+    </div>  
+
+    <!-- Main menu start -->
+    <div>
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="../">Home</a></li>
@@ -120,36 +132,24 @@
           </li>
           <li><a href="#contact">Contact</a></li>
         </ul>
-      </nav><!-- .navbar -->
+      </nav>
+      </div>
+      <!-- .navbar -->
+          
+    <div>
       <!--로그인 성공했을 때-->
       <c:if test="${not empty sessionScope.member}">
-        <h5>${sessionScope.member.userName} 님 환영합니다!</h5>
         <a class="btn-book-a-table" href="/member/mypage">Mypage</a>
         <a class="btn-book-a-table" href="/member/logout">Logout</a>
-
-        <!-- 역할번호에 따라 다른 메뉴바-->
-        <c:choose>
-        <c:when test="${sessionScope.dto.roleNum =='1'}">
-          <a href="/sell/add"><button class="btn btn-outline-success me-2" type="button">Add Items</button></a>
-        </c:when>
-        <c:when test="${sessionScope.dto.roleNum =='2'}">
-          <a class="btn-book-a-table" href="#">guest page</a>
-        </c:when>
-        <c:otherwise>
-          <a class="btn-book-a-table" href="/mypage/admin">admin page</a>
-          </c:otherwise>
-          </c:choose>
-
-        </c:if>
-        <!-- 로그인 실패했을 때 -->
-        <c:if test="${empty sessionScope.member}">
-          <a class="btn-book-a-table" href="/member/login">Login</a>
-          <a class="btn-book-a-table" href="/member/role">Join</a>
-          </c:if>
+      </c:if>
+      <!-- 로그인 실패했을 때 -->
+      <c:if test="${empty sessionScope.member}">
+        <a class="btn-book-a-table" href="/member/login">Login</a>
+        <a class="btn-book-a-table" href="/member/role">Join</a>
+      </c:if>
+    </div>
         <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
         <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
-    </div>
-  </div>
     <div id="msgStack">
     </div>
   </header><!-- End Header -->

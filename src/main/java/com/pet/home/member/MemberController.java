@@ -1,5 +1,6 @@
 package com.pet.home.member;
 
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -10,15 +11,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.xml.xpath.XPathEvaluationResult.XPathResultType;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.core.JsonParser;
+import com.google.gson.JsonObject;
 import com.pet.home.board.event.coupon.CouponDTO;
 import com.pet.home.file.FileDTO;
 import com.pet.home.sell.PickDTO;
@@ -26,9 +39,13 @@ import com.pet.home.sell.ReservationDTO;
 import com.pet.home.sell.SellItemController;
 import com.pet.home.sell.SellItemService;
 import com.pet.home.sell.ShopCartDTO;
-import com.pet.home.sell.check.CheckDTO;
 import com.pet.home.sell.file.SellFileDTO;
+import com.pet.home.sell.purchase.PurchaseDTO;
 import com.pet.home.util.FileManager;
+import com.pet.home.util.SellPager;
+import com.siot.IamportRestClient.response.AccessToken;
+import com.siot.IamportRestClient.response.IamportResponse;
+
  
 @Controller
 @RequestMapping(value= "/member/*")
@@ -42,6 +59,7 @@ public class MemberController {
 	
 	@Autowired 
 	private SellItemService sellItemService;
+	
 	
 	@GetMapping("role")
 	public String getAgree()throws Exception{
@@ -155,6 +173,12 @@ public class MemberController {
 //		memberDTO = memberService.getMyPage(memberDTO);
 		int followernum = Integer.parseInt(String.valueOf(memberService.getFollowerCount(memberDTO)));
 		int followeenum = Integer.parseInt(String.valueOf(memberService.getFolloweeCount(memberDTO)));
+		int memnum = Integer.parseInt(String.valueOf(memberService.getMemCount()));
+		int sellnum = Integer.parseInt(String.valueOf(memberService.getItemCount()));
+
+
+		
+		
 		if(memberDTO.getRoleDTO().getRoleNum()==1){ 
 		memberDTO = memberService.getBizPage(memberDTO); //역할번호가 1번일 때 판매자 마이페이지 
 		}else if(memberDTO.getRoleDTO().getRoleNum()==2){
@@ -164,6 +188,9 @@ public class MemberController {
 		}else {
 		memberDTO = memberService.getMyPage(memberDTO); // 그 외 관리자 마이페이지  
 		}
+		
+		mv.addObject("memnum", memnum);
+		mv.addObject("sellnum", sellnum);
 		mv.addObject("followeenum", followeenum);
 		mv.addObject("followernum", followernum);
 		mv.addObject("dto", memberDTO);
@@ -172,18 +199,67 @@ public class MemberController {
 		return mv;
 	}
 	
+	@GetMapping("memlist")
+	public ModelAndView memlist()throws Exception{
+		ModelAndView mv = new ModelAndView();
+	List<MemberDTO> ar = memberService.getMemList();
 	
-	@GetMapping("search")
-	public String search()throws Exception {
-		
-		return "member/search";
+	mv.addObject("list", ar);
+	mv.addObject("what", "memlist");
+	mv.setViewName("member/follow");
+	 
+	return mv;
+	
 	}
 	
-	@PostMapping("search")
+	
+	@GetMapping("find")
 	public ModelAndView search(MemberDTO memberDTO)throws Exception {
 		ModelAndView mv = new ModelAndView();
+		List<MemberDTO> ar = memberService.getFindMem(memberDTO);
+		
+		mv.addObject("list", ar);
+		mv.addObject("what", "memlist");
+		mv.setViewName("member/follow");
+		
 		return mv;
 	}
+	
+	@GetMapping("block")
+	public ModelAndView setBlock(MemberDTO memberDTO)throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		int result = memberService.setBlock(memberDTO);
+		
+		if(result == 1){
+			mv.addObject("msg", "회원이 차단되었습니다.");
+		}else {
+			mv.addObject("msg", "차단 실패했습니다.");
+		}
+			mv.addObject("url", "memlist");
+			mv.setViewName("member/alert");
+			
+			return mv;
+	}
+	
+	@GetMapping("unblock")
+	public ModelAndView setUnBlock(MemberDTO memberDTO)throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		int result = memberService.setUnBlock(memberDTO);
+		
+		if(result == 1){
+			mv.addObject("msg", "회원이 차단 해제되었습니다.");
+		}else {
+			mv.addObject("msg", "차단 해제 실패했습니다.");
+		}
+			mv.addObject("url", "memlist");
+			mv.setViewName("member/alert");
+			
+			return mv;
+	}
+	
+	
 	
 	@GetMapping("delete")
 	public String delete()throws Exception{
@@ -500,15 +576,19 @@ public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 	
 //결제 내역 리스트	
 	@GetMapping("purchaseList")
-	public ModelAndView getPurchaseList(HttpSession httpSession) throws Exception {
+	public ModelAndView getPurchaseList(HttpSession httpSession, String purchaseStatus) throws Exception {
 		System.out.println("purchaseList");
-		MemberDTO memberDTO = (MemberDTO)httpSession.getAttribute("dto");
-		List<CheckDTO> checkList = sellItemService.getPurchaseList("m5");
+		MemberDTO memberDTO = (MemberDTO)httpSession.getAttribute("member");
+		System.out.println(memberDTO.getUserId());
+		PurchaseDTO purchaseDTO = new PurchaseDTO();
+		purchaseDTO.setUserId(memberDTO.getUserId());
+		purchaseDTO.setPurchaseStatus(Long.parseLong(purchaseStatus));
+		List<PurchaseDTO> purchaseList = sellItemService.getPurchaseList(purchaseDTO);
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("checkList", checkList);
+		mv.addObject("purchaseList", purchaseList);
 		mv.addObject("what","Purchase List");
 		mv.setViewName("member/follow");
-		for(CheckDTO c: checkList) {
+		for(PurchaseDTO c: purchaseList) {
 			System.out.println(c.getImp_uid());
 		}
 		return mv;
@@ -516,22 +596,51 @@ public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 	
 //결제 상세 내역
 	@GetMapping("purchaseDetail")
-	public ModelAndView getPurchaseDetail(CheckDTO checkDTO) throws Exception {
-		checkDTO = sellItemService.getPurchaseDetail(checkDTO);
+	public ModelAndView getPurchaseDetail(PurchaseDTO purchaseDTO) throws Exception {
+		purchaseDTO = sellItemService.getPurchaseDetail(purchaseDTO);
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("check", checkDTO);
+		mv.addObject("check", purchaseDTO);
 		return mv;
 	}
 	
 //결제 취소
 	@PostMapping("purchaseDelete")
-	public ModelAndView setPurchaseDelete(CheckDTO checkDTO) throws Exception {
-		System.out.println(checkDTO.getImp_uid());
-		int result = sellItemService.setPurchaseDelete(checkDTO);
-		System.out.println("삭제 완");
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("member/mypage");
-		return mv;
+	@ResponseBody
+	public ModelAndView setPurchaseDelete(
+			@RequestParam String imp_uid, 
+			@RequestParam String merchant_uid,
+			@RequestParam String reason
+			) throws Exception {
+		System.out.println("purchaseDelete");
+		System.out.println(merchant_uid);
+		String msg = "";
+		ModelAndView mv = new ModelAndView("jsonView");
+		
+		//토큰 발급
+		IamportResponse<AccessToken> token=null;
+		token = sellItemService.getToken();
+
+		String code = sellItemService.setPurchaseCancel(token, reason, imp_uid);
+
+			if(code.equals("0")) {
+				System.out.println("코드 0 ㅇㅋ");
+				//구매 상태 변경
+				int result = sellItemService.setPurchaseStatus(merchant_uid);
+				if(result>0) {
+					System.out.println("디비 변경 완");
+					msg = "success";
+				} else {
+					System.out.println("디비 변경 실패ㅠ");
+					msg = "error";
+				}
+				
+			} else {
+					System.out.println("실패ㅠ");
+					msg = "error";
+				}
+		
+			mv.addObject("msg", msg);
+			return mv;
 	}
 }
 	

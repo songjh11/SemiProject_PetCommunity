@@ -1,6 +1,7 @@
 package com.pet.home.sell;
 
 import java.io.File;
+
 import java.nio.file.Files;
 import java.util.Calendar;
 import java.util.List;
@@ -10,20 +11,30 @@ import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pet.home.member.MemberDTO;
-import com.pet.home.sell.check.CheckDAO;
-import com.pet.home.sell.check.CheckDTO;
 import com.pet.home.sell.file.RvFileDTO;
 import com.pet.home.sell.file.SellFileDTO;
+import com.pet.home.sell.purchase.PurchaseDAO;
+import com.pet.home.sell.purchase.PurchaseDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
 import com.pet.home.sell.sellcategory.SellCategoryDTO;
 import com.pet.home.util.FileManager;
 import com.pet.home.util.Pager;
 import com.pet.home.util.SellPager;
+import com.siot.IamportRestClient.IamportClient;
+import com.siot.IamportRestClient.response.AccessToken;
+import com.siot.IamportRestClient.response.IamportResponse;
 
 @Service
 public class SellItemService {
@@ -41,12 +52,21 @@ public class SellItemService {
 	@Autowired
 	private RvCommentDAO rvCommentDAO;
 	@Autowired
-	private CheckDAO checkDAO;
+	private PurchaseDAO purchaseDAO;
 	
 	@Autowired
 	private SellQnaDAO sellQnaDAO;
 	@Autowired
 	private SellQnaCommentDAO sellQnaCommentDAO;
+	
+	
+	private IamportClient client;
+	
+	public IamportClient getClient() {
+		this.client = new IamportClient("7768266328715148", "uETnhxe3MbNMjFN4Gs6U5PuiYYR6TWf9SFcGncxj9SWEcDAysad8JZmNnOYpChUkXzIdw7Ld9uTaSWuP");
+		return client;
+	}
+	
 	
 	public int setItemAdd(SellItemDTO itemDTO, MultipartFile [] files, ServletContext servletContext) throws Exception {
 		int result = itemDAO.setItemAdd(itemDTO);
@@ -90,8 +110,16 @@ public class SellItemService {
 	
 	public List<SellItemDTO> getItemList(SellPager sellPager) throws Exception {
 		sellPager.getRowNum();
+		System.out.println("start : "+sellPager.getStartRow());
+		System.out.println("last : "+sellPager.getLastRow());
 		sellPager.getNum(itemDAO.getItemCount(sellPager));
 		return itemDAO.getItemList(sellPager);
+	}
+	
+	public List<SellItemDTO> getSellerList(SellPager sellPager) throws Exception {
+		sellPager.getRowNum();
+		sellPager.getNum(itemDAO.getItemCount(sellPager));
+		return itemDAO.getSellerList(sellPager);
 	}
 	
 	public CategoryDTO getCategory(Long itemCatg) throws Exception{
@@ -375,22 +403,55 @@ public class SellItemService {
 	}
 	
 	//결제
-	public int setCheck(CheckDTO checkDTO) {
-		int result = checkDAO.setCheck(checkDTO);
+	public int setPurchase(PurchaseDTO purchaseDTO) {
+		int result = purchaseDAO.setPurchase(purchaseDTO);
 		return result;
 	}
 	
-	public List<CheckDTO> getPurchaseList(String userId) throws Exception{
-		return checkDAO.getPurchaseList(userId);
+	public List<PurchaseDTO> getPurchaseList(PurchaseDTO purchaseDTO) throws Exception{
+		return purchaseDAO.getPurchaseList(purchaseDTO);
 	}
 	
-	public CheckDTO getPurchaseDetail(CheckDTO checkDTO) throws Exception{
-		return checkDAO.getPurchaseDetail(checkDTO); 
+	public PurchaseDTO getPurchaseDetail(PurchaseDTO purchaseDTO) throws Exception{
+		return purchaseDAO.getPurchaseDetail(purchaseDTO); 
 	}
 	
-	public int setPurchaseDelete(CheckDTO checkDTO) throws Exception{
-		return checkDAO.setPurchaseDelete(checkDTO); 
+	public String setPurchaseCancel(IamportResponse<AccessToken> token, String reason, String imp_uid) throws Exception{
+		//아임포트 서버에서 전액 환불 진행
+		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Type", "application/json");
+		headers.add("Authorization", token.getResponse().getToken());
+		
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		
+		params.add("reason", reason);
+		params.add("imp_uid", imp_uid);
+		
+		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String,String>>(params,headers);
+		
+		String response = restTemplate.postForObject("http://api.iamport.kr/payments/cancel", request, String.class);
+		System.out.println("response: "+response);
+		JSONParser jsonParser = new JSONParser();
+		JSONObject jsonObject = (JSONObject)jsonParser.parse(response);
+		String code = jsonObject.get("code").toString();
+
+		return code;
 	}
 	
+	public int setPurchaseStatus(String merchant_uid) throws Exception {
+		return purchaseDAO.setPurchaseStatus(merchant_uid);
+	}
+	
+	//token
+	public IamportResponse<AccessToken> getToken() throws Exception {
+		//client 생성
+		IamportClient client = getClient();
+		
+		//토큰 발급
+		IamportResponse<AccessToken> token = client.getAuth();
+		return token;
+	}
 
 }
+	

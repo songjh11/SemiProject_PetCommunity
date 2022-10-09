@@ -35,6 +35,11 @@ let merchant_uid = date.getTime();
 const rvBtnFrm = document.getElementById("rvBtnFrm");
 let msg = "";
 
+revStartDate.addEventListener("blur", function(){
+  priceCount();
+});
+
+
 //===================================================날짜 계산
 priceCount.addEventListener("click", function (){
   let dateResult = false;
@@ -43,12 +48,26 @@ priceCount.addEventListener("click", function (){
   rev = revEndDate.value;
   ac = adultsCount.value;
   dc = dogCount.value;
-
-  if(rsv.length<=0||rev.length<=0){
-  alert("날짜를 입력하세요")
-  return;
+  itg = itemCatg.value;
+  itn = itemNum2.value;
+  tpv = totalPrice.value;
+  bev = buyer_email.value;
+  bnv = buyer_name.value;
+  btv = buyer_tel.value;
+  uiv = userId.value;
+  inv = itemName.value;
+  console.log(itg);
+  
+  if(itg==2 && rev!=rsv){
+    alert("원데이 클래스는 하루 단위로 예약이 가능합니다");
+    return;
   } else{
-    dateResult = true;
+    if(rsv.length<=0||rev.length<=0){
+    alert("날짜를 입력하세요")
+    return;
+    } else{
+      dateResult = true;
+    }
   }
 
 if(ac.length<=0||dc.length<=0){
@@ -64,15 +83,21 @@ if(dateResult){
     let redateC = redate.getTime();
     let rsdateC = rsdate.getTime();
     if(redateC<rsdateC){
-      alert("날짜를 다시 입력해주세요")
+      alert("날짜를 다시 입력하세요")
       return;
     } else{
-      const tdate = (redateC - rsdateC) / (1000*60*60*24);
+      let tdate = "";
+      if(redateC == rsdateC){
+        tdate = 1;
+      } else{
+        tdate = (redateC - rsdateC) / (1000*60*60*24);
+      }
       let priceC = tdate*ipv+ac*10000+dc*10000;
       const totalPriceV = document.createAttribute("value");
       totalPriceV.value = priceC;
       totalPrice.setAttributeNode(totalPriceV);
     }
+    
 }
 
 });
@@ -114,7 +139,7 @@ rvBtnFrm.addEventListener("click", function(){
         pay_method: "card",
         merchant_uid: merchant_uid,
         name: inv,
-        amount: 100,//tpv
+        amount: tpv,//tpv
         buyer_email: bev,
         buyer_name: bnv,
         buyer_tel: btv,
@@ -127,7 +152,6 @@ rvBtnFrm.addEventListener("click", function(){
           $.ajax({
               url: "./payments", // 예: https://www.myservice.com/payments/complete
               type: "POST",
-              dataType: 'json',
               data: {
                   'imp_uid': rsp.imp_uid,
                   'merchant_uid': rsp.merchant_uid,
@@ -138,14 +162,31 @@ rvBtnFrm.addEventListener("click", function(){
                   'adultsCount': ac,
                   'dogCount': dc,
                   'userId': uiv
+              },
+              error : function(xhr,status,error){
+                console.log(xhr.responseText);
+                console.log(status);
+                console.log(error);
+                let data = xhr.responseText;
+                console.log(data);
+              },
+              success : function(paymentResult){
+                console.log(paymentResult);
+                if(paymentResult=="paid") {
+                  alert("결제에 성공하였습니다!")
+                  // window.location.href = 'http://localhost/member/purchaseList?purchaseStatus=1';
+              } else{
+                alert("결제에 실패하였습니다. 결제 실패 사유: " + paymentResult);
+                location.reload();
               }
-          }).done(function (paymentResult) {
-            console.log(paymentResult);
-            if(paymentResult=="paid") {
-              alert("결제에 성공하였습니다!")
-              window.location.href = 'http://localhost/member/purchaseList';
-            }
-        })} else {
+              }})
+          // .done(function (paymentResult) {
+          //   console.log(paymentResult);
+          //   if(paymentResult=="paid") {
+          //     alert("결제에 성공하였습니다!")
+          //     window.location.href = 'http://localhost/member/purchaseList';
+          //   }
+        } else {
           alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
           // location.reload(); 
         }

@@ -1,4 +1,4 @@
-package com.pet.home.sell;
+ package com.pet.home.sell;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -33,10 +36,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.google.gson.JsonObject;
+
 import com.pet.home.member.MemberDTO;
-import com.pet.home.sell.check.CheckDTO;
 import com.pet.home.sell.file.RvFileDTO;
 import com.pet.home.sell.file.SellFileDTO;
+import com.pet.home.sell.purchase.PurchaseDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
 import com.pet.home.util.SellPager;
 import com.siot.IamportRestClient.IamportClient;
@@ -52,12 +56,6 @@ public class SellItemController {
 
 	@Autowired
 	private SellItemService itemService;
-	
-	private IamportClient client;
-	
-	public SellItemController() {
-		this.client = new IamportClient("7768266328715148", "uETnhxe3MbNMjFN4Gs6U5PuiYYR6TWf9SFcGncxj9SWEcDAysad8JZmNnOYpChUkXzIdw7Ld9uTaSWuP");
-	}
 	
 	
 	@GetMapping("Test")
@@ -77,6 +75,24 @@ public class SellItemController {
 		mv.addObject("category", categoryDTO);
 		return mv;
 	}
+	
+	@GetMapping("Sellerlist")
+	public ModelAndView getSellerList(SellPager sellPager, HttpSession session) throws Exception {
+		System.out.println(sellPager.getItemCatg());
+		ModelAndView mv = new ModelAndView();
+		
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		sellPager.setUserId(memberDTO.getUserId());
+
+		List<SellItemDTO> ar = itemService.getSellerList(sellPager);
+		CategoryDTO categoryDTO = itemService.getCategory(sellPager.getItemCatg());
+
+		mv.addObject("list", ar);
+		mv.addObject("pager", sellPager);
+		mv.addObject("category", categoryDTO);
+		mv.setViewName("sell/Sellerlist");
+		return mv;
+	}
 
 	@GetMapping("detail")
 	public ModelAndView getDetailOne(SellItemDTO sellItemDTO, ModelAndView model) throws Exception {
@@ -88,7 +104,7 @@ public class SellItemController {
 	}
 
 	@PostMapping("check")
-	public void setCheck(CheckDTO checkDTO) {
+	public void setCheck(PurchaseDTO checkDTO) {
 		System.out.println(checkDTO.getItemNum());
 	}
 
@@ -128,7 +144,7 @@ public class SellItemController {
 		System.out.println("updatepost");
 		int result = itemService.setItemUpdate(itemDTO, files, session.getServletContext());
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/sell/list?itemCatg=" + itemDTO.getItemCatg());
+		mv.setViewName("redirect:/sell/selllist?itemCatg=" + itemDTO.getItemCatg());
 		return mv;
 	}
 
@@ -392,9 +408,9 @@ public class SellItemController {
 	}
 
 	//결제 진행 후 DB 인서트
-	@PostMapping("payments")
 	@ResponseBody
-	public String setCheck(@RequestParam String imp_uid, 
+	@RequestMapping(value = "payments", method = RequestMethod.POST, produces = "application/text; charset=utf8")
+	public String setPurchase(@RequestParam String imp_uid, 
 			@RequestParam String merchant_uid, 
 			@RequestParam String itemNum,
 			@RequestParam String amount,
@@ -406,7 +422,9 @@ public class SellItemController {
 			HttpSession session) throws Exception {
 					
 			//토큰 발급
-			IamportResponse<AccessToken> token = client.getAuth();
+			IamportResponse<AccessToken> token = itemService.getToken();
+			
+			IamportClient client = itemService.getClient();
 			
 			Payment payment = client.paymentByImpUid(imp_uid).getResponse();
 			String paymentResult = payment.getStatus();
@@ -415,26 +433,64 @@ public class SellItemController {
 			System.out.println("Code: "+token.getCode());
 			System.out.println("token: "+token.getResponse().getToken());
 			
-			if(paymentResult.equals("paid")) {
-				CheckDTO checkDTO = new CheckDTO();
-				checkDTO.setImp_uid(imp_uid);
-				checkDTO.setMerchant_uid(merchant_uid);
-				checkDTO.setItemNum(Long.parseLong(itemNum));
-				checkDTO.setAmount(Long.parseLong(amount));
-				checkDTO.setRevStartDate(revStartDate);
-				checkDTO.setRevEndDate(revEndDate);
-				checkDTO.setAdultsCount(Long.parseLong(adultsCount));
-				checkDTO.setDogCount(Long.parseLong(dogCount));
-				checkDTO.setUserId(userId);
-				
-				int result = itemService.setCheck(checkDTO);
-				
-				return paymentResult;
-				
-			} else {
-				return paymentResult;
-				
-			}
+			//결제되어야 할 금액 계산
+			SellItemDTO itemDTO = new SellItemDTO();
+			itemDTO.setItemNum(Long.parseLong(itemNum));
+			itemDTO = itemService.getDetailOne(itemDTO);
+			Long itemPrice = itemDTO.getItemPrice();
+			System.out.println("itemPrice: "+itemPrice);
+			
+			Date start = new SimpleDateFormat("yyyy-MM-dd").parse(revStartDate);
+	        Date end = new SimpleDateFormat("yyyy-MM-dd").parse(revEndDate);
+	        Long diffSec = (end.getTime() - start.getTime()) / 1000; //초 차이
+	        Long revDays = diffSec / (24*60*60); //일자수 차이
+	        if(end.getTime() == start.getTime()) {
+	        	revDays = 1L;
+	        }
+	        System.out.println("revDays: "+revDays);
+			Long totalPrice = (itemPrice * revDays)+(10000*Long.parseLong(adultsCount))+(10000*Long.parseLong(dogCount));
+			System.out.println("totalPrice: "+totalPrice);
+			
+			//실제 결제 금액과 DB상 결제되어야 하는 금액 비교
+			if(amount.equals(totalPrice.toString())) {
+				//실결제 여부 검증
+				if(paymentResult.equals("paid")) {
+					PurchaseDTO purchaseDTO = new PurchaseDTO();
+					purchaseDTO.setImp_uid(imp_uid);
+					purchaseDTO.setMerchant_uid(merchant_uid);
+					purchaseDTO.setItemNum(Long.parseLong(itemNum));
+					purchaseDTO.setAmount(Long.parseLong(amount));
+					purchaseDTO.setRevStartDate(revStartDate);
+					purchaseDTO.setRevEndDate(revEndDate);
+					purchaseDTO.setAdultsCount(Long.parseLong(adultsCount));
+					purchaseDTO.setDogCount(Long.parseLong(dogCount));
+					purchaseDTO.setUserId(userId);
+					
+					int result = itemService.setPurchase(purchaseDTO);
+						//디비 반영 검증
+						if(result>0) {
+							return paymentResult;
+						} else {
+							paymentResult = "결제 기록 오류가 발생했습니다. 고객센터에 문의해주세요.";
+							return paymentResult;
+						}
+					
+				} else {
+					paymentResult = "결제 진행에 오류가 있습니다. 카드사에 문의해주세요.";
+					return paymentResult;
+				}
+			} else {//실결제 금액이 DB상 결제 금액과 다른 경우 DB에 인서트 되지 않고 결제 취소 진행
+					String reason = "결제 금액 상이함";
+					String code = itemService.setPurchaseCancel(token, reason, imp_uid);
+					if(code.equals("0")) {
+						paymentResult = "결제 금액 오류로 결제가 취소됩니다.";
+						return paymentResult;
+					} else {
+						paymentResult = "결제가 정상적으로 이루어지지 않았습니다. 카드사에 문의해주세요.";
+						return paymentResult;
+					}
+				}
+
 						
 //			IamportResponse<Payment> payment_response = client.paymentByImpUid(imp_uid);
                           	            
@@ -442,7 +498,7 @@ public class SellItemController {
 	
 	//결제 리스트 출력
 	public ModelAndView getPurchaseList(String userId) throws Exception{
-		CheckDTO checkDTO = new CheckDTO();
+		PurchaseDTO checkDTO = new PurchaseDTO();
 		checkDTO.setUserId(userId);
 		System.out.println(checkDTO.getUserId());
 //		List<CheckDTO> checkList = itemService.getPurchaseList(checkDTO);
@@ -450,6 +506,8 @@ public class SellItemController {
 //		mv.addObject("checkList", checkList);
 		return mv;		
 	}
+	
+
 
 //public String getToken() {
 //		

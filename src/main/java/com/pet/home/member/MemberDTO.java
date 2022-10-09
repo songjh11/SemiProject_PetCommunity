@@ -7,8 +7,8 @@ import com.pet.home.sell.PickDTO;
 import com.pet.home.sell.ReservationDTO;
 import com.pet.home.sell.SellItemDTO;
 import com.pet.home.sell.ShopCartDTO;
-import com.pet.home.sell.check.CheckDTO;
 import com.pet.home.sell.file.SellFileDTO;
+import com.pet.home.sell.purchase.PurchaseDTO;
 
 public class MemberDTO {
 
@@ -44,6 +44,15 @@ public class MemberDTO {
 	private ReservationDTO reservationDTO;
 	private String follower;
 	private String followee;
+	private String search;
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
 
 	public String getFollowee() {
 		return followee;
@@ -300,5 +309,6 @@ public class MemberDTO {
 	public void setMemberFileDTO(MemberFileDTO memberFileDTO) {
 		this.memberFileDTO = memberFileDTO;
 	}
+
 
 }

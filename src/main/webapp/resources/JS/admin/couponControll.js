@@ -1,8 +1,481 @@
+// Guest 페이지네이션
+const previous2 = document.getElementById("previous2");
+const next2 = document.getElementById("next2");
+const present2 = document.querySelectorAll(".page-link");
+const tbody2 = document.getElementById("tbody2");
+console.log(tbody2);
+
+next2.addEventListener("click",function(){
+    let page = next2.getAttribute("data-page");
+    
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST","./guestlist");
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("page="+page);
+    xhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            let result = JSON.parse(xhttp.responseText.trim());
+            
+            let list = result.list;
+
+            console.log(list);
+
+            tbody2.innerHTML = "";
+
+            for(let i=0; i<list.length; i++){
+                let tr2 = document.createElement("tr2");
+                let userId = list[i].userId
+                
+                let td = document.createElement("td");
+                let text =document.createTextNode(list[i].userId);
+                td.appendChild(text);
+                tr2.appendChild(td);
+                
+                td = document.createElement("td");
+                text = document.createTextNode(list[i].userName);
+                td.appendChild(text);
+                tr2.appendChild(td);
+
+                td = document.createElement("td");
+                td.setAttribute("class","deleteMember");
+                td.setAttribute("data-userId", list[i].userId);
+                text = document.createTextNode("추방");
+                td.appendChild(text);
+                tr2.appendChild(td);
+
+                td = document.createElement("td");
+                let button = document.createElement("button");
+                button.setAttribute("class","memberSharing");
+                button.setAttribute("data-userId", list[i].userId);
+                button.setAttribute("onclick", "getSharingList('1',"+'"'+userId+'"'+")");
+                text = document.createTextNode("같이해요 작성한글");
+                button.appendChild(text);
+                td.appendChild(button);
+                tr2.appendChild(td);
+
+                td = document.createElement("td");
+                button = document.createElement("button");
+                button.setAttribute("class","memberQna");
+                button.setAttribute("data-userId", list[i].userId);
+                button.setAttribute("onclick", "getQnaList('1',"+'"'+userId+'"'+")");
+                text = document.createTextNode("QnA작성한 글");
+                button.appendChild(text);
+                td.appendChild(button);
+                tr2.appendChild(td);
+
+                td = document.createElement("td");
+                button = document.createElement("button");
+                button.setAttribute("class","memberItem");
+                button.setAttribute("data-userId", list[i].userId);
+                // button.setAttribute("onclick", getQnaList('1',list[i].userId));
+                text = document.createTextNode("구매목록");
+                button.appendChild(text);
+                td.appendChild(button);
+                tr2.appendChild(td);
+
+                tbody2.appendChild(tr2);
+            }
+
+
+        }
+    }
+})
+
+try {
+    for(let i=0; present2.length; i++){
+        present2[i].addEventListener("click",function(){
+            console.log("asdf");
+            let page = present2[i].getAttribute("data-page");
+            console.log(page);
+            
+            const xhttp = new XMLHttpRequest();
+            xhttp.open("POST","./guestlist");
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("page="+page);
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    let result = JSON.parse(xhttp.responseText.trim());
+                    
+                    let list = result.list;
+        
+                    console.log(list);
+                    console.log(tbody2);
+
+                    tbody2.innerHTML = "";
+                    console.log(tbody2);
+        
+                    for(let i=0; i<list.length; i++){
+                        let tr2 = document.createElement("tr");
+                        let userId = list[i].userId
+                        
+                        let td = document.createElement("td");
+                        let text =document.createTextNode(list[i].userId);
+                        td.appendChild(text);
+                        tr2.appendChild(td);
+                        
+                        td = document.createElement("td");
+                        text = document.createTextNode(list[i].userName);
+                        td.appendChild(text);
+                        tr2.appendChild(td);
+        
+                        td = document.createElement("td");
+                        td.setAttribute("class","deleteMember");
+                        td.setAttribute("data-userId", list[i].userId);
+                        text = document.createTextNode("추방");
+                        td.appendChild(text);
+                        tr2.appendChild(td);
+        
+                        td = document.createElement("td");
+                        let button = document.createElement("button");
+                        button.setAttribute("class","memberSharing");
+                        button.setAttribute("data-userId", list[i].userId);
+                        button.setAttribute("onclick", "getSharingList('1',"+'"'+userId+'"'+")");
+                        text = document.createTextNode("같이해요 작성한글");
+                        button.appendChild(text);
+                        td.appendChild(button);
+                        tr2.appendChild(td);
+        
+                        td = document.createElement("td");
+                        button = document.createElement("button");
+                        button.setAttribute("class","memberQna");
+                        button.setAttribute("data-userId", list[i].userId);
+                        button.setAttribute("onclick", "getQnaList('1',"+'"'+userId+'"'+")");
+                        text = document.createTextNode("QnA작성한 글");
+                        button.appendChild(text);
+                        td.appendChild(button);
+                        tr2.appendChild(td);
+        
+                        td = document.createElement("td");
+                        button = document.createElement("button");
+                        button.setAttribute("class","memberItem");
+                        button.setAttribute("data-userId", list[i].userId);
+                        // button.setAttribute("onclick", getQnaList('1',list[i].userId));
+                        text = document.createTextNode("구매목록");
+                        button.appendChild(text);
+                        td.appendChild(button);
+                        tr2.appendChild(td);
+                        
+                        tbody2.appendChild(tr2);
+                    }
+        
+        
+                }
+            }
+        })
+        }
+} catch (error) {
+    
+}
+
+
+previous2.addEventListener("click",function(){
+    let page = previous2.getAttribute("data-page");
+    
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST","./guestlist");
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("page="+page);
+    xhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            let result = JSON.parse(xhttp.responseText.trim());
+            
+            let list = result.list;
+
+            console.log(list);
+
+            tbody2.innerHTML = "";
+
+            for(let i=0; i<list.length; i++){
+                let userId = list[i].userId
+                let tr2 = document.createElement("tr");
+                let td = document.createElement("td");
+                let text =document.createTextNode(list[i].userId);
+                td.appendChild(text);
+                tr2.appendChild(td);
+                
+                td = document.createElement("td");
+                text = document.createTextNode(list[i].userName);
+                td.appendChild(text);
+                tr2.appendChild(td);
+
+                td = document.createElement("td");
+                td.setAttribute("class","deleteMember");
+                td.setAttribute("data-userId", list[i].userId);
+                text = document.createTextNode("추방");
+                td.appendChild(text);
+                tr2.appendChild(td);
+
+                td = document.createElement("td");
+                let button = document.createElement("button");
+                button.setAttribute("class","memberSharing");
+                button.setAttribute("data-userId", list[i].userId);
+                button.setAttribute("onclick", "getSharingList('1',"+'"'+userId+'"'+")");
+                text = document.createTextNode("같이해요 작성한글");
+                button.appendChild(text);
+                td.appendChild(button);
+                tr2.appendChild(td);
+
+                td = document.createElement("td");
+                button = document.createElement("button");
+                button.setAttribute("class","memberQna");
+                button.setAttribute("data-userId", list[i].userId);
+                button.setAttribute("onclick", "getQnaList('1',"+'"'+userId+'"'+")");
+                text = document.createTextNode("QnA작성한 글");
+                button.appendChild(text);
+                td.appendChild(button);
+                tr2.appendChild(td);
+
+                td = document.createElement("td");
+                button = document.createElement("button");
+                button.setAttribute("class","memberItem");
+                button.setAttribute("data-userId", list[i].userId);
+                // button.setAttribute("onclick", getQnaList('1',list[i].userId));
+                text = document.createTextNode("구매목록");
+                button.appendChild(text);
+                td.appendChild(button);
+                tr2.appendChild(td);
+
+                tbody2.appendChild(tr2);
+
+            }
+
+
+        }
+    }
+})
+
+//----------------------------------------------------------------------
+
+// 쿠폰 페이지네이션
+const previous1 = document.getElementById("previous2");
+const next1 = document.getElementById("next2");
+const present1 = document.getElementsByClassName(".page-link 2");
+const tbody3 = document.getElementById("tbody3");
+
+
+next1.addEventListener("click",function(){
+    let page = next1.getAttribute("data-page");
+    
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST","./couponlist");
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("page="+page);
+    xhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            let result = JSON.parse(xhttp.responseText.trim());
+            
+            let list = result.list;
+
+            console.log(list);
+
+            tbody3.innerHTML = "";
+
+            for(let i=0; i<list.length; i++){
+                let tr2 = document.createElement("tr2");
+                
+                let td = document.createElement("td");
+                let text =document.createTextNode(list[i].couponNum);
+                td.appendChild(text);
+                tr2.appendChild(td);
+                
+                td = document.createElement("td");
+                text = document.createTextNode(list[i].couponName);
+                td.appendChild(text);
+                tr2.appendChild(td);
+
+                td = document.createElement("td");
+                text = document.createTextNode(list[i].expDate);
+                td.appendChild(text);
+                tr2.appendChild(td);
+
+                td = document.createElement("td");
+                text = document.createTextNode(list[i].regDate);
+                td.appendChild(text);
+                tr2.appendChild(td);
+
+                td = document.createElement("td");
+                text = document.createTextNode(list[i].discountRate);
+                td.appendChild(text);
+                tr2.appendChild(td);
+
+                td = document.createElement("td");
+                text = document.createTextNode(list[i].discountPrice);
+                td.appendChild(text);
+                tr2.appendChild(td);
+
+                td = document.createElement("td");
+                td.setAttribute("class","deleteCoupon");
+                td.setAttribute("data-couponNum", list[i].couponNum);
+                td.setAttribute("onclick", "deleteCoupon()");
+                text = document.createTextNode("삭제");
+                td.appendChild(text);
+                tr2.appendChild(td);
+
+
+                tbody3.appendChild(tr2);
+            }
+
+
+        }
+    }
+})
+
+try {
+    for(let i=0; present1.length; i++){
+        present2[i].addEventListener("click",function(){
+            console.log("asdf");
+            let page = present1[i].getAttribute("data-page");
+            console.log(page);
+            
+            const xhttp = new XMLHttpRequest();
+            xhttp.open("POST","./guestlist");
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("page="+page);
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    let result = JSON.parse(xhttp.responseText.trim());
+                    
+                    let list = result.list;
+        
+                    console.log(list);
+                    console.log(tbody3);
+
+                    tbody3.innerHTML = "";
+                    console.log(tbody3);
+        
+                    for(let i=0; i<list.length; i++){
+                        let tr2 = document.createElement("tr2");
+                
+                        let td = document.createElement("td");
+                        let text =document.createTextNode(list[i].couponNum);
+                        td.appendChild(text);
+                        tr2.appendChild(td);
+                        
+                        td = document.createElement("td");
+                        text = document.createTextNode(list[i].couponName);
+                        td.appendChild(text);
+                        tr2.appendChild(td);
+
+                        td = document.createElement("td");
+                        text = document.createTextNode(list[i].expDate);
+                        td.appendChild(text);
+                        tr2.appendChild(td);
+
+                        td = document.createElement("td");
+                        text = document.createTextNode(list[i].regDate);
+                        td.appendChild(text);
+                        tr2.appendChild(td);
+
+                        td = document.createElement("td");
+                        text = document.createTextNode(list[i].discountRate);
+                        td.appendChild(text);
+                        tr2.appendChild(td);
+
+                        td = document.createElement("td");
+                        text = document.createTextNode(list[i].discountPrice);
+                        td.appendChild(text);
+                        tr2.appendChild(td);
+
+                        td = document.createElement("td");
+                        td.setAttribute("class","deleteCoupon");
+                        td.setAttribute("data-couponNum", list[i].couponNum);
+                        td.setAttribute("onclick", "deleteCoupon()");
+                        text = document.createTextNode("삭제");
+                        td.appendChild(text);
+                        tr2.appendChild(td);
+
+
+                        tbody3.appendChild(tr2);
+                    }
+        
+        
+                }
+            }
+        })
+        }
+} catch (error) {
+    
+}
+
+
+previous1.addEventListener("click",function(){
+    let page = previous1.getAttribute("data-page");
+    
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST","./guestlist");
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("page="+page);
+    xhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            let result = JSON.parse(xhttp.responseText.trim());
+            
+            let list = result.list;
+
+            console.log(list);
+
+            tbody3.innerHTML = "";
+
+            for(let i=0; i<list.length; i++){
+                let tr2 = document.createElement("tr2");
+                
+                let td = document.createElement("td");
+                let text =document.createTextNode(list[i].couponNum);
+                td.appendChild(text);
+                tr2.appendChild(td);
+                
+                td = document.createElement("td");
+                text = document.createTextNode(list[i].couponName);
+                td.appendChild(text);
+                tr2.appendChild(td);
+
+                td = document.createElement("td");
+                text = document.createTextNode(list[i].expDate);
+                td.appendChild(text);
+                tr2.appendChild(td);
+
+                td = document.createElement("td");
+                text = document.createTextNode(list[i].regDate);
+                td.appendChild(text);
+                tr2.appendChild(td);
+
+                td = document.createElement("td");
+                text = document.createTextNode(list[i].discountRate);
+                td.appendChild(text);
+                tr2.appendChild(td);
+
+                td = document.createElement("td");
+                text = document.createTextNode(list[i].discountPrice);
+                td.appendChild(text);
+                tr2.appendChild(td);
+
+                td = document.createElement("td");
+                td.setAttribute("class","deleteCoupon");
+                td.setAttribute("data-couponNum", list[i].couponNum);
+                td.setAttribute("onclick", "deleteCoupon()");
+                text = document.createTextNode("삭제");
+                td.appendChild(text);
+                tr2.appendChild(td);
+
+
+                tbody3.appendChild(tr2);
+
+            }
+
+
+        }
+    }
+})
+
+
+
+// ------ 쿠폰 페이징 끝
+//----------------------------------------------------------------------
+
 function deleteCoupon(){
     const deleteCoupon = document.getElementsByClassName("deleteCoupon");
     for(let i = 0; i<deleteCoupon.length; i++){
         
-            let couponNum = deleteCoupon.getAttribute("data-couponNum");
+            let couponNum = deleteCoupon[i].getAttribute("data-couponNum");
             console.log(couponNum);
 
             let check = window.confirm("삭제하시겠습니까?");
@@ -21,11 +494,13 @@ function deleteCoupon(){
                     if(result == 1){
                         alert("삭제 성공");
                         location.reload();
+                        return;
                     }else{
                         alert("삭제 실패");
                     }
                 }
             }
+            return;
 
         
     }
@@ -59,13 +534,13 @@ function deleteMember(){
                 }
             }
         }
-        
+        return;
     
     }
 }
 
-
-const tbody1= document.getElementById("tbody1"); 
+// 같이해요 회원 별 목록 불러오기
+let boardlist = document.getElementById("boardlist");
 let sharinguser = null;
 const btn = document.getElementById("btn");
 function getSharingList(page,userId){
@@ -89,10 +564,40 @@ function getSharingList(page,userId){
 
                 
 
-                tbody1.innerHTML = "";
+                boardlist.innerHTML = "";
 
-                for(let i = 0 ; i<sharing.length ; i++){
+                let tab = document.createElement("table");
+                    tab.setAttribute("class","table");
+                    let thead = document.createElement("thead");
                     let tr = document.createElement("tr");
+                    let th = document.createElement("th");
+                    let text = document.createTextNode("글제목");
+
+                    th.appendChild(text);
+                    tr.appendChild(th);
+                    
+                    th=document.createElement("th");
+                    text = document.createTextNode("작성일");
+                    
+                    th.appendChild(text);
+                    tr.appendChild(th);
+
+
+                    th=document.createElement("th");
+                    text = document.createTextNode("조회수");
+                    
+                    th.appendChild(text);
+                    tr.appendChild(th);
+
+                    
+                    thead.appendChild(tr);
+                    tab.appendChild(thead);
+
+                    let tb = document.createElement("tbody");
+                for(let i = 0 ; i<sharing.length ; i++){
+                   
+                    let tr = document.createElement("tr");
+
                     let td = document.createElement("td");
                     let text = document.createTextNode(sharing[i].title);
                     td.appendChild(text);
@@ -115,12 +620,25 @@ function getSharingList(page,userId){
                     td.appendChild(text);
                     tr.appendChild(td);
 
-                    tbody1.appendChild(tr);
+                    tb.appendChild(tr);
                 }//for문 끝
 
+                tab.appendChild(tb);
+                boardlist.appendChild(tab);
+                
+                let btnmore = document.createElement("btn");
+                let txt = document.createTextNode("더보기");
+                btnmore.setAttribute("id","more");
+                btnmore.setAttribute("class", "btn btn-danger");
+                btnmore.appendChild(txt);
+                
+                boardlist.appendChild(btnmore);
+
+                let more = document.getElementById("more");
+
+                
                 btn.click();
 
-                const more = document.getElementById("more");
                 page++;
                 console.log(pager.totalPage);
                 if(page > pager.totalPage){
@@ -161,7 +679,7 @@ function getSharingList(page,userId){
                                 td.appendChild(text);
                                 tr.appendChild(td);
             
-                                tbody1.appendChild(tr);
+                                tb.appendChild(tr);
 
                             }//for문 끝
                             page++;
@@ -185,7 +703,7 @@ function getSharingList(page,userId){
 
 
 // Sharing 삭제
-tbody1.addEventListener("click", function(event){
+boardlist.addEventListener("click", function(event){
     if(event.target.className = "delete"){
         let check = window.confirm("삭제하시겠습니까?");
         if(check == true){
@@ -200,15 +718,15 @@ tbody1.addEventListener("click", function(event){
                     let result = JSON.parse(xhttp.responseText.trim());
 
                     if(result == '1'){
-                        alert("삭제 완료");
-                        tbody1.innerHTML = "";
+                        
                         getSharingList('1',sharinguser);
-                        // btn.click();
-                    }else{
-                        alert("삭제 실패");
+                        alert("삭제 완료");
                     }
+                    
                 }
+                
             }
+            
         }
     }
 })
@@ -233,11 +751,39 @@ function getQnaList(page,userId){
                 // console.log(pager);
                 let qna = result.qna;
                 let staticBackdropLabel = document.getElementById("staticBackdropLabel");
-                staticBackdropLabel.innerHTML = "같이해요";
+                staticBackdropLabel.innerHTML = "QNA";
 
                 
+                boardlist.innerHTML = "";
 
-                tbody1.innerHTML = "";
+                let tab = document.createElement("table");
+                    tab.setAttribute("class","table");
+                    let thead = document.createElement("thead");
+                    let tr = document.createElement("tr");
+                    let th = document.createElement("th");
+                    let text = document.createTextNode("글제목");
+
+                    th.appendChild(text);
+                    tr.appendChild(th);
+                    
+                    th=document.createElement("th");
+                    text = document.createTextNode("작성일");
+                    
+                    th.appendChild(text);
+                    tr.appendChild(th);
+
+
+                    th=document.createElement("th");
+                    text = document.createTextNode("조회수");
+                    
+                    th.appendChild(text);
+                    tr.appendChild(th);
+
+                    
+                    thead.appendChild(tr);
+                    tab.appendChild(thead);
+
+                    let tb = document.createElement("tbody");
 
                 for(let i = 0 ; i<qna.length ; i++){
                     let tr = document.createElement("tr");
@@ -263,12 +809,25 @@ function getQnaList(page,userId){
                     td.appendChild(text);
                     tr.appendChild(td);
 
-                    tbody1.appendChild(tr);
+                    tb.appendChild(tr);
                 }//for문 끝
+
+
+                tab.appendChild(tb);
+                boardlist.appendChild(tab);
+                
+                let btnmore = document.createElement("btn");
+                let txt = document.createTextNode("더보기");
+                btnmore.setAttribute("id","more");
+                btnmore.setAttribute("class", "btn btn-danger");
+                btnmore.appendChild(txt);
+                
+                boardlist.appendChild(btnmore);
+
+                let more = document.getElementById("more");
 
                 btn.click();
 
-                const more = document.getElementById("more");
                 page++;
                 console.log(pager.totalPage);
                 if(page > pager.totalPage){
@@ -309,7 +868,7 @@ function getQnaList(page,userId){
                                 td.appendChild(text);
                                 tr.appendChild(td);
             
-                                tbody1.appendChild(tr);
+                                tb.appendChild(tr);
 
                             }//for문 끝
                             page++;
@@ -332,7 +891,7 @@ function getQnaList(page,userId){
 
 
 // QNA 삭제
-tbody1.addEventListener("click", function(event){
+boardlist.addEventListener("click", function(event){
     if(event.target.className = "delete"){
         let check = window.confirm("삭제하시겠습니까?");
         if(check == true){
@@ -348,8 +907,9 @@ tbody1.addEventListener("click", function(event){
 
                     if(result == '1'){
                         alert("삭제 완료");
-                        tbody1.innerHTML = "";
+
                         getQnaList('1',qnauser);
+                        return;
                         // btn.click();
                     }else{
                         alert("삭제 실패");
@@ -359,3 +919,157 @@ tbody1.addEventListener("click", function(event){
         }
     }
 })
+
+
+
+//회원 상세 프로필
+function getDetail(id){
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST","./memberdetail");
+    xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xhttp.send("userId="+id);
+    xhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            let result = JSON.parse(xhttp.responseText.trim());
+
+            boardlist.innerHTML = "";
+            
+
+            let div1 = document.createElement("div");
+            div1.setAttribute("class","col-lg-8 align-items-center");
+            let div = document.createElement("div");
+            div.setAttribute("class","col-lg-2 text-center");
+            let img = document.createElement("img");
+            img.setAttribute("src","/resources/upload/member/"+result.memberFileDTO.fileName);
+            img.setAttribute("class","img-fluid testimonial-img");
+
+            div.appendChild(img);
+            div1.appendChild(div);
+
+            let input = document.createElement("input");
+            input.setAttribute("type","text");
+            input.setAttribute("value",result.userName);
+            div = document.createElement("div");
+            div.setAttribute("class","col-sm-7");
+            div.appendChild(input);
+            div1.appendChild(div);
+
+            input = document.createElement("input");
+            input.setAttribute("type","number");
+            input.setAttribute("value",result.phone);
+            div = document.createElement("div");
+            div.setAttribute("class","col-sm-7");
+            div.appendChild(input);
+            div1.appendChild(div);
+
+            input = document.createElement("input");
+            input.setAttribute("type","email");
+            input.setAttribute("value",result.email);
+            div = document.createElement("div");
+            div.setAttribute("class","col-sm-7");
+            div.appendChild(input);
+            div1.appendChild(div);
+
+            input = document.createElement("input");
+            input.setAttribute("type","text");
+            input.setAttribute("value",result.itemZipCode);
+            div = document.createElement("div");
+            div.setAttribute("class","col-sm-7");
+            div.appendChild(input);
+            div1.appendChild(div);
+
+            input = document.createElement("input");
+            input.setAttribute("type","text");
+            input.setAttribute("value",result.address);
+            div = document.createElement("div");
+            div.setAttribute("class","col-sm-7");
+            div.appendChild(input);
+            div1.appendChild(div);
+
+            input = document.createElement("input");
+            input.setAttribute("type","text");
+            input.setAttribute("value",result.deAddress);
+            div = document.createElement("div");
+            div.setAttribute("class","col-sm-7");
+            div.appendChild(input);
+            div1.appendChild(div);
+
+            input = document.createElement("input");
+            input.setAttribute("type","text");
+            input.setAttribute("value",result.petCatg);
+            div = document.createElement("div");
+            div.setAttribute("class","col-sm-7");
+            div.appendChild(input);
+            div1.appendChild(div);
+
+            input = document.createElement("input");
+            input.setAttribute("type","text");
+            input.setAttribute("value",result.petName);
+            div = document.createElement("div");
+            div.setAttribute("class","col-sm-7");
+            div.appendChild(input);
+            div1.appendChild(div);
+
+            boardlist.appendChild(div1);
+            btn.click();
+        }
+    }
+
+    
+}
+
+//------------------------------------------------------------------
+
+// 회원 별 구매 상품 목록 불러오기
+
+function getItemList(p,ui,ps){
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST","./purchaselist");
+    xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xhttp.send("userId="+ui+"&purchaseStatus="+ps);
+    xhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            let result = JSON.parse(xhttp.responseText.trim());
+
+            boardlist.innerHTML = "";
+
+            let row = document.createElement("div");
+            row.setAttribute("class","row gy-4");
+
+
+            for(let i = 0 ; i<result.length; i++){
+                let div = document.createElement("div");
+                div.setAttribute("class","col-lg-4 col-md-6 d-flex align-items-stretch");
+                div.setAttribute("data-aos","fade-up");
+                div.setAttribute("data-aos-delay",'100');
+
+                let div1 = document.createElement("div");
+                div1.setAttribute("class","chef-member");
+
+                let div2 = document.createElement("div");
+                div2.setAttribute("class","member-img");
+
+                let img1 = document.createElement("img");
+                img1.setAttribute("src","/resources/upload/sellfile/"+result.fileDTOs[0].fileName);
+
+                // let div3 = document.createElement("div");
+                // div3.setAttribute("class","social");
+
+                let div4 = document.createElement("div");
+                div4.setAttribute("class","member-info");
+
+                
+                div2.appendChild(img1);
+                div1.appendChild(div2);
+                div1.appendChild(div4);
+                div.appendChild(div1);
+
+                row.appendChild(div);
+            }
+            
+            boardlist.appendChild(row);
+            
+            btn.click();
+        }
+    }
+}

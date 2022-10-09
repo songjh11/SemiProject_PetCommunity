@@ -144,17 +144,35 @@ public class MemberDAO {
 		return sqlSession.delete(NAMESPACE+"setCartDelete", shopCartDTO);
 	}
 
-	//모든 멤버 리스트
-	//1. 게스트
-	public List<MemberDTO> getAllGuest() throws Exception{
-		return sqlSession.selectList(NAMESPACE+"getAllGuest");
-	}
-	
-	//2. 사업자
-	public List<MemberDTO> getAllBizmen() throws Exception{
-		return sqlSession.selectList(NAMESPACE+"getAllBizmen");
-	}
 		
 
+	
+	public int getItemCount()throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getItemCount");
+	}
+	
+	
+	public int getMemCount()throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getMemCount");
+	}
+	
+	public List<MemberDTO> getMemList()throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getMemList");
+	}
+	
+	public List<MemberDTO> getFindMem(MemberDTO memberDTO)throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getFindMem", memberDTO);
+	}
+	
+	public int setBlock(MemberDTO memberDTO)throws Exception{
+		return sqlSession.update(NAMESPACE+"setBlock", memberDTO);
+		
+	}
+	
+	public int setUnBlock(MemberDTO memberDTO)throws Exception{
+		return sqlSession.update(NAMESPACE+"setUnBlock", memberDTO);
+		
+	}
+	
 	
 }

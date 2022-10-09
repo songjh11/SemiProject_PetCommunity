@@ -11,7 +11,6 @@
 <meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
- <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>${sellItemDTO.itemName}</title>
@@ -115,6 +114,7 @@
           flex-direction: column;
           align-items: center;
         }
+
 
 
   </style>
@@ -612,7 +612,7 @@
                           <div class="field-icon-wrap">
                             <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                             <select id="dogCount" name="dogCount" class="form-control">
-                              <option value="" selected>-- 강아지 수 선택 --</option>
+                              <option value="" selected>-- 반려견 수 선택 --</option>
                               <option value="1">1</option>
                               <option value="2">2</option>
                               <option value="3">3</option>
@@ -712,7 +712,7 @@
       </div>
     <div id="myTabContent" class="tab-content">
 
-      <div class="tab-pane fade show active" role="tabpanel" id="rv">
+      <div class="tab-pane fade" role="tabpanel" id="rv">
       <table class="table" id="review">
         
       </table>
@@ -720,7 +720,7 @@
     </div>
   </div>
   	<div id="myTabContent" class="tab-content">
-  	<div class="tab-pane fade show active" id="q" role="tabpanel">
+  	<div class="tab-pane fade" id="q" role="tabpanel">
     	<table class="table" id="qna">
       		<th class="th2" style="display: none;" >작성자</th>
       		<th class="th2" style="display: none;" >제목</th>
@@ -729,10 +729,11 @@
     <button id="moreqna" class="btn btn-outline-dark" style="display: none;">더보기</button>
     </div>
    </div>
- </div>
+  </div>
+  </div>
+</section>
 
-<section>
-
+<section >
   <!-- footer start -->
   <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
   <!-- footer end -->

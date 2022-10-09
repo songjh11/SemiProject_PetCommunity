@@ -16,6 +16,8 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -31,6 +33,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import com.pet.home.board.event.coupon.CouponDTO;
 import com.pet.home.file.FileDTO;
@@ -45,6 +50,8 @@ import com.pet.home.util.FileManager;
 import com.pet.home.util.SellPager;
 import com.siot.IamportRestClient.response.AccessToken;
 import com.siot.IamportRestClient.response.IamportResponse;
+
+import okhttp3.Request;
 
  
 @Controller
@@ -160,17 +167,20 @@ public class MemberController {
 	public ModelAndView mypage(HttpSession session)throws Exception {
 		ModelAndView mv = new ModelAndView();
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		
+		
 	
 		//메인페이지에 보여줄 팔로우/상품/멤버 숫자 파라미터 설정 
 		int followernum = Integer.parseInt(String.valueOf(memberService.getFollowerCount(memberDTO)));
 		int followeenum = Integer.parseInt(String.valueOf(memberService.getFolloweeCount(memberDTO)));
 		int memnum = Integer.parseInt(String.valueOf(memberService.getMemCount()));
 		int sellnum = Integer.parseInt(String.valueOf(memberService.getItemCount()));
-		
-		if(memberDTO.getRoleDTO().getRoleNum()==2){
+		System.out.println("마"+memberDTO.getRoleNum());
+		if(memberDTO.getRoleNum()==2){
 		memberDTO = memberService.getGuestPage(memberDTO); //역할번호가 2번일 때 회원 마이페이지 
 		}else {
 		memberDTO = memberService.getMyPage(memberDTO); // 그 외 마이페이지  
+
 		}
 		
 		mv.addObject("memnum", memnum);
@@ -272,7 +282,7 @@ public class MemberController {
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
 		
 		//update에 불러올 정보 
-		if(memberDTO.getRoleDTO().getRoleNum()==2){
+		if(memberDTO.getRoleNum()==2){
 		memberDTO = memberService.getGuestPage(memberDTO); 
 		}else {
 		memberDTO = memberService.getMyPage(memberDTO); 
@@ -498,6 +508,153 @@ public class MemberController {
 			return mv;
 		}
 		
+		@GetMapping("kakao")
+		@ResponseBody
+		public ModelAndView kakao(String code, HttpServletRequest request)throws Exception{
+			ModelAndView mv = new ModelAndView();
+			
+
+			// POST방식으로 key=value 데이터를 요청 (카카오쪽으로)
+			// Retrofit2
+			// OkHttp
+			// RestTemplate
+			
+			RestTemplate rt = new RestTemplate();
+			
+			// HttpHeader 오브젝트 생성
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+			
+			// HttpBody 오브젝트 생성
+			MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+			params.add("grant_type", "authorization_code");
+			params.add("client_id", "3de4327e8b367107a94e0ffc38dcc41d");
+			params.add("redirect_uri", "http://localhost/member/kakao");
+			params.add("code", code);
+			
+			// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
+			HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = 
+					new HttpEntity<MultiValueMap<String, String>>(params, headers);
+			
+			// Http 요청하기 - Post방식으로 - 그리고 response 변수의 응답 받음.
+			ResponseEntity<String> response = rt.exchange(
+					"https://kauth.kakao.com/oauth/token",
+					HttpMethod.POST,
+					kakaoTokenRequest,
+					String.class
+			);
+		System.out.println(response);
+		
+		// Gson, Json Simple, ObjectMapper
+				ObjectMapper objectMapper = new ObjectMapper();
+				OAuthToken oauthToken = null;
+				try {
+					oauthToken = objectMapper.readValue(response.getBody(), OAuthToken.class);
+				} catch (JsonMappingException e) {
+					e.printStackTrace();
+				} catch (JsonProcessingException e) {
+					e.printStackTrace();
+				}
+				
+				System.out.println("카카오 엑세스 토큰 : "+oauthToken.getAccess_token());
+				
+				RestTemplate rt2 = new RestTemplate();
+				
+				// HttpHeader 오브젝트 생성
+				HttpHeaders headers2 = new HttpHeaders();
+				headers2.add("Authorization", "Bearer "+oauthToken.getAccess_token());
+				headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+				
+				// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
+				HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest2 = 
+						new HttpEntity<>(headers2);
+				
+				// Http 요청하기 - Post방식으로 - 그리고 response 변수의 응답 받음.
+				ResponseEntity<String> response2 = rt2.exchange(
+						"https://kapi.kakao.com/v2/user/me",
+						HttpMethod.POST,
+						kakaoProfileRequest2,
+						String.class
+				);
+				System.out.println("응ㄱ답22 : "+response2.getBody());
+				
+				ObjectMapper objectMapper2 = new ObjectMapper();
+				KakaoProfile kakaoProfile = null;
+				try {
+					
+					kakaoProfile = objectMapper2.readValue(response2.getBody(), KakaoProfile.class);
+				} catch (JsonMappingException e) {
+					e.printStackTrace();
+				} catch (JsonProcessingException e) {
+					e.printStackTrace();
+				}
+				
+				// User 오브젝트 : username, password, email
+				System.out.println("카카오 아이디(번호) : "+kakaoProfile.getId());
+				System.out.println("카카오 이메일 : "+kakaoProfile.getKakao_account().getEmail());
+				
+				System.out.println("블로그서버 유저네임 : "+kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId());
+				System.out.println("블로그서버 이메일 : "+kakaoProfile.getKakao_account().getEmail());
+				// UUID란 -> 중복되지 않는 어떤 특정 값을 만들어내는 알고리즘
+				
+				MemberDTO memberDTO = new MemberDTO();
+				memberDTO.setUserId(kakaoProfile.getId().toString());
+				memberDTO.setEmail(kakaoProfile.getKakao_account().getEmail());
+				memberDTO.setUserName(kakaoProfile.getProperties().getNickname());
+				memberDTO.setRoleNum(2);
+	
+					int mem = memberService.getKakaoCount(memberDTO);
+					if(mem ==0) {
+						memberService.setKakao(memberDTO);
+						System.out.println(mem);
+					}
+		
+				HttpSession session = request.getSession();
+				session.setAttribute("member", memberDTO);
+				
+	
+			mv.addObject("msg","카카오 로그인 완료.");
+			mv.addObject("url","/");
+			mv.setViewName("member/alert");
+			mv.addObject("dto", memberDTO);
+			
+			return mv;
+		}
+		
+//		@PostMapping("kakao")
+//		public ModelAndView kakao(MemberDTO memberDTO, HttpServletRequest request) throws Exception{
+//			ModelAndView mv = new ModelAndView();
+//			System.out.println("memberDTO.getUserId()"+memberDTO.getUserId());
+//			memberDTO.setSearch(memberDTO.getUserId());
+//			memberDTO.setRoleNum(2);
+//			List<MemberDTO> ar = memberService.getFindMem(memberDTO); //여기서문제
+//			//유저아이디는 불러와지는데
+//			//값있으면 회원가입 막고
+//			//로그아웃 되도록
+//			if(ar == null) {
+//				memberService.setKakao(memberDTO);
+//			}
+//	
+//			memberDTO = memberService.getLogin(memberDTO);
+//			HttpSession session = request.getSession();
+//			session.setAttribute("member", memberDTO);
+//			
+//System.out.println("zㅏ카"+memberDTO.getRoleNum());
+//			  if(memberDTO.getRoleNum() != null) {
+//			  System.out.println("카카오 로그인 성공!"); 
+//			  mv.addObject("msg","카카오 로그인 되었습니다.");
+//			  }else { 
+//				  System.out.println("카카오 로그인 실패"); 
+//				  mv.addObject("msg","카카오 로그인 실패했습니다.");
+//			  }
+//			  
+//				mv.addObject("url", "/");
+//				mv.setViewName("member/alert");
+//			  
+//			return mv;
+//			
+//		}
+		
 @GetMapping("test")
 public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 	memberDTO = memberService.getPickList(memberDTO);
@@ -534,7 +691,7 @@ public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 		}
 		return mv;
 	}
-	
+
 //결제 상세 내역
 	@GetMapping("purchaseDetail")
 	public ModelAndView getPurchaseDetail(PurchaseDTO purchaseDTO) throws Exception {

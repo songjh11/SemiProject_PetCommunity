@@ -44,13 +44,12 @@ input[type=text]{
       <div class="container" data-aos="fade-up">
         <section id="menu" class="menu">
         <div class="section-header">
-        <p><span>${dto.roleDTO.roleName}'s My Page</span></p>
+        <p><span>${member.userId}'s My Page</span></p>
         </div>
 
         <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
-
           <c:choose>
-            <c:when test="${dto.roleNum eq 2}">
+            <c:when test="${member.roleNum eq 2}">
               <li class="nav-item">
                 <a class="nav-link" href="./cart">
                   <h4>장바구니</h4>
@@ -90,7 +89,7 @@ input[type=text]{
                 </a>
               </li>
             </c:when>
-            <c:when test="${dto.roleNum eq 1}">
+            <c:when test="${member.roleNum eq 1}">
               <li class="nav-item">
                 <a class="nav-link" href="../sell/add">
                   <h4>상품등록</h4>
@@ -124,7 +123,7 @@ input[type=text]{
                 </a>
               </li>
             </c:when>
-            <c:otherwise>
+            <c:when test="${member.roleNum eq 0}">
               <li class="nav-item">
                 <a class="nav-link" href="./memlist">
                   <h4>회원목록</h4>
@@ -140,7 +139,7 @@ input[type=text]{
                   <h4>쿠폰관리</h4>
                 </a>
               </li>
-             </c:otherwise>
+             </c:when>
              </c:choose>
 
         </ul>
@@ -198,7 +197,7 @@ input[type=text]{
 
         <div class="section-header">
           <h2>Who am I</h2>
-          <p><span>Hello!</span>${dto.userId}</p>
+          <p><span>Hello!</span>${member.userId}</p>
         </div>
 
         <form action="./delete" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data" id="updatefrm">

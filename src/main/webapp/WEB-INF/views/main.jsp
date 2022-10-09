@@ -116,26 +116,24 @@
       <c:if test="${not empty sessionScope.member}">
       <h5>${sessionScope.member.userName} 님 환영합니다!</h5>
        <a class="btn-book-a-table" href="/member/mypage">Mypage</a>
-       <a class="btn-book-a-table" href="/member/logout">Logout</a>
-
-       <!-- 역할번호에 따라 다른 메뉴바-->
        <c:choose>
-       <c:when test="${dto.roleDTO.roleNum =='1'}">
-        <a href="/sell/add"><button class="btn btn-outline-success me-2" type="button">Add Items</button></a>
-       </c:when>
-       <c:when test="${dto.roleDTO.roleNum =='2'}">
-        <a class="btn-book-a-table" href="#">guest page</a>
-       </c:when>
-       <c:otherwise>
-        <a class="btn-book-a-table" href="/mypage/admin">admin page</a>
+        <c:when test="${empty member.password}">
+          <a class="btn-book-a-table" href="https://kauth.kakao.com/oauth/logout?client_id=3de4327e8b367107a94e0ffc38dcc41d&logout_redirect_uri=http://localhost/member/logout">Logout</a>
+         </c:when>
+         <c:otherwise>
+         <a class="btn-book-a-table" href="/member/logout">Logout</a>
         </c:otherwise>
-        </c:choose>
+       </c:choose>
+   
+       
+
 
        </c:if>
        <!-- 로그인 실패했을 때 -->
        <c:if test="${empty sessionScope.member}">
 	      <a class="btn-book-a-table" href="/member/login">Login</a>
 	       <a class="btn-book-a-table" href="/member/role">Join</a>
+        
 	       </c:if>
    
 
@@ -1145,6 +1143,8 @@
   <!-- Template Main JS File -->
   <script src="resources/assets/js/main.js"></script>
   <script src="/resources/JS/sellHeader.js"></script>
+
+ 
 </body>
 
 </html>

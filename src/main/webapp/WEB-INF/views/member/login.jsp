@@ -64,6 +64,10 @@ pageEncoding="UTF-8"%>
          <div class="text-center">
            <button type="button" id="login" class="btn-book-a-table">Login</button>
          </div>
+         <a href="https://kauth.kakao.com/oauth/authorize?client_id=3de4327e8b367107a94e0ffc38dcc41d&redirect_uri=http://localhost/member/kakao&response_type=code"><img src="/resources/images/kakaologin.png" alt="" style="height: 150px;"></a>
+      </div>
+
+
          <div id="minpf"><a href="./findlogin">비밀번호를 잊어버리셨다면</a></div>
         </form>
       </div>
@@ -98,6 +102,8 @@ pageEncoding="UTF-8"%>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script src="/resources/JS/login.js"></script>
+
+
 
 </body>
 </html>

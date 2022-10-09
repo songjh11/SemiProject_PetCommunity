@@ -125,7 +125,8 @@
       <c:if test="${not empty sessionScope.member}">
         <h5>${sessionScope.member.userName} 님 환영합니다!</h5>
         <a class="btn-book-a-table" href="/member/mypage">Mypage</a>
-        <a class="btn-book-a-table" href="/member/logout">Logout</a>
+        <a class="btn-book-a-table" href="/member/logout">Logout</a> 
+       
 
         <!-- 역할번호에 따라 다른 메뉴바-->
         <c:choose>
@@ -156,5 +157,7 @@
    <!--모달 부트스트랩-->
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
   <script src="/resources/JS/sellHeader.js"></script>
+
+  
 </body>
 </html>

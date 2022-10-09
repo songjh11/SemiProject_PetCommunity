@@ -8,13 +8,27 @@
  <!-- =============LOGIN & JOIN =====================-->
  
  <select id="getLogin" parameterType="MemberDTO" resultMap="getLoginResult">
-SELECT M.USERNAME, M.USERID, M.EMAIL, M.PHONE, R.ROLENUM, R.ROLENAME
+SELECT M.USERNAME, M.USERID, M.EMAIL, M.PHONE, M.ROLENUM, R.ROLENAME
 		FROM MEMBER M
     		INNER JOIN
     		ROLE R
     		ON M.ROLENUM = R.ROLENUM
 		WHERE M.USERID =#{userId} and M.PASSWORD =#{password}
 		ORDER BY R.ROLENUM ASC
+</select>
+
+<select id="getKakaoLogin" parameterType="MemberDTO" resultMap="getLoginResult" >
+SELECT M.USERNAME, M.USERID, M.EMAIL, M.ROLENUM
+		FROM MEMBER WHERE USERID=#{userId}
+</select>
+
+<insert id="setKakao" parameterType="MemberDTO">	 
+INSERT INTO member (USERID,ROLENUM,USERNAME,EMAIL)
+VALUES (#{userId},#{roleNum},#{userName},#{email})
+</insert>
+
+<select id="getKakaoCount" parameterType="MemberDTO" resultType="Integer">
+        SELECT COUNT(USERID) FROM MEMBER WHERE USERID=#{userId}
 </select>
 
 <insert id="setJoin" parameterType="MemberDTO">	 
@@ -49,7 +63,7 @@ VALUES (#{guestId},#{userId},#{roleNum},#{petCatg},#{petName})
       ON M.USERID = MF.USERID
 WHERE M.USERID=#{userId}
 </select>
-
+        
 <select id="getMyPage" parameterType="MemberDTO" resultMap="myPageResult">
 SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS,M.DEADDRESS, M.ITEMZIPCODE, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES
       FROM MEMBER M
@@ -235,8 +249,8 @@ WHERE M.USERID = 'guest'
 		<result column="USERNAME" property="userName" />
 		<result column="PHONE" property="phone"/>
 		<result column="EMAIL" property="email"/>
+		<result column="ROLENUM" property="roleNum" />
 		<collection property="roleDTO" javaType="RoleDTO" ofType="RoleDTO">
-			<id column="ROLENUM" property="roleNum" />
 			<result column="ROLENAME" property="roleName" />
 		</collection>
 	</resultMap>

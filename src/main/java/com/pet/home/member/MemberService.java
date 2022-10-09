@@ -33,6 +33,17 @@ public class MemberService {
 		return memberDAO.getLogin(memberDTO);
 	}
 	
+	public MemberDTO getKakaoLogin(MemberDTO memberDTO)throws Exception{
+		return memberDAO.getKakaoLogin(memberDTO);
+	}
+	
+	public int setKakao(MemberDTO memberDTO)throws Exception{
+		return memberDAO.setKakao(memberDTO);
+	}
+	
+	public int getKakaoCount(MemberDTO memberDTO)throws Exception{
+		return memberDAO.getKakaoCount(memberDTO);
+	}
 	
 	public int setJoin(MemberDTO memberDTO, MultipartFile photo, ServletContext servletContext)throws Exception{
 		
@@ -185,7 +196,7 @@ public class MemberService {
 		String hostSMTPid ="g1room";
 		String hostSMTPpwd = "wldnjs1111";
 		
-		String fromEmail ="jiwon1789@naver.com";
+		String fromEmail ="g1room@naver.com";
 		String fromName ="이지원";
 		String subject = "", msg="";
 		

@@ -13,7 +13,7 @@
 	</delete>
 	
 	<insert id="setSellQnaCommentAdd" parameterType="SellQnaCommentDTO">
-		INSERT INTO SELLQNACOMMENT VALUES(SELLQNA_SEQ.NEXTVAL,#{qnaNum},'회원3',#{sqContents})
+		INSERT INTO SELLQNACOMMENT VALUES(SELLQNA_SEQ.NEXTVAL,#{qnaNum},#{sqWriter},#{sqContents})
 	</insert>
 	
 	<update id="setSellQnaCommentUpdate" parameterType="SellQnaCommentDTO">

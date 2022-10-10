@@ -119,7 +119,7 @@ join.addEventListener("click", function(){
          if(roleNum==1){if( 
             userIdCheck==true && pwCheck==true && pw2Check==true && userNameCheck==true 
             && emailCheck==true && phoneCheck==true 
-            && itemZipCodeCheck==true && addressCheck==true && deAddressCheck==true && itemCatgCheck==true){
+            && itemZipCodeCheck==true && addressCheck==true && deAddressCheck==true){
             joinfrm.submit();
           }else{
             alert("필수 항목을 다시 확인하세요.")}
@@ -156,7 +156,7 @@ join.addEventListener("click", function(){
         if(userId.value.length<2){
             userId.focus();
             userIdCheck=false;
-            d1.innerHTML='ID는 2글자 이상이어야합니다';
+            d1.innerHTML='ID는 2글자 이상이어야합니다.';
           
         }else {
             userIdCheck=true;
@@ -170,7 +170,7 @@ join.addEventListener("click", function(){
         if(password.value.length<5){
             password.focus();
             pwCheck=false;
-            d2.innerHTML='비밀번호는 6글자 이상이어야합니다';
+            d2.innerHTML='비밀번호는 6글자 이상이어야합니다.';
             
         }else {
             pwCheck=true;
@@ -248,23 +248,7 @@ join.addEventListener("click", function(){
     
         });
 
-        if(roleNum==1){
-
-            itemCatg.addEventListener("blur", function(){
-    
-                if(itemCatg.value.length<1){
-                    itemCatg.focus();
-                    itemCatgCheck=false;
-                    d9.innerHTML='상품 카테고리를 입력해주세요.';
-                }else {
-                    itemCatgCheck=true;
-                    d9.innerHTML='';
-                }
-            
-                });
-    
-
-        }else if(roleNum==2){
+        if(roleNum==2){
 
             petCatg.addEventListener("blur", function(){
     
@@ -304,8 +288,6 @@ join.addEventListener("click", function(){
                 }
             
                 });
-        }else{
-
         }
 
         

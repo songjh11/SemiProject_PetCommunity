@@ -89,7 +89,7 @@
             <form action="update" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data" id="updatefrm">
               <div class="row gy-4">
                 <div class="col-lg-8 col-md-12">
-                  <input type="hidden" name="roleNum" value="${param.roleNum}">
+                  <input type="hidden" name="roleNum" value="${dto.roleNum}">
                   <input type="text" name="userId" class="form-control" value="${dto.userId}" readonly>
                   <div class="validate"></div>
                 </div>

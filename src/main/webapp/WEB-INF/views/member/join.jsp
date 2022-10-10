@@ -29,51 +29,6 @@
 
   <!-- Template Main CSS File -->
   <link href="/resources/assets/css/main.css" rel="stylesheet">
-
-	<style type="text/css">
-    .ag{
-      background-color:cornsilk;
-      overflow: scroll;
-      width: 600px;
-      height: 100px;
-    }
-
-    .warning{
-      color: red;
-    }
-    #po{
-      font-size: 10pt;
-      color: darkgray;
-    }
-
-
-    #imgDiv{
-      display: flex;
-    }
-
-    .newDiv{
-      justify-content: center;
-      align-items:center;
-      position: relative;
-      width: 80px;
-	  	height: 80px;
-      margin-right: 5px;
-    }
-    .thumnail{
-		width: 80px;
-		height: 80px;
-
-		} 
-    .imgDeleteBtn {
-      position: absolute;
-      top: 0px;
-      right: 0px;
-    }
-
-    #inputDiv{
-      display: none;
-    }
-	</style>
   
 </head>
 <body>
@@ -141,23 +96,9 @@
                    <div class="validate"></div>
                    <div id="d8" class="warning"></div>
                  </div>
-
-                <c:if test="${param.roleNum == '1'}">
-                  <div class="col-lg-4 col-md-6">
-                    <select name="itemCatg" class="form-control" id="itemCatg">
-                      <option value='' selected>-- 상품 카테고리 선택 --</option>
-                      <option value="1">호텔링</option>
-                      <option value="2">원데이클래스</option>
-                      <option value="3">트레이닝</option>
-                    </select>
-                    <div class="validate"></div>
-                    <div id="d9" class="warning"></div>
-                  </div>
-                </c:if>
                 </div>
                 
-               
-             
+<!--=================== 개인 회원가입 일 경우 펫 정보 입력 ==================-->
                 <c:if test="${param.roleNum == '2'}">
 
                   <div class="col-lg-8 col-md-6">

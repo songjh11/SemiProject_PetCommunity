@@ -19,6 +19,8 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -34,6 +36,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import com.pet.home.board.event.coupon.CouponDTO;
 import com.pet.home.file.FileDTO;
@@ -50,6 +55,8 @@ import com.pet.home.util.SellPager;
 import com.siot.IamportRestClient.response.AccessToken;
 import com.siot.IamportRestClient.response.IamportResponse;
 
+import okhttp3.Request;
+
  
 @Controller
 @RequestMapping(value= "/member/*")
@@ -65,6 +72,8 @@ public class MemberController {
 	private SellItemService sellItemService;
 	
 	
+	// ============= login & Join =================
+	
 	@GetMapping("role")
 	public String getAgree()throws Exception{
 		
@@ -74,7 +83,7 @@ public class MemberController {
 	@GetMapping("login")
 	public String login() throws Exception {
 		System.out.println("로그인 접속 (GET)");
-
+		
 		return "member/login";
 	}
 
@@ -88,33 +97,26 @@ public class MemberController {
 
 		// request에 있는 파라미터를 session에 넣음
 		HttpSession session = request.getSession();
+		
 		// DB에서 가져온 DTO데이터를 JSP로 속성만들어서 보내기
+		//M.USERNAME, M.USERID, M.EMAIL, M.PHONE, R.ROLENUM, R.ROLENAME 내용물
 		session.setAttribute("member", memberDTO);
 		
-		System.out.println("파람2:"+request.getParameter("roleNum"));
-		
 		if (memberDTO!=null) {
-			System.out.println("오 ~ 로그인 성공");
-		}else {System.out.println("오 ~ 로그인 실패");
+			System.out.println("로그인 성공");
+		}else {System.out.println("로그인 실패");
 		mv.addObject("msg", "아이디/비밀번호가 틀렸습니다.");
 		mv.addObject("url", "login");
 		mv.setViewName("member/alert");
 		return mv;
 		}
-
-		//dto에 roleNum을 담아 main.jsp에서 메뉴 다르게 보이도록  
-
-
-		//member 세션의 userId
-		//getAdmPage 메소드 재활용하여 roleNum 가져오기
-//		memberDTO = (MemberDTO)session.getAttribute("member");
+		
 		mv.addObject("dto", memberDTO);
 		mv.setViewName("redirect:../");
 		
 		return mv;
 	}
 
-	
 	@GetMapping("logout")
 	public String logout (HttpSession session) throws Exception{
 		
@@ -123,7 +125,6 @@ public class MemberController {
 		return "redirect:../"; 
 	}
 	
-	
 	@GetMapping("join")
 	public String join(HttpServletRequest request) throws Exception{
 	
@@ -131,12 +132,9 @@ public class MemberController {
 	}
 	
 	@PostMapping("join")
-	public String join(MemberDTO memberDTO, MultipartFile photo, HttpSession session) throws Exception{
-		
+	public ModelAndView join(MemberDTO memberDTO, MultipartFile photo, HttpSession session) throws Exception{
+		ModelAndView mv = new ModelAndView();
 		Calendar ca = Calendar.getInstance();
-		
-		System.out.println("join post 실행");
-		
 		//선택 약관동의값 세팅 
 		// 체크되지 않으면 0 , 선택되면 1로 설정 
 		if(memberDTO.getAgMes()==null) {
@@ -144,27 +142,27 @@ public class MemberController {
 		}else {memberDTO.setAgMes(1);
 		}
 
-		//공통 member테이블 먼저 생성 
+		//공통 member테이블 생성 
 		int result = memberService.setJoin(memberDTO, photo, session.getServletContext());
-		
-		
-		//사업자 회원일 때 
-		if(memberDTO.getRoleNum()==1){ 
-			memberDTO.setBizNum(ca.getTimeInMillis()); //사업자번호 밀리세컨즈로 설정 
-		    memberService.setBiz(memberDTO); //bizmem 테이블 생성 
-		}else {
-			//게스트 회원일 때 
-			memberDTO.setGuestId(ca.getTimeInMillis()); //guestId 밀리세즈로 설정 
-			memberService.setGuest(memberDTO); //guest 테이블 생성 
+	
+		//게스트 회원일 때 
+		if(memberDTO.getRoleNum()==2){
+			memberDTO.setGuestId(ca.getTimeInMillis()); //guestId
+			memberService.setGuest(memberDTO); 
 		}
 
-		  
-		  
 		  if(result>0) {
-		  System.out.println("회원가입 성공!"); }else { System.out.println("회원가입 실패"); }
-
-		
-		return "redirect:../";
+		  System.out.println("회원가입 성공!"); 
+		  mv.addObject("msg","회원가입 되었습니다.");
+		  }else { 
+			  System.out.println("회원가입 실패"); 
+			  mv.addObject("msg","회원가입에 실패했습니다.");
+		  }
+		  
+			mv.addObject("url", "/");
+			mv.setViewName("member/alert");
+		  
+		return mv;
 		
 	}
 	
@@ -173,24 +171,20 @@ public class MemberController {
 	public ModelAndView mypage(HttpSession session)throws Exception {
 		ModelAndView mv = new ModelAndView();
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		
+		
 	
-//		memberDTO = memberService.getMyPage(memberDTO);
+		//메인페이지에 보여줄 팔로우/상품/멤버 숫자 파라미터 설정 
 		int followernum = Integer.parseInt(String.valueOf(memberService.getFollowerCount(memberDTO)));
 		int followeenum = Integer.parseInt(String.valueOf(memberService.getFolloweeCount(memberDTO)));
 		int memnum = Integer.parseInt(String.valueOf(memberService.getMemCount()));
 		int sellnum = Integer.parseInt(String.valueOf(memberService.getItemCount()));
-
-
-		
-		
-		if(memberDTO.getRoleDTO().getRoleNum()==1){ 
-		memberDTO = memberService.getBizPage(memberDTO); //역할번호가 1번일 때 판매자 마이페이지 
-		}else if(memberDTO.getRoleDTO().getRoleNum()==2){
+		System.out.println("마"+memberDTO.getRoleNum());
+		if(memberDTO.getRoleNum()==2){
 		memberDTO = memberService.getGuestPage(memberDTO); //역할번호가 2번일 때 회원 마이페이지 
-		
-		System.out.println("마이페이지포스트 "+ memberDTO.getPetCatg());
 		}else {
-		memberDTO = memberService.getMyPage(memberDTO); // 그 외 관리자 마이페이지  
+		memberDTO = memberService.getMyPage(memberDTO); // 그 외 마이페이지  
+
 		}
 		
 		mv.addObject("memnum", memnum);
@@ -203,6 +197,7 @@ public class MemberController {
 		return mv;
 	}
 	
+	// 관리자페이지 회원리스트 
 	@GetMapping("memlist")
 	public ModelAndView memlist()throws Exception{
 		ModelAndView mv = new ModelAndView();
@@ -210,13 +205,13 @@ public class MemberController {
 	
 	mv.addObject("list", ar);
 	mv.addObject("what", "memlist");
-	mv.setViewName("member/follow");
+	mv.setViewName("member/list");
 	 
 	return mv;
 	
 	}
 	
-	
+	// 관리자 페이지 멤버 찾기
 	@GetMapping("find")
 	public ModelAndView search(MemberDTO memberDTO)throws Exception {
 		ModelAndView mv = new ModelAndView();
@@ -224,14 +219,14 @@ public class MemberController {
 		
 		mv.addObject("list", ar);
 		mv.addObject("what", "memlist");
-		mv.setViewName("member/follow");
+		mv.setViewName("member/list");
 		
 		return mv;
 	}
 	
+	//관리자 페이지 차단
 	@GetMapping("block")
 	public ModelAndView setBlock(MemberDTO memberDTO)throws Exception{
-		
 		ModelAndView mv = new ModelAndView();
 		int result = memberService.setBlock(memberDTO);
 		
@@ -248,7 +243,6 @@ public class MemberController {
 	
 	@GetMapping("unblock")
 	public ModelAndView setUnBlock(MemberDTO memberDTO)throws Exception{
-		
 		ModelAndView mv = new ModelAndView();
 		int result = memberService.setUnBlock(memberDTO);
 		
@@ -263,43 +257,24 @@ public class MemberController {
 			return mv;
 	}
 	
-	
-	
-	@GetMapping("delete")
-	public String delete()throws Exception{
-		
-		return"member/delete";
-		
-	}
-	
 	@PostMapping("delete")
 	public String delete(HttpServletRequest request)throws Exception{
-		
-		System.out.println("delete post");
 
 		MemberDTO memberDTO = (MemberDTO)request.getSession().getAttribute("member");
 		String pw = request.getParameter("pw");
 		
-		System.out.println(memberDTO.getUserId());
-		System.out.println(memberDTO.getPassword());
-		System.out.println(pw);
-		
 		if(memberDTO.getPassword().equals(pw)){
-			
 			memberService.setMemDelete(memberDTO);
 			
 			request.setAttribute("msg", "회원 탈퇴가 완료되었습니다.");
 			request.setAttribute("url", "/");
-			
 			request.getSession().invalidate(); //세션 비우기 
 			
 			return "member/alert";
-		
-			
 		}else {
-			
 			request.setAttribute("msg", "비밀번호가 일치하지 않습니다.");
 			request.setAttribute("url", "/member/delete");
+			
 			return "member/alert";
 		}
 		
@@ -309,15 +284,12 @@ public class MemberController {
 	public ModelAndView update(HttpSession session)throws Exception {
 		ModelAndView mv = new ModelAndView();
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
-
-//		memberDTO = memberService.getMyPage(memberDTO);
 		
-		if(memberDTO.getRoleDTO().getRoleNum()==1){ 
-		memberDTO = memberService.getBizPage(memberDTO); //역할번호가 1번일 때 판매자 마이페이지 
-		}else if(memberDTO.getRoleDTO().getRoleNum()==2){
-		memberDTO = memberService.getGuestPage(memberDTO); //역할번호가 2번일 때 회원 마이페이지 
+		//update에 불러올 정보 
+		if(memberDTO.getRoleNum()==2){
+		memberDTO = memberService.getGuestPage(memberDTO); 
 		}else {
-		memberDTO = memberService.getMyPage(memberDTO); // 그 외 관리자 마이페이지  
+		memberDTO = memberService.getMyPage(memberDTO); 
 		}
 		
 		mv.addObject("dto", memberDTO);
@@ -327,37 +299,29 @@ public class MemberController {
 	}
 	
 	@PostMapping("update")
-	public String update(MemberDTO memberDTO, MultipartFile photo, HttpSession session) throws Exception{
-		
+	public ModelAndView update(MemberDTO memberDTO, MultipartFile photo, HttpSession session) throws Exception{
+		ModelAndView mv = new ModelAndView();
 		if(memberDTO.getAgMes()==null) {
 			memberDTO.setAgMes(0);
 		}else {memberDTO.setAgMes(1);
 		}
 
 		//공통 member테이블 먼저 업데이트 
-		memberService.setMemUpdate(memberDTO);
-		
-		
-		if(memberDTO.getPetCatg() != null){ 
+		int result = memberService.setMemUpdate(memberDTO, photo, session.getServletContext());
 
-			//게스트 회원일 때 
+		if(memberDTO.getRoleNum() == 2){ 
 			memberService.setGuestUpdate(memberDTO); //guest 테이블 생성 
-
-			if(!photo.isEmpty()) {
-				
-			String path = session.getServletContext().getRealPath("resources/upload/member");
-			String fileName = fileManager.saveFile(session.getServletContext(), path, photo);
-			MemberFileDTO memberFileDTO = new MemberFileDTO();
-			memberFileDTO.setFileName(fileName);
-			memberFileDTO.setOriName(photo.getOriginalFilename());
-			memberFileDTO.setUserId(memberDTO.getUserId());
-			memberService.setFileUpdate(memberFileDTO, photo, session.getServletContext());
-				
 		}
-		}
-		 
 		
-		return "redirect:../";
+		if(result == 1){
+			mv.addObject("msg", "정보가 수정되었습니다.");
+		}else {
+			mv.addObject("msg", "수정 실패했습니다.");
+		}
+			mv.addObject("url", "mypage");
+			mv.setViewName("member/alert");
+			
+			return mv;
 		
 	}
 
@@ -370,12 +334,13 @@ public class MemberController {
 		
 		mv.addObject("list", ar);
 		mv.addObject("what","followee");
-		mv.setViewName("member/follow");
+		mv.setViewName("member/list");
 		return mv;
 	}
 
-	@PostMapping("followee")
-	public ModelAndView setFolloweeDelete(MemberDTO memberDTO,String followee, HttpSession session)throws Exception{
+	@PostMapping("followee") //delete
+	@ResponseBody
+	public int setFolloweeDelete(MemberDTO memberDTO,String followee, HttpSession session)throws Exception{
 		ModelAndView mv = new ModelAndView();
 	
 		memberDTO = (MemberDTO)session.getAttribute("member");
@@ -384,17 +349,16 @@ public class MemberController {
 		memberDTO.setFollowee(followee);
 		int result = memberService.setFolloweeDelete(memberDTO);
 		
-		if (result==1) {
-		mv.addObject("msg","followee가 삭제되었습니다.");
-		mv.addObject("url","/member/followee");
-		mv.setViewName("member/alert");}
-		else {
-			mv.addObject("msg","followee 삭제에 실패했습니다.");
-			mv.addObject("url","/member/followee");
-			mv.setViewName("member/alert");
-			
-		}
-		return mv;
+//		if (result==1) {
+//		mv.addObject("msg","followee가 삭제되었습니다.");
+//		mv.addObject("url","/member/followee");
+//		mv.setViewName("member/alert");}
+//		else {
+//			mv.addObject("msg","followee 삭제에 실패했습니다.");
+//			mv.addObject("url","/member/followee");
+//			mv.setViewName("member/alert");
+//		}
+		return result;
 	}
 	@GetMapping("follower")
 	public ModelAndView getFollowerList(MemberDTO memberDTO, HttpSession session)throws Exception{
@@ -404,7 +368,7 @@ public class MemberController {
 		
 		mv.addObject("list", ar);
 		mv.addObject("what","follower");
-		mv.setViewName("member/follow");
+		mv.setViewName("member/list");
 		return mv;
 	}
 		
@@ -438,7 +402,7 @@ public class MemberController {
 			
 			mv.addObject("list", memberDTO);
 			mv.addObject("what","cart");
-			mv.setViewName("member/follow");
+			mv.setViewName("member/list");
 			return mv;
 		}
 		
@@ -472,7 +436,7 @@ public class MemberController {
 	
 			mv.addObject("list", memberDTO);
 			mv.addObject("what","pick");
-			mv.setViewName("member/follow");
+			mv.setViewName("member/list");
 			return mv;
 		}
 		
@@ -497,7 +461,7 @@ public class MemberController {
 			return mv;
 		}
 		
-		@GetMapping("coupon")
+		@GetMapping("coupon") //개인쿠폰 
 		public ModelAndView getCouponList(MemberDTO memberDTO,HttpSession session)throws Exception{
 			ModelAndView mv = new ModelAndView();
 			memberDTO = (MemberDTO)session.getAttribute("member");
@@ -505,20 +469,7 @@ public class MemberController {
 
 			mv.addObject("list", ar);
 			mv.addObject("what","coupon");
-			mv.setViewName("member/follow");
-			return mv;
-		}
-
-		@GetMapping("rev")
-		public ModelAndView getRevList(MemberDTO memberDTO,HttpSession session)throws Exception{
-			ModelAndView mv = new ModelAndView();
-			memberDTO = (MemberDTO)session.getAttribute("member");
-			
-			List<ReservationDTO> ar = memberService.getRevList(memberDTO);
-
-			mv.addObject("list", ar);
-			mv.addObject("what","rev");
-			mv.setViewName("member/follow");
+			mv.setViewName("member/list");
 			return mv;
 		}
 		
@@ -561,6 +512,153 @@ public class MemberController {
 			return mv;
 		}
 		
+		@GetMapping("kakao")
+		@ResponseBody
+		public ModelAndView kakao(String code, HttpServletRequest request)throws Exception{
+			ModelAndView mv = new ModelAndView();
+			
+
+			// POST방식으로 key=value 데이터를 요청 (카카오쪽으로)
+			// Retrofit2
+			// OkHttp
+			// RestTemplate
+			
+			RestTemplate rt = new RestTemplate();
+			
+			// HttpHeader 오브젝트 생성
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+			
+			// HttpBody 오브젝트 생성
+			MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+			params.add("grant_type", "authorization_code");
+			params.add("client_id", "3de4327e8b367107a94e0ffc38dcc41d");
+			params.add("redirect_uri", "http://localhost/member/kakao");
+			params.add("code", code);
+			
+			// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
+			HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = 
+					new HttpEntity<MultiValueMap<String, String>>(params, headers);
+			
+			// Http 요청하기 - Post방식으로 - 그리고 response 변수의 응답 받음.
+			ResponseEntity<String> response = rt.exchange(
+					"https://kauth.kakao.com/oauth/token",
+					HttpMethod.POST,
+					kakaoTokenRequest,
+					String.class
+			);
+		System.out.println(response);
+		
+		// Gson, Json Simple, ObjectMapper
+				ObjectMapper objectMapper = new ObjectMapper();
+				OAuthToken oauthToken = null;
+				try {
+					oauthToken = objectMapper.readValue(response.getBody(), OAuthToken.class);
+				} catch (JsonMappingException e) {
+					e.printStackTrace();
+				} catch (JsonProcessingException e) {
+					e.printStackTrace();
+				}
+				
+				System.out.println("카카오 엑세스 토큰 : "+oauthToken.getAccess_token());
+				
+				RestTemplate rt2 = new RestTemplate();
+				
+				// HttpHeader 오브젝트 생성
+				HttpHeaders headers2 = new HttpHeaders();
+				headers2.add("Authorization", "Bearer "+oauthToken.getAccess_token());
+				headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+				
+				// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
+				HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest2 = 
+						new HttpEntity<>(headers2);
+				
+				// Http 요청하기 - Post방식으로 - 그리고 response 변수의 응답 받음.
+				ResponseEntity<String> response2 = rt2.exchange(
+						"https://kapi.kakao.com/v2/user/me",
+						HttpMethod.POST,
+						kakaoProfileRequest2,
+						String.class
+				);
+				System.out.println("응ㄱ답22 : "+response2.getBody());
+				
+				ObjectMapper objectMapper2 = new ObjectMapper();
+				KakaoProfile kakaoProfile = null;
+				try {
+					
+					kakaoProfile = objectMapper2.readValue(response2.getBody(), KakaoProfile.class);
+				} catch (JsonMappingException e) {
+					e.printStackTrace();
+				} catch (JsonProcessingException e) {
+					e.printStackTrace();
+				}
+				
+				// User 오브젝트 : username, password, email
+				System.out.println("카카오 아이디(번호) : "+kakaoProfile.getId());
+				System.out.println("카카오 이메일 : "+kakaoProfile.getKakao_account().getEmail());
+				
+				System.out.println("블로그서버 유저네임 : "+kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId());
+				System.out.println("블로그서버 이메일 : "+kakaoProfile.getKakao_account().getEmail());
+				// UUID란 -> 중복되지 않는 어떤 특정 값을 만들어내는 알고리즘
+				
+				MemberDTO memberDTO = new MemberDTO();
+				memberDTO.setUserId(kakaoProfile.getId().toString());
+				memberDTO.setEmail(kakaoProfile.getKakao_account().getEmail());
+				memberDTO.setUserName(kakaoProfile.getProperties().getNickname());
+				memberDTO.setRoleNum(2);
+	
+					int mem = memberService.getKakaoCount(memberDTO);
+					if(mem ==0) {
+						memberService.setKakao(memberDTO);
+						System.out.println(mem);
+					}
+		
+				HttpSession session = request.getSession();
+				session.setAttribute("member", memberDTO);
+				
+	
+			mv.addObject("msg","카카오 로그인 완료.");
+			mv.addObject("url","/");
+			mv.setViewName("member/alert");
+			mv.addObject("dto", memberDTO);
+			
+			return mv;
+		}
+		
+//		@PostMapping("kakao")
+//		public ModelAndView kakao(MemberDTO memberDTO, HttpServletRequest request) throws Exception{
+//			ModelAndView mv = new ModelAndView();
+//			System.out.println("memberDTO.getUserId()"+memberDTO.getUserId());
+//			memberDTO.setSearch(memberDTO.getUserId());
+//			memberDTO.setRoleNum(2);
+//			List<MemberDTO> ar = memberService.getFindMem(memberDTO); //여기서문제
+//			//유저아이디는 불러와지는데
+//			//값있으면 회원가입 막고
+//			//로그아웃 되도록
+//			if(ar == null) {
+//				memberService.setKakao(memberDTO);
+//			}
+//	
+//			memberDTO = memberService.getLogin(memberDTO);
+//			HttpSession session = request.getSession();
+//			session.setAttribute("member", memberDTO);
+//			
+//System.out.println("zㅏ카"+memberDTO.getRoleNum());
+//			  if(memberDTO.getRoleNum() != null) {
+//			  System.out.println("카카오 로그인 성공!"); 
+//			  mv.addObject("msg","카카오 로그인 되었습니다.");
+//			  }else { 
+//				  System.out.println("카카오 로그인 실패"); 
+//				  mv.addObject("msg","카카오 로그인 실패했습니다.");
+//			  }
+//			  
+//				mv.addObject("url", "/");
+//				mv.setViewName("member/alert");
+//			  
+//			return mv;
+//			
+//		}
+		
 @GetMapping("test")
 public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 	memberDTO = memberService.getPickList(memberDTO);
@@ -590,7 +688,7 @@ public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("purchaseList", purchaseList);
 		mv.addObject("what","Purchase List");
-		mv.setViewName("member/follow");
+		mv.setViewName("member/list");
 		for(PurchaseDTO c: purchaseList) {
 			System.out.println(c.getImp_uid());
 		}

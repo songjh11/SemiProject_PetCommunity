@@ -90,8 +90,9 @@
 		</div> 
 		
 				<div class="form-floating">
-	  			<textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 200px"></textarea>
-	  			<label for="floatingTextarea2">${dto.contents}</label>
+	  			<textarea class="form-control" id="floatingTextarea2" style="height: 200px"><c:out value="${dto.contents}"/></textarea>
+				  <div style="white-space:pre;"><c:out value="${dto.contents}"/></div>
+	  			<!-- <label for="floatingTextarea2">${dto.contents}</label> -->
 				</div>
 		
 		
@@ -188,6 +189,7 @@
 		let userId= "${sessionScope.member.userId}";
 		let couponNum = "${coupon.couponNum}"
 		let num = "${requestScope.dto.num}";
+		let data = "${requestScop.dto.contents}";
 		
 		try {
 			
@@ -202,6 +204,7 @@
 		} catch (error) {
 			
 		}
+
 	</script>
 </body>
 

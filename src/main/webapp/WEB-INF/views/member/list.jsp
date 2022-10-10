@@ -288,8 +288,8 @@
                     </div>
                 </div>
             </div>
-        </c:forEach>
-      </c:when>
+          </c:forEach>
+        </c:when>
 
       <c:when test="${what eq 'Purchase Cancel List'}">
         <c:forEach items="${purchaseList}" var="check">
@@ -306,8 +306,8 @@
                   </div>
               </div>
           </div>
-      </c:forEach>
-    </c:when>
+        </c:forEach>
+      </c:when>
         
      
 

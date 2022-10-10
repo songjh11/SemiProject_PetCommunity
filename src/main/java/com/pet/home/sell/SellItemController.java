@@ -491,8 +491,6 @@ public class SellItemController {
 					}
 				}
 
-						
-//			IamportResponse<Payment> payment_response = client.paymentByImpUid(imp_uid);
                           	            
             }
 	
@@ -508,63 +506,6 @@ public class SellItemController {
 	}
 	
 
-
-//public String getToken() {
-//		
-//		RestTemplate restTemplate = new RestTemplate();
-//	
-//		//서버로 요청할 Header
-//		 HttpHeaders headers = new HttpHeaders();
-//	    headers.setContentType(MediaType.APPLICATION_JSON);
-//		
-//	    
-//	    Map<String, Object> map = new HashMap<>();
-//	    map.put("imp_key", "imp_key");
-//	    map.put("imp_secret", "imp_secret");
-//	    
-//	   
-//	    Gson var = new Gson();
-//	    String json=var.toJson(map);
-//		//서버로 요청할 Body
-//	   
-//	    HttpEntity<String> entity = new HttpEntity<>(json,headers);
-//		return restTemplate.postForObject("https://api.iamport.kr/users/getToken", entity, String.class);
-//		
-//		
-//	}
-//
-//public String requestSubPay() {
-//
-//	String token = pay.getToken();
-//	Gson str = new Gson();
-//	token = token.substring(token.indexOf("response") + 10);
-//	token = token.substring(0, token.length() - 1);
-//
-//	GetTokenVO vo = str.fromJson(token, GetTokenVO.class);
-//
-//	String access_token = vo.getAccess_token();
-//	System.out.println(access_token);
-//
-//	RestTemplate restTemplate = new RestTemplate();
-//
-//	HttpHeaders headers = new HttpHeaders();
-//	headers.setContentType(MediaType.APPLICATION_JSON);
-//	headers.setBearerAuth(access_token);
-//
-//	Map<String, Object> map = new HashMap<>();
-//	map.put("customer_uid", "24");
-//	map.put("merchant_uid", "162443471100");
-//	map.put("amount", "10000");
-//	map.put("name", "test05");
-//
-//	Gson var = new Gson();
-//	String json = var.toJson(map);
-//	System.out.println(json);
-//	HttpEntity<String> entity = new HttpEntity<>(json, headers);
-//	
-//	return restTemplate.postForObject("https://api.iamport.kr/subscribe/payments/again", entity, String.class);
-//
-//}
 	
 }
 

@@ -88,7 +88,7 @@
 	    INNER JOIN
 	    SELLFILE SF
 	    ON ITEM.ITEMNUM = SF.ITEMNUM
-	    ORDER BY ITEM.ITEMNUM DESC
+	    ORDER BY ITEM.ITEMNUM DESC, SF.PHOTONUM ASC
 	</select>
 	
 	<select id="getItemCount" parameterType="SellPager" resultType="Long">

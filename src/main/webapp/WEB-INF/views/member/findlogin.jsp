@@ -7,13 +7,24 @@ pageEncoding="UTF-8"%>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>find pw page</title>
+<title>Login page</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
+
 <style>
-  #my {
-  margin: 0 auto;
+
+.btn-book-a-table {
+  font-size: 14px;
+  color: #fff;
+  background: var(--color-primary);
+  padding: 8px 20px;
+  margin-left: 30px;
+  border-radius: 50px;
+  transition: 0.3s;
+  color: #fff;
+  background: rgba(206, 18, 18, 0.8);
 }
+
 </style>
 </head>
 <body>
@@ -25,25 +36,26 @@ pageEncoding="UTF-8"%>
   <div class="container" data-aos="fade-up">
 
     <div class="section-header">
-      <p><span>Find PW page</span></p>
+      <p><span>"PW"</span> Find page</p>
     </div>
 
-      <div class="col-lg-8 align-items-center" id="my">
-        <form action="findlogin" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data"  id="loginfrm">
+      <div class="col-lg-8 align-items-center log" style="margin-left: 27%;">
+        <form action="findlogin" method="post" data-aos="fade-up" data-aos-delay="100">
           <div class="row gy-4">
             <div class="col-lg-8 col-md-12">
               <input type="text" name="userId" class="form-control" placeholder="User ID"id="userId">
               <div class="validate"></div>
             </div>
             <div class="col-lg-8 col-md-12">
-              <input type="text" name="email" class="form-control" placeholder="email" id="email">
+              <input type="text" name="email" class="form-control" placeholder="Email" id="email">
               <div class="validate"></div>
             </div>
           </div>
           <br>
-         <div class="text-center">
-           <button type="submit" id="findpw" class="btn-book-a-table">Login</button>
-         </div>
+         <div>
+           <button type="submit" id="findpw" class="btn-book-a-table" style="display: inline-block; margin-left: 30%;">Find</button>
+        </div>
+    </div>
         </form>
       </div>
 
@@ -57,23 +69,5 @@ pageEncoding="UTF-8"%>
 <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
 <!-- footer end -->
 
-<!-- script start -->
-<a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-<div id="preloader"></div>
-
-<!-- Vendor JS Files -->
-<script src="/resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/resources/assets/vendor/aos/aos.js"></script>
-<script src="/resources/assets/vendor/glightbox/js/glightbox.min.js"></script>
-<script src="/resources/assets/vendor/purecounter/purecounter_vanilla.js"></script>
-<script src="/resources/assets/vendor/swiper/swiper-bundle.min.js"></script>
-<script src="/resources/assets/vendor/php-email-form/validate.js"></script>
-
-<!-- Template Main JS File -->
-<script src="/resources/assets/js/main.js"></script>
-
-<!-- daum 지도 검색 api -->  
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </body>
 </html>

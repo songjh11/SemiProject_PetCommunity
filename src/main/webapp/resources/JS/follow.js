@@ -58,31 +58,59 @@
   })
 }
 
-    for (const followeedel of fed){
-        followeedel.addEventListener('click', function(event) {
-            let fol = event.target.parentNode.parentNode.parentNode.firstChild.nextSibling.innerText;
-   
-            let frm = document.createElement('form');
-            frm.id = 'frm';
-            frm.name= 'frm'
-            frm.method = 'post';
-            frm.action = "follower";
+for (const followeedel of fed){
+  followeedel.addEventListener('click', function(event) {
+let check = window.confirm("팔로이를 삭제하시겠습니까?");
+if(!check){
+    return;
+}
+let fol = event.target.parentNode.parentNode.parentNode.firstChild.nextSibling.innerText;
 
-            let input = document.createElement('input');
-            input.setAttribute("type","hidden");
-            input.setAttribute("name","follower");
-            input.setAttribute("value",fol);
+let frm = document.createElement('form');
+frm.id = 'frm';
+frm.name= 'frm'
+frm.method = 'post';
+frm.action = "followee";
 
-            frm.appendChild(input);
+let input = document.createElement('input');
+input.setAttribute("type","hidden");
+input.setAttribute("name","followee");
+input.setAttribute("value",fol);
 
-            document.body.appendChild(frm);
+frm.appendChild(input);
 
-            frm.submit();
+document.body.appendChild(frm);
 
-            document.body.removeChild(frm); 
+//1. 전송할 객체 생성
+const xhttp = new XMLHttpRequest();
 
-      })
+//2. Method, URL 준비
+xhttp.open("POST","./followee");
+
+//3. Enctype, Post 방식 일 경우
+xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+//4. 전송
+xhttp.send("followee="+fol);
+
+//5. 응답처리
+xhttp.onreadystatechange = function(){
+    if(xhttp.readyState == 4 && xhttp.status == 200){
+        let result = xhttp.responseText.trim();
+
+        if(result == 1){
+          alert("삭제되었습니다.");
+          document.body.removeChild(frm); 
+          return window.location.href='/member/followee';
+
+        }else{
+          alert("삭제 실패했습니다.");
+        }
     }
+}
+
+})
+}
 
     for (const followerdel of frd){
         followerdel.addEventListener('click', function(event) {
@@ -92,11 +120,11 @@
             frm.id = 'frm';
             frm.name= 'frm'
             frm.method = 'post';
-            frm.action = "followee";
+            frm.action = "follower";
 
             let input = document.createElement('input');
             input.setAttribute("type","hidden");
-            input.setAttribute("name","followee");
+            input.setAttribute("name","follower");
             input.setAttribute("value",fol);
 
             frm.appendChild(input);

@@ -25,9 +25,6 @@ public class MemberDTO {
 	private Integer agMes;
 	private Long itemZipCode;
 	private String deAddress;
-	private String itemCatg;
-	private String itemId;
-	private Long bizNum;
 	private String petCatg;
 	private String petName;
 	private Long guestId;
@@ -45,6 +42,16 @@ public class MemberDTO {
 	private String follower;
 	private String followee;
 	private String search;
+	private String roleName;
+	
+
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
 
 	public String getSearch() {
 		return search;
@@ -180,30 +187,6 @@ public class MemberDTO {
 
 	public void setDeAddress(String deAddress) {
 		this.deAddress = deAddress;
-	}
-
-	public String getItemCatg() {
-		return itemCatg;
-	}
-
-	public void setItemCatg(String itemCatg) {
-		this.itemCatg = itemCatg;
-	}
-
-	public String getItemId() {
-		return itemId;
-	}
-
-	public void setItemId(String itemId) {
-		this.itemId = itemId;
-	}
-
-	public Long getBizNum() {
-		return bizNum;
-	}
-
-	public void setBizNum(Long bizNum) {
-		this.bizNum = bizNum;
 	}
 
 	public String getPetCatg() {

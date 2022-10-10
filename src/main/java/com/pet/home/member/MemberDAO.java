@@ -27,17 +27,24 @@ public class MemberDAO {
 		return sqlSession.selectOne(NAMESPACE+"getLogin", memberDTO);
 		}
 		
+	public MemberDTO getKakaoLogin(MemberDTO memberDTO)throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getKakaoLogin", memberDTO);
+		}
+		
+	public int getKakaoCount(MemberDTO memberDTO)throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getKakaoCount", memberDTO);
+	}
 	
 	public int setJoin(MemberDTO memberDTO)throws Exception{
 		return sqlSession.insert(NAMESPACE+"setJoin", memberDTO);
 	}
 	
-	public int setGuest(MemberDTO memberDTO)throws Exception{
-		return sqlSession.insert(NAMESPACE+"setGuest", memberDTO);
+	public int setKakao(MemberDTO memberDTO)throws Exception{
+		return sqlSession.insert(NAMESPACE+"setKakao", memberDTO);
 	}
 	
-	public int setBiz(MemberDTO memberDTO)throws Exception{
-		return sqlSession.insert(NAMESPACE+"setBiz", memberDTO);
+	public int setGuest(MemberDTO memberDTO)throws Exception{
+		return sqlSession.insert(NAMESPACE+"setGuest", memberDTO);
 	}
 
 	public int setAddFile(MemberFileDTO memberFileDTO)throws Exception{
@@ -46,11 +53,6 @@ public class MemberDAO {
 	
 	public MemberDTO getGuestPage(MemberDTO memberDTO) {
 		return sqlSession.selectOne(NAMESPACE+"getGuestPage", memberDTO);
-		
-	}
-	
-	public MemberDTO getBizPage(MemberDTO memberDTO) {
-		return sqlSession.selectOne(NAMESPACE+"getBizPage", memberDTO);
 		
 	}
 	

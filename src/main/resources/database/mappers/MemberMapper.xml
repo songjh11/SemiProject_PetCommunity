@@ -8,13 +8,27 @@
  <!-- =============LOGIN & JOIN =====================-->
  
  <select id="getLogin" parameterType="MemberDTO" resultMap="getLoginResult">
-SELECT M.USERNAME, M.USERID, M.EMAIL, M.PHONE, R.ROLENUM, R.ROLENAME
+SELECT M.USERNAME, M.USERID, M.EMAIL, M.PHONE, M.ROLENUM, R.ROLENAME
 		FROM MEMBER M
     		INNER JOIN
     		ROLE R
     		ON M.ROLENUM = R.ROLENUM
 		WHERE M.USERID =#{userId} and M.PASSWORD =#{password}
 		ORDER BY R.ROLENUM ASC
+</select>
+
+<select id="getKakaoLogin" parameterType="MemberDTO" resultMap="getLoginResult" >
+SELECT M.USERNAME, M.USERID, M.EMAIL, M.ROLENUM
+		FROM MEMBER WHERE USERID=#{userId}
+</select>
+
+<insert id="setKakao" parameterType="MemberDTO">	 
+INSERT INTO member (USERID,ROLENUM,USERNAME,EMAIL)
+VALUES (#{userId},#{roleNum},#{userName},#{email})
+</insert>
+
+<select id="getKakaoCount" parameterType="MemberDTO" resultType="Integer">
+        SELECT COUNT(USERID) FROM MEMBER WHERE USERID=#{userId}
 </select>
 
 <insert id="setJoin" parameterType="MemberDTO">	 
@@ -30,11 +44,6 @@ VALUES (file_seq.NEXTVAL,#{fileName},#{oriName},#{userId})
 <insert id="setGuest" parameterType="MemberDTO">	 
 INSERT INTO GUEST (GUESTID,USERID,ROLENUM,PETCATG,PETNAME)
 VALUES (#{guestId},#{userId},#{roleNum},#{petCatg},#{petName})
-</insert>
-
-<insert id="setBiz" parameterType="MemberDTO">	 
-INSERT INTO BIZMEM (BIZNUM,USERID,ROLENUM,ITEMCATG,ITEMID)
-VALUES (#{bizNum},#{userId},#{roleNum},#{itemCatg},ITEM_SEQ.NEXTVAL)
 </insert>
 
 <!-- =============My Page =====================-->
@@ -54,19 +63,7 @@ VALUES (#{bizNum},#{userId},#{roleNum},#{itemCatg},ITEM_SEQ.NEXTVAL)
       ON M.USERID = MF.USERID
 WHERE M.USERID=#{userId}
 </select>
-
-<select id="getBizPage" parameterType="MemberDTO" resultMap="myPageResult">
-SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.DEADDRESS, M.ITEMZIPCODE, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, B.ITEMCATG, B.ITEMID
-      FROM MEMBER M
-      INNER JOIN
-       ROLE R
-      ON M.ROLENUM =R.ROLENUM
-      INNER JOIN 
-        BIZMEM B
-      ON M.USERID = B.USERID
-WHERE M.USERID=#{userId}
-</select>
-
+        
 <select id="getMyPage" parameterType="MemberDTO" resultMap="myPageResult">
 SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS,M.DEADDRESS, M.ITEMZIPCODE, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES
       FROM MEMBER M
@@ -196,18 +193,6 @@ DELETE FROM PICK WHERE ITEMNUM=#{itemNum} AND USERID=#{userId}
 <delete id="setCartDelete" parameterType="ShopCartDTO">
 DELETE FROM SHOPCART WHERE ITEMNUM=#{itemNum} AND USERID=#{userId}
 </delete>
-
-
-<resultMap type="MemberDTO" id="getLoginResult">
-		<id column="USERID" property="userId" />
-		<result column="USERNAME" property="userName" />
-		<result column="PHONE" property="phone"/>
-		<result column="EMAIL" property="email"/>
-		<collection property="roleDTO" javaType="RoleDTO" ofType="RoleDTO">
-			<id column="ROLENUM" property="roleNum" />
-			<result column="ROLENAME" property="roleName" />
-		</collection>
-	</resultMap>
 	
 <!-- 비밀번호 찾기 -->
 	<select id="getFindLogin" parameterType="MemberDTO" resultType="MemberDTO">
@@ -219,53 +204,7 @@ DELETE FROM SHOPCART WHERE ITEMNUM=#{itemNum} AND USERID=#{userId}
  	UPDATE MEMBER SET PASSWORD=#{password}
 	WHERE USERID=#{userId}
 	</update>
-<!--  FOLLOW LIST -->
-<resultMap type="MemberDTO" id="getFollowList">
-	<id column="USERID" property="userId"></id>
 	
-	<association property="memberFileDTO" javaType="MemberFileDTO">
-      <result column="FILENAME" property="fileName"/>
-      </association>
-	
-	<collection property="followDTOs" javaType="List" ofType="FollowDTO">
-	 <result column="FOLLOWER" property="follower"/>
-	 <result column="FOLLOWEE" property="followee"/>
-	 	</collection>
-      
-	</resultMap>
-	
-<!-- Guest My page Result Map -->
-	 <resultMap type="MemberDTO" id="myPageResult">
-      <id column="USERID" property="userId"/>
-      <result column="ROLENUM" property="roleNum"/>
-       <result column="PASSWORD" property="password"/>
-      <result column="USERNAME" property="userName"/>
-      <result column="EMAIL" property="email"/>
-      <result column="PHONE" property="phone"/>
-      <result column="ADDRESS" property="address"/>
-      <result column="BLOCK" property="block"/>
-      <result column="AGMES" property="agMes"/>
-      <result column="AGVALUE" property="agValue"/>
-      <result column="AGMAIL" property="agMail"/>
-      <result column="PETCATG" property="petCatg"/>
-      <result column="PETNAME" property="petName"/>
-      <result column="ITEMCATG" property="itemCatg"/>
-      <result column="ITEMID" property="itemId"/>
-      <result column="DEADDRESS" property="deAddress"/>
-      <result column="ITEMZIPCODE" property="itemZipCode"/>
-                              
-      <association property="memberFileDTO" javaType="MemberFileDTO">
-      <result column="FILENAME" property="fileName"/>
-      <result column="ORINAME" property="oriName"/>
-      </association>
-      
-	  <association property="roleDTO" javaType="RoleDTO">
-      <result column="ROLENAME" property="roleName"/>
-      </association>
-      
-   </resultMap>
-   
-
 <select id="getPickList" parameterType="MemberDTO" resultMap="getPickListResult">
 SELECT M.USERID,P.PICKNUM,SI.ITEMNUM,SI.ITEMNAME,SI.ITEMPRICE,SI.ITEMCONTENTS,SF.FILENAME
 FROM MEMBER M
@@ -280,20 +219,6 @@ FROM MEMBER M
      ON SI.ITEMNUM = SF.ITEMNUM
 WHERE M.USERID =#{userId} ORDER BY P.PICKNUM DESC
 </select>
-<resultMap type="MemberDTO" id="getPickListResult">
-	<id column="USERID" property="userId"/>
-	<collection property="itemDTOs" javaType="List" ofType="SellItemDTO">
-		<id column="ITEMNUM" property="itemNum"/>
-		<result column="ITEMNAME" property="itemName"/>
-		<result column="ITEMPRICE" property="itemPrice"/>
-		<result column="ITEMCONTENTS" property="itemContents"/>
-
-		<collection property="fileDTOs" javaType="List" ofType="SellFileDTO">
-			<result column="FILENAME" property="fileName"/>
-		</collection>
-	</collection>
-	
-</resultMap>
 
 <select id="getShopCartList" parameterType="MemberDTO" resultMap="getShopCartListResult">
 SELECT M.USERID,S.SHOPNUM,S.TOTALCOUNT,SI.ITEMNUM,SI.ITEMNAME,SI.ITEMPRICE,SI.ITEMCONTENTS,SF.FILENAME
@@ -309,7 +234,58 @@ FROM MEMBER M
      ON SI.ITEMNUM = SF.ITEMNUM
 WHERE M.USERID =#{userId} ORDER BY S.SHOPNUM DESC
 </select>
-<resultMap type="MemberDTO" id="getShopCartListResult">
+
+<select id="getTotalPrice" parameterType="MemberDTO" resultType="MemberDTO">
+SELECT SUM(S.TOTALPRICE*S.TOTALCOUNT) AS TOTALPRICE
+FROM MEMBER M
+     INNER JOIN
+     SHOPCART S
+     ON M.USERID = S.USERID
+WHERE M.USERID = 'guest'
+</select>
+		
+	<resultMap type="MemberDTO" id="getLoginResult">
+		<id column="USERID" property="userId" />
+		<result column="USERNAME" property="userName" />
+		<result column="PHONE" property="phone"/>
+		<result column="EMAIL" property="email"/>
+		<result column="ROLENUM" property="roleNum" />
+		<collection property="roleDTO" javaType="RoleDTO" ofType="RoleDTO">
+			<result column="ROLENAME" property="roleName" />
+		</collection>
+	</resultMap>
+	
+<!--  FOLLOW LIST -->
+<resultMap type="MemberDTO" id="getFollowList">
+	<id column="USERID" property="userId"></id>
+	
+	<association property="memberFileDTO" javaType="MemberFileDTO">
+      <result column="FILENAME" property="fileName"/>
+      </association>
+	
+	<collection property="followDTOs" javaType="List" ofType="FollowDTO">
+	 <result column="FOLLOWER" property="follower"/>
+	 <result column="FOLLOWEE" property="followee"/>
+	 	</collection>
+      
+	</resultMap>
+	
+	<resultMap type="MemberDTO" id="getPickListResult">
+	<id column="USERID" property="userId"/>
+	<collection property="itemDTOs" javaType="List" ofType="SellItemDTO">
+		<id column="ITEMNUM" property="itemNum"/>
+		<result column="ITEMNAME" property="itemName"/>
+		<result column="ITEMPRICE" property="itemPrice"/>
+		<result column="ITEMCONTENTS" property="itemContents"/>
+
+		<collection property="fileDTOs" javaType="List" ofType="SellFileDTO">
+			<result column="FILENAME" property="fileName"/>
+		</collection>
+	</collection>
+	
+</resultMap>
+	
+	<resultMap type="MemberDTO" id="getShopCartListResult">
 	<id column="USERID" property="userId"/>
 	<collection property="itemDTOs" javaType="List" ofType="SellItemDTO">
 		<id column="ITEMNUM" property="itemNum"/>
@@ -325,27 +301,6 @@ WHERE M.USERID =#{userId} ORDER BY S.SHOPNUM DESC
 	</collection>
 </resultMap>
 
-<select id="getTotalPrice" parameterType="MemberDTO" resultType="MemberDTO">
-SELECT SUM(S.TOTALPRICE*S.TOTALCOUNT) AS TOTALPRICE
-FROM MEMBER M
-     INNER JOIN
-     SHOPCART S
-     ON M.USERID = S.USERID
-WHERE M.USERID = 'guest'
-</select>
-
-
-	<select id="getRevList" parameterType="MemberDTO" resultMap="getRevResult">
-	SELECT R.*, SF.FILENAME, SI.ITEMNAME
-	from RESERVATION R
-   	INNER JOIN
-	SELLITEM SI
-	ON R.ITEMNUM = SI.ITEMNUM
-	INNER JOIN 
-    SELLFILE SF
-	ON SI.ITEMNUM = SF.ITEMNUM
-	WHERE R.USERID=#{userId}
-	</select>
 	<resultMap type="ReservationDTO" id="getRevResult">
 		<id column="ITEMNUM" property="itemNum"/>
 		<result column="USERID" property="userId"/>
@@ -361,6 +316,38 @@ WHERE M.USERID = 'guest'
 				<result column="FILENAME" property="fileName"/>
 			</collection>
 	</resultMap>
+	
+		
+<!-- Guest My page Result Map -->
+	 <resultMap type="MemberDTO" id="myPageResult">
+      <id column="USERID" property="userId"/>
+      <result column="ROLENUM" property="roleNum"/>
+       <result column="PASSWORD" property="password"/>
+      <result column="USERNAME" property="userName"/>
+      <result column="EMAIL" property="email"/>
+      <result column="PHONE" property="phone"/>
+      <result column="ADDRESS" property="address"/>
+      <result column="BLOCK" property="block"/>
+      <result column="AGMES" property="agMes"/>
+      <result column="AGVALUE" property="agValue"/>
+      <result column="AGMAIL" property="agMail"/>
+      <result column="PETCATG" property="petCatg"/>
+      <result column="PETNAME" property="petName"/>
+      <result column="DEADDRESS" property="deAddress"/>
+      <result column="ITEMZIPCODE" property="itemZipCode"/>
+                              
+      <association property="memberFileDTO" javaType="MemberFileDTO">
+      <result column="FILENAME" property="fileName"/>
+      <result column="ORINAME" property="oriName"/>
+      </association>
+      
+	  <association property="roleDTO" javaType="RoleDTO">
+      <result column="ROLENAME" property="roleName"/>
+      </association>
+      
+   </resultMap>
+   
+	
 	
 	
 </mapper>

@@ -72,6 +72,16 @@ public class AdminController {
 		return map;
 	}
 	
+	@PostMapping("bizlist")
+	@ResponseBody
+	public Map<String, Object> getBizList(Pager pager) throws Exception{
+		List<MemberDTO> list = adminService.getBizmenList(pager);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("pager", pager);
+		return map;
+	}
+	
 	@PostMapping("couponlist")
 	@ResponseBody
 	public Map<String, Object> getCouponList(Pager pager) throws Exception{

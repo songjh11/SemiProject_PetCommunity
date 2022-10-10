@@ -135,11 +135,11 @@
 				<tr>
 					<td>${gue.userId}</td>
 					<td>${gue.userName}</td>
-					<td class="deleteMember" data-userId="${gue.userId}" onclick="deleteMember()">추방</td>
-					<td><button class="memberSharing" onclick="getSharingList('1','${gue.userId}')" data-userId="${gue.userId}">같이해요 작성한 글</button></td>
-					<td><button class="memberQna" onclick="getQnaList('1','${gue.userId}')" data-userId="${gue.userId}">QnA 작성한 글</button></td>
-					<td><button class="memberItem" data-userId="${gue.userId}"  onclick="getItemList('1','${gue.userId}','0')">구매 목록</button></td>
-					<td><button class="memberDetail" data-userId="${gue.userId}" onclick="getDetail('${gue.userId}')">회원 상세 프로필</button></td>
+					<td class="deleteMember" data-userId="${gue.userId}" onclick="deleteMember()">차단</td>
+					<td><button class="btn btn-outline-secondary" onclick="getSharingList('1','${gue.userId}')" data-userId="${gue.userId}">같이해요 작성한 글</button></td>
+					<td><button class="btn btn-outline-secondary" onclick="getQnaList('1','${gue.userId}')" data-userId="${gue.userId}">QnA 작성한 글</button></td>
+					<td><button class="btn btn-outline-secondary" data-userId="${gue.userId}"  onclick="getItemList('1','${gue.userId}','0')">구매 목록</button></td>
+					<td><button class="btn btn-outline-secondary" data-userId="${gue.userId}" onclick="getDetail('${gue.userId}')">회원 상세 프로필</button></td>
 				</tr>
 				</c:forEach>
 			</tbody>
@@ -176,10 +176,10 @@
 				<tr>
 					<td>${bizmen.userId}</td>
 					<td>${bizmen.userName}</td>
-					<td class="deleteMember" data-userId="${bizmen.userId}" onclick="deleteMember()">추방</td>
-					<td><button class="memberEvent" onclick="getEventList('1','${bizmen.userId}')" data-userId="${bizmen.userId}">이벤트 작성한 글</button></td>
-					<td><button class="memberQna" onclick="getQnaList('1','${bizmen.userId}')" data-userId="${bizmen.userId}">QnA 작성한 글</button></td>
-					<td><button class="memberItem" data-userId="${bizmen.userId}" onclick="getSellItem('${bizmen.userId}')">판매 상품 목록</button></td>
+					<td class="deleteMember" data-userId="${bizmen.userId}" onclick="deleteMember()">차단</td>
+					<td><button class="btn btn-outline-secondary" onclick="getEventList('1','${bizmen.userId}')" data-userId="${bizmen.userId}">이벤트 작성한 글</button></td>
+					<td><button class="btn btn-outline-secondary" onclick="getQnaList('1','${bizmen.userId}')" data-userId="${bizmen.userId}">QnA 작성한 글</button></td>
+					<td><button class="btn btn-outline-secondary" data-userId="${bizmen.userId}" onclick="getSellItem('${bizmen.userId}','${bizmen.itemCatg}')">판매 상품 목록</button></td>
 				</tr>
 				</c:forEach>
 			</tbody>

@@ -1570,11 +1570,11 @@ boardlist.addEventListener("click", function(event){
 })
 
 
-function getSellItem(){
+function getSellItem(ui,cat){
     const xhttp = new XMLHttpRequest();
-    xhttp.open("POST","./purchaselist");
+    xhttp.open("POST","./sellerlist");
     xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-    xhttp.send("userId="+ui+"&purchaseStatus="+ps);
+    xhttp.send("userId="+ui+"&itemCatg="+cat);
     xhttp.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
             let result = JSON.parse(xhttp.responseText.trim());
@@ -1613,7 +1613,7 @@ function getSellItem(){
                 h4.appendChild(text);
                 div4.appendChild(h4);
                 let span = document.createElement("span");
-                text = document.createTextNode("결제금액 : " + result[i].amount);
+                text = document.createTextNode("결제금액 : " + result[i].itemPrice);
                 span.appendChild(text);
                 div4.appendChild(span);
 

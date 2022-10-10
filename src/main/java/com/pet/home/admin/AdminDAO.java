@@ -10,6 +10,7 @@ import com.pet.home.board.event.coupon.CouponDTO;
 import com.pet.home.board.impl.BoardDTO;
 import com.pet.home.board.qna.QnaDTO;
 import com.pet.home.board.sharing.SharingDTO;
+import com.pet.home.member.BizmemDTO;
 import com.pet.home.member.MemberDTO;
 import com.pet.home.util.CommentPager;
 import com.pet.home.util.Pager;
@@ -62,7 +63,7 @@ public class AdminDAO {
 		return sqlSession.selectOne(NAMESPACE+"getAllGuestCount");
 	}
 	
-	public List<MemberDTO> getAllBizmen(Pager pager) throws Exception{
+	public List<BizmemDTO> getAllBizmen(Pager pager) throws Exception{
 		return sqlSession.selectList(NAMESPACE+"getAllBizmen", pager);
 	}
 	

@@ -177,9 +177,9 @@
 					<td>${bizmen.userId}</td>
 					<td>${bizmen.userName}</td>
 					<td class="deleteMember" data-userId="${bizmen.userId}" onclick="deleteMember()">추방</td>
-					<td><button class="memberSharing" onclick="getSharingList('1','${bizmen.userId}')" data-userId="${bizmen.userId}">이벤트 작성한 글</button></td>
+					<td><button class="memberEvent" onclick="getEventList('1','${bizmen.userId}')" data-userId="${bizmen.userId}">이벤트 작성한 글</button></td>
 					<td><button class="memberQna" onclick="getQnaList('1','${bizmen.userId}')" data-userId="${bizmen.userId}">QnA 작성한 글</button></td>
-					<td><button class="memberItem" data-userId="${bizmen.userId}" onclick="getItmeList()">판매 상품 목록</button></td>
+					<td><button class="memberItem" data-userId="${bizmen.userId}" onclick="getSellItem('${bizmen.userId}')">판매 상품 목록</button></td>
 				</tr>
 				</c:forEach>
 			</tbody>

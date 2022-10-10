@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pet.home.board.event.EventDTO;
+import com.pet.home.board.event.EventService;
 import com.pet.home.board.event.coupon.CouponDTO;
 import com.pet.home.board.impl.BoardDTO;
 import com.pet.home.board.qna.QnaDAO;
@@ -42,6 +44,8 @@ public class AdminController {
 	private QnaDAO qnaDAO;
 	@Autowired
 	private SellItemService sellItemService;
+	@Autowired
+	private EventService eventService;
 
 	@GetMapping("mypage")
 	public ModelAndView getMyPage(ModelAndView mv) throws Exception {
@@ -135,6 +139,17 @@ public class AdminController {
 		
 		return map;
 		
+	}
+	
+	//사업자 이벤트 쓴글 불러오기
+	@GetMapping("eventlist")
+	@ResponseBody
+	public Map<String, Object> getBizEventList(MemberDTO memberDTO, Pager pager) throws Exception{
+		List<BoardDTO> ar = eventService.getList(pager);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("event", ar);
+		map.put("pager",pager);
+		return map;
 	}
 	
 	// 같이해요 삭제

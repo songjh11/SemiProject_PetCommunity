@@ -35,10 +35,22 @@ let merchant_uid = date.getTime();
 const rvBtnFrm = document.getElementById("rvBtnFrm");
 let msg = "";
 
-revStartDate.addEventListener("blur", function(){
-  priceCount();
+revStartDate.addEventListener("change", function(){
+  totalPrice.value="0";
 });
 
+revEndDate.addEventListener("change", function(){
+  totalPrice.value="0";
+});
+
+
+adultsCount.addEventListener("change", function(){
+  totalPrice.value="0";
+});
+
+dogCount.addEventListener("change", function(){
+  totalPrice.value="0";
+});
 
 //===================================================날짜 계산
 priceCount.addEventListener("click", function (){
@@ -58,17 +70,18 @@ priceCount.addEventListener("click", function (){
   inv = itemName.value;
   console.log(itg);
   
-  if(itg==2 && rev!=rsv){
-    alert("원데이 클래스는 하루 단위로 예약이 가능합니다");
-    return;
-  } else{
-    if(rsv.length<=0||rev.length<=0){
+  if(rsv.length<=0||rev.length<=0){
     alert("날짜를 입력하세요")
     return;
     } else{
-      dateResult = true;
+      if(itg==2 && rev!=rsv){
+      alert("원데이 클래스는 하루 단위로 예약이 가능합니다");
+      return;
+    } else{
+        dateResult = true;
+      }
     }
-  }
+    
 
 if(ac.length<=0||dc.length<=0){
   alert("인원수 또는 반려견 수를 입력하세요")
@@ -93,9 +106,7 @@ if(dateResult){
         tdate = (redateC - rsdateC) / (1000*60*60*24);
       }
       let priceC = tdate*ipv+ac*10000+dc*10000;
-      const totalPriceV = document.createAttribute("value");
-      totalPriceV.value = priceC;
-      totalPrice.setAttributeNode(totalPriceV);
+      totalPrice.value = priceC;
     }
     
 }
@@ -118,9 +129,11 @@ rvBtnFrm.addEventListener("click", function(){
     btv = buyer_tel.value;
     uiv = userId.value;
     inv = itemName.value;
+
+
   
-    if(tpv.length<=0){
-    alert("예상 결제 금액을 확인해주세요")
+    if(tpv<=0){
+    alert("예상 결제 금액을 다시 확인해주세요")
     return;
     } else{
       dateResult = true;
@@ -174,7 +187,7 @@ rvBtnFrm.addEventListener("click", function(){
                 console.log(paymentResult);
                 if(paymentResult=="paid") {
                   alert("결제에 성공하였습니다!")
-                  // window.location.href = 'http://localhost/member/purchaseList?purchaseStatus=1';
+                  window.location.href = 'http://localhost/member/purchaseList';
               } else{
                 alert("결제에 실패하였습니다. 결제 실패 사유: " + paymentResult);
                 location.reload();

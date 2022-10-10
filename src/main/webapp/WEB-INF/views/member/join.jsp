@@ -29,51 +29,6 @@
 
   <!-- Template Main CSS File -->
   <link href="/resources/assets/css/main.css" rel="stylesheet">
-
-	<style type="text/css">
-    .ag{
-      background-color:cornsilk;
-      overflow: scroll;
-      width: 600px;
-      height: 100px;
-    }
-
-    .warning{
-      color: red;
-    }
-    #po{
-      font-size: 10pt;
-      color: darkgray;
-    }
-
-
-    #imgDiv{
-      display: flex;
-    }
-
-    .newDiv{
-      justify-content: center;
-      align-items:center;
-      position: relative;
-      width: 80px;
-	  	height: 80px;
-      margin-right: 5px;
-    }
-    .thumnail{
-		width: 80px;
-		height: 80px;
-
-		} 
-    .imgDeleteBtn {
-      position: absolute;
-      top: 0px;
-      right: 0px;
-    }
-
-    #inputDiv{
-      display: none;
-    }
-	</style>
   
 </head>
 <body>

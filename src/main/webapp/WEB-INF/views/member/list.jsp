@@ -315,6 +315,31 @@
             </div>
         </c:forEach>
       </c:when>
+
+      <c:when test="${what eq 'Purchase Cancel List'}">
+        <c:forEach items="${purchaseList}" var="check">
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+
+              <div class="chef-member">
+                  <div class="member-img">
+                      <img src="/resources/upload/sellfile/${check.fileDTOs[0].fileName}" class="img-fluid" alt="">
+                      <div class="social">
+                      <a href=""><i class="bi bi-trash3"></i></a>
+                      <a href=""><i class="bi bi-facebook"></i></a>
+                      <a href=""><i class="bi bi-instagram"></i></a>
+                      <a href=""><i class="bi bi-linkedin"></i></a>
+                      </div>
+                  </div>
+                  <div class="member-info">
+                      <h4>${check.itemDTO.itemName}</h4>
+                      <a href="./purchaseDetail?merchant_uid=${check.merchant_uid}">주문번호: ${check.merchant_uid}</a>
+                      <span>결제 금액: ${check.amount}</span>
+                      <p>${itemDTOs.itemContents}</p>
+                  </div>
+              </div>
+          </div>
+      </c:forEach>
+    </c:when>
         
      
 

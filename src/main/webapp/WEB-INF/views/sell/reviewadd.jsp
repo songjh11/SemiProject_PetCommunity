@@ -78,7 +78,7 @@
             <form action="reviewadd" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data">
               <div class="row gy-4">
                 	<div class="col-lg-8 col-md-12">
-                  		<input type="text" name="userId" class="form-control" id="userId" placeholder="User ID">
+                  		<input type="text" name="userId" readonly class="form-control" id="userId" value="${reviewDTO.userId}" placeholder="User ID">
                   		<div class="validate"></div>
                 	</div>
                 	<div class="col-lg-4 col-md-6">

@@ -1050,15 +1050,23 @@ function getItemList(p,ui,ps){
                 div2.setAttribute("class","member-img");
 
                 let img1 = document.createElement("img");
-                img1.setAttribute("src","/resources/upload/sellfile/"+result.fileDTOs[0].fileName);
+                img1.setAttribute("src","/resources/upload/sellfile/"+result[i].fileDTOs[0].fileName);
 
                 // let div3 = document.createElement("div");
                 // div3.setAttribute("class","social");
 
                 let div4 = document.createElement("div");
                 div4.setAttribute("class","member-info");
+                let h4 = document.createElement("h4");
+                let text = document.createTextNode(result[i].itemDTO.itemName);
+                console.log(result[i].itemDTO.itemName);
+                h4.appendChild(text);
+                div4.appendChild(h4);
+                let span = document.createElement("span");
+                text = document.createTextNode("결제금액 : " + result[i].amount);
+                span.appendChild(text);
+                div4.appendChild(span);
 
-                
                 div2.appendChild(img1);
                 div1.appendChild(div2);
                 div1.appendChild(div4);

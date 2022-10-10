@@ -1,8 +1,11 @@
 package com.pet.home.member;
 
 
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -45,6 +48,7 @@ import com.pet.home.sell.SellItemController;
 import com.pet.home.sell.SellItemService;
 import com.pet.home.sell.ShopCartDTO;
 import com.pet.home.sell.file.SellFileDTO;
+import com.pet.home.sell.purchase.PurchaseCancelDTO;
 import com.pet.home.sell.purchase.PurchaseDTO;
 import com.pet.home.util.FileManager;
 import com.pet.home.util.SellPager;
@@ -674,13 +678,12 @@ public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 	
 //결제 내역 리스트	
 	@GetMapping("purchaseList")
-	public ModelAndView getPurchaseList(HttpSession httpSession, String purchaseStatus) throws Exception {
+	public ModelAndView getPurchaseList(HttpSession httpSession) throws Exception {
 		System.out.println("purchaseList");
 		MemberDTO memberDTO = (MemberDTO)httpSession.getAttribute("member");
 		System.out.println(memberDTO.getUserId());
 		PurchaseDTO purchaseDTO = new PurchaseDTO();
 		purchaseDTO.setUserId(memberDTO.getUserId());
-		purchaseDTO.setPurchaseStatus(Long.parseLong(purchaseStatus));
 		List<PurchaseDTO> purchaseList = sellItemService.getPurchaseList(purchaseDTO);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("purchaseList", purchaseList);
@@ -691,13 +694,45 @@ public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 		}
 		return mv;
 	}
-
+	
+	//결제 취소 내역 리스트	
+		@GetMapping("purchaseCancelList")
+		public ModelAndView getPurchaseCancelList(HttpSession httpSession) throws Exception {
+			System.out.println("purchaseCancelList");
+			MemberDTO memberDTO = (MemberDTO)httpSession.getAttribute("member");
+			System.out.println(memberDTO.getUserId());
+			PurchaseDTO purchaseDTO = new PurchaseDTO();
+			purchaseDTO.setUserId(memberDTO.getUserId());
+			List<PurchaseDTO> purchaseCancel = sellItemService.getPurchaseCancleList(memberDTO.getUserId());
+			ModelAndView mv = new ModelAndView();
+			mv.addObject("purchaseList", purchaseCancel);
+			mv.addObject("what","Purchase Cancel List");
+			mv.setViewName("member/follow");
+			for(PurchaseDTO c: purchaseCancel) {
+				System.out.println(c.getImp_uid());
+			}
+			return mv;
+		}	
+	
 //결제 상세 내역
 	@GetMapping("purchaseDetail")
 	public ModelAndView getPurchaseDetail(PurchaseDTO purchaseDTO) throws Exception {
 		purchaseDTO = sellItemService.getPurchaseDetail(purchaseDTO);
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+		Date sDate = new Date();
+		Date eDate = new Date();
+		sDate = dateFormat.parse(purchaseDTO.getRevStartDate());
+		eDate = dateFormat.parse(purchaseDTO.getRevStartDate());
+
+		String revStartDate = dateFormat.format(sDate);
+		String revEndDate = dateFormat.format(eDate);
+		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("check", purchaseDTO);
+		mv.addObject("revStartDate", revStartDate);
+		mv.addObject("revEndDate", revEndDate);
+		
 		return mv;
 	}
 	
@@ -707,23 +742,29 @@ public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 	public ModelAndView setPurchaseDelete(
 			@RequestParam String imp_uid, 
 			@RequestParam String merchant_uid,
-			@RequestParam String reason
+			@RequestParam String reason,
+			@RequestParam String amount
 			) throws Exception {
 		System.out.println("purchaseDelete");
 		System.out.println(merchant_uid);
+		System.out.println(imp_uid);
 		String msg = "";
 		ModelAndView mv = new ModelAndView("jsonView");
 		
 		//토큰 발급
 		IamportResponse<AccessToken> token=null;
 		token = sellItemService.getToken();
-
 		String code = sellItemService.setPurchaseCancel(token, reason, imp_uid);
-
 			if(code.equals("0")) {
 				System.out.println("코드 0 ㅇㅋ");
 				//구매 상태 변경
 				int result = sellItemService.setPurchaseStatus(merchant_uid);
+				PurchaseCancelDTO cancelDTO = new PurchaseCancelDTO();
+				cancelDTO.setImp_uid(imp_uid);
+				cancelDTO.setMerchant_uid(merchant_uid);
+				cancelDTO.setReason(reason);
+				int cancelResult = sellItemService.setPurchaseCancelOne(cancelDTO);
+				System.out.println("cancelResult: "+cancelResult);
 				if(result>0) {
 					System.out.println("디비 변경 완");
 					msg = "success";
@@ -731,12 +772,10 @@ public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 					System.out.println("디비 변경 실패ㅠ");
 					msg = "error";
 				}
-				
 			} else {
 					System.out.println("실패ㅠ");
 					msg = "error";
 				}
-		
 			mv.addObject("msg", msg);
 			return mv;
 	}

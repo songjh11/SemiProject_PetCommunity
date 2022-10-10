@@ -635,7 +635,7 @@
             <div>
               <label for="priceCount" class="font-weight-bold text-black">예상 금액 확인</label>
               <div class="field-icon-wrap">
-                <input type="text" id="totalPrice" readonly class="form-control">
+                <input type="text" id="totalPrice" readonly class="form-control" value="0">
               </div>
             </div>
             <div>
@@ -650,10 +650,12 @@
   </section>
 </form>    
       <!-- reservation section end -->
-       
-      
-<a href="./reviewadd?itemNum=${sellItemDTO.itemNum}"><button type="button">리뷰쓰기</button></a>
-<a href="./sellqnaadd?itemNum=${sellItemDTO.itemNum}"><button type="button">문의쓰기</button></a>
+<c:if test="${not empty member.userId }">
+<div style="text-align: center;">
+  <a href="./reviewadd?itemNum=${sellItemDTO.itemNum}&userId=${member.userId}"><button type="button" style="display: inline-block; margin-right: 30px;" class="btn btn-outline-primary">리뷰쓰기</button></a>
+  <a href="./sellqnaadd?itemNum=${sellItemDTO.itemNum}&userId=${member.userId}"><button type="button" style="display: inline-block; margin-left: 30px;" class="btn btn-outline-primary">문의쓰기</button></a>
+</div>  
+</c:if>
       <!-- contents, review, qna -->
       <section class="crqSection">
         
@@ -674,6 +676,7 @@
               <div class="modal-body">
                 <input type="hidden" id="rvcNum" value="">
                 <input type="hidden" id="rvNum" value="">
+                <input type="hidden" id="rvcWriter" value="">
                 <textarea class="form-control" id="rvcContents"></textarea>
               </div>
               <div class="modal-footer">
@@ -713,7 +716,7 @@
       <table class="table" id="review">
         
       </table>
-      <button id="more" style="display: none;">더보기</button>
+      <button id="more" class="btn btn-outline-dark" style="display: none;">더보기</button>
     </div>
   </div>
   	<div id="myTabContent" class="tab-content">
@@ -723,7 +726,7 @@
       		<th class="th2" style="display: none;" >제목</th>
       		<th class="th2" style="display: none;" >내용</th>
     	</table>
-    <button id="moreqna" style="display: none;">더보기</button>
+    <button id="moreqna" class="btn btn-outline-dark" style="display: none;">더보기</button>
     </div>
    </div>
   </div>

@@ -77,7 +77,7 @@
             <form action="sellqnaadd" method="post" data-aos="fade-up" data-aos-delay="100">
               <div class="row gy-4">
                 <div class="col-lg-8 col-md-12">
-                  <input type="text" name="userId" class="form-control" id="userId" placeholder="User ID">
+                  <input type="text" name="userId" readonly class="form-control" id="userId" value="${sellQnaDTO.userId}" placeholder="User ID">
                   <div class="validate"></div>
                 </div>
                 

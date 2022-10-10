@@ -13,7 +13,7 @@
 	</delete>
 	
 	<insert id="setReviewCommentAdd" parameterType="RvCommentDTO">
-		INSERT INTO RVCOMMENT VALUES(RV_SEQ.NEXTVAL,#{rvNum},'회원3',#{rvcContents},SYSDATE)
+		INSERT INTO RVCOMMENT VALUES(RV_SEQ.NEXTVAL,#{rvNum}, #{rvcWriter} ,#{rvcContents},SYSDATE)
 	</insert>
 	
 	<update id="setReviewCommentUpdate" parameterType="RvCommentDTO">

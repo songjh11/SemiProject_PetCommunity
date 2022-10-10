@@ -530,7 +530,7 @@ public class MemberController {
 			headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 			
 			// HttpBody 오브젝트 생성
-			MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+			MultiValueMap<String, String> params = new LinkedMultiValueMap(null)<>();
 			params.add("grant_type", "authorization_code");
 			params.add("client_id", "3de4327e8b367107a94e0ffc38dcc41d");
 			params.add("redirect_uri", "http://localhost/member/kakao");

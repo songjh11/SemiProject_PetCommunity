@@ -57,14 +57,14 @@
             <form class="d-flex" action="../sell/search" method="get" id="searchFrm">
               <div class="modal-body">
                 <div>
-                  <select name="itemCatg" class="form-control" id="searchItemCatg" value="${param.itemCatg}">
-                    <option value="" selected>-- 상품 카테고리 선택 --</option>
+                  <select name="itemCatg" class="form-control" id="searchItemCatg" value="">
+                    <option value="">-- 상품 카테고리 선택 --</option>
                     <option value="1">호텔링</option>
                     <option value="2">원데이클래스</option>
                     <option value="3">트레이닝</option>
                   </select>
                 </div>
-                <input class="form-control me-2" type="text" name="search" placeholder="검색어 입력" aria-label="Search" value="${param.search}">
+                <input class="form-control me-2" type="text" name="search" placeholder="검색어 입력" aria-label="Search" value="">
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline-success" id="searchBtn">Search</button>
@@ -92,28 +92,33 @@
     <div>
         <nav id="navbar" class="navbar">
               <ul>
-                    <li><a href="/sell/list?itemCatg=1">호텔링</a></li>
-                    <li><a href="/sell/list?itemCatg=2">One Day 클래스</a></li>
-                    <li><a href="/sell/list?itemCatg=3">트레이닝</a></li>
-                    <li><a href="/sell/pettx">Pet-Taxi</a></li>
-            <li><a href="#gallery">여행해요</a></li>
-            <li class="dropdown"><a href="#"><span>커뮤니티</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-              <ul>
-                <li><a href="#">같이해요</a></li>
-                <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                <li><a href="../">Home</a></li>
+                <li class="dropdown"><a href="#"><span>예약 서비스</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                   <ul>
-                    <li><a href="#">Deep Drop Down 1</a></li>
-                    <li><a href="#">Deep Drop Down 2</a></li>
-                    <li><a href="#">Deep Drop Down 3</a></li>
-                    <li><a href="#">Deep Drop Down 4</a></li>
-                    <li><a href="#">Deep Drop Down 5</a></li>
+                        <li><a href="/sell/list?itemCatg=1">호텔링</a></li>
+                        <li><a href="/sell/list?itemCatg=2">One Day 클래스</a></li>
+                        <li><a href="/sell/list?itemCatg=3">트레이닝</a></li>
+                        <li><a href="/sell/pettx">Pet-Taxi</a></li>
                   </ul>
                 </li>
-                <li><a href="/notice/list">공지사항</a></li>
-                <li><a href="#">Drop Down 3</a></li>
-                <li><a href="#">Drop Down 4</a></li>
-              </ul>
-            </li>
+                <li><a href="#gallery">여행해요</a></li>
+                <li class="dropdown"><a href="#"><span>커뮤니티</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                  <ul>
+                    <li><a href="#">같이해요</a></li>
+                    <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                      <ul>
+                        <li><a href="#">Deep Drop Down 1</a></li>
+                        <li><a href="#">Deep Drop Down 2</a></li>
+                        <li><a href="#">Deep Drop Down 3</a></li>
+                        <li><a href="#">Deep Drop Down 4</a></li>
+                        <li><a href="#">Deep Drop Down 5</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="/notice/list">공지사항</a></li>
+                    <li><a href="#">Drop Down 3</a></li>
+                    <li><a href="#">Drop Down 4</a></li>
+                </ul>
+              </li>
           </ul>
         </nav>
     </div>

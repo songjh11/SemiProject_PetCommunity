@@ -15,13 +15,6 @@
 
   <title>${category.categoryName}</title>
 
-
-  <!-- =======================================================
-  * Template Name: Yummy - v1.2.0
-  * Template URL: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
     <style>
       .pagination{
         justify-content: center;
@@ -74,8 +67,6 @@
     <!-- header end -->
 </div>
 
-
-  
     <!-- ======= List Section ======= -->
 
     <section id="chefs" class="chefs section-bg">
@@ -89,17 +80,17 @@
                        <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
                         <li class="nav-item">
                           <a class="nav-link" href="/sell/list?itemCatg=1">
-                            <h4>Hoteling</h4>
+                            <h4>Hotelling</h4>
                           </a>
                         </li><!-- End tab nav item -->
                         <li class="nav-item">
                           <a class="nav-link" href="/sell/list?itemCatg=2">
-                            <h4>Ondday</h4>
+                            <h4>One day Class</h4>
                           </a>
                         </li><!-- End tab nav item -->
                         <li class="nav-item">
                           <a class="nav-link" href="/sell/list?itemCatg=3">
-                            <h4>Traning</h4>
+                            <h4>Training</h4>
                           </a>
                         </li><!-- End tab nav item -->
                         </ul>
@@ -164,10 +155,6 @@
   <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
 </section>
 <!-- footer end -->
-
-  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <div id="preloader"></div>
 
   <!-- Template Main JS File -->
   <script src="/resources/JS/pick&shopcart.js"></script>

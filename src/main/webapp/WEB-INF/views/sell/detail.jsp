@@ -17,6 +17,7 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
+
   <!-- jQuery -->
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
   <!-- iamport.payment.js -->
@@ -94,6 +95,48 @@
           display: flex;
           flex-direction: column;
           align-items: center;
+        }
+
+        .item_container{
+          display: flex;
+          justify-content: center;
+          margin-top: 30px;
+        }
+
+        .itemBox{
+          padding: 5px;
+          margin: 15px;
+          border: 2px; 
+          border-style: solid;
+          border-color: #ffc21e;
+          border-radius: 10px;
+          align-items: stretch; 
+          justify-content: center; 
+          flex-direction: column;
+          width: 250px;
+        }
+
+        .titleBox{
+          margin-top: 15px;
+        }
+
+        .imgSide{
+          margin-bottom: 50px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .imgTable{
+          margin-top: 15px;
+          margin-bottom: 15px;
+          border: 5px solid transparent;
+          border-radius: 20px;
+          background-image: linear-gradient(#444444, #444444), linear-gradient(to right, #fbfcb9be, #ffcdf3aa, #65d3ffaa);
+          background-origin: border-box;
+          background-clip: content-box, border-box;
+          width: 80%;
+          overflow: hidden;
         }
 
 
@@ -195,9 +238,7 @@
           <tbody>
             <tr>
               <td>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase" viewBox="0 0 16 16">
-                <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z"></path>
-                </svg>
+                <i class="bi bi-shop"></i>
                 ${sellItemDTO.userId}</td>
             </tr>
             <tr>
@@ -247,7 +288,7 @@
                       <div class="modal-body">
                              제1조 목적<br>
                         <br>
-                        본 이용약관은 “서울숲”(이하 "사이트")의 서비스의 이용조건과 운영에 관한 제반 사항 규정을 목적으로 합니다.<br>
+                        본 이용약관은 “WALWAL”(이하 "사이트")의 서비스의 이용조건과 운영에 관한 제반 사항 규정을 목적으로 합니다.<br>
                         <br>
                         제2조 용어의 정의<br>
                         <br>
@@ -387,7 +428,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div class="modal-body">
-                            (주)바우라움(이하 ‘회사’라 한다)는 개인정보 보호법 제30조에 따라 정보 주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리지침을 수립, 공개합니다.<br>
+                            (주)WALWAL(이하 ‘회사’라 한다)는 개인정보 보호법 제30조에 따라 정보 주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리지침을 수립, 공개합니다.<br>
                           <br>
                           <strong>제1조 (개인정보의 처리목적)</strong><br>
                           회사는 다음의 목적을 위하여 개인정보를 처리합니다. 처리하고 있는 개인정보는 다음의 목적 이외의 용도로는 이용되지 않으며, 이용 목적이 변경되는 경우에는 개인정보보호법 제18조에 따라 별도의 동의를 받는 등 필요한 조치를 이행할 예정입니다.<br>
@@ -580,9 +621,10 @@
                             <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                             <select id="adultsCount" name="adultsCount" class="form-control">
                               <option value="" selected>-- 인원 수 선택 --</option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
+                              <option value="0">1</option>
+                              <option value="1">2</option>
+                              <option value="2">3</option>
+                              <option value="3">4</option>
                             </select>
                           </div>
                       </div>
@@ -594,9 +636,10 @@
                             <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                             <select id="dogCount" name="dogCount" class="form-control">
                               <option value="" selected>-- 반려견 수 선택 --</option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
+                              <option value="0">1</option>
+                              <option value="1">2</option>
+                              <option value="2">3</option>
+                              <option value="3">4</option>
                             </select>
                           </div>
                         </div>
@@ -684,15 +727,152 @@
         <div class="tab-pane fade show active" id="iContents" role="tabpanel">
           <br>
           <button style="display: none;"></button>
-          <div style="white-space:pre;"><c:out value="${sellItemDTO.itemContents}"/></div>
-          <p>최고의 반려견 전문가들이 24시간 케어하는 애견호텔!
-            위드독애견호텔은 작고 답답한 공간이 아닌 아늑하고 편안하게 휴식할 수 있는 넓은 객실을 갖춘 프리미엄 애견호텔 입니다.
-            여행/출장 또는 장시간 집을 비워야 할 때 위드독애견호텔의 호텔링 / 데이케어(※ 산책 옵션 추가 가능)서비스를 이용해 보세요.</p>
-            <div id="map" style="width:100%; height:400px; margin-bottom: 50px;"></div>
-        </div>
-      </div>
-    <div id="myTabContent" class="tab-content">
+          
+          <div style="white-space:pre;">
+            <c:out value="${sellItemDTO.itemContents}"/>
+          </div>
 
+          <!-- purchase Table start -->
+          <div class="purchaseTable" style="margin-top: 30px;">
+            <div class="table-responsive">
+              <table class="noBorder _table_responsive table" style="width: 100%;">
+                <tbody>
+                  <tr style="border-bottom:1px solid #ffc21e;">
+                    <td style="width: 16.6667%; text-align: center; padding: 17px;">
+                    <span style="color: rgb(0, 0, 0);">
+                      <strong>
+                        <span style="background-color: rgb(255, 194, 30); padding: 12px 20px 10px; border-radius: 100px; font-size: 16px;">&nbsp; &nbsp; &nbsp; &nbsp; 분류&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></strong></span>
+                      </td>
+                      <td style="width: 34.0295%; text-align: center; padding: 17px;">
+                        <span style="color: rgb(0, 0, 0);">
+                          <strong>
+                            <span style="background-color: rgb(255, 194, 30); padding: 12px 20px 10px; border-radius: 100px; font-size: 16px;">
+                              <strong>&nbsp; &nbsp; &nbsp; 이용료&nbsp; &nbsp; &nbsp;&nbsp;</strong></span></strong></span>
+                      </td>
+                      <td style="width: 33.4152%; text-align: center; padding: 17px;">
+                        <span style="color: rgb(0, 0, 0);">
+                          <strong>
+                            <span style="background-color: rgb(255, 194, 30); padding: 12px 20px 10px; border-radius: 100px; font-size: 16px;">&nbsp; &nbsp; &nbsp; &nbsp; 비고&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span>
+                          </strong>
+                        </span>
+                      </td>
+                  </tr>
+                  <tr style="border-bottom:1px solid #ccc;">
+                    <td style="width: 32.5553%; text-align: center; vertical-align: middle; display: table-cell;">
+                      <strong>
+                        <span style="color: rgb(0, 0, 0); font-size: 16px;">기본 요금(1일)</span></strong>
+                    </td>
+                    <td style="width: 34.0295%; text-align: center; vertical-align: middle; display: table-cell;">${sellItemDTO.itemPrice} 원</td>
+                    <td style="width: 33.4152%; text-align: center;">추가 이용 시<br>추가 요금 발생</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid #ccc;">
+                    <td style="width: 32.5553%; text-align: center; vertical-align: middle; display: table-cell;">
+                      <strong>
+                        <span style="color: rgb(0, 0, 0); font-size: 16px;">인원 수</span></strong>
+                    </td>
+                    <td style="width: 34.0295%; text-align: center;">추가 인원당<br>10000원 추가<br>
+                    </td>
+                    <td style="width: 33.4152%; text-align: center; vertical-align: middle; display: table-cell;">최대 4명까지 가능
+                    </td>
+                  </tr>
+                  <tr style="border-bottom:1px solid #ccc;">
+                    <td style="width: 32.5553%; text-align: center; vertical-align: middle; display: table-cell;">
+                      <strong>
+                        <span style="color: rgb(0, 0, 0); font-size: 16px;">반려견 수</span></strong>
+                    </td>
+                      <td style="width: 34.0295%; text-align: center;">추가 마리당<br>10000원 추가<br>
+                      </td>
+                      <td style="width: 33.4152%; text-align: center; vertical-align: middle; display: table-cell;">최대 4마리까지 가능
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>      
+          </div>  
+          <!-- purchase Table end -->
+         
+         <!-- contents Side -->
+          <div>
+            <main style="width: 100%; display: flex; flex-direction: column; margin-bottom: 50px;">
+            <div style="border-width: 0px 0px 3px 0px; border-style: solid; border-color: #ffc21e; margin-top: 40px;">
+              <p style="text-align: center; line-height: 1.15;">
+                <strong><span style="font-size: 30px;">${sellItemDTO.itemName}</span></strong>
+                <strong><span style="font-size: 30px;">소개 :D</span></strong></p>
+              </div>	
+              <div class="item_container" style="margin-top: 30px;">
+                <div class="itemBox">
+                  <div class="titleBox">
+                    <h4><span style="letter-spacing:-1px;"><i class="bi bi-controller"></i> 넓은 실내운동장</span></h4>
+                      <p><br></p>
+                  </div>
+                  <div class="contentsBox">
+                    <h8><span style="letter-spacing:-1px;">• 날씨 상관없이 <br>마음껏 뛰어 놀 수 있는 <br>100평 규모의
+                      <br>넓은 실내운동장</span></h8>
+                      <p><br></p>
+                  </div>
+                </div>  
+                <div class="itemBox">
+                    <div class="titleBox">
+                      <h4><span style="letter-spacing:-1px;"><i class="bi bi-controller"></i> 보호자와 함께</span></h4>
+                        <p><br></p>
+                    </div>
+                    <div class="contentsBox">
+                      <h8><span style="letter-spacing:-1px;">• 보호자와 함께 <br>다양한 놀거리로<br> 재미와 추억을 <br>만들 수
+                        있어요.</span></h8>
+                        <p><br></p>
+                    </div>  
+                </div>
+                <div class="itemBox">
+                  <div class="titleBox">
+                    <h4><span style="letter-spacing:-1px;"><i class="bi bi-controller"></i> 특수 바닥재</span></h4>
+                        <p><br></p>
+                  </div>
+                  <div class="contentsBox">
+                    <h8><span style="letter-spacing:-1px;">• 반려견의 건강을 생각한 <br>특수 바닥재로 <br>미끄러움 걱정이
+                      <br>없어요.</h8>
+                      <p><br></p>
+                  </div>  
+                </div>
+                <div class="itemBox">
+                  <div class="titleBox">
+                    <h4><span style="letter-spacing:-1px;"><i class="bi bi-controller"></i> 전문 교육가 상주</span></h4>
+                    <p><br></p>
+                  </div>
+                  <div class="contentsBox">
+                    <h8><span style="letter-spacing:-1px;">• 교육 전문가가 상주해 <br>안전하고 유익한 <br>놀이 환경
+                      제공해요!</h8>
+                      <p><br></p>
+                </div>  
+                </div>
+              </div>  
+            </main>  
+          </div>
+          <!-- contents end -->
+
+          <!-- image Side -->
+          <div class="imgSide">
+            <div style="border-width: 0px 0px 3px 0px; border-style: solid; border-color: #ffc21e; margin-top: 40px; margin-bottom: 40px; width: 100%;">
+              <p style="text-align: center; line-height: 1.15;">
+                <strong><span style="font-size: 30px;">${sellItemDTO.itemName}</span></strong>
+                <strong><span style="font-size: 30px;">사진 :D</span></strong></p>
+            </div>	
+            <c:forEach items="${sellItemDTO.fileDTOs}" var="ar">
+              <div class="imgTable">
+                <img width="100%" height="100%" src="../resources/upload/sellfile/${ar.fileName}" class="d-block w-100" alt="...">
+              </div>
+            </c:forEach>
+          </div>
+          <!-- image end -->
+          <!-- map Side -->
+          <div style="border-width: 0px 0px 3px 0px; border-style: solid; border-color: #ffc21e; margin-top: 40px; margin-bottom: 40px;">
+            <p style="text-align: center; line-height: 1.15;">
+              <strong><span style="font-size: 30px;">${sellItemDTO.itemName}</span></strong>
+              <strong><span style="font-size: 30px;"> 위치 :D</span></strong></p>
+          </div>	
+          <div id="map" style="width:100%; height:400px; margin-bottom: 50px;">
+          </div>
+          <!-- map end -->
+        </div>    
       <div class="tab-pane fade" role="tabpanel" id="rv">
       <table class="table" id="review">
         
@@ -720,6 +900,7 @@
   <!-- footer end -->
 </section>
 
+   <!-- script start -->
 
 <!-- kakao 길 찾기 -->
 <script src="/resources/JS/map/map.js"></script>

@@ -84,4 +84,3 @@
   <!-- Template Main JS File -->
   <script src="/resources/assets/js/main.js"></script>
   <script src="/resources/JS/sellHeader.js"></script>
-  <script src="/resources/JS/test.js"></script>

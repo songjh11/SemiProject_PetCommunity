@@ -707,7 +707,7 @@ public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 			ModelAndView mv = new ModelAndView();
 			mv.addObject("purchaseList", purchaseCancel);
 			mv.addObject("what","Purchase Cancel List");
-			mv.setViewName("member/follow");
+			mv.setViewName("member/list");
 			for(PurchaseDTO c: purchaseCancel) {
 				System.out.println(c.getImp_uid());
 			}

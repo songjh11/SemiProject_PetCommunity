@@ -43,7 +43,7 @@ pageEncoding="UTF-8"%>
         <form action="./login" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data"  id="loginfrm">
           <div class="row gy-4">
             <div class="col-lg-8 col-md-12">
-              <input type="text" name="userId" class="form-control" placeholder="User ID"id="userId">
+              <input type="text" name="userId" class="form-control" placeholder="User ID" id="userId">
               <div class="validate"></div>
             </div>
             <div class="col-lg-8 col-md-12">
@@ -71,25 +71,6 @@ pageEncoding="UTF-8"%>
 <!-- footer start -->
 <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
 <!-- footer end -->
-
-<!-- script start -->
-<a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-<div id="preloader"></div>
-
-<!-- Vendor JS Files -->
-<script src="/resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/resources/assets/vendor/aos/aos.js"></script>
-<script src="/resources/assets/vendor/glightbox/js/glightbox.min.js"></script>
-<script src="/resources/assets/vendor/purecounter/purecounter_vanilla.js"></script>
-<script src="/resources/assets/vendor/swiper/swiper-bundle.min.js"></script>
-<script src="/resources/assets/vendor/php-email-form/validate.js"></script>
-
-<!-- Template Main JS File -->
-<script src="/resources/assets/js/main.js"></script>
-
-<!-- daum 지도 검색 api -->  
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script src="/resources/JS/login.js"></script>
 

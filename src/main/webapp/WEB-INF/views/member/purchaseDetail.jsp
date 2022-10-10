@@ -15,25 +15,6 @@
     <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link href="/resources/assets/img/favicon.png" rel="icon">
-  <link href="/resources/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="/resources/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/resources/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="/resources/assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="/resources/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="/resources/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="/resources/assets/css/main.css" rel="stylesheet">
-
   <!-- jQuery -->
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
   <!-- iamport.payment.js -->
@@ -215,17 +196,6 @@
  <!-- footer start -->
  <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
  <!-- footer end -->
-
- <!-- Vendor JS Files -->
- <script src="/resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
- <script src="/resources/assets/vendor/aos/aos.js"></script>
- <script src="/resources/assets/vendor/glightbox/js/glightbox.min.js"></script>
- <script src="/resources/assets/vendor/purecounter/purecounter_vanilla.js"></script>
- <script src="/resources/assets/vendor/swiper/swiper-bundle.min.js"></script>
- <script src="/resources/assets/vendor/php-email-form/validate.js"></script>
-
- <!-- Template Main JS File -->
-  <script src="/resources/assets/js/main.js"></script>
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="

@@ -1571,5 +1571,63 @@ boardlist.addEventListener("click", function(event){
 
 
 function getSellItem(){
-    
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST","./purchaselist");
+    xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xhttp.send("userId="+ui+"&purchaseStatus="+ps);
+    xhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            let result = JSON.parse(xhttp.responseText.trim());
+
+            boardlist.innerHTML = "";
+
+            
+            let row = document.createElement("div");
+            row.setAttribute("class","row gy-4");
+            
+            for(let i = 0 ; i<result.length; i++){
+                let div = document.createElement("div");
+                div.setAttribute("class","col-lg-4 col-md-6 d-flex align-items-stretch");
+                div.setAttribute("data-aos","fade-up");
+                div.setAttribute("data-aos-delay",'100');
+
+                let div1 = document.createElement("div");
+                div1.setAttribute("class","chef-member");
+
+                let div2 = document.createElement("div");
+                div2.setAttribute("class","member-img");
+                // div2.setAttribute("style","border: 1px solid gold; float: left; width: 50%;")
+
+                let img1 = document.createElement("img");
+                img1.setAttribute("src","/resources/upload/sellfile/"+result[i].fileDTOs[0].fileName);
+
+                // let div3 = document.createElement("div");
+                // div3.setAttribute("class","social");
+
+                let div4 = document.createElement("div");
+                div4.setAttribute("class","member-info");
+                // div4.setAttribute("style","border: 1px solid gold; float: right; width: 50%;")
+                let h4 = document.createElement("h4");
+                let text = document.createTextNode("상품이름 : "+ result[i].itemDTO.itemName);
+                console.log(result[i].itemDTO.itemName);
+                h4.appendChild(text);
+                div4.appendChild(h4);
+                let span = document.createElement("span");
+                text = document.createTextNode("결제금액 : " + result[i].amount);
+                span.appendChild(text);
+                div4.appendChild(span);
+
+                div2.appendChild(img1);
+                div1.appendChild(div2);
+                div1.appendChild(div4);
+                div.appendChild(div1);
+
+                row.appendChild(div);
+            }
+            boardlist.appendChild(row);
+            
+            
+            btn.click();
+        }
+    }
 }

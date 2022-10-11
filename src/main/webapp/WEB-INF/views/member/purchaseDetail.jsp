@@ -95,17 +95,16 @@
           font-family: 'Roboto', sans-serif;
         }
         
-.tableWrapper{
-  border: 3px solid pink;
-  opacity: 0.8;
-  border-radius: 10px;
-}
+        .tableWrapper{
+          border-top: 15px solid #ec2727;
+          opacity: 0.8;
+          border-radius: 10px;
+        }
 
-.t{
-  overflow: hidden;
-  width: 100%;
-  border-radius: 10px;
-}
+        .t{
+          overflow: hidden;
+          width: 100%;
+        }
 
         .t>tbody>tr:nth-child(2n-1){
           background-color: antiquewhite;
@@ -113,6 +112,10 @@
 
         .t>tbody>tr{
           border-bottom: 1px solid rgba(0,0,0,0.4);
+        }
+
+        .t>tbody>tr>td{
+          padding: 15px;
         }
 
         .t>tbody>tr:last-child{
@@ -128,11 +131,12 @@
     <c:import url="/WEB-INF/views/template/header.jsp"></c:import>
     <!-- header end -->
   </div>
+
   <div style="display: flex; justify-content: center;">  
       <form action="purchaseDelete" method="post">
           <section class="mainSection">
             <div class="mainContents row gy-1">
-              <div class="section-header">
+              <div class="section-header" style="margin-top: 50px;">
                 <c:choose>
                   <c:when test="${check.purchaseStatus eq 1}">
                     <p><span>결제 상세 내역</span><p>
@@ -152,30 +156,33 @@
                     <tbody>
                       <tr>
                         <td colspan="2">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase" viewBox="0 0 16 16">
-                          <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z"></path>
-                          </svg>
+                          <i class="bi bi-shop"></i>
                           <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>판매자명</strong></span>
-                          <p style="margin-top: 3px;"><span><h5>${check.itemDTO.userId}</h5></span></p></td>
+                          <p style="margin-top: 3px;"><span><h5>${check.itemDTO.userId}</h5></span></p>
+                        </td>
                       </tr>
                       <tr>
                         <td colspan="2">
                           <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>주문자명</strong></span>
-                          <p style="margin-top: 3px;"><span><h5>${check.memberDTO.userName}</h5></span></p></td>
+                          <p style="margin-top: 3px;"><span><h5>${check.memberDTO.userName}</h5></span></p>
+                        </td>
                       </tr>
                       <tr>
                         <td colspan="2">
                           <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>주문명</strong></span>
-                          <p style="margin-top: 3px;"><span><h5>${check.itemDTO.itemName}</h5></span></p></td>
+                          <p style="margin-top: 3px;"><span><h5>${check.itemDTO.itemName}</h5></span></p>
+                        </td>
                       </tr>
                       <tr>
                         <td>
                           <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>예약 인원 수</strong></span>
-                          <p style="margin-top: 3px;"><span><h5>${check.adultsCount}</h5></span></p></td>
+                          <p style="margin-top: 3px;"><span><h5>${check.adultsCount}</h5></span></p>
+                        </td>
                         </td> 
                         <td>
                           <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>예약 반려견 수</strong></span>
-                          <p style="margin-top: 3px;"><span><h5>${check.dogCount}</h5></span></p></td>
+                          <p style="margin-top: 3px;"><span><h5>${check.dogCount}</h5></span></p>
+                        </td>
                         </td> 
                     </tr>
                     <c:choose>
@@ -183,14 +190,16 @@
                         <tr>
                           <td colspan="2">
                             <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>환불 금액</strong></span>
-                            <p style="margin-top: 3px;"><span><h5>${check.amount} 원</h5></span></p></td>
+                            <p style="margin-top: 3px;"><span><h5>${check.amount} 원</h5></span></p>
+                          </td>
                         </tr>
                       </c:when>
                       <c:when test="${check.purchaseStatus eq 1}">
                         <tr>
                           <td colspan="2">
                             <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>결제 금액</strong></span>
-                            <p style="margin-top: 3px;"><span><h5>${check.amount} 원</h5></span></p></td>
+                            <p style="margin-top: 3px;"><span><h5>${check.amount} 원</h5></span></p>
+                          </td>
                         </tr>
                       </c:when>
                     </c:choose>

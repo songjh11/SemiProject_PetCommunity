@@ -124,7 +124,7 @@
       <!-- .navbar -->
 
  <!--로그인 성공했을 때-->
- <div> 
+ <div style="display: flex; align-items: center;"> 
   <c:if test="${not empty sessionScope.member}">
   <h5 style="color: gray; font-size: smaller;">${sessionScope.member.userName}님<br>환영합니다!</h5>
   <a class="btn-book-a-table" href="/member/mypage">Mypage</a>
@@ -143,9 +143,13 @@
   </c:if>
   <!-- 로그인 실패했을 때 -->
   <c:if test="${empty sessionScope.member}">
-    <h8>원활한 이용을 위해<br> 로그인해주세요</h8>
-    <a class="btn-book-a-table" href="/member/login">Login</a>
-    <a class="btn-book-a-table" href="/member/role">Join</a>
+    <div>
+      <h8>원활한 이용을 위해<br> 로그인해주세요</h8>
+    </div>
+    <div>
+      <a class="btn-book-a-table" href="/member/login">Login</a>
+      <a class="btn-book-a-table" href="/member/role">Join</a>
+    </div>
     </c:if>
 </div>          
 <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>

@@ -67,7 +67,7 @@
     <!-- header start -->
     <c:import url="/WEB-INF/views/template/header.jsp"></c:import>
     <!-- header end -->
-</div>
+  </div>
 
     <!-- ======= List Section ======= -->
 

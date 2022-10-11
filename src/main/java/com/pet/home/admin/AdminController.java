@@ -142,7 +142,8 @@ public class AdminController {
 	@GetMapping("sharinglist")
 	@ResponseBody
 	public Map<String, Object> getMemberBoardList(MemberDTO memberDTO, Pager pager) throws Exception{
-		pager.setSearch(memberDTO.getUserId());
+		memberDTO= memberDAO.getMyPage(memberDTO);
+		pager.setSearch(memberDTO.getUserName());
 		List<SharingDTO> sharing = adminService.getMemberSharingList(pager);
 		
 		Map<String, Object> map = new HashMap<String, Object>();

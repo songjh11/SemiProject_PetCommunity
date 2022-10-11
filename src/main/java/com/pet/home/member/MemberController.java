@@ -605,7 +605,6 @@ public class MemberController {
 				// User 오브젝트 : username, password, email
 				MemberDTO memberDTO = new MemberDTO();
 				memberDTO.setUserId(kakaoProfile.getId().toString());
-				memberDTO.setEmail(kakaoProfile.getKakao_account().getEmail());
 				memberDTO.setUserName(kakaoProfile.getProperties().getNickname());
 				memberDTO.setRoleNum(2);
 				memberDTO.setAgValue(1);

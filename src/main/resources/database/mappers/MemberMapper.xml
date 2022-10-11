@@ -18,13 +18,13 @@ SELECT M.USERNAME, M.USERID, M.EMAIL, M.PHONE, M.ROLENUM, R.ROLENAME
 </select>
 
 <select id="getKakaoLogin" parameterType="MemberDTO" resultMap="getLoginResult" >
-SELECT M.USERNAME, M.USERID, M.EMAIL, M.ROLENUM
+SELECT M.USERNAME, M.USERID, M.ROLENUM
 		FROM MEMBER WHERE USERID=#{userId}
 </select>
 
 <insert id="setKakao" parameterType="MemberDTO">	 
-INSERT INTO member (USERID,ROLENUM,USERNAME,EMAIL)
-VALUES (#{userId},#{roleNum},#{userName},#{email})
+INSERT INTO member (USERID,ROLENUM,USERNAME)
+VALUES (#{userId},#{roleNum},#{userName})
 </insert>
 
 <select id="getKakaoCount" parameterType="MemberDTO" resultType="Integer">

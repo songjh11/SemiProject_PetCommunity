@@ -39,7 +39,7 @@
 		      ON M.USERID = MF.USERID
 	</select>
 	<!-- 2. 사업자 -->
-	<select id="getAllBizmen" parameterType="Pager" resultType="MemberDTO">
+	<select id="getAllBizmen" parameterType="Pager" resultType="BizmemDTO">
 		SELECT * FROM
 		(SELECT ROWNUM R , BI.* FROM
 		(SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.DEADDRESS, M.ITEMZIPCODE, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, B.ITEMCATG, B.ITEMID

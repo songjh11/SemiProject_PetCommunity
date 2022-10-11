@@ -22,8 +22,8 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
   <!-- iamport.payment.js -->
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-
-  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e46b315f965ac58fabe9c3e350d385de&libraries=services"></script>
+  <!-- kakao Map -->
+  <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=e46b315f965ac58fabe9c3e350d385de&libraries=services"></script>
 
   <style>
     .crq{
@@ -108,7 +108,7 @@
           margin: 15px;
           border: 2px; 
           border-style: solid;
-          border-color: #ffc21e;
+          border-color: #ec2727;
           border-radius: 10px;
           align-items: stretch; 
           justify-content: center; 
@@ -132,7 +132,7 @@
           margin-bottom: 15px;
           border: 5px solid transparent;
           border-radius: 20px;
-          background-image: linear-gradient(#444444, #444444), linear-gradient(to right, #fbfcb9be, #ffcdf3aa, #65d3ffaa);
+          background-image: linear-gradient(#444444, #444444), linear-gradient(to right, #fbfcb9be, #ffcdcdaa, #ffa365aa);
           background-origin: border-box;
           background-clip: content-box, border-box;
           width: 80%;
@@ -724,6 +724,7 @@
         </li>
       </ul>
       <div id="myTabContent" class="tab-content">
+        <!-- iContents Tab -->
         <div class="tab-pane fade show active" id="iContents" role="tabpanel">
           <br>
           <button style="display: none;"></button>
@@ -737,22 +738,22 @@
             <div class="table-responsive">
               <table class="noBorder _table_responsive table" style="width: 100%;">
                 <tbody>
-                  <tr style="border-bottom:1px solid #ffc21e;">
+                  <tr style="border-bottom:1px solid #ec2727;">
                     <td style="width: 16.6667%; text-align: center; padding: 17px;">
                     <span style="color: rgb(0, 0, 0);">
                       <strong>
-                        <span style="background-color: rgb(255, 194, 30); padding: 12px 20px 10px; border-radius: 100px; font-size: 16px;">&nbsp; &nbsp; &nbsp; &nbsp; 분류&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></strong></span>
+                        <span style="border-color: #ec2727; padding: 12px 20px 10px; border-radius: 100px; border-width: 2px; border-style: solid; font-size: 16px;">&nbsp; &nbsp; &nbsp; &nbsp; 분류&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></strong></span>
                       </td>
                       <td style="width: 34.0295%; text-align: center; padding: 17px;">
                         <span style="color: rgb(0, 0, 0);">
                           <strong>
-                            <span style="background-color: rgb(255, 194, 30); padding: 12px 20px 10px; border-radius: 100px; font-size: 16px;">
+                            <span style="border-color: #ec2727; padding: 12px 20px 10px; border-radius: 100px; border-width: 2px; border-style: solid; font-size: 16px;">
                               <strong>&nbsp; &nbsp; &nbsp; 이용료&nbsp; &nbsp; &nbsp;&nbsp;</strong></span></strong></span>
                       </td>
                       <td style="width: 33.4152%; text-align: center; padding: 17px;">
                         <span style="color: rgb(0, 0, 0);">
                           <strong>
-                            <span style="background-color: rgb(255, 194, 30); padding: 12px 20px 10px; border-radius: 100px; font-size: 16px;">&nbsp; &nbsp; &nbsp; &nbsp; 비고&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span>
+                            <span style="border-color: #ec2727; padding: 12px 20px 10px; border-radius: 100px; border-width: 2px; border-style: solid; font-size: 16px;">&nbsp; &nbsp; &nbsp; &nbsp; 비고&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span>
                           </strong>
                         </span>
                       </td>
@@ -794,64 +795,160 @@
          <!-- contents Side -->
           <div>
             <main style="width: 100%; display: flex; flex-direction: column; margin-bottom: 50px;">
-            <div style="border-width: 0px 0px 3px 0px; border-style: solid; border-color: #ffc21e; margin-top: 40px;">
+            <div style="border-width: 0px 0px 2px 0px; border-style: solid; border-color: #ec2727; margin-top: 40px;">
               <p style="text-align: center; line-height: 1.15;">
                 <strong><span style="font-size: 30px;">${sellItemDTO.itemName}</span></strong>
                 <strong><span style="font-size: 30px;">소개 :D</span></strong></p>
-              </div>	
-              <div class="item_container" style="margin-top: 30px;">
-                <div class="itemBox">
-                  <div class="titleBox">
-                    <h4><span style="letter-spacing:-1px;"><i class="bi bi-controller"></i> 넓은 실내운동장</span></h4>
-                      <p><br></p>
-                  </div>
-                  <div class="contentsBox">
-                    <h8><span style="letter-spacing:-1px;">• 날씨 상관없이 <br>마음껏 뛰어 놀 수 있는 <br>100평 규모의
-                      <br>넓은 실내운동장</span></h8>
-                      <p><br></p>
-                  </div>
-                </div>  
-                <div class="itemBox">
+              </div>
+            <c:choose>
+              <%-- hotelling --%>
+              <c:when test="${sellItemDTO.itemCatg eq 1}">
+                <div class="item_container" style="margin-top: 30px;">
+                  <div class="itemBox">
                     <div class="titleBox">
-                      <h4><span style="letter-spacing:-1px;"><i class="bi bi-controller"></i> 보호자와 함께</span></h4>
+                      <h4><span style="letter-spacing:-1px;"><i class="bi bi-building"></i> 넉넉한 넓이의 실내 공간</span></h4>
                         <p><br></p>
                     </div>
                     <div class="contentsBox">
-                      <h8><span style="letter-spacing:-1px;">• 보호자와 함께 <br>다양한 놀거리로<br> 재미와 추억을 <br>만들 수
-                        있어요.</span></h8>
+                      <h8><span style="letter-spacing:-1px;">• 답답한 실내공간이 아닌<br> 넓은 공간에서 <br>놀이 및 배변활동 가능</span></h8>
+                        <p><br></p>
+                    </div>
+                  </div>  
+                  <div class="itemBox">
+                      <div class="titleBox">
+                        <h4><span style="letter-spacing:-1px;"><i class="bi bi-building"></i> 데일리 수의사 회진</span></h4>
+                          <p><br></p>
+                      </div>
+                      <div class="contentsBox">
+                        <h8><span style="letter-spacing:-1px;">• 데일리 수의사 회진으로<br> 아이 상태도<br> 꼼꼼하게 체크!</span></h8>
+                          <p><br></p>
+                      </div>  
+                  </div>
+                  <div class="itemBox">
+                    <div class="titleBox">
+                      <h4><span style="letter-spacing:-1px;"><i class="bi bi-building"></i> 24시간 전문가 상주</span></h4>
+                          <p><br></p>
+                    </div>
+                    <div class="contentsBox">
+                      <h8><span style="letter-spacing:-1px;">• 24시간 전문가 상주를<br> 통한 밀착 안심케어</h8>
                         <p><br></p>
                     </div>  
-                </div>
-                <div class="itemBox">
-                  <div class="titleBox">
-                    <h4><span style="letter-spacing:-1px;"><i class="bi bi-controller"></i> 특수 바닥재</span></h4>
+                  </div>
+                  <div class="itemBox">
+                    <div class="titleBox">
+                      <h4><span style="letter-spacing:-1px;"><i class="bi bi-building"></i> 안전한 산책 공간</span></h4>
+                      <p><br></p>
+                    </div>
+                    <div class="contentsBox">
+                      <h8><span style="letter-spacing:-1px;">• 안전한 산책 공간을<br> 활용한 <br>야외 배변 활동</h8>
                         <p><br></p>
-                  </div>
-                  <div class="contentsBox">
-                    <h8><span style="letter-spacing:-1px;">• 반려견의 건강을 생각한 <br>특수 바닥재로 <br>미끄러움 걱정이
-                      <br>없어요.</h8>
-                      <p><br></p>
                   </div>  
-                </div>
-                <div class="itemBox">
-                  <div class="titleBox">
-                    <h4><span style="letter-spacing:-1px;"><i class="bi bi-controller"></i> 전문 교육가 상주</span></h4>
-                    <p><br></p>
                   </div>
-                  <div class="contentsBox">
-                    <h8><span style="letter-spacing:-1px;">• 교육 전문가가 상주해 <br>안전하고 유익한 <br>놀이 환경
-                      제공해요!</h8>
+                </div>                 
+              </c:when>
+              <%-- oneday --%>
+              <c:when test="${sellItemDTO.itemCatg eq 2}">
+                <div class="item_container" style="margin-top: 30px;">
+                  <div class="itemBox">
+                    <div class="titleBox">
+                      <h4><span style="letter-spacing:-1px;"><i class="bi bi-pencil-square"></i> 쿠킹 클래스</span></h4>
+                        <p><br></p>
+                    </div>
+                    <div class="contentsBox">
+                      <h8><span style="letter-spacing:-1px;">• 전문가와 함께 하는<br> 반려견 수제간식 쿠킹 클래스!</span></h8>
+                        <p><br></p>
+                    </div>
+                  </div>  
+                  <div class="itemBox">
+                      <div class="titleBox">
+                        <h4><span style="letter-spacing:-1px;"><i class="bi bi-pencil-square"></i> 미용 클래스</span></h4>
+                          <p><br></p>
+                      </div>
+                      <div class="contentsBox">
+                        <h8><span style="letter-spacing:-1px;">• 스포팅, 가위컷, 전신클리핑 등<br> 반려견 특성에 맞는 미용</span></h8>
+                          <p><br></p>
+                      </div>  
+                  </div>
+                  <div class="itemBox">
+                    <div class="titleBox">
+                      <h4><span style="letter-spacing:-1px;"><i class="bi bi-pencil-square"></i> 스파 클래스</span></h4>
+                          <p><br></p>
+                    </div>
+                    <div class="contentsBox">
+                      <h8><span style="letter-spacing:-1px;">• 피부/헤어의 특성을<br> 고려하여 진행</h8>
+                        <p><br></p>
+                    </div>  
+                  </div>
+                  <div class="itemBox">
+                    <div class="titleBox">
+                      <h4><span style="letter-spacing:-1px;"><i class="bi bi-pencil-square"></i> 최고의 교육 전문가</span></h4>
                       <p><br></p>
-                </div>  
-                </div>
-              </div>  
+                    </div>
+                    <div class="contentsBox">
+                      <h8><span style="letter-spacing:-1px;">• 시작부터 끝까지,<br> 교육전문가가 집중 전담 마크하여<br> 보호자의 올바른 학습방향을 
+                        <br> 이끕니다.</h8>
+                        <p><br></p>
+                  </div>  
+                  </div>
+                </div>                 
+              </c:when>
+              <%-- training --%>
+              <c:when test="${sellItemDTO.itemCatg eq 3}">
+                <div class="item_container" style="margin-top: 30px;">
+                  <div class="itemBox">
+                    <div class="titleBox">
+                      <h4><span style="letter-spacing:-1px;"><i class="bi bi-controller"></i> 넓은 실내운동장</span></h4>
+                        <p><br></p>
+                    </div>
+                    <div class="contentsBox">
+                      <h8><span style="letter-spacing:-1px;">• 날씨 상관없이 <br>마음껏 뛰어 놀 수 있는 <br>100평 규모의
+                        <br>넓은 실내운동장</span></h8>
+                        <p><br></p>
+                    </div>
+                  </div>  
+                  <div class="itemBox">
+                      <div class="titleBox">
+                        <h4><span style="letter-spacing:-1px;"><i class="bi bi-controller"></i> 보호자와 함께</span></h4>
+                          <p><br></p>
+                      </div>
+                      <div class="contentsBox">
+                        <h8><span style="letter-spacing:-1px;">• 보호자와 함께 <br>다양한 놀거리로<br> 재미와 추억을 <br>만들 수
+                          있어요.</span></h8>
+                          <p><br></p>
+                      </div>  
+                  </div>
+                  <div class="itemBox">
+                    <div class="titleBox">
+                      <h4><span style="letter-spacing:-1px;"><i class="bi bi-controller"></i> 특수 바닥재</span></h4>
+                          <p><br></p>
+                    </div>
+                    <div class="contentsBox">
+                      <h8><span style="letter-spacing:-1px;">• 반려견의 건강을 생각한 <br>특수 바닥재로 <br>미끄러움 걱정이
+                        <br>없어요.</h8>
+                        <p><br></p>
+                    </div>  
+                  </div>
+                  <div class="itemBox">
+                    <div class="titleBox">
+                      <h4><span style="letter-spacing:-1px;"><i class="bi bi-controller"></i> 전문 교육가 상주</span></h4>
+                      <p><br></p>
+                    </div>
+                    <div class="contentsBox">
+                      <h8><span style="letter-spacing:-1px;">• 교육 전문가가 상주해 <br>안전하고 유익한 <br>놀이 환경
+                        제공해요!</h8>
+                        <p><br></p>
+                  </div>  
+                  </div>
+                </div>                 
+              </c:when>
+            </c:choose>  	
             </main>  
           </div>
           <!-- contents end -->
 
           <!-- image Side -->
           <div class="imgSide">
-            <div style="border-width: 0px 0px 3px 0px; border-style: solid; border-color: #ffc21e; margin-top: 40px; margin-bottom: 40px; width: 100%;">
+            <div style="border-width: 0px 0px 2px 0px; border-style: solid; border-color: #ec2727; margin-top: 40px; margin-bottom: 40px; width: 100%;">
               <p style="text-align: center; line-height: 1.15;">
                 <strong><span style="font-size: 30px;">${sellItemDTO.itemName}</span></strong>
                 <strong><span style="font-size: 30px;">사진 :D</span></strong></p>
@@ -864,15 +961,16 @@
           </div>
           <!-- image end -->
           <!-- map Side -->
-          <div style="border-width: 0px 0px 3px 0px; border-style: solid; border-color: #ffc21e; margin-top: 40px; margin-bottom: 40px;">
+          <div style="border-width: 0px 0px 2px 0px; border-style: solid; border-color: #ec2727; margin-top: 40px; margin-bottom: 40px;">
             <p style="text-align: center; line-height: 1.15;">
               <strong><span style="font-size: 30px;">${sellItemDTO.itemName}</span></strong>
               <strong><span style="font-size: 30px;"> 위치 :D</span></strong></p>
           </div>	
-          <div id="map" style="width:100%; height:400px; margin-bottom: 50px;">
+          <div id="map" style="width:100%; height:500px; margin-bottom: 30px;">
           </div>
           <!-- map end -->
         </div>    
+        <!-- iContents Tab end -->
       <div class="tab-pane fade" role="tabpanel" id="rv">
       <table class="table" id="review">
         

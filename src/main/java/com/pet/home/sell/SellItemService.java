@@ -468,5 +468,9 @@ public class SellItemService {
 		return token;
 	}
 
+	//메인 리스트 출력
+	public List<SellItemDTO> getPurchaseListtoMain() throws Exception {
+		return itemDAO.getPurchaseListtoMain();
+	}
 }
 	

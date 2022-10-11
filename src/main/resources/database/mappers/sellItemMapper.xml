@@ -136,6 +136,23 @@
 		SELECT ITEMADDRESS FROM SELLITEM WHERE ITEMNUM = #{itemNum}
 	</select>
 	
+	<select id="getPurchaseListtoMain" resultMap="getPurchaseListtoMainResult">
+		SELECT * FROM SELLITEM SI
+	        INNER JOIN        
+	        (SELECT ROWNUM R, ITEM.*
+			        FROM (SELECT ITEMNUM, COUNT(ITEMNUM) mycount 
+			        FROM PURCHASE 
+			        WHERE PURCHASESTATUS = 1
+			        GROUP BY ITEMNUM
+			        ORDER BY mycount DESC) ITEM
+			    <![CDATA[WHERE ROWNUM <4]]>) CI
+	        ON SI.ITEMNUM = CI.ITEMNUM
+		        INNER JOIN
+		        SELLFILE SF
+		        ON SI.ITEMNUM = SF.ITEMNUM
+		ORDER BY SI.ITEMNUM DESC        
+	</select>
+	
 	
 	<resultMap type="SellItemDTO" id="getItemResult">
 		<id column="ITEMNUM" property="itemNum"/>
@@ -148,6 +165,37 @@
 		<result column="ITEMADDRESS" property="itemAddress"/>
 		<result column="ITEMDEADDRESS" property="itemDeAddress"/>
 		<result column="ITEMCATG" property="itemCatg"/>
+			<collection property="fileDTOs" javaType="List" ofType="sellFileDTO">
+				<id column="PHOTONUM" property="photoNum"></id>
+				<result column="FILENAME" property="fileName"/>
+				<result column="ORINAME" property="oriName"/>
+			</collection>
+	</resultMap>
+	
+	<resultMap type="SellItemDTO" id="getPurchaseListtoMainResult">
+		<id column="ITEMNUM" property="itemNum"/>
+		<result column="USERID" property="userId"/>
+		<result column="ITEMNAME" property="itemName"/>
+		<result column="ITEMPRICE" property="itemPrice"/>
+		<result column="ITEMCONTENTS" property="itemContents"/>
+		<result column="ITEMSELLDATE" property="itemSellDate"/>
+		<result column="ITEMZIPCODE" property="itemZipCode"/>
+		<result column="ITEMADDRESS" property="itemAddress"/>
+		<result column="ITEMDEADDRESS" property="itemDeAddress"/>
+		<result column="ITEMCATG" property="itemCatg"/>
+			<collection property="purchaseDTO" javaType="List" ofType="PurchaseDTO">
+				<id column="IMP_UID" property="imp_uid"/>
+				<result column="MERCHANT_UID" property="merchant_uid"/>
+				<result column="ITEMNUM" property="itemNum"/>
+				<result column="AMOUNT" property="amount"/>
+				<result column="USERID" property="userId"/>
+				<result column="REVSTARTDATE" property="revStartDate"/>
+				<result column="REVENDDATE" property="revEndDate"/>
+				<result column="ADULTSCOUNT" property="adultsCount"/>
+				<result column="DOGCOUNT" property="dogCount"/>
+				<result column="PURCHASEDATE" property="purchaseDate"/>
+				<result column="PURCHASESTATUS" property="purchaseStatus"/>
+			</collection>
 			<collection property="fileDTOs" javaType="List" ofType="sellFileDTO">
 				<id column="PHOTONUM" property="photoNum"></id>
 				<result column="FILENAME" property="fileName"/>

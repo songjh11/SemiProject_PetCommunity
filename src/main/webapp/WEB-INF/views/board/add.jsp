@@ -43,7 +43,6 @@
 			<form action="add" method="post" enctype="multipart/form-data">
 				 
 			<div class="mb-3">
-		
 		  		<input type="text" class="form-control" id="writer" name="writer" style="display: none;" value="${sessionScope.member.userName}">
 			</div>
 			<div class="mb-3">

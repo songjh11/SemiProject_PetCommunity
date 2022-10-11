@@ -120,9 +120,19 @@ public class AdminController {
 	@PostMapping("deletemember")
 	@ResponseBody
 	public int setMemberDelete(MemberDTO memberDTO) throws Exception{
-		int result = memberDAO.setMemDelete(memberDTO);
+		int result = memberDAO.setBlock(memberDTO);
 		return result;
 	}
+	
+	@PostMapping("unblockmember")
+	@ResponseBody
+	public int setMemberUnblock(MemberDTO memberDTO) throws Exception{
+		int result = memberDAO.setUnBlock(memberDTO);
+		return result;
+	}
+	
+	
+	
 	//멤버 등급부여
 	public void setUpdateMember() throws Exception{
 		

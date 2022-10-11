@@ -78,6 +78,7 @@
                     <section id="menu" class="menu">
                       <div class="section-header">
                         <p><span>${category.categoryName}</span><p>
+                          <input type="hidden" value="${pager.itemCatg}">
                        </div>
                        <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
                         <li class="nav-item">

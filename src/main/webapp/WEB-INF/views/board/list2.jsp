@@ -46,9 +46,10 @@
         </div>
         <div class="mb-3">
           <a href="./add" class="btn btn-primary">새 글 작성하기</a>
-        </div> 
-        <div class="row gy-4">
-		<c:forEach items="${list}" var="dto">
+        </div>
+
+      <div class="row gy-4">
+		    <c:forEach items="${list}" var="dto">
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100" style=" cursor: pointer;" onclick="location.href='./detail?num=${dto.num}';">
             <div class="chef-member">
               <div class="member-img">
@@ -64,12 +65,14 @@
                 <h4>${dto.title}</h4>
                 <span>${dto.regDate}</span>
                 <p>by ${dto.writer}</p>
+                <img src="/resources/images/comment.png" style="width : 30px; height : 30px; " alt=""><span>${dto.count}</span>
               </div>
             </div>
           </div><!-- 글 리스트 -->
-
-		</c:forEach>
-        </div>
+          
+        </c:forEach>
+       
+      </div>
 
       </div>
     </section><!-- End Chefs Section -->

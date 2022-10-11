@@ -26,7 +26,10 @@
 			</div>
 		  </div><!-- End Breadcrumbs -->
 	<div class="row">
-		<h3>발행 쿠폰 목록</h3>
+		<div class="d-flex justify-content-center">
+			<h3 style="color: brown;">발행 쿠폰 목록</h3>
+		</div>
+		<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">쿠폰 발행하기</button>
 		<table class="table">
 			<thead>
 				<tr>
@@ -68,7 +71,6 @@
 
 	<!-- 쿠폰 발행 modal-->
 	<div>
-		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">쿠폰 발행하기</button>
 	
 			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
@@ -111,8 +113,8 @@
 						
 						
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary" id="send" onclick="addCoupon()">Send message</button>
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+							<button type="button" class="btn btn-primary" id="send" onclick="addCoupon()">쿠폰 생성</button>
 						</div>
 	
 						</form>
@@ -135,7 +137,14 @@
 				<tr>
 					<td>${gue.userId}</td>
 					<td>${gue.userName}</td>
-					<td class="deleteMember" data-userId="${gue.userId}" onclick="deleteMember()">차단</td>
+					<c:choose>
+						<c:when test="${gue.block eq '1'}">
+							<td class="unblockMember" data-userId="${gue.userId}" onclick="unblockMember(event)">차단 해제</td>
+						</c:when>
+						<c:otherwise>
+							<td class="deleteMember" data-userId="${gue.userId}" onclick="deleteMember(event)">차단</td>
+						</c:otherwise>
+					</c:choose>
 					<td><button class="btn btn-outline-secondary" onclick="getSharingList('1','${gue.userId}')" data-userId="${gue.userId}">같이해요 작성한 글</button></td>
 					<td><button class="btn btn-outline-secondary" onclick="getQnaList('1','${gue.userId}')" data-userId="${gue.userId}">QnA 작성한 글</button></td>
 					<td><button class="btn btn-outline-secondary" data-userId="${gue.userId}"  onclick="getItemList('1','${gue.userId}','0')">구매 목록</button></td>
@@ -176,9 +185,15 @@
 				<tr>
 					<td>${bizmen.userId}</td>
 					<td>${bizmen.userName}</td>
-					<td class="deleteMember" data-userId="${bizmen.userId}" onclick="deleteMember()">차단</td>
+					<c:choose>
+						<c:when test="${bizmen.block eq '0'}">
+							<td class="deleteMember1" data-userId="${bizmen.userId}" onclick="deleteMember1(event)">차단</td>
+						</c:when>
+						<c:otherwise>
+							<td class="unblockMember1" data-userId="${bizmen.userId}" onclick="unblockMember1(event)">차단 해제</td>
+						</c:otherwise>
+					</c:choose>
 					<td><button class="btn btn-outline-secondary" onclick="getEventList('1','${bizmen.userId}')" data-userId="${bizmen.userId}">이벤트 작성한 글</button></td>
-					<td><button class="btn btn-outline-secondary" onclick="getQnaList('1','${bizmen.userId}')" data-userId="${bizmen.userId}">QnA 작성한 글</button></td>
 					<td><button class="btn btn-outline-secondary" data-userId="${bizmen.userId}" onclick="getSellItem('${bizmen.userId}','${bizmen.itemCatg}')">판매 상품 목록</button></td>
 				</tr>
 				</c:forEach>

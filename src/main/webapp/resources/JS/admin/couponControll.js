@@ -3,7 +3,6 @@ const previous2 = document.getElementById("previous2");
 const next2 = document.getElementById("next2");
 const present2 = document.querySelectorAll(".page-link");
 const tbody2 = document.getElementById("tbody2");
-console.log(tbody2);
 
 next2.addEventListener("click",function(){
     let page = next2.getAttribute("data-page");
@@ -36,16 +35,27 @@ next2.addEventListener("click",function(){
                 td.appendChild(text);
                 tr2.appendChild(td);
 
-                td = document.createElement("td");
-                td.setAttribute("class","deleteMember");
-                td.setAttribute("data-userId", list[i].userId);
-                text = document.createTextNode("추방");
-                td.appendChild(text);
-                tr2.appendChild(td);
+                if(list[i].block == '0'){
+                    td = document.createElement("td");
+                    td.setAttribute("class","deleteMember");
+                    td.setAttribute("onclick","deleteMember()");
+                    td.setAttribute("data-userId", list[i].userId);
+                    text = document.createTextNode("차단");
+                    td.appendChild(text);
+                    tr2.appendChild(td);
+                }else{
+                    td = document.createElement("td");
+                    td.setAttribute("class","unblockMember");
+                    td.setAttribute("onclick","unblockMember()");
+                    td.setAttribute("data-userId", list[i].userId);
+                    text = document.createTextNode("차단 해제");
+                    td.appendChild(text);
+                    tr2.appendChild(td);
+                }
 
                 td = document.createElement("td");
                 let button = document.createElement("button");
-                button.setAttribute("class","memberSharing");
+                button.setAttribute("class","btn btn-outline-secondary");
                 button.setAttribute("data-userId", list[i].userId);
                 button.setAttribute("onclick", "getSharingList('1',"+'"'+userId+'"'+")");
                 text = document.createTextNode("같이해요 작성한글");
@@ -55,7 +65,7 @@ next2.addEventListener("click",function(){
 
                 td = document.createElement("td");
                 button = document.createElement("button");
-                button.setAttribute("class","memberQna");
+                button.setAttribute("class","btn btn-outline-secondary");
                 button.setAttribute("data-userId", list[i].userId);
                 button.setAttribute("onclick", "getQnaList('1',"+'"'+userId+'"'+")");
                 text = document.createTextNode("QnA작성한 글");
@@ -65,7 +75,7 @@ next2.addEventListener("click",function(){
 
                 td = document.createElement("td");
                 button = document.createElement("button");
-                button.setAttribute("class","memberItem");
+                button.setAttribute("class","btn btn-outline-secondary");
                 button.setAttribute("data-userId", list[i].userId);
                 button.setAttribute("onclick", getItemList('1',list[i].userId));
                 text = document.createTextNode("구매목록");
@@ -75,7 +85,7 @@ next2.addEventListener("click",function(){
 
                 td = document.createElement("td");
                 button = document.createElement("button");
-                button.setAttribute("class","memberItem");
+                button.setAttribute("class","btn btn-outline-secondary");
                 button.setAttribute("data-userId", list[i].userId);
                 button.setAttribute("onclick", getDetail(list[i].userId));
                 text = document.createTextNode("회원 상세 프로필");
@@ -128,16 +138,27 @@ try {
                         td.appendChild(text);
                         tr2.appendChild(td);
         
-                        td = document.createElement("td");
-                        td.setAttribute("class","deleteMember");
-                        td.setAttribute("data-userId", list[i].userId);
-                        text = document.createTextNode("추방");
-                        td.appendChild(text);
-                        tr2.appendChild(td);
+                        if(list[i].block == '0'){
+                            td = document.createElement("td");
+                            td.setAttribute("class","deleteMember");
+                            td.setAttribute("onclick","deleteMember()");
+                            td.setAttribute("data-userId", list[i].userId);
+                            text = document.createTextNode("차단");
+                            td.appendChild(text);
+                            tr2.appendChild(td);
+                        }else{
+                            td = document.createElement("td");
+                            td.setAttribute("class","unblockMember");
+                            td.setAttribute("onclick","unblockMember()");
+                            td.setAttribute("data-userId", list[i].userId);
+                            text = document.createTextNode("차단 해제");
+                            td.appendChild(text);
+                            tr2.appendChild(td);
+                        }
         
                         td = document.createElement("td");
                         let button = document.createElement("button");
-                        button.setAttribute("class","memberSharing");
+                        button.setAttribute("class","btn btn-outline-secondary");
                         button.setAttribute("data-userId", list[i].userId);
                         button.setAttribute("onclick", "getSharingList('1',"+'"'+userId+'"'+")");
                         text = document.createTextNode("같이해요 작성한글");
@@ -147,7 +168,7 @@ try {
         
                         td = document.createElement("td");
                         button = document.createElement("button");
-                        button.setAttribute("class","memberQna");
+                        button.setAttribute("class","btn btn-outline-secondary");
                         button.setAttribute("data-userId", list[i].userId);
                         button.setAttribute("onclick", "getQnaList('1',"+'"'+userId+'"'+")");
                         text = document.createTextNode("QnA작성한 글");
@@ -157,7 +178,7 @@ try {
         
                         td = document.createElement("td");
                         button = document.createElement("button");
-                        button.setAttribute("class","memberItem");
+                        button.setAttribute("class","btn btn-outline-secondary");
                         button.setAttribute("data-userId", list[i].userId);
                         button.setAttribute("onclick", getItemList('1',list[i].userId));
                         text = document.createTextNode("구매목록");
@@ -167,7 +188,7 @@ try {
 
                         td = document.createElement("td");
                         button = document.createElement("button");
-                        button.setAttribute("class","memberItem");
+                        button.setAttribute("class","btn btn-outline-secondary");
                         button.setAttribute("data-userId", list[i].userId);
                         button.setAttribute("onclick", getDetail(list[i].userId));
                         text = document.createTextNode("회원 상세 프로필");
@@ -218,16 +239,27 @@ previous2.addEventListener("click",function(){
                 td.appendChild(text);
                 tr2.appendChild(td);
 
-                td = document.createElement("td");
-                td.setAttribute("class","deleteMember");
-                td.setAttribute("data-userId", list[i].userId);
-                text = document.createTextNode("추방");
-                td.appendChild(text);
-                tr2.appendChild(td);
+                if(list[i].block == '0'){
+                    td = document.createElement("td");
+                    td.setAttribute("class","deleteMember");
+                    td.setAttribute("onclick","deleteMember()");
+                    td.setAttribute("data-userId", list[i].userId);
+                    text = document.createTextNode("차단");
+                    td.appendChild(text);
+                    tr2.appendChild(td);
+                }else{
+                    td = document.createElement("td");
+                    td.setAttribute("class","unblockMember");
+                    td.setAttribute("onclick","unblockMember()");
+                    td.setAttribute("data-userId", list[i].userId);
+                    text = document.createTextNode("차단 해제");
+                    td.appendChild(text);
+                    tr2.appendChild(td);
+                }
 
                 td = document.createElement("td");
                 let button = document.createElement("button");
-                button.setAttribute("class","memberSharing");
+                button.setAttribute("class","btn btn-outline-secondary");
                 button.setAttribute("data-userId", list[i].userId);
                 button.setAttribute("onclick", "getSharingList('1',"+'"'+userId+'"'+")");
                 text = document.createTextNode("같이해요 작성한글");
@@ -237,7 +269,7 @@ previous2.addEventListener("click",function(){
 
                 td = document.createElement("td");
                 button = document.createElement("button");
-                button.setAttribute("class","memberQna");
+                button.setAttribute("class","btn btn-outline-secondary");
                 button.setAttribute("data-userId", list[i].userId);
                 button.setAttribute("onclick", "getQnaList('1',"+'"'+userId+'"'+")");
                 text = document.createTextNode("QnA작성한 글");
@@ -247,7 +279,7 @@ previous2.addEventListener("click",function(){
 
                 td = document.createElement("td");
                 button = document.createElement("button");
-                button.setAttribute("class","memberItem");
+                button.setAttribute("class","btn btn-outline-secondary");
                 button.setAttribute("data-userId", list[i].userId);
                 button.setAttribute("onclick", getItemList('1',list[i].userId));
                 text = document.createTextNode("구매목록");
@@ -257,7 +289,7 @@ previous2.addEventListener("click",function(){
 
                 td = document.createElement("td");
                 button = document.createElement("button");
-                button.setAttribute("class","memberItem");
+                button.setAttribute("class","btn btn-outline-secondary");
                 button.setAttribute("data-userId", list[i].userId);
                 button.setAttribute("onclick", getDetail(list[i].userId));
                 text = document.createTextNode("회원 상세 프로필");
@@ -535,16 +567,27 @@ next2.addEventListener("click",function(){
                 td.appendChild(text);
                 tr2.appendChild(td);
 
-                td = document.createElement("td");
-                td.setAttribute("class","deleteMember");
-                td.setAttribute("data-userId", list[i].userId);
-                text = document.createTextNode("추방");
-                td.appendChild(text);
-                tr2.appendChild(td);
+                if(list[i].block == '0'){
+                    td = document.createElement("td");
+                    td.setAttribute("class","deleteMember1");
+                    td.setAttribute("onclick","deleteMember1()");
+                    td.setAttribute("data-userId", list[i].userId);
+                    text = document.createTextNode("차단");
+                    td.appendChild(text);
+                    tr2.appendChild(td);
+                }else{
+                    td = document.createElement("td");
+                    td.setAttribute("class","unblockMember1");
+                    td.setAttribute("onclick","unblockMember1()");
+                    td.setAttribute("data-userId", list[i].userId);
+                    text = document.createTextNode("차단 해제");
+                    td.appendChild(text);
+                    tr2.appendChild(td);
+                }
 
                 td = document.createElement("td");
                 let button = document.createElement("button");
-                button.setAttribute("class","memberEvent");
+                button.setAttribute("class","btn btn-outline-secondary");
                 button.setAttribute("data-userId", list[i].userId);
                 button.setAttribute("onclick", "getEventList('1',"+'"'+userId+'"'+")");
                 text = document.createTextNode("이벤트 작성한 글");
@@ -554,17 +597,7 @@ next2.addEventListener("click",function(){
 
                 td = document.createElement("td");
                 button = document.createElement("button");
-                button.setAttribute("class","memberQna");
-                button.setAttribute("data-userId", list[i].userId);
-                button.setAttribute("onclick", "getBizQnaList('1',"+'"'+userId+'"'+")");
-                text = document.createTextNode("QnA작성한 글");
-                button.appendChild(text);
-                td.appendChild(button);
-                tr2.appendChild(td);
-
-                td = document.createElement("td");
-                button = document.createElement("button");
-                button.setAttribute("class","memberItem");
+                button.setAttribute("class","btn btn-outline-secondary");
                 button.setAttribute("data-userId", list[i].userId);
                 button.setAttribute("onclick", getSellItem(list[i].userId));
                 text = document.createTextNode("판매상품목록");
@@ -617,16 +650,27 @@ try {
                         td.appendChild(text);
                         tr2.appendChild(td);
         
-                        td = document.createElement("td");
-                        td.setAttribute("class","deleteMember");
-                        td.setAttribute("data-userId", list[i].userId);
-                        text = document.createTextNode("추방");
-                        td.appendChild(text);
-                        tr2.appendChild(td);
+                        if(list[i].block == '0'){
+                            td = document.createElement("td");
+                            td.setAttribute("class","deleteMember1");
+                            td.setAttribute("onclick","deleteMember1()");
+                            td.setAttribute("data-userId", list[i].userId);
+                            text = document.createTextNode("차단");
+                            td.appendChild(text);
+                            tr2.appendChild(td);
+                        }else{
+                            td = document.createElement("td");
+                            td.setAttribute("class","unblockMember1");
+                            td.setAttribute("onclick","unblockMember1()");
+                            td.setAttribute("data-userId", list[i].userId);
+                            text = document.createTextNode("차단 해제");
+                            td.appendChild(text);
+                            tr2.appendChild(td);
+                        }
         
                         td = document.createElement("td");
                         let button = document.createElement("button");
-                        button.setAttribute("class","memberEvent");
+                        button.setAttribute("class","btn btn-outline-secondaryt");
                         button.setAttribute("data-userId", list[i].userId);
                         button.setAttribute("onclick", "getEventList('1',"+'"'+userId+'"'+")");
                         text = document.createTextNode("같이해요 작성한글");
@@ -634,19 +678,10 @@ try {
                         td.appendChild(button);
                         tr2.appendChild(td);
         
-                        td = document.createElement("td");
-                        button = document.createElement("button");
-                        button.setAttribute("class","memberQna");
-                        button.setAttribute("data-userId", list[i].userId);
-                        button.setAttribute("onclick", "getBizQnaList('1',"+'"'+userId+'"'+")");
-                        text = document.createTextNode("QnA작성한 글");
-                        button.appendChild(text);
-                        td.appendChild(button);
-                        tr2.appendChild(td);
 
                         td = document.createElement("td");
                         button = document.createElement("button");
-                        button.setAttribute("class","memberItem");
+                        button.setAttribute("class","btn btn-outline-secondary");
                         button.setAttribute("data-userId", list[i].userId);
                         button.setAttribute("onclick", getSellItem(list[i].userId));
                         text = document.createTextNode("판매상품목록");
@@ -697,16 +732,27 @@ previous3.addEventListener("click",function(){
                 td.appendChild(text);
                 tr2.appendChild(td);
 
-                td = document.createElement("td");
-                td.setAttribute("class","deleteMember");
-                td.setAttribute("data-userId", list[i].userId);
-                text = document.createTextNode("추방");
-                td.appendChild(text);
-                tr2.appendChild(td);
+                if(list[i].block == '0'){
+                    td = document.createElement("td");
+                    td.setAttribute("class","deleteMember1");
+                    td.setAttribute("onclick","deleteMember1()");
+                    td.setAttribute("data-userId", list[i].userId);
+                    text = document.createTextNode("차단");
+                    td.appendChild(text);
+                    tr2.appendChild(td);
+                }else{
+                    td = document.createElement("td");
+                    td.setAttribute("class","unblockMember1");
+                    td.setAttribute("onclick","unblockMember1()");
+                    td.setAttribute("data-userId", list[i].userId);
+                    text = document.createTextNode("차단 해제");
+                    td.appendChild(text);
+                    tr2.appendChild(td);
+                }
 
                 td = document.createElement("td");
                 let button = document.createElement("button");
-                button.setAttribute("class","memberEvent");
+                button.setAttribute("class","btn btn-outline-secondary");
                 button.setAttribute("data-userId", list[i].userId);
                 button.setAttribute("onclick", "getEventList('1',"+'"'+userId+'"'+")");
                 text = document.createTextNode("같이해요 작성한글");
@@ -714,19 +760,10 @@ previous3.addEventListener("click",function(){
                 td.appendChild(button);
                 tr2.appendChild(td);
 
-                td = document.createElement("td");
-                button = document.createElement("button");
-                button.setAttribute("class","memberQna");
-                button.setAttribute("data-userId", list[i].userId);
-                button.setAttribute("onclick", "getBizQnaList('1',"+'"'+userId+'"'+")");
-                text = document.createTextNode("QnA작성한 글");
-                button.appendChild(text);
-                td.appendChild(button);
-                tr2.appendChild(td);
 
                 td = document.createElement("td");
                 button = document.createElement("button");
-                button.setAttribute("class","memberItem");
+                button.setAttribute("class","btn btn-outline-secondary");
                 button.setAttribute("data-userId", list[i].userId);
                 button.setAttribute("onclick", getSellItem(list[i].userId));
                 text = document.createTextNode("판매상품목록");
@@ -787,13 +824,14 @@ function deleteCoupon(){
     }
 }
 
-function deleteMember(){
+//개인회원 차단
+function deleteMember(event){
     const deleteMember = document.getElementsByClassName("deleteMember");
     for(let i = 0; i<deleteMember.length; i++){
-    
+        if(event.target.getAttribute("data-userId") == deleteMember[i].getAttribute("data-userId")){
         let userId = deleteMember[i].getAttribute("data-userId");
 
-        let check = window.confirm("추방하시겠습니까?");
+        let check = window.confirm("차단 하시겠습니까?");
         if(!check){
             return;
         }
@@ -806,19 +844,125 @@ function deleteMember(){
             if(this.readyState == 4 && this.status == 200){
                 let result = xhttp.responseText.trim();
                 if(result == '1'){
-                    alert("추방 성공");
+                    alert("차단 성공");
                     location.reload();
                     return;
                 }else{
-                    alert("추방 실패");
+                    alert("차단 실패");
                     return;
                 }
             }
         }
         return;
-    
+    }
     }
 }
+
+//개인회원 차단 해제
+function unblockMember(event){
+    const unblockMember = document.getElementsByClassName("unblockMember");
+    for(let i = 0; i<unblockMember.length; i++){
+        if(event.target.getAttribute("data-userId") == unblockMember[i].getAttribute("data-userId")){
+        let userId = unblockMember[i].getAttribute("data-userId");
+
+        let check = window.confirm("차단 해제 하시겠습니까?");
+        if(!check){
+            return;
+        }
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("POST","./unblockmember");
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("userId="+userId);
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                let result = xhttp.responseText.trim();
+                if(result == '1'){
+                    alert("차단 해제 완료");
+                    location.reload();
+                    return;
+                }else{
+                    alert("차단 해제 실패");
+                    return;
+                }
+            }
+        }
+        return;
+    }
+    }
+}
+
+
+//사업자 회원 차단
+function deleteMember1(event){
+    const deleteMember1 = document.getElementsByClassName("deleteMember1");
+    for(let i = 0; i<deleteMember1.length; i++){
+        if(event.target.getAttribute("data-userId") == deleteMember1[i].getAttribute("data-userId")){
+        let userId = deleteMember1[i].getAttribute("data-userId");
+
+        let check = window.confirm("차단하시겠습니까?");
+        if(!check){
+            return;
+        }
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("POST","./deletemember");
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("userId="+userId);
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                let result = xhttp.responseText.trim();
+                if(result == '1'){
+                    alert("차단 성공");
+                    location.reload();
+                    return;
+                }else{
+                    alert("차단 실패");
+                    return;
+                }
+            }
+        }
+        return;
+        }
+    }
+}
+
+//사업자 회원 차단 해제
+
+function unblockMember1(event){
+    const unblockMember1 = document.getElementsByClassName("unblockMember1");
+    for(let i = 0; i<unblockMember1.length; i++){
+        if(event.target.getAttribute("data-userId") == unblockMember1[i].getAttribute("data-userId")){
+        let userId = unblockMember1[i].getAttribute("data-userId");
+
+        let check = window.confirm("차단 해제 하시겠습니까?");
+        if(!check){
+            return;
+        }
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("POST","./unblockmember");
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("userId="+userId);
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                let result = xhttp.responseText.trim();
+                if(result == '1'){
+                    alert("차단 해제 완료");
+                    location.reload();
+                    return;
+                }else{
+                    alert("차단 해제 실패");
+                    return;
+                }
+            }
+        }
+        return;
+    }
+    }
+}
+
+
 
 // 같이해요 회원 별 목록 불러오기
 let boardlist = document.getElementById("boardlist");
@@ -1025,7 +1169,7 @@ let qnalength = null;
 function getQnaList(page,userId){
     qnauser = userId;
   
-    console.log("같이해요 리스트");
+    console.log("QNA 리스트");
     
     console.log(userId);
 
@@ -1224,6 +1368,9 @@ function getDetail(id){
             let result = JSON.parse(xhttp.responseText.trim());
 
             boardlist.innerHTML = "";
+
+            let staticBackdropLabel = document.getElementById("staticBackdropLabel");
+            staticBackdropLabel.innerHTML = "회원 상세 프로필";
             
 
             let div1 = document.createElement("div");
@@ -1323,6 +1470,8 @@ function getItemList(p,ui,ps){
             let result = JSON.parse(xhttp.responseText.trim());
 
             boardlist.innerHTML = "";
+            let staticBackdropLabel = document.getElementById("staticBackdropLabel");
+                staticBackdropLabel.innerHTML = "회원별 구매 상품 목록";
 
             
             let row = document.createElement("div");
@@ -1580,6 +1729,8 @@ function getSellItem(ui,cat){
             let result = JSON.parse(xhttp.responseText.trim());
 
             boardlist.innerHTML = "";
+            let staticBackdropLabel = document.getElementById("staticBackdropLabel");
+                staticBackdropLabel.innerHTML = "사업자 판매상품 목록";
 
             
             let row = document.createElement("div");
@@ -1599,6 +1750,7 @@ function getSellItem(ui,cat){
                 // div2.setAttribute("style","border: 1px solid gold; float: left; width: 50%;")
 
                 let img1 = document.createElement("img");
+                img1.setAttribute("class","img-fluid");
                 img1.setAttribute("src","/resources/upload/sellfile/"+result[i].fileDTOs[0].fileName);
 
                 // let div3 = document.createElement("div");
@@ -1608,12 +1760,12 @@ function getSellItem(ui,cat){
                 div4.setAttribute("class","member-info");
                 // div4.setAttribute("style","border: 1px solid gold; float: right; width: 50%;")
                 let h4 = document.createElement("h4");
-                let text = document.createTextNode("상품이름 : "+ result[i].itemDTO.itemName);
-                console.log(result[i].itemDTO.itemName);
+                let text = document.createTextNode("상품이름 : "+ result[i].itemName);
+
                 h4.appendChild(text);
                 div4.appendChild(h4);
                 let span = document.createElement("span");
-                text = document.createTextNode("결제금액 : " + result[i].itemPrice);
+                text = document.createTextNode("금액 : " + result[i].itemPrice);
                 span.appendChild(text);
                 div4.appendChild(span);
 

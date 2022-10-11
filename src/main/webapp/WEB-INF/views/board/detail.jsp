@@ -41,7 +41,7 @@
 		<div class="container">
 		  <div class="row justify-content-between gy-5">
 			<div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
-			  <h2 data-aos="fade-up">${requestScope.member.userName}님 <br>프로필</h2>
+			  <h2 data-aos="fade-up">${requestScope.member.userId}님 프로필</h2>
 			  <p data-aos="fade-up" data-aos-delay="100">Pet 이름 : ${requestScope.member.petName}<br> Pet Category : ${requestScope.member.petCatg}</p>
 			  <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
 				<a class="btn-book-a-table" id="follow">팔로우</a>
@@ -90,10 +90,10 @@
 		</div> 
 		
 				<div class="form-floating">
-	  			<textarea class="form-control" id="floatingTextarea2" style="height: 200px"><c:out value="${dto.contents}"/></textarea>
-				  <div style="white-space:pre;"><c:out value="${dto.contents}"/></div>
-	  			<!-- <label for="floatingTextarea2">${dto.contents}</label> -->
-				</div>
+					<div class="mb-3">
+						<textarea class="form-control" id="text" rows="3" name="contents"></textarea>
+				  </div>
+			</div>
 		
 		
 		<c:if test="${board eq 'qna'}">
@@ -179,11 +179,19 @@
 
   <c:import url="/WEB-INF/views/template/testfooter.jsp"></c:import>
 
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
   	<script type="text/javascript">
 		let userName = "${requestScope.member.userName}";
 	</script>
 	<script type="text/javascript" src="/resources/JS/board/boardComment.js"></script>
   	<script type="text/javascript">
+
+		$('#text').summernote('pasteHTML', '${dto.contents}');
+		$('#text').next().find(".note-editable").attr("contenteditable", false);
+		
+		const toolbar = document.getElementsByClassName("note-toolbar");
+		toolbar[0].setAttribute("style","display : none;");
 
 		let followee = "${requestScope.member.userId}";
 		let userId= "${sessionScope.member.userId}";

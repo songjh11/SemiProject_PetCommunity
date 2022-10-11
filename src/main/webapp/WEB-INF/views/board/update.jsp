@@ -25,10 +25,10 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Sample Inner Page</h2>
+          <h2>${board} 수정</h2>
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li>Sample Inner Page</li>
+            <li>${board} 수정</li>
           </ol>
         </div>
 
@@ -42,18 +42,19 @@
 			<form action="update" method="post" enctype="multipart/form-data">
 				 
 			<div class="mb-3">
-				<input type="text" class="form-control" value="${dto.num}" name="num" style="display: none;">
+				<label for="title" class="form-label">작성자</label>
+        <input type="text" class="form-control" value="${dto.num}" name="num" style="display: none;">
 		  		<input type="text" class="form-control" id="writer" name="writer"  value="${dto.writer}">
 			</div>
 			<div class="mb-3">
 		  		<label for="title" class="form-label">제목</label>
-		  		<input type="text" class="form-control" id="title" name="title" placeholder="${dto.title}">
+		  		<input type="text" class="form-control" id="title" name="title" readonly value="${dto.title}">
 			</div>
 			
 			
 			<div class="mb-3">
 		  		<label for="contents" class="form-label">내용</label>
-		  		<textarea class="form-control" id="contents" rows="3" name="contents"><c:out value="${dto.contents}"/></textarea>
+		  		<textarea class="form-control" id="contents" rows="3" name="contents"></textarea>
 			</div>
 			
 			<c:if test="${board eq 'event'}">

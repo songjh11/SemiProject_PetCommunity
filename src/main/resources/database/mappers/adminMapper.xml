@@ -42,14 +42,12 @@
 	<select id="getAllBizmen" parameterType="Pager" resultType="BizmemDTO">
 		SELECT * FROM
 		(SELECT ROWNUM R , BI.* FROM
-		(SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.DEADDRESS, M.ITEMZIPCODE, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, B.ITEMCATG, B.ITEMID
+		(SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.DEADDRESS, M.ITEMZIPCODE, M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES
 	      FROM MEMBER M
 	      INNER JOIN
 	       ROLE R
 	      ON M.ROLENUM =R.ROLENUM
-	      INNER JOIN 
-	        BIZMEM B
-	      ON M.USERID = B.USERID) BI)
+          WHERE M.ROLENUM = 1)BI)
 	      WHERE R BETWEEN #{startRow} AND #{lastRow}
 	</select>
 	<select id="getAllBizmenCount" resultType="Long">
@@ -58,9 +56,7 @@
 		      INNER JOIN
 		       ROLE R
 		      ON M.ROLENUM =R.ROLENUM
-		      INNER JOIN 
-		        BIZMEM B
-		      ON M.USERID = B.USERID
+			WHERE M.ROLENUM = '1'
 	</select>
 	
 	

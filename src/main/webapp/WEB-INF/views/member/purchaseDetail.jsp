@@ -96,9 +96,11 @@
         }
         
         .tableWrapper{
-          border-top: 15px solid #ec2727;
+          border-top: 20px solid #ec2727;
+          border-left: 2px solid #ec2727;
+          border-right: 2px solid #ec2727;
+          border-bottom: 20px solid #ec2727;
           opacity: 0.8;
-          border-radius: 10px;
         }
 
         .t{
@@ -106,21 +108,20 @@
           width: 100%;
         }
 
-        .t>tbody>tr:nth-child(2n-1){
-          background-color: antiquewhite;
-        }
+        /* .t>tbody>tr:nth-child(2n-1){
+          
+        } */
 
         .t>tbody>tr{
-          border-bottom: 1px solid rgba(0,0,0,0.4);
+          border-bottom: 1px solid #bbbbbb;
         }
 
         .t>tbody>tr>td{
           padding: 15px;
         }
 
-        .t>tbody>tr:last-child{
-          border: 0;
-        }
+
+ 
 
 
   </style>
@@ -232,13 +233,13 @@
                       </c:if>  
                       </tbody>
                       </table>
+                    </div>
                 
                       <c:if test="${check.purchaseStatus eq 1}">
                         <div style="margin-bottom: 15px; margin-top: 30px; text-align: center">
                           <button type="button" class="btn btn-outline-danger" style="display: inline-block;" onclick="cancelPay()">환불하기</button>
                         </div>
                       </c:if>
-                </div>
               </div>
             </div>
           </section>  

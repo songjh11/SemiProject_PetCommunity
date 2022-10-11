@@ -9,27 +9,32 @@
 
 </head>
 <body>
-<c:import url="/WEB-INF/views/template/testheader.jsp"></c:import>
+<c:import url="/WEB-INF/views/template/header.jsp"></c:import>
 	<section class="container fluid">
 		<!-- ======= Breadcrumbs ======= -->
 		<div class="breadcrumbs">
 			<div class="container">
 	  
 			  <div class="d-flex justify-content-between align-items-center">
-				<h2>관리자</h2>
+				<h2>Admin</h2>
 				<ol>
 				  <li><a href="index.html">Home</a></li>
-				  <li>Sample Inner Page</li>
+				  <li>Admin</li>
 				</ol>
 			  </div>
 	  
 			</div>
 		  </div><!-- End Breadcrumbs -->
+
+		  <hr>
+
 	<div class="row">
 		<div class="d-flex justify-content-center">
-			<h3 style="color: brown;">발행 쿠폰 목록</h3>
+			<h3 style="color: black;">Coupon</h3>
 		</div>
-		<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">쿠폰 발행하기</button>
+		<div style="float: left;">
+			<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">쿠폰 발행하기</button>
+		</div>
 		<table class="table">
 			<thead>
 				<tr>
@@ -43,16 +48,22 @@
 					<td>${pageScope.dto.couponName}</td>
 					<td>${pageScope.dto.expDate}</td>
 					<td>${pageScope.dto.regDate}</td>
-					<td>${pageScope.dto.discountRate}</td>
-					<td>${pageScope.dto.discountPrice}</td>
+					<c:choose>
+						<c:when test="${dto.discountMethod eq '0'}">
+							<td>${pageScope.dto.discountRate} % </td>
+						</c:when>
+						<c:otherwise>
+							<td>${pageScope.dto.discountPrice} 원</td>
+						</c:otherwise>
+					</c:choose>
 					<td class="deleteCoupon" data-couponNum = "${pageScope.dto.couponNum}" onclick="deleteCoupon()">삭제</td>
 				</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-	</div>
+		</div>
 
-	<div class="row">
+		<div class="row">
 		<nav aria-label="Page navigation example">
 		  <ul class="pagination justify-content-center">
 			
@@ -67,7 +78,8 @@
 			</li>
 		  </ul>
 		</nav>
-	</div>
+		</div>
+	
 
 	<!-- 쿠폰 발행 modal-->
 	<div>
@@ -103,12 +115,12 @@
 						
 						<div class="mb-3">
 							<label for="recipient-name" class="col-form-label">할인율</label>
-							<input type="text" class="form-control" id="discountRate" name="discountRate">
+							<input type="text" class="form-control" id="discountRate" name="discountRate"><h5>%</h5>
 						</div>
 						
 						<div class="mb-3">
 							<label for="recipient-name" class="col-form-label">할인금액</label>
-							<input type="text" class="form-control" id="discountPrice" name="discountPrice">
+							<input type="text" class="form-control" id="discountPrice" name="discountPrice"><h5>원</h5>
 						</div>
 						
 						
@@ -123,9 +135,34 @@
 				</div>
 			</div>
 		</div>
+		
+		<hr>
 
-	<div class="row">
-		<h3>Guest 리스트</h3>
+	<div class="row" style="border: 1px;">
+		<div class="d-flex justify-content-center">
+			<h3>Guest</h3>
+		</div>
+
+			<div class="col-md-3">
+				<label class="visually-hidden" for="kind">Preference</label>
+				<select name="kind" class="form-select" id="kind">
+				<option class="kinds" value="userId">User Id</option>
+				<option class="kinds" value="userName">User Name</option>
+				</select>
+			</div>
+
+	
+		  <div class="col-md-3">
+		    <label class="visually-hidden" for="search">검색어 입력</label>
+		    <div class="input-group">
+		      <input type="text" name="search" value="${pager.search}" class="form-control" id="search" placeholder="검색어 입력">
+		    </div>
+		  </div>
+	
+		  <div class="col-md-3">
+		    <button type="button" class="btn btn-primary">검색</button>
+		  </div>
+
 		<table class="table">
 			<thead>
 				<tr>
@@ -139,10 +176,10 @@
 					<td>${gue.userName}</td>
 					<c:choose>
 						<c:when test="${gue.block eq '1'}">
-							<td class="unblockMember" data-userId="${gue.userId}" onclick="unblockMember(event)">차단 해제</td>
+							<td class="unblockMember" data-userId="${gue.userId}" onclick="unblockMember(event)"><button>차단 해제</button></td>
 						</c:when>
 						<c:otherwise>
-							<td class="deleteMember" data-userId="${gue.userId}" onclick="deleteMember(event)">차단</td>
+							<td class="deleteMember" data-userId="${gue.userId}" onclick="deleteMember(event)"><button>차단</button></td>
 						</c:otherwise>
 					</c:choose>
 					<td><button class="btn btn-outline-secondary" onclick="getSharingList('1','${gue.userId}')" data-userId="${gue.userId}">같이해요 작성한 글</button></td>
@@ -172,8 +209,33 @@
 		</nav>
 	</div>
 
+		<hr>
+		
 	<div class="row">
-		<h3>사업자 리스트</h3>
+		<div class="d-flex justify-content-center">
+			<h3>Biz</h3>
+		</div>
+
+		<div class="col-md-3">
+			<label class="visually-hidden" for="kind">Preference</label>
+			<select name="kind" class="form-select" id="kind">
+			<option class="kinds" value="userId">User Id</option>
+			<option class="kinds" value="userName">User Name</option>
+			</select>
+		</div>
+
+
+	  <div class="col-md-3">
+		<label class="visually-hidden" for="search">검색어 입력</label>
+		<div class="input-group">
+		  <input type="text" name="search" value="${pager.search}" class="form-control" id="search" placeholder="검색어 입력">
+		</div>
+	  </div>
+
+	  <div class="col-md-3">
+		<button type="button" class="btn btn-primary">검색</button>
+	  </div>
+	  
 		<table class="table">
 			<thead>
 				<tr>
@@ -256,7 +318,7 @@
 
 </section>
 
-<c:import url="/WEB-INF/views/template/testfooter.jsp"></c:import>
+<c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
 	<script type="text/javascript">
 		function changeSelect(){
 			let discountMethod = document.querySelector("#discountMethod");

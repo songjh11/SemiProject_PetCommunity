@@ -72,7 +72,16 @@ try {
                     let td_text = document.createTextNode(ar[i].writer);
                     tab_td.appendChild(td_text);
                     tab_tr.appendChild(tab_td);
-                   
+                    
+                    // tab_td = document.createElement("td");
+                    // let div = document.createElement("div");
+                    // div.setAttribute("style","width : 50px; height : 50px; border-radius : 70%; overflow : hidden;");
+                    // let img = document.createElement("img");
+                    // img.setAttribute()
+                    // tab_td.appendChild(td_text);
+                    // tab_tr.appendChild(tab_td);
+
+
                     tab_td = document.createElement("td");
                     td_text = document.createTextNode(ar[i].contents);
                     tab_td.appendChild(td_text);

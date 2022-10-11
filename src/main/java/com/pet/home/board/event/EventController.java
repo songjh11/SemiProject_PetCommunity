@@ -61,7 +61,7 @@ public class EventController {
 		List<BoardDTO> ar = eventService.getList(pager);
 		mv.addObject("list", ar);
 		mv.addObject("pager",pager);
-		mv.setViewName("board/list");
+		mv.setViewName("board/list2");
 		
 		return mv;
 	}

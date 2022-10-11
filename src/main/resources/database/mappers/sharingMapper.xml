@@ -111,4 +111,11 @@
 		UPDATE SHCOMMENT SET CONTENTS = #{contents} WHERE COMMENTNUM = #{commentNum}
 	</update>
 	
+	
+	<select id="getListByHit" resultType="BoardDTO">
+		SELECT * FROM SHARING 
+		<![CDATA[WHERE ROWNUM <= 3]]>
+		ORDER BY HIT DESC
+	</select>
+	
 </mapper>

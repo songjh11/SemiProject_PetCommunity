@@ -100,25 +100,20 @@
                         <li><a href="/sell/pettx">Pet-Taxi</a></li>
                   </ul>
                 </li>
-                <li><a href="#gallery">여행해요</a></li>
+                <li><a href="/traveling/map">여행해요</a></li>
                 <li class="dropdown"><a href="#"><span>커뮤니티</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                   <ul>
-                    <li><a href="#">같이해요</a></li>
-                    <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-                      <ul>
-                        <li><a href="#">Deep Drop Down 1</a></li>
-                        <li><a href="#">Deep Drop Down 2</a></li>
-                        <li><a href="#">Deep Drop Down 3</a></li>
-                        <li><a href="#">Deep Drop Down 4</a></li>
-                        <li><a href="#">Deep Drop Down 5</a></li>
-                      </ul>
-                    </li>
+                    <li><a href="/sharing/list">같이해요</a></li>
+                    <li><a href="/event/list">이벤트</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown"><a href="#"><span>고객센터</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                  <ul>
                     <li><a href="/notice/list">공지사항</a></li>
-                    <li><a href="#">Drop Down 3</a></li>
-                    <li><a href="#">Drop Down 4</a></li>
-                </ul>
-              </li>
-          </ul>
+                    <li><a href="/qna/list">QnA</a></li>
+                  </ul>
+                </li>
+              </ul>
         </nav>
     </div>
       <!-- .navbar -->

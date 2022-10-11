@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>공지사항</title>
+  <title>${board} 작성</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -17,7 +17,7 @@
 
 <body>
 
-  <c:import url="/WEB-INF/views/template/testheader.jsp"></c:import>
+  <c:import url="/WEB-INF/views/template/header.jsp"></c:import>
 
   <main id="main">
 
@@ -26,10 +26,10 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Sample Inner Page</h2>
+          <h2>${board} 작성</h2>
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li>Sample Inner Page</li>
+            <li>${board} 작성</li>
           </ol>
         </div>
 
@@ -88,7 +88,7 @@
   </main><!-- End #main -->
 
   
-  <c:import url="/WEB-INF/views/template/testfooter.jsp"></c:import>
+  <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
   
   <script src="/resources/JS/board_file.js"></script>
   <!-- include summernote css/js-->

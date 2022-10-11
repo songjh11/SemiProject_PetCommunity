@@ -109,5 +109,9 @@ public class SharingService implements BoardService {
 	public int setCommentUpdate(ShCommentDTO shCommentDTO) throws Exception {
 		return sharingDAO.setCommentUpdate(shCommentDTO);
 	}
-
+	
+	
+	public List<BoardDTO> getListByHit() throws Exception{
+		return sharingDAO.getListByHit();
+	}
 }

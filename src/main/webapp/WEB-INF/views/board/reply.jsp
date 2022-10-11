@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>${board}</title>
+  <title>${board} 답글 작성</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -16,7 +16,7 @@
 
 <body>
 
-  <c:import url="/WEB-INF/views/template/testheader.jsp"></c:import>
+  <c:import url="/WEB-INF/views/template/header.jsp"></c:import>
 
   <main id="main">
 
@@ -25,10 +25,10 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>공지사항</h2>
+          <h2>${board} 답글 작성</h2>
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li>공지사항</li>
+            <li>${board} 답글 작성</li>
           </ol>
         </div>
 
@@ -113,7 +113,7 @@
   </main><!-- End #main -->
 
   
-  <c:import url="/WEB-INF/views/template/testfooter.jsp"></c:import>
+  <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
   
 
 <script>

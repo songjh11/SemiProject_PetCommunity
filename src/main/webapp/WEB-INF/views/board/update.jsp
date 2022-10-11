@@ -16,7 +16,7 @@
 
 <body>
 
-  <c:import url="/WEB-INF/views/template/testheader.jsp"></c:import>
+  <c:import url="/WEB-INF/views/template/header.jsp"></c:import>
 
   <main id="main">
 
@@ -90,7 +90,7 @@
 
   </main><!-- End #main -->
   
-  <c:import url="/WEB-INF/views/template/testfooter.jsp"></c:import>
+  <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
   
 	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>

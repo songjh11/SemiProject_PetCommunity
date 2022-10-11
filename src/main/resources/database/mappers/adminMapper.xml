@@ -21,7 +21,12 @@
 	      
 	      INNER JOIN
 	           MEMFILE MF
-	      ON M.USERID = MF.USERID)GU)
+	      ON M.USERID = MF.USERID WHERE 
+	     		 <choose>
+					<when test="kind == 'userName'">M.USERNAME</when>
+					<otherwise>M.USERID</otherwise>
+				</choose>
+			LIKE '%'||#{search}||'%')GU)
 	      WHERE R BETWEEN #{startRow} AND #{lastRow}
 	</select>
 	<select id="getAllGuestCount" resultType="Long">
@@ -37,6 +42,12 @@
 		      INNER JOIN
 		           MEMFILE MF
 		      ON M.USERID = MF.USERID
+		      WHERE 
+	     		 <choose>
+					<when test="kind == 'userName'">M.USERNAME</when>
+					<otherwise>M.USERID</otherwise>
+				</choose>
+			LIKE '%'||#{search}||'%'
 	</select>
 	<!-- 2. 사업자 -->
 	<select id="getAllBizmen" parameterType="Pager" resultType="BizmemDTO">

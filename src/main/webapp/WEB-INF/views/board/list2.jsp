@@ -9,7 +9,7 @@
 
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>untitled</title>
+<title>${board}</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -17,7 +17,7 @@
 </head>
 <body>
 
-<c:import url="/WEB-INF/views/template/testheader.jsp"></c:import>
+<c:import url="/WEB-INF/views/template/header.jsp"></c:import>
 
 <main id="main">
 
@@ -26,10 +26,10 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Sample Inner Page</h2>
+          <h2>${board}</h2>
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li>Sample Inner Page</li>
+            <li>${board}</li>
           </ol>
         </div>
 
@@ -44,9 +44,37 @@
           <h2>같이해요</h2>
           <p>회원 <span>정보 공유</span> 게시판</p>
         </div>
+        <div class="row">
+          <form action="./list?" class="row row-cols-lg-auto g-3 align-items-center">
+          
+            <div class="col-12">
+              <label class="visually-hidden" for="kind">Preference</label>
+              <select name="kind" class="form-select" id="kind">
+                <option class="kinds" value="contents">내용</option>
+                <option class="kinds" value="title">제목</option>
+                <option class="kinds" value="writer">작성자</option>
+              </select>
+            </div>
+          
+            <div class="col-12">
+              <label class="visually-hidden" for="search">검색어 입력</label>
+              <div class="input-group">
+                <input type="text" name="search" value="${pager.search}" class="form-control" id="search" placeholder="검색어 입력">
+              </div>
+            </div>
+        
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary">검색</button>
+            </div>
+          </form>
+          
+        </div>
+        <br>
+      <div class="row">
         <div class="mb-3">
           <a href="./add" class="btn btn-primary">새 글 작성하기</a>
         </div>
+      </div>
 
       <div class="row gy-4">
 		    <c:forEach items="${list}" var="dto">
@@ -77,7 +105,7 @@
       </div>
     </section><!-- End Chefs Section -->
   </main>
-<c:import url="/WEB-INF/views/template/testfooter.jsp"></c:import>
+<c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
 
 </body>
 </html>

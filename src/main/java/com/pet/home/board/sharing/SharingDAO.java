@@ -101,6 +101,9 @@ public class SharingDAO implements BoardDAO {
 		return sqlSession.update(NAMESPACE+"setUpdateHit", boardDTO);
 	}
 	
+	public List<BoardDTO> getListByHit() throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getListByHit");
+	}
 	
 	
 }

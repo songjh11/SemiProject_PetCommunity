@@ -1372,83 +1372,74 @@ function getDetail(id){
             let staticBackdropLabel = document.getElementById("staticBackdropLabel");
             staticBackdropLabel.innerHTML = "회원 상세 프로필";
             
+            let section = document.createElement("section");
+            section.setAttribute("id","testimonials");
+            section.setAttribute("class","testimonials section-bg");
+            section.setAttribute("style","background-color : transparent;");
 
-            let div1 = document.createElement("div");
-            div1.setAttribute("class","col-lg-8 align-items-center");
+            let ct = document.createElement("div");
+            ct.setAttribute("class","container");
+
             let div = document.createElement("div");
-            div.setAttribute("class","col-lg-2 text-center");
+            div.setAttribute("class","swiper-slide");
+            let div1 = document.createElement("div");
+            div1.setAttribute("class","testimonial-item");
+            let div2 = document.createElement("div");
+            div2.setAttribute("class","row gy-4 justify-content-center");
+            let div3= document.createElement("div");
+            div3.setAttribute("class","col-lg-6");
+            let div4_1 = document.createElement("div");
+            div4_1.setAttribute("class","col-lg-2 text-center");
+            div4_1.setAttribute("style","height : 200px; width : 200px;");
+            let div4 = document.createElement("div");
+            div4.setAttribute("class","testimonial-content");
+
+            let h5 = document.createElement("h5");
+            h5.innerHTML = "Username     : " + result.userName;
+            div4.appendChild(h5);
+
+            h5 = document.createElement("h5");
+            h5.innerHTML = "Phone        : " + result.phone;
+            div4.appendChild(h5);
+
+            h5 = document.createElement("h5");
+            h5.innerHTML = "E-mail       : " + result.email;
+            div4.appendChild(h5);
+
+            h5 = document.createElement("h5");
+            h5.innerHTML = "Address      : " + result.address + result.deAddress;
+            div4.appendChild(h5);
+
+            h5 = document.createElement("h5");
+            h5.innerHTML = "Pet Category : " + result.petCatg;
+            div4.appendChild(h5);
+
+            h5 = document.createElement("h5");
+            h5.innerHTML = "Pet Name     : " + result.petName;
+            div4.appendChild(h5);
+
+            div3.appendChild(div4);
+
+
             let img = document.createElement("img");
-            img.setAttribute("src","/resources/upload/member/"+result.memberFileDTO.fileName);
+            if(result.memberFileDTO == null){
+                img.setAttribute("src","/resources/images/프로필.png");
+            }else{
+                img.setAttribute("src","/resources/upload/member/"+result.memberFileDTO.fileName);
+            }
             img.setAttribute("class","img-fluid testimonial-img");
+            img.setAttribute("alt","");
 
-            div.appendChild(img);
-            div1.appendChild(div);
+            div4_1.appendChild(img);
 
-            let input = document.createElement("input");
-            input.setAttribute("type","text");
-            input.setAttribute("value",result.userName);
-            div = document.createElement("div");
-            div.setAttribute("class","col-sm-7");
-            div.appendChild(input);
-            div1.appendChild(div);
+            div2.appendChild(div3);
+            div2.appendChild(div4_1);
+            div1.appendChild(div2);
+            div.appendChild(div1);
+            ct.appendChild(div);
+            section.appendChild(ct);
 
-            input = document.createElement("input");
-            input.setAttribute("type","number");
-            input.setAttribute("value",result.phone);
-            div = document.createElement("div");
-            div.setAttribute("class","col-sm-7");
-            div.appendChild(input);
-            div1.appendChild(div);
-
-            input = document.createElement("input");
-            input.setAttribute("type","email");
-            input.setAttribute("value",result.email);
-            div = document.createElement("div");
-            div.setAttribute("class","col-sm-7");
-            div.appendChild(input);
-            div1.appendChild(div);
-
-            input = document.createElement("input");
-            input.setAttribute("type","text");
-            input.setAttribute("value",result.itemZipCode);
-            div = document.createElement("div");
-            div.setAttribute("class","col-sm-7");
-            div.appendChild(input);
-            div1.appendChild(div);
-
-            input = document.createElement("input");
-            input.setAttribute("type","text");
-            input.setAttribute("value",result.address);
-            div = document.createElement("div");
-            div.setAttribute("class","col-sm-7");
-            div.appendChild(input);
-            div1.appendChild(div);
-
-            input = document.createElement("input");
-            input.setAttribute("type","text");
-            input.setAttribute("value",result.deAddress);
-            div = document.createElement("div");
-            div.setAttribute("class","col-sm-7");
-            div.appendChild(input);
-            div1.appendChild(div);
-
-            input = document.createElement("input");
-            input.setAttribute("type","text");
-            input.setAttribute("value",result.petCatg);
-            div = document.createElement("div");
-            div.setAttribute("class","col-sm-7");
-            div.appendChild(input);
-            div1.appendChild(div);
-
-            input = document.createElement("input");
-            input.setAttribute("type","text");
-            input.setAttribute("value",result.petName);
-            div = document.createElement("div");
-            div.setAttribute("class","col-sm-7");
-            div.appendChild(input);
-            div1.appendChild(div);
-
-            boardlist.appendChild(div1);
+            boardlist.appendChild(section);
             btn.click();
         }
     }

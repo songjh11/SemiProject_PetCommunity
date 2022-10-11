@@ -124,12 +124,14 @@
       <!-- .navbar -->
 
  <!--로그인 성공했을 때-->
- <div> 
+
   <c:if test="${not empty sessionScope.member}">
-  <h5 style="color: gray; font-size: smaller;">${sessionScope.member.userName}님<br>환영합니다!</h5>
+    <div style="display: inline-block; width: 500px;">
+    <h5 style="color: gray; font-size: smaller; display: inline-block; width: 100px;">${sessionScope.member.userName}님<br>환영합니다!</h5>
   <a class="btn-book-a-table" href="/member/mypage">Mypage</a>
   <c:choose>
     <c:when test="${empty member.password}">
+      <!-- 카카오 로그인의 경우 password값이 없음. kakao session 끊는 링크-->
       <a class="btn-book-a-table" href="https://kauth.kakao.com/oauth/logout?client_id=3de4327e8b367107a94e0ffc38dcc41d&logout_redirect_uri=http://localhost/member/logout">Logout</a>
     </c:when>
     <c:otherwise>
@@ -137,17 +139,18 @@
     </c:otherwise>
   </c:choose>
   <c:if test="${member.roleNum eq 2}">
-  <a href="/member/cart"><i class="bi bi-cart-check" style="margin-left: 5%; font-size: 2rem;"></i></a>
+  <a href="/member/cart" style="display: inline-block; width: 80px; margin-left: 20px;"><i class="bi bi-cart-check" style="margin-left: 5%; font-size: 2rem;"></i></a>
   </c:if>
-
+  </div>
   </c:if>
   <!-- 로그인 실패했을 때 -->
   <c:if test="${empty sessionScope.member}">
-    <h8>원활한 이용을 위해<br> 로그인해주세요</h8>
+  <div style="display: inline-block;">
+    <h5 style="color: gray; font-size: smaller; display: inline-block; width: 100px;">원활한 이용을 위해<br>로그인해주세요</h5>
     <a class="btn-book-a-table" href="/member/login">Login</a>
     <a class="btn-book-a-table" href="/member/role">Join</a>
-    </c:if>
-</div>          
+  </div>
+    </c:if>        
 <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
 <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 </header><!-- End Header -->

@@ -32,12 +32,12 @@
       <div class="container" data-aos="fade-up">
         <section id="menu" class="menu">
         <div class="section-header">
-        <p><span>${member.userId}'s My Page</span></p>
+        <p><span>${dto.userName}'s My Page</span></p>
         </div>
 
         <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
           <c:choose>
-            <c:when test="${member.roleNum eq 2}">
+            <c:when test="${dto.roleNum eq 2}">
               <li class="nav-item">
                 <a class="nav-link" href="./cart">
                   <h4>장바구니</h4>
@@ -77,7 +77,7 @@
                 </a>
               </li>
             </c:when>
-            <c:when test="${member.roleNum eq 1}">
+            <c:when test="${dto.roleNum eq 1}">
               <li class="nav-item">
                 <a class="nav-link" href="../sell/add">
                   <h4>상품등록</h4>
@@ -185,12 +185,12 @@
 
         <div class="section-header">
           <h2>Who am I</h2>
-          <p><span>Hello!</span>${member.userId}</p>
+          <p><span>Hello!</span>${dto.userName}</p>
         </div>
 
         <form action="./delete" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data" id="updatefrm">
         <c:if test="${dto.roleNum eq 2}">
-            <img src="../resources/upload/member/${dto.memberFileDTO.fileName}" class="testimonial-img" alt="">
+            <img src="../resources/upload/member/${dto.memberFileDTO.fileName}" class="testimonial-img" alt="" style="border-radius: 50%; border: 4px solid #fff; margin: 0 auto; width: 300px; height: 300px; display: block;">
           </c:if>
         <div class="row gy-4">
           <div class="col-md-6">

@@ -172,8 +172,6 @@ public class MemberController {
 		ModelAndView mv = new ModelAndView();
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
 		
-		
-	
 		//메인페이지에 보여줄 팔로우/상품/멤버 숫자 파라미터 설정 
 		int followernum = Integer.parseInt(String.valueOf(memberService.getFollowerCount(memberDTO)));
 		int followeenum = Integer.parseInt(String.valueOf(memberService.getFolloweeCount(memberDTO)));
@@ -186,6 +184,8 @@ public class MemberController {
 		memberDTO = memberService.getMyPage(memberDTO); // 그 외 마이페이지  
 
 		}
+		
+		
 		
 		mv.addObject("memnum", memnum);
 		mv.addObject("sellnum", sellnum);
@@ -310,7 +310,14 @@ public class MemberController {
 		int result = memberService.setMemUpdate(memberDTO, photo, session.getServletContext());
 
 		if(memberDTO.getRoleNum() == 2){ 
+		
+		if(memberDTO.getGuestId()==null){
+			Calendar ca = Calendar.getInstance();
+			memberDTO.setGuestId(ca.getTimeInMillis()); //guestId
+			memberService.setGuest(memberDTO); 
+		}else {
 			memberService.setGuestUpdate(memberDTO); //guest 테이블 생성 
+			}
 		}
 		
 		if(result == 1){
@@ -593,19 +600,18 @@ public class MemberController {
 					e.printStackTrace();
 				}
 				
-				// User 오브젝트 : username, password, email
-				System.out.println("카카오 아이디(번호) : "+kakaoProfile.getId());
-				System.out.println("카카오 이메일 : "+kakaoProfile.getKakao_account().getEmail());
 				
-				System.out.println("블로그서버 유저네임 : "+kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId());
-				System.out.println("블로그서버 이메일 : "+kakaoProfile.getKakao_account().getEmail());
 				// UUID란 -> 중복되지 않는 어떤 특정 값을 만들어내는 알고리즘
-				
+				// User 오브젝트 : username, password, email
 				MemberDTO memberDTO = new MemberDTO();
 				memberDTO.setUserId(kakaoProfile.getId().toString());
 				memberDTO.setEmail(kakaoProfile.getKakao_account().getEmail());
 				memberDTO.setUserName(kakaoProfile.getProperties().getNickname());
 				memberDTO.setRoleNum(2);
+				memberDTO.setAgValue(1);
+				memberDTO.setAgMail(1);
+				memberDTO.setAgMes(1);
+				memberDTO.setBlock(0);
 	
 					int mem = memberService.getKakaoCount(memberDTO);
 					if(mem ==0) {

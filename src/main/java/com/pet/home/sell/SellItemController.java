@@ -498,11 +498,11 @@ public class SellItemController {
 				couponDTO = adminDAO.getCouponByNum(couponDTO);
 				if(couponDTO.getDiscountMethod().equals("0")) {
 					totalPrice = totalPrice * (100 - couponDTO.getDiscountRate())/100;
-					adminDAO.setDeleteCoupon(couponDTO);
+					adminDAO.setDeleteMemberCoupon(couponDTO);
 				}else {
 
 					totalPrice = totalPrice - couponDTO.getDiscountPrice();
-					adminDAO.setDeleteCoupon(couponDTO);
+					adminDAO.setDeleteMemberCoupon(couponDTO);
 						
 				}
 			}

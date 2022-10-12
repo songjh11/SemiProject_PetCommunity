@@ -75,19 +75,23 @@
                   <div class="validate"></div>
                 </div>
                 <div class="col-lg-8 col-md-12">
-                  <input type="password" name="password" class="form-control" value="${dto.password}" placeholder="password">
+                  <input type="password" name="password" class="form-control" value="${dto.password}" placeholder="password" id="password">
+                  <div id="d2" class="warning"></div>
                   <div class="validate"></div>
                 </div>
                 <div class="col-lg-8 col-md-12">
-                  <input type="text" name="userName" class="form-control" value="${dto.userName}" placeholder="User Name">
+                  <input type="text" name="userName" class="form-control" value="${dto.userName}" placeholder="User Name" id="userName">
+                  <div id="d3" class="warning"></div>
                   <div class="validate"></div>
                 </div>
                 <div class="col-lg-8 col-md-12">
-                  <input type="number" name="phone" class="form-control" value="${dto.phone}" placeholder="Phone">
+                  <input type="number" name="phone" class="form-control" value="${dto.phone}" placeholder="Phone" id="phone">
+                  <div id="d4" class="warning"></div>
                   <div class="validate"></div>
                 </div>
                 <div class="col-lg-8 col-md-12">
-                  <input type="email" name="email" class="form-control" value="${dto.email}" placeholder="Email">
+                  <input type="email" name="email" class="form-control" value="${dto.email}" placeholder="Email" id="email">
+                  <div id="d5" class="warning"></div>
                   <div class="validate"></div>
                 </div>
 
@@ -128,7 +132,7 @@
                   </div>
 
                 </c:if>
-                메시지 동의 약관(선택) <input type="radio" class="cb" name="agMes" id="radiomes"> 
+                메시지 동의 약관(선택) <input type="radio" class="cb" name="agMes" id="radiomes" value="1"> 
 
 
               

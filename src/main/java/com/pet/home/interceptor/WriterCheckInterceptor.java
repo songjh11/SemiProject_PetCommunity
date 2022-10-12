@@ -1,5 +1,9 @@
 package com.pet.home.interceptor;
 
-public class WriterCheckInterceptor {
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+public class WriterCheckInterceptor extends HandlerInterceptorAdapter{
+	
+	
 
 }

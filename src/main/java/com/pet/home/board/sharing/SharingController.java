@@ -83,8 +83,7 @@ public class SharingController {
 	
 	
 	@GetMapping("list")
-	public ModelAndView getList(ModelAndView mv) throws Exception{
-		Pager pager = new Pager(10L, 5L);
+	public ModelAndView getList(ModelAndView mv, Pager pager) throws Exception{
 		List<BoardDTO> ar = sharingService.getList(pager);
 		
 

@@ -78,7 +78,7 @@ fileAdd.addEventListener("click", function(){
     fileAdd_div.setAttribute("class", "mb-3");
 
     let fileImage = document.createElement("img");
-    fileImage.setAttribute("id","preview");
+    fileImage.setAttribute("class","preview");
     fileImage.setAttribute("width","200");
     fileImage.setAttribute("height","200");
 
@@ -117,14 +117,20 @@ addFiles.addEventListener("click", function(event){
 })
 
 function readURL(input){
+    
+   for(let i = 0; i<count ; i++) {
     if(input.files && input.files[0]){
         let reader = new FileReader();
         reader.onload = function(e){
-            document.getElementById('preview').src = e.target.result;
+            let preview = document.getElementsByClassName("preview");
+            preview[i].src = e.target.result;
         };
-        reader.readAsDataURL(input.files[0]);
+        reader.readAsDataURL(input.files[i]);
   } else {
-    document.getElementById('preview').src = "";
+    let preview = document.getElementsByClassName("preview");
+    preview[i].src = "";
   }
 }
-    
+}
+
+

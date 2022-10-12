@@ -53,7 +53,7 @@
           </c:choose>
         </div>
         <div class="row">
-          <form action="./list?" class="row row-cols-lg-auto g-3 align-items-center">
+          <form action="list" class="row row-cols-lg-auto g-3 align-items-center" method="get">
           
             <div class="col-12">
               <label class="visually-hidden" for="kind">Preference</label>
@@ -72,7 +72,7 @@
             </div>
         
             <div class="col-12">
-              <button type="submit" class="btn btn-primary">검색</button>
+              <button type="submit" class="btn btn-outline-danger">검색</button>
             </div>
           </form>
           
@@ -80,7 +80,7 @@
         <br>
       <div class="row">
         <div class="mb-3">
-          <a href="./add" class="btn btn-primary">새 글 작성하기</a>
+          <a href="./add" class="btn btn-danger">새 글 작성하기</a>
         </div>
       </div>
 

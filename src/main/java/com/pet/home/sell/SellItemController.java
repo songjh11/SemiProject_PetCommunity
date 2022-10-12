@@ -97,7 +97,7 @@ public class SellItemController {
 
 		List<SellItemDTO> ar = itemService.getSellerList(sellPager);
 		CategoryDTO categoryDTO = itemService.getCategory(sellPager.getItemCatg());
-
+		
 		mv.addObject("list", ar);
 		mv.addObject("pager", sellPager);
 		mv.addObject("category", categoryDTO);

@@ -101,4 +101,8 @@ public class SellItemDAO {
 	public List<SellItemDTO> getPurchaseListtoMain() throws Exception {
 		return session.selectList(NAMESPACE+"getPurchaseListtoMain");
 	}
+	
+	public Long getSellerItemCount(SellPager pager) {
+		return session.selectOne(NAMESPACE+"getSellerItemCount", pager);
+	}
 }

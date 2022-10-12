@@ -9,11 +9,17 @@ public class SellPager {
 	private Long lastRow;
 	private Long startNum;
 	private Long lastNum;
+	private Long totalPage;
 	private String userId;
 	//검색 컬럼의 종류
 	private Long itemCatg;
 	private String search;
 
+	//이전 블럭의 유무-이전 블럭이 있으면 true, 없으면 false
+	private boolean pre;
+	//다음 블럭의 유무-다음 블럭이 있으면 true, 없으면 false
+	private boolean next;
+	
 	public String getUserId() {
 		return userId;
 	}
@@ -114,17 +120,30 @@ public class SellPager {
 	public void setLastNum(Long lastNum) {
 		this.lastNum = lastNum;
 	}
-//pager 메서드 모음==============================================================
+	
+	
+	
+	
+public Long getTotalPage() {
+		return totalPage;
+	}
+
+	public void setTotalPage(Long totalPage) {
+		this.totalPage = totalPage;
+	}
+
+	//pager 메서드 모음==============================================================
 	//page 생성자
 	public SellPager() {
-		this.perPage = 20L;
+		this.perPage = 12L;
 		this.perBlock = 3L;
 	}
 	
-	//이전 블럭의 유무-이전 블럭이 있으면 true, 없으면 false
-		private boolean pre;
-		//다음 블럭의 유무-다음 블럭이 있으면 true, 없으면 false
-		private boolean next;
+	//객체 생성시 초기값
+	public SellPager(Long perPage, Long perBlock) {
+		this.perPage = perPage;
+		this.perBlock = perBlock;
+	}
 	
 	//mapper 쿼리 사용할 로우 생성
 	public void getRowNum() throws Exception{
@@ -134,6 +153,7 @@ public class SellPager {
 	
 	//jsp로 보내줄 페이지네이션 번호 계산
 	public void getNum(Long totalCount) throws Exception{
+		
 		//totalPage 계산
 		 Long totalPage = totalCount/this.getPerPage();
 		 //totalCount에서 perPage 나눴을때 0이 아니라면 totalPage는 +1
@@ -142,13 +162,15 @@ public class SellPager {
 			 totalPage++;
 		 }
 		 
+		 this.totalPage = totalPage;
+		 
 		 if(this.getPage()>totalPage) {
 			 this.setPage(totalPage);
 		 }
 		 //totalBlock은 페이지네이션의 총 갯수
 		 Long totalBlock = totalPage/this.getPerBlock();
 		//totalPage를 PerBlock으로 나눴을때 0이 아니라면 totalBlock은 +1
-		 //ex: totalPage:7 perPage:5 -> totalPage: 1+1 
+		 //ex: totalPage:7 perPage:5 -> totalBlock: 1+1 
 		 if(totalPage%this.getPerBlock()!=0) {
 			 totalBlock++;
 		 }
@@ -170,7 +192,7 @@ public class SellPager {
 				pre=true;
 			}
 			
-			if(curBlock<totalBlock) {
+		if(curBlock<totalBlock) {
 				next=true;
 			}
 		 

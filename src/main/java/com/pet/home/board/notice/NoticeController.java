@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,12 +75,56 @@ public class NoticeController {
 	}
 
 	@GetMapping("detail")
-	public ModelAndView getDetail(ModelAndView mv, BoardDTO boardDTO, HttpServletRequest request) throws Exception {
+	public ModelAndView getDetail(ModelAndView mv, BoardDTO boardDTO, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
 		
 		noticeDAO.setUpdateHit(boardDTO);
 		boardDTO = noticeService.getDetail(boardDTO);
+		
+		Cookie[] cookies = request.getCookies();
+		
+		Cookie viewCookie = null;
+		
+		if(cookies != null && cookies.length > 0) {
+			for(int i=0; i<cookies.length; i++) {
+				if(cookies[i].getName().equals("cookie"+boardDTO.getNum())) {
+					System.out.println("처음 쿠키 생성 한 후 접속");
+					viewCookie = cookies[i];
+				}
+			}
+		}
+		
+		if(boardDTO != null) {
+			mv.addObject("dto", boardDTO);
+			
+			if(viewCookie == null) {
+				System.out.println("쿠키가 없음");
+				
+				Cookie newCookie = new Cookie("cookie"+boardDTO.getNum(),""+boardDTO.getNum());
+				
+				response.addCookie(newCookie);
+				
+				int result = noticeService.setUpdateHit(boardDTO);
+				
+				if(result > 0) {
+					System.out.println("조회수 증가");
+				}else {
+					System.out.println("조회수 증가 에러");
+				}
+				
+			}else {
+				System.out.println("쿠키 있음");
+				
+				String value = viewCookie.getValue();
+				
+				System.out.println("쿠키 값 : " + value);
+			}
+			mv.setViewName("board/detail");
+		}
+		
+		
+		
 
-		mv.addObject("dto", boardDTO);
 		mv.setViewName("board/detail");
 
 		return mv;

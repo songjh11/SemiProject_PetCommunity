@@ -61,8 +61,16 @@
 	</c:if> 
 
     <section class="sample-page">
+		
       <div class="container" data-aos="fade-up">
-
+		<c:if test="${board eq 'qna'}">
+		<a href="./reply?num=${dto.num}" class="btn btn-outline-danger">reply</a>
+		</c:if>
+	
+		<a href="./update?num=${requestScope.dto.num}" class="btn btn-outline-danger">수정</a>
+	
+	
+		<a href="./delete?num=${requestScope.dto.num}" class="btn btn-outline-danger">삭제</a>
        <table class="table">
 	
 		<thead>
@@ -96,19 +104,15 @@
 			</div>
 		
 		
-		<c:if test="${board eq 'qna'}">
-		<a href="./reply?num=${dto.num}" class="btn btn-danger">reply</a>
-		</c:if>
-	
-		<a href="./update?num=${requestScope.dto.num}" class="btn btn-primary">수정</a>
-	
-	
-		<a href="./delete?num=${requestScope.dto.num}" class="btn btn-primary">삭제</a>
-		<div class="row">
-			<c:if test="${board eq 'event'}">
-				<button type="button" id="couponSave">${coupon.couponName}쿠폰 다운로드</button>
-			</c:if>
-		</div>
+				<c:if test="${board eq 'event'}">
+					<div>
+						<img src="/resources/images/coupon1.png" style="display: block; margin: 0 auto; width:150px; height:150px">
+						<button type="button" class="btn btn-outline-danger" id="couponSave" style="display: block; margin: 0 auto;">쿠폰 다운로드</button>
+					</div>
+				</c:if>
+		
+		
+		
     </div>
 
     <c:if test="${board eq 'sharing'}">
@@ -187,7 +191,7 @@
 	<script type="text/javascript" src="/resources/JS/board/boardComment.js"></script>
   	<script type="text/javascript">
 
-		$('#text').summernote('pasteHTML', '${dto.contents}');
+		$('#text').summernote('pasteHTML', '${requestScope.dto.contents}');
 		$('#text').next().find(".note-editable").attr("contenteditable", false);
 		
 		const toolbar = document.getElementsByClassName("note-toolbar");

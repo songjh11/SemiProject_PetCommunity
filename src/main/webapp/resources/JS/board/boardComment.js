@@ -230,8 +230,13 @@ try {
     
     function setFollow(followee, follower){
         
+        
         const follow = document.querySelector("#follow");
         follow.addEventListener("click",function(){
+            if(followee == ""){
+                alert("로그인이 필요합니다.");
+                return;
+            }
     
                 const xhttp = new XMLHttpRequest();
                 xhttp.open("POST","./addfollow");
@@ -262,9 +267,14 @@ try {
 try {
     
     function saveCoupon(cn, ui, n){
-    
+        
+        
         const couponSave = document.querySelector("#couponSave");
         couponSave.addEventListener("click", function(){
+            if(ui == ""){
+                alert("로그인이 필요합니다.");
+                return;
+            }
     
             const xhttp = new XMLHttpRequest();
             xhttp.open("POST","./saveCoupon");

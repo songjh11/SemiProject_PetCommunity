@@ -77,7 +77,7 @@
 				<td>
 				<%-- for(int i = begin; i<= end; i++ --%>
 				<c:catch>
-				<c:forEach begin="1" end="${dto.depth}">&ensp;</c:forEach>
+				<c:forEach begin="1" end="${dto.depth}">&ensp;↳</c:forEach>
 				</c:catch>
 				<a href="./detail?num=${pageScope.dto.num}">${pageScope.dto.title}</a>
 				</td>

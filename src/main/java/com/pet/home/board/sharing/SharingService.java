@@ -114,4 +114,12 @@ public class SharingService implements BoardService {
 	public List<BoardDTO> getListByHit() throws Exception{
 		return sharingDAO.getListByHit();
 	}
+
+	@Override
+	public int setUpdateHit(BoardDTO boardDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return sharingDAO.setUpdateHit(boardDTO);
+	}
+	
+	
 }

@@ -40,7 +40,7 @@
       <div class="container" data-aos="fade-up">
 
         <div class="row">
-			<form action="add" method="post" enctype="multipart/form-data">
+			<form action="add" method="post" enctype="multipart/form-data" id="frm">
 				 
 			<div class="mb-3">
 		  		<input type="text" class="form-control" id="writer" name="writer" style="display: none;" value="${sessionScope.member.userName}">
@@ -62,7 +62,7 @@
 		  		<select class="form-select" id="validationDefault04" required name ="couponNum">
             <option selected disabled value="">선택</option>
             <c:forEach items="${list}" var="coupon">
-              <option value="${coupon.couponNum}"> 쿠폰명 : ${coupon.couponName} ( 할인율/할인금액 : ${coupon.discountRate} % )</option>
+              <option id="coupon" value="${coupon.couponNum}"> 쿠폰명 : ${coupon.couponName} ( 할인율/할인금액 : ${coupon.discountRate} % )</option>
             </c:forEach>
           </select>
 			</div>
@@ -78,7 +78,7 @@
 			</div>
 			
 			
-			<button class="btn btn-primary btn-lg btn-block" type="submit">작성하기</button>
+			<button class="btn btn-primary btn-lg btn-block" type="button" id="btn">작성하기</button>
 			</form>
 		</div>
 
@@ -128,6 +128,32 @@
         }
     })
   }
+
+    let frm = document.getElementById("frm")
+    let btn = document.getElementById("btn");
+    let title = document.getElementById("title");
+    let contents = document.getElementById("contents");
+    let coupon = document.getElementById("coupon");
+
+    btn.addEventListener("click", function(){
+      if(title.value == "" || contents.value == ""){
+        alert("제목 또는 내용을 입력하세요")
+      }else if(title.value != "" && contents.value != ""){
+        try {
+          if(coupon.value == ""){
+            alert("쿠폰을 등록하세요.")
+            return;
+          }
+        } catch (error) {
+          
+        }
+        frm.submit();
+      }
+
+    })
+
+
+
 	</script>
 </body>
 

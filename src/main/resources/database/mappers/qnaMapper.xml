@@ -12,7 +12,7 @@
 						<otherwise>CONTENTS</otherwise>	
 					</choose>
 		LIKE '%'||#{search}||'%'
-		ORDER BY NUM DESC) Q)
+		ORDER BY REF DESC, STEP ASC) Q)
 	</sql>
 	
 	<insert id="setReplyAdd" parameterType="QnaDTO">
@@ -69,6 +69,10 @@
 	<update id="setUpdate" parameterType="BoardDTO">
 		UPDATE QNA SET TITLE = #{title}, CONTENTS = #{contents}
 		WHERE NUM = #{num}
+	</update>
+	
+	<update id="setUpdateHit" parameterType="BoardDTO">
+		UPDATE QNA SET HIT = HIT + 1 WHERE NUM = #{num}
 	</update>
 	
 	<select id="getDetail" parameterType="BoardDTO" resultMap="getDetailResult">

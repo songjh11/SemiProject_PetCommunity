@@ -73,6 +73,10 @@
 		WHERE NUM = #{num}
 	</update>
 	
+	<update id="setUpdateHit" parameterType="BoardDTO">
+		UPDATE EVENT SET HIT = HIT + 1 WHERE NUM = #{num}
+	</update>
+	
 	<delete id="setDelete" parameterType="BoardDTO">
 		DELETE EVENT WHERE NUM = #{num}
 	</delete>

@@ -94,6 +94,14 @@ public class NoticeService implements BoardService {
 		// TODO Auto-generated method stub
 		return noticeDAO.setDelete(boardDTO);
 	}
+
+
+	@Override
+	public int setUpdateHit(BoardDTO boardDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return noticeDAO.setUpdateHit(boardDTO);
+	}
+	
 	
 	
 }

@@ -118,4 +118,8 @@
 		ORDER BY HIT DESC
 	</select>
 	
+	<update id="setUpdateHit" parameterType="BoardDTO">
+		UPDATE SHARING SET HIT = HIT + 1 WHERE NUM = #{num}
+	</update>
+	
 </mapper>

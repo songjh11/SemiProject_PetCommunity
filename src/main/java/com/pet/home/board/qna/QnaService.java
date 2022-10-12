@@ -101,6 +101,14 @@ public class QnaService implements BoardService {
 		
 		return result;
 	}
+
+
+	@Override
+	public int setUpdateHit(BoardDTO boardDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return qnaDAO.setUpdateHit(boardDTO);
+	}
+	
 	
 	
 	

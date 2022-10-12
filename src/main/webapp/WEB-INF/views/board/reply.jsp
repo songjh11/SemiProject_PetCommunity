@@ -25,10 +25,10 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>${board} 답글 작성</h2>
+          <h2>${board} 작성</h2>
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li>${board} 답글 작성</li>
+            <li>${board} 작성</li>
           </ol>
         </div>
 
@@ -37,85 +37,61 @@
 
     <section class="sample-page">
       <div class="container" data-aos="fade-up">
-		<div class="row">
-		<form action="./list?" class="row row-cols-lg-auto g-3 align-items-center">
-		
-		  <div class="col-12">
-		    <label class="visually-hidden" for="kind">Preference</label>
-		    <select name="kind" class="form-select" id="kind">
-		      <option class="kinds" value="contents">내용</option>
-		      <option class="kinds" value="title">제목</option>
-		      <option class="kinds" value="writer">작성자</option>
-		    </select>
-		  </div>
-		
-		  <div class="col-12">
-		    <label class="visually-hidden" for="search">검색어 입력</label>
-		    <div class="input-group">
-		      <input type="text" name="search" value="${pager.search}" class="form-control" id="search" placeholder="검색어 입력">
-		    </div>
-		  </div>
-	
-		  <div class="col-12">
-		    <button type="submit" class="btn btn-primary">검색</button>
-		  </div>
-		</form>
+
+        <div class="row">
+			<form action="reply" method="post" enctype="multipart/form-data" id="frm">
+				 <input type="text" class="form-control" name="num" value="${requestScope.dto.num}" style="display: none;">
+			<div class="mb-3">
+		  		<input type="text" class="form-control" id="writer" name="writer" style="display: none;" value="${sessionScope.member.userName}">
+			</div>
+			<div class="mb-3">
+		  		<label for="title" class="form-label">제목</label>
+		  		<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력하세요">
+			</div>
+			
+			
+			<div class="mb-3">
+		  		<label for="contents" class="form-label">내용</label>
+		  		<textarea class="form-control" id="contents" rows="3" name="contents" placeholder="내용 입력"></textarea>
+			</div>
+			
+			<c:if test="${board eq 'event'}">
+        <div class="mb-3">
+		  		<label for="contents" class="form-label">적용할 쿠폰</label>
+		  		<select class="form-select" id="validationDefault04" required name ="couponNum">
+            <option selected disabled value="">선택</option>
+            <c:forEach items="${list}" var="coupon">
+              <option value="${coupon.couponNum}"> 쿠폰명 : ${coupon.couponName} ( 할인율/할인금액 : ${coupon.discountRate} % )</option>
+            </c:forEach>
+          </select>
+			</div>
+      </c:if>
+      
+      <c:if test = "${board eq 'sharing'}">
+        <label for="file" class="form-label">대표 사진</label>
+        <input class="form-control" type="file" id="file0" name="multipartFiles">
+      </c:if>
+
+			<div id="addFiles">
+				<button type="button" class="btn btn-danger" id="fileAdd">파일 추가</button>
+			</div>
+			
+			
+			<button class="btn btn-primary btn-lg btn-block" type="button" id="btn">작성하기</button>
+			</form>
 		</div>
-     
-     
-      <div class="row">
-	<table class="table">
-		<thead>
-			<tr>
-				<th>번호</th><th>제목</th><th>작성자</th><th>작성일자</th><th>조회수</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${requestScope.list}" var="dto">
-			<tr>
-				<td>${pageScope.dto.num}</td>
-				<td>
-				<%-- for(int i = begin; i<= end; i++ --%>
-				<c:catch>
-				<c:forEach begin="1" end="${dto.depth}">&ensp;</c:forEach>
-				</c:catch>
-				<a href="./detail?num=${pageScope.dto.num}">${pageScope.dto.title}</a>
-				</td>
-				<td>${pageScope.dto.writer}</td>
-				<td>${pageScope.dto.regDate}</td>
-				<td>${pageScope.dto.hit}</td>
-			</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-	
-	<nav aria-label="Page navigation example">
-	  <ul class="pagination justify-content-center">
-	    
-	    <li class="page-item ${pager.pre?'':'disabled'}">
-	      <a class="page-link" href="./list?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}">이전</a>
-	    </li>
-	    <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-	    <li class="page-item"><a class="page-link" href="./list?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
-	   </c:forEach>
-	    <li class="page-item ${pager.next?'':'disabled'}">
-	      <a class="page-link" href="./list?page=${pager.lastNum+1}&kind=${pager.kind}&search=${pager.search}">다음</a>
-	    </li>
-	  </ul>
-	</nav>
-	
-	</div>
-	<div class="mb-3">
-		<a href="./add" class="btn btn-primary">새 글 작성하기</a>
-	</div>
+
+      </div>
     </section>
 
   </main><!-- End #main -->
 
+
   
   <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
-  
-
+  <script src="/resources/JS/board_file.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
 	const kinds = document.querySelectorAll(".kinds")
 	let k = '${pager.kind}';
@@ -126,6 +102,34 @@
 				break;
 			}
 		}
+
+	$("#contents").summernote({
+      height : 400,
+      lang : "ko-KR",
+      minHeight : null,
+      maxHeight : null,
+      focus : true,
+      callback : {
+        onImageUpload : function(files, editor, welEditable) {
+          for(let i=0; i<files.length; i++){
+            sendFile(files[i], this);
+          }
+        }
+      }
+  });
+
+  let frm = document.getElementById("frm")
+    let btn = document.getElementById("btn");
+    let title = document.getElementById("title");
+    let contents = document.getElementById("contents");
+
+    btn.addEventListener("click", function(){
+      if(title.value == "" || contents.value == ""){
+        alert("제목 또는 내용을 입력하세요")
+      }else if(title.value != "" && contents.value != ""){
+        frm.submit();
+      }
+    })
 </script>
 
 

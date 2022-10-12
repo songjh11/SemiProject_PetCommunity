@@ -22,4 +22,6 @@ public interface BoardService {
 	public int setDelete(BoardDTO boardDTO) throws Exception;
 
 	public int setFileDelete(BoardFileDTO boardFileDTO, ServletContext servletContext) throws Exception;
+	
+	public int setUpdateHit(BoardDTO boardDTO) throws Exception;
 }

@@ -91,6 +91,7 @@
   </main><!-- End #main -->
   
   <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
+  <script src="/resources/JS/board_file.js"></script>
   
 	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
@@ -131,6 +132,19 @@
         }
     })
   }
+
+    let frm = document.getElementById("frm")
+    let btn = document.getElementById("btn");
+    let title = document.getElementById("title");
+    let contents = document.getElementById("contents");
+
+    btn.addEventListener("click", function(){
+      if(title.value == "" || contents.value == ""){
+        alert("제목 또는 내용을 입력하세요")
+      }else if(title.value != "" && contents.value != ""){
+        frm.submit();
+      }
+      })
 	</script>
 
 </body>

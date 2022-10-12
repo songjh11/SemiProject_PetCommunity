@@ -41,8 +41,16 @@
       <div class="container" data-aos="fade-up">
         
         <div class="section-header">
-          <h2>같이해요</h2>
-          <p>회원 <span>정보 공유</span> 게시판</p>
+          <c:choose>
+            <c:when test="${board eq 'sharing'}">
+              <h2>같이해요</h2>
+              <p>회원 <span>정보 공유</span> 게시판</p>
+            </c:when>
+            <c:otherwise>
+              <h2>이벤트</h2>
+              <p>이벤트 게시판</p>
+            </c:otherwise>
+          </c:choose>
         </div>
         <div class="row">
           <form action="./list?" class="row row-cols-lg-auto g-3 align-items-center">
@@ -81,7 +89,14 @@
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100" style=" cursor: pointer;" onclick="location.href='./detail?num=${dto.num}';">
             <div class="chef-member">
               <div class="member-img">
-                <img src="/resources/upload/sharing/${pageScope.dto.boardFileDTOs[0].fileName}" class="img-fluid" alt="">
+                <c:choose>
+                  <c:when test="${requestScope.board eq 'sharing'}">
+                    <img src="/resources/upload/sharing/${pageScope.dto.boardFileDTOs[0].fileName}" class="img-fluid" alt="">
+                  </c:when>
+                  <c:otherwise>
+                    <img src="/resources/upload/event/${pageScope.dto.boardFileDTOs[0].fileName}" class="img-fluid" alt="">
+                  </c:otherwise>
+                </c:choose>
                 <div class="social">
                   <a href=""><i class="bi bi-twitter"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>

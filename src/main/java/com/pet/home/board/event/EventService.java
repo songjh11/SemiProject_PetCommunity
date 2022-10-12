@@ -104,5 +104,13 @@ public class EventService implements BoardService {
 	public int setCouponSave(CouponDTO couponDTO) throws Exception{
 		return eventDAO.setCouponSave(couponDTO);
 	}
+
+	@Override
+	public int setUpdateHit(BoardDTO boardDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return eventDAO.setUpdateHit(boardDTO);
+	}
+	
+	
 	
 }

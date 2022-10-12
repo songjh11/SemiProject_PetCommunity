@@ -20,20 +20,32 @@
 		
 	<!--멤버별 리스트 가져오기 -->
 	<select id="getSellerList" parameterType="SellPager" resultMap="getItemResult">
-		SELECT * FROM
-			(SELECT ROWNUM R, SITEM.* FROM 
-			(SELECT SII.* 
-			FROM 
-				(SELECT SI.ITEMNUM, SI.ITEMPRICE, SI.USERID, SI.ITEMNAME, SI.ITEMCATG, SI.ITEMADDRESS, SI.ITEMDEADDRESS, SF.FILENAME
-					FROM SELLITEM SI
-					INNER JOIN
-					SELLFILE SF
-					ON SI.ITEMNUM = SF.ITEMNUM
-					WHERE SI.ITEMCATG= #{itemCatg}					
-					ORDER BY SI.ITEMNUM DESC,SF.PHOTONUM ASC) SII 
-			WHERE SII.ITEMNAME LIKE '%'||#{search}||'%' AND SII.USERID=#{userId}
-		ORDER BY SII.ITEMNUM DESC) SITEM)
-		WHERE R BETWEEN #{startRow} and #{lastRow}
+		 SELECT ITEM.*, SF.*
+			   FROM
+			    (SELECT * FROM
+			        (SELECT ROWNUM R, S.* FROM
+			            (SELECT * FROM SELLITEM 
+			                WHERE ITEMCATG=#{itemCatg} AND USERID=#{userId} AND ITEMNAME LIKE '%'||#{search}||'%' 
+			                ORDER BY ITEMNUM DESC
+			            )S
+			        )
+			    WHERE R BETWEEN #{startRow} AND #{lastRow}
+			    ) ITEM
+			    INNER JOIN
+			    SELLFILE SF
+			    ON ITEM.ITEMNUM = SF.ITEMNUM
+			    ORDER BY ITEM.ITEMNUM DESC, SF.PHOTONUM ASC
+	</select>
+	
+	<!-- 멤버별 아이템 갯수 세기 -->
+	<select id="getSellerItemCount" parameterType="SellPager" resultType="Long">
+		SELECT COUNT(ROWNUM) FROM
+			(SELECT ROWNUM R FROM
+	             (SELECT * FROM SELLITEM 
+	               WHERE ITEMCATG=#{itemCatg} AND USERID=#{userId}
+	               ORDER BY ITEMNUM DESC
+	              )
+              )
 	</select>
 	
 	

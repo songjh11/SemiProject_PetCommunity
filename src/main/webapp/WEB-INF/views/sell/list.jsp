@@ -73,33 +73,33 @@
 
     <section id="chefs" class="chefs section-bg">
       <div class="container" data-aos="fade-up">
-                   <section id="book-a-table" class="book-a-table">
+                  <section id="book-a-table" class="book-a-table">
                     <div class="container" data-aos="fade-up">
-                    <section id="menu" class="menu">
-                      <div class="section-header">
-                        <p><span>${category.categoryName}</span><p>
-                          <input type="hidden" id="itemCatg" value="${pager.itemCatg}">
-                       </div>
-                       <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
-                        <li class="nav-item">
-                          <a class="nav-link" href="/sell/list?itemCatg=1">
-                            <h4>Hotelling</h4>
-                          </a>
-                        </li><!-- End tab nav item -->
-                        <li class="nav-item">
-                          <a class="nav-link" href="/sell/list?itemCatg=2">
-                            <h4>One day Class</h4>
-                          </a>
-                        </li><!-- End tab nav item -->
-                        <li class="nav-item">
-                          <a class="nav-link" href="/sell/list?itemCatg=3">
-                            <h4>Training</h4>
-                          </a>
-                        </li><!-- End tab nav item -->
-                        </ul>
-                        </section>
-                        </div>
+                      <section id="menu" class="menu">
+                            <div class="section-header">
+                              <p><span>${category.categoryName}</span><p>
+                                <input type="hidden" id="itemCatg" value="${pager.itemCatg}">
+                            </div>
+                            <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
+                              <li class="nav-item">
+                                <a class="nav-link" href="/sell/list?itemCatg=1">
+                                  <h4>Hotelling</h4>
+                                </a>
+                              </li><!-- End tab nav item -->
+                              <li class="nav-item">
+                                <a class="nav-link" href="/sell/list?itemCatg=2">
+                                  <h4>One day Class</h4>
+                                </a>
+                              </li><!-- End tab nav item -->
+                              <li class="nav-item">
+                                <a class="nav-link" href="/sell/list?itemCatg=3">
+                                  <h4>Training</h4>
+                                </a>
+                              </li><!-- End tab nav item -->
+                            </ul>
                       </section>
+                    </div>
+                  </section>
 			<div class="row gy-1">	
               <c:forEach items="${list}" var="ar">
                 <div class="col-lg-3 col-md-4 d-flex align-items-stretch justify-content-center" data-aos="fade-up" data-aos-delay="100">
@@ -164,15 +164,6 @@
         <!-- End grid1div -->
       </div>
     </section> 
-           					
-                        	
-                        		
-                        		
-                        		
-                        		
-           
-                        			
-                    
     
     <!-- pagination start -->
     <div class="chefs section-bg" style="padding-bottom: 10px;">

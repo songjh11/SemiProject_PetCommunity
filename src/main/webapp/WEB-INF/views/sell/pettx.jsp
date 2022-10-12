@@ -13,8 +13,26 @@
 
 	<style type="text/css">
         #backImg{
-            width: 100%;
             position: relative;
+            width: 80%;
+            height: auto;
+        }
+
+        #rvBtn{
+          width: 250px;
+          top: -30px;
+          position: relative;
+          height: 80px;
+          background: #f49d2c;
+          color: #fff;
+          border-radius: 50px;
+          border-color: transparent;
+          text-align: center;
+          font-size: 1.5rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
         }
 	</style>
   
@@ -24,12 +42,13 @@
 <c:import url="/WEB-INF/views/template/header.jsp"></c:import>
 <!-- header end -->
 <!-- ======= Add Items Section ======= -->
-<title>Pet-Taxi</title>
-</head>
 <body>
-<div>
-   <img id="backImg" src="/resources/images/화면 캡처 2022-09-22 143707.png">
+  <div style="padding: 90px;  background-color: #feefd4;"></div>
+<div style="background-color: #feefd4; display: flex; flex-direction: column; align-items: center; padding-bottom: 50px; text-align: center;">
+   <img id="backImg" src="/resources/images/펫택시 배경.png">
+  <a href="https://mntx.co.kr/reservation.php"><button id="rvBtn">예약하기</button></a>
 </div>
+
 
   <!-- footer start -->
   <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>

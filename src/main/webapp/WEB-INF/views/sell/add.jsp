@@ -20,12 +20,12 @@
       justify-content: center;
       align-items:center;
       position: relative;
-      width: 80px;
+      width: 100px;
 	  	height: 80px;
       margin-right: 5px;
     }
     .thumnail{
-		width: 80px;
+		width: 100px;
 		height: 80px;
 
 		} 
@@ -65,7 +65,7 @@
                   <div class="validate"></div>
                 </div>
                 <div class="col-lg-4 col-md-6">
-                   <button type="button" id="sellfileAdd">상품 사진 추가</button>
+                   <button type="button" id="sellfileAdd" class="btn btn-outline-danger">상품 사진 추가</button>
                   </div>
                 <div class="col-lg-4 col-md-6">  
                 <div id="sellFileImages">
@@ -88,7 +88,7 @@
                   <div class="validate"></div>
                 </div>
                 <div class="col-lg-6 col-md-6">
-                  <button type="button" id="address_kakao" onclick="execDaumPostcode();">주소 검색</button>
+                  <button type="button" id="address_kakao" onclick="execDaumPostcode();" class="btn btn-outline-danger">주소 검색</button>
                 </div>
                 <div class="col-lg-12 col-md-12">
                  <input type="text" name="itemAddress" class="form-control" id="itemAddress" placeholder="주소">
@@ -109,7 +109,7 @@
               </div>
               <br>
              <div class="text-center">
-             	<button type="button" id="addItemBtn">상품 등록</button>
+             	<button type="button" id="addItemBtn" class="btn btn-outline-danger">상품 등록</button>
              </div>
              
             </form>

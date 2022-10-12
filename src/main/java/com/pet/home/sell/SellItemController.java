@@ -483,31 +483,23 @@ public class SellItemController {
 			
 			//쿠폰 여부
 			CouponDTO couponDTO = new CouponDTO();
-			System.out.println("couponNum : "+couponNum);
-			if(couponNum != "") {
+			
+			if(!couponNum.equals("")) {
 				couponDTO.setCouponNum(Long.parseLong(couponNum));
 				couponDTO.setUserId(userId);
 				couponDTO = adminDAO.getCouponByNum(couponDTO);
-				if(couponDTO.getDiscountMethod() == "0") {
-					try {
-						totalPrice = totalPrice * (100 - couponDTO.getDiscountRate()) / 100;
-						adminDAO.setDeleteCoupon(couponDTO);
-					} catch (Exception e) {
-						// TODO: handle exception
-					}
+				if(couponDTO.getDiscountMethod().equals("0")) {
+					totalPrice = totalPrice * (100 - couponDTO.getDiscountRate())/100;
+					adminDAO.setDeleteCoupon(couponDTO);
 				}else {
-					try {
-						totalPrice = totalPrice - couponDTO.getDiscountPrice();
-						adminDAO.setDeleteCoupon(couponDTO);
+
+					totalPrice = totalPrice - couponDTO.getDiscountPrice();
+					adminDAO.setDeleteCoupon(couponDTO);
 						
-					} catch (Exception e) {
-						// TODO: handle exception
-					}
 				}
 			}
 			
-			System.out.println("마지막 비교전 amount:"+amount);
-			System.out.println("마지막 비교전 totalPrice:"+totalPrice);
+			
 			//실제 결제 금액과 DB상 결제되어야 하는 금액 비교
 			if(amount.equals(totalPrice.toString())) {
 				//실결제 여부 검증

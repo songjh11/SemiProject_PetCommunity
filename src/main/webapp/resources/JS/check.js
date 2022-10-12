@@ -123,16 +123,15 @@ if(dateResult){
     }
     
 }
-    console.log(coupon.value);
+   
     // ------ 쿠폰 계산
     if(coupon.value != ""){
       arr = coupon.value.split("|");
 
       rp = arr[0];
-      console.log(rp);
       couponNum = arr[1];
       method = arr[2];
-      console.log(couponNum);
+      
 
       rp = Number(rp);
 
@@ -143,7 +142,7 @@ if(dateResult){
         totalPrice.value = totalPrice.value - rp;
         tpv = totalPrice.value;
       }
-      console.log(totalPrice.value);
+      
       coupon.value = couponNum;
       cpn = couponNum;
     }
@@ -170,7 +169,7 @@ rvBtnFrm.addEventListener("click", function(){
     inv = itemName.value;
     cpn = couponNum;
 
-    console.log(cpn);
+  
   
     if(tpv<=0){
     alert("예상 결제 금액을 다시 확인해주세요")

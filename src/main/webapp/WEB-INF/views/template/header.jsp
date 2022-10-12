@@ -45,112 +45,123 @@
 </head>
 
 <body>
-  
-  </head>
-    <!-- Modal -->
+   <!--Search Modal -->
     <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Search</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <form class="d-flex" action="../sell/search" method="get" id="searchFrm">
-          <div class="modal-body">
-            <div>
-              <select name="itemCatg" class="form-control" id="searchItemCatg" value="${param.itemCatg}">
-                <option value="" selected>-- 상품 카테고리 선택 --</option>
-                <option value="1">호텔링</option>
-                <option value="2">원데이클래스</option>
-                <option value="3">트레이닝</option>
-              </select>
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Search</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <input class="form-control me-2" type="text" name="search" placeholder="검색어 입력" aria-label="Search" value="${param.search}">
+            <form class="d-flex" action="../sell/search" method="get" id="searchFrm">
+              <div class="modal-body">
+                <div>
+                  <select name="itemCatg" class="form-control" id="searchItemCatg" value="">
+                    <option value="">-- 상품 카테고리 선택 --</option>
+                    <option value="1">호텔링</option>
+                    <option value="2">원데이클래스</option>
+                    <option value="3">트레이닝</option>
+                  </select>
+                </div>
+                <input class="form-control me-2" type="text" name="search" placeholder="검색어 입력" aria-label="Search" value="">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success" id="searchBtn">Search</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >닫기</button>
+              </div>
+            </form>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-success" id="searchBtn">Search</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >닫기</button>
-          </div>
-        </form>
-        </div>
-    </div>
+      </div>
     </div>
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
-    <div class="container d-flex align-items-center justify-content-between">
-  <div>
-  <!-- Button trigger modal -->
-  <button type="button" class="btn-book-a-table" data-bs-toggle="modal" data-bs-target="#searchModal" style="border:0px;">
-    <i class="bi bi-search"></i>
-    </button>
-  </div>
-      
-  
-        <a href="/" class="logo d-flex align-items-center me-auto me-lg-0">
-          <!-- Uncomment the line below if you also wish to use an image logo -->
-          <!-- <img src="assets/img/logo.png" alt=""> -->
-          <h1>WALWAL<span>.</span></h1>
-        </a>
-  
+  <header id="header" class="header d-flex align-items-center" style="position: fixed; top:0; width:100vw; justify-content: space-evenly;">
+    <!-- search button+logo start -->
+    <div style="display: flex; align-items: center;">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn-book-a-table" data-bs-toggle="modal" data-bs-target="#searchModal" style="border:0px; margin: 0;">
+        <i class="bi bi-search"></i>
+        </button>
+          <a href="/" class="logo d-flex align-items-center me-auto me-lg-0">
+            <span style="font-size: 40px; color: black; font-weight: 700;">WALWAL.</span>
+          </a>
+    </div>
+    <!-- search button+logo end -->
+
+    <!-- Main menu start -->
+    <div>
         <nav id="navbar" class="navbar">
-          <ul>
-           <li><a href="/sell/list?itemCatg=1">호텔링</a></li>
-            <li><a href="/sell/list?itemCatg=2">One Day 클래스</a></li>
-            <li><a href="/sell/list?itemCatg=3">트레이닝</a></li>
-            <li><a href="#chefs">Pet Taxi</a></li>
-            <li><a href="#gallery">여행해요</a></li>
-            <li class="dropdown"><a href="#"><span>커뮤니티</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
               <ul>
-                <li><a href="#">같이해요</a></li>
-                <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                <li><a href="../">Home</a></li>
+                <li class="dropdown"><a href="#"><span>예약 서비스</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                   <ul>
-                    <li><a href="#">Deep Drop Down 1</a></li>
-                    <li><a href="#">Deep Drop Down 2</a></li>
-                    <li><a href="#">Deep Drop Down 3</a></li>
-                    <li><a href="#">Deep Drop Down 4</a></li>
-                    <li><a href="#">Deep Drop Down 5</a></li>
+                        <li><a href="/sell/list?itemCatg=1">호텔링</a></li>
+                        <li><a href="/sell/list?itemCatg=2">One Day 클래스</a></li>
+                        <li><a href="/sell/list?itemCatg=3">트레이닝</a></li>
+                        <li><a href="/sell/pettx">Pet-Taxi</a></li>
                   </ul>
                 </li>
-                <li><a href="/notice/list">공지사항</a></li>
-                <li><a href="#">Drop Down 3</a></li>
-                <li><a href="#">Drop Down 4</a></li>
-              </ul>
-            </li>
+                <li><a href="#gallery">여행해요</a></li>
+                <li class="dropdown"><a href="#"><span>커뮤니티</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                  <ul>
+                    <li><a href="#">같이해요</a></li>
+                    <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                      <ul>
+                        <li><a href="#">Deep Drop Down 1</a></li>
+                        <li><a href="#">Deep Drop Down 2</a></li>
+                        <li><a href="#">Deep Drop Down 3</a></li>
+                        <li><a href="#">Deep Drop Down 4</a></li>
+                        <li><a href="#">Deep Drop Down 5</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="/notice/list">공지사항</a></li>
+                    <li><a href="#">Drop Down 3</a></li>
+                    <li><a href="#">Drop Down 4</a></li>
+                </ul>
+              </li>
           </ul>
-        </nav><!-- .navbar -->
-        
-        <!--로그인 성공했을 때-->
-        <c:if test="${not empty sessionScope.member}">
-        <h5 style="color: gray; font-size: smaller;">${sessionScope.member.userName}님<br>환영합니다!</h5>
-         <a class="btn-book-a-table" href="/member/mypage">Mypage</a>
-         <c:choose>
-          <c:when test="${empty member.password}">
-            <a class="btn-book-a-table" href="https://kauth.kakao.com/oauth/logout?client_id=3de4327e8b367107a94e0ffc38dcc41d&logout_redirect_uri=http://localhost/member/logout">Logout</a>
-           </c:when>
-           <c:otherwise>
-           <a class="btn-book-a-table" href="/member/logout">Logout</a>
-          </c:otherwise>
-         </c:choose>
-         <c:if test="${member.roleNum eq 2}">
-         <a href="/member/cart"><i class="bi bi-cart-check" style="margin-left: 5%; font-size: 2rem;"></i></a>
-        </c:if>
-  
-         </c:if>
-         <!-- 로그인 실패했을 때 -->
-         <c:if test="${empty sessionScope.member}">
-          <a class="btn-book-a-table" href="/member/login">Login</a>
-           <a class="btn-book-a-table" href="/member/role">Join</a>
-           </c:if>
-  
-        <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-        <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
-  
-      </div>
-    </header><!-- End Header -->
-  
-    <!--모달 부트스트랩-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-    <script src="/resources/JS/sellHeader.js"></script>
-  
+        </nav>
+    </div>
+      <!-- .navbar -->
+
+ <!--로그인 성공했을 때-->
+
+  <c:if test="${not empty sessionScope.member}">
+    <div style="display: inline-block; width: 500px;">
+    <h5 style="color: gray; font-size: smaller; display: inline-block; width: 100px;">${sessionScope.member.userName}님<br>환영합니다!</h5>
+  <a class="btn-book-a-table" href="/member/mypage">Mypage</a>
+  <c:choose>
+    <c:when test="${empty member.password}">
+      <!-- 카카오 로그인의 경우 password값이 없음. kakao session 끊는 링크-->
+      <a class="btn-book-a-table" href="https://kauth.kakao.com/oauth/logout?client_id=3de4327e8b367107a94e0ffc38dcc41d&logout_redirect_uri=http://localhost/member/logout">Logout</a>
+    </c:when>
+    <c:otherwise>
+    <a class="btn-book-a-table" href="/member/logout">Logout</a>
+    </c:otherwise>
+  </c:choose>
+  <c:if test="${member.roleNum eq 2}">
+  <a href="/member/cart" style="display: inline-block; width: 80px; margin-left: 20px;"><i class="bi bi-cart-check" style="margin-left: 5%; font-size: 2rem;"></i></a>
+  </c:if>
+  </div>
+  </c:if>
+  <!-- 로그인 실패했을 때 -->
+  <c:if test="${empty sessionScope.member}">
+  <div style="display: inline-block;">
+    <h5 style="color: gray; font-size: smaller; display: inline-block; width: 100px;">원활한 이용을 위해<br>로그인해주세요</h5>
+    <a class="btn-book-a-table" href="/member/login">Login</a>
+    <a class="btn-book-a-table" href="/member/role">Join</a>
+  </div>
+    </c:if>        
+<i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+<i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+</header><!-- End Header -->
+
+<!--모달 부트스트랩-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+<script src="/resources/JS/sellHeader.js"></script>
+<script>
+searchClose();
+</script>
+
+
 </body>
 </html>

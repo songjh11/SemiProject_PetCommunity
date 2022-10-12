@@ -13,7 +13,7 @@
 
   <!-- Template Main CSS File -->
   <link href="/resources/assets/css/main.css" rel="stylesheet">
-
+  <script>history.scrollRestoration = "manual"</script>
 	<style type="text/css">
     .ag{
       background-color:cornsilk;

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.pet.home.member.MemberDTO;
 import com.pet.home.sell.file.SellFileDTO;
+import com.pet.home.sell.purchase.PurchaseDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
 
 public class SellItemDTO {
@@ -32,7 +33,21 @@ public class SellItemDTO {
 
 	private List<SellFileDTO> fileDTOs;
 	private List<ShopCartDTO> shopCartDTOs;
+	private List<PurchaseDTO> purchaseDTO;
 	
+	
+	
+	
+	
+
+	public List<PurchaseDTO> getPurchaseDTO() {
+		return purchaseDTO;
+	}
+
+	public void setPurchaseDTO(List<PurchaseDTO> purchaseDTO) {
+		this.purchaseDTO = purchaseDTO;
+	}
+
 	public List<ShopCartDTO> getShopCartDTOs() {
 		return shopCartDTOs;
 	}

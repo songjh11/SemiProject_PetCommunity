@@ -62,6 +62,7 @@
     .blocked{
       filter: brightness(20%); 
     }
+
 	</style>
   
 </head>
@@ -274,19 +275,12 @@
   
         <c:when test="${what eq 'Purchase List'}">
           <c:forEach items="${purchaseList}" var="check">
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-
-                <div class="chef-member">
-                    <div class="member-img">
+            <div class="col-lg-3 col-md-4 d-flex align-items-stretch justify-content-center" data-aos="fade-up" data-aos-delay="100">
+              <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 15px;">
+                <div class="member-img" style="width: 100%;">
                         <img src="/resources/upload/sellfile/${check.fileDTOs[0].fileName}" class="img-fluid" alt="">
-                        <div class="social">
-                        <a href=""><i class="bi bi-trash3"></i></a>
-                        <a href=""><i class="bi bi-facebook"></i></a>
-                        <a href=""><i class="bi bi-instagram"></i></a>
-                        <a href=""><i class="bi bi-linkedin"></i></a>
-                        </div>
                     </div>
-                    <div class="member-info">
+                    <div class="member-info" style="width: 100%; height: 115px;">
                         <h4>${check.itemDTO.itemName}</h4>
                         <a href="./purchaseDetail?merchant_uid=${check.merchant_uid}">주문번호: ${check.merchant_uid}</a>
                         <span>결제 금액: ${check.amount}</span>
@@ -294,33 +288,26 @@
                     </div>
                 </div>
             </div>
-        </c:forEach>
-      </c:when>
+          </c:forEach>
+        </c:when>
 
       <c:when test="${what eq 'Purchase Cancel List'}">
         <c:forEach items="${purchaseList}" var="check">
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-
-              <div class="chef-member">
-                  <div class="member-img">
+          <div class="col-lg-3 col-md-4 d-flex align-items-stretch justify-content-center" data-aos="fade-up" data-aos-delay="100">
+            <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 15px;">
+              <div class="member-img" style="width: 100%;">
                       <img src="/resources/upload/sellfile/${check.fileDTOs[0].fileName}" class="img-fluid" alt="">
-                      <div class="social">
-                      <a href=""><i class="bi bi-trash3"></i></a>
-                      <a href=""><i class="bi bi-facebook"></i></a>
-                      <a href=""><i class="bi bi-instagram"></i></a>
-                      <a href=""><i class="bi bi-linkedin"></i></a>
-                      </div>
                   </div>
                   <div class="member-info">
                       <h4>${check.itemDTO.itemName}</h4>
                       <a href="./purchaseDetail?merchant_uid=${check.merchant_uid}">주문번호: ${check.merchant_uid}</a>
-                      <span>결제 금액: ${check.amount}</span>
+                      <span>환불 금액: ${check.amount}</span>
                       <p>${itemDTOs.itemContents}</p>
                   </div>
               </div>
           </div>
-      </c:forEach>
-    </c:when>
+        </c:forEach>
+      </c:when>
         
      
 

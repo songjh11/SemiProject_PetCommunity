@@ -214,22 +214,6 @@
   <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
   <!-- footer end -->
 
-    <!-- script start -->
-  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <div id="preloader"></div>
-
-  <!-- Vendor JS Files -->
-  <script src="/resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="/resources/assets/vendor/aos/aos.js"></script>
-  <script src="/resources/assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="/resources/assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="/resources/assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="/resources/assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="/resources/assets/js/main.js"></script>
-
 <!-- daum 지도 검색 api -->  
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>

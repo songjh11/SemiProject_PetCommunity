@@ -97,4 +97,8 @@ public class SellItemDAO {
 	public List<SellItemDTO> getAllItemList() throws Exception{
 		return session.selectList(NAMESPACE+"getAllItemList");
 	}
+	
+	public List<SellItemDTO> getPurchaseListtoMain() throws Exception {
+		return session.selectList(NAMESPACE+"getPurchaseListtoMain");
+	}
 }

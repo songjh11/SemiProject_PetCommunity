@@ -1,5 +1,6 @@
 package com.pet.home.board.sharing;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,8 @@ public class SharingController {
 	private SharingService sharingService;
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private SharingDAO sharingDAO;
 	
 	@ModelAttribute("board")
 	public String getBoard() {
@@ -81,6 +84,17 @@ public class SharingController {
 		Pager pager = new Pager(10L, 5L);
 		List<BoardDTO> ar = sharingService.getList(pager);
 		
+
+		for(int i=0; i<ar.size(); i++) {
+			BoardCommentPager boardCommentPager = new BoardCommentPager();
+			boardCommentPager.setNum(ar.get(i).getNum());
+			System.out.println(ar.get(i).getNum());
+			Long count = sharingDAO.getCommentListTotalCount(boardCommentPager);
+			System.out.println(count);
+			ar.get(i).setCount(count);
+		}
+		
+
 		mv.addObject("list", ar);
 		mv.addObject("pager", pager);
 		mv.setViewName("board/list2");

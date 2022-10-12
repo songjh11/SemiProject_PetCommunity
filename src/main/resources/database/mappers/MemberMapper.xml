@@ -18,17 +18,21 @@ SELECT M.USERNAME, M.USERID, M.EMAIL, M.PHONE, M.ROLENUM, R.ROLENAME
 </select>
 
 <select id="getKakaoLogin" parameterType="MemberDTO" resultMap="getLoginResult" >
-SELECT M.USERNAME, M.USERID, M.EMAIL, M.ROLENUM
+SELECT M.USERNAME, M.USERID, M.ROLENUM
 		FROM MEMBER WHERE USERID=#{userId}
 </select>
 
 <insert id="setKakao" parameterType="MemberDTO">	 
-INSERT INTO member (USERID,ROLENUM,USERNAME,EMAIL)
-VALUES (#{userId},#{roleNum},#{userName},#{email})
+INSERT INTO member (USERID,ROLENUM,USERNAME)
+VALUES (#{userId},#{roleNum},#{userName})
 </insert>
 
 <select id="getKakaoCount" parameterType="MemberDTO" resultType="Integer">
         SELECT COUNT(USERID) FROM MEMBER WHERE USERID=#{userId}
+</select>
+
+<select id="getKakaoFileCount" parameterType="MemberDTO" resultType="Integer">
+        SELECT COUNT(USERID) FROM MEMFILE WHERE USERID=#{userId}
 </select>
 
 <insert id="setJoin" parameterType="MemberDTO">	 
@@ -51,14 +55,13 @@ VALUES (#{guestId},#{userId},#{roleNum},#{petCatg},#{petName})
 <select id="getGuestPage" parameterType="MemberDTO" resultMap="myPageResult">
     SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.DEADDRESS, M.ITEMZIPCODE,M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, G.PETCATG, G.PETNAME, MF.FILENAME, MF.ORINAME
       FROM MEMBER M
-      INNER JOIN
+      LEFT JOIN
       GUEST G
       ON M.USERID = G.USERID
-      INNER JOIN 
+      LEFT JOIN 
       ROLE R
       ON M.ROLENUM =R.ROLENUM
-      
-      INNER JOIN
+      LEFT JOIN
            MEMFILE MF
       ON M.USERID = MF.USERID
 WHERE M.USERID=#{userId}

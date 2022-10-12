@@ -9,7 +9,7 @@
 <style type="text/css">
 
 .side-menu {
-            top: 50px;
+            top: 0px;
             width: 45px;
             z-index: 10;
             background: #ff5858;
@@ -72,7 +72,7 @@
 
         .left_sub_menu {
             position: fixed;
-            top: 50px;
+            top: 0px;
             width: 200px;
             z-index: 10;
             left: 45px;

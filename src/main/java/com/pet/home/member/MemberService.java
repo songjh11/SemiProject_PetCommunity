@@ -58,12 +58,12 @@ public class MemberService {
 			
 			if(!photo.isEmpty()) {
 			
-				
 				MemberFileDTO memberFileDTO = new MemberFileDTO();
 				memberFileDTO.setFileName(fileName);
 				memberFileDTO.setOriName(photo.getOriginalFilename());
 				memberFileDTO.setUserId(memberDTO.getUserId());
 				memberDAO.setAddFile(memberFileDTO);
+				
 				
 			}
 		}
@@ -91,8 +91,7 @@ public class MemberService {
 	
 	public int setMemUpdate(MemberDTO memberDTO, MultipartFile photo, ServletContext servletContext)throws Exception{
 
-		
-		
+	
 		int result =memberDAO.setMemUpdate(memberDTO);
 	
 		
@@ -102,13 +101,23 @@ public class MemberService {
 			String fileName = fileManager.saveFile(servletContext, path, photo);
 			
 			if(!photo.isEmpty()) {
-			
-				
+
 				MemberFileDTO memberFileDTO = new MemberFileDTO();
 				memberFileDTO.setFileName(fileName);
 				memberFileDTO.setOriName(photo.getOriginalFilename());
 				memberFileDTO.setUserId(memberDTO.getUserId());
-				memberDAO.setFileUpdate(memberFileDTO);
+				
+				if(memberDAO.getKakaoFileCount(memberDTO) == 0) {
+					memberDAO.setAddFile(memberFileDTO);
+					}else {
+						memberDAO.setFileUpdate(memberFileDTO);
+					}
+				
+			//System.out.println("멤버디티오.파일디티오"+memberDTO.getMemberFileDTO().getFileName());
+		
+//				if(memberDTO.getUserId() != memberDTO.getUserId()){
+//				memberDAO.setAddFile(memberFileDTO);
+//				}
 				
 			}
 		}

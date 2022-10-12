@@ -14,19 +14,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pet.home.board.event.EventDTO;
+import com.pet.home.board.event.EventService;
 import com.pet.home.board.event.coupon.CouponDTO;
 import com.pet.home.board.impl.BoardDTO;
 import com.pet.home.board.qna.QnaDAO;
 import com.pet.home.board.qna.QnaDTO;
 import com.pet.home.board.sharing.SharingDAO;
 import com.pet.home.board.sharing.SharingDTO;
+import com.pet.home.member.BizmemDTO;
 import com.pet.home.member.MemberDAO;
 import com.pet.home.member.MemberDTO;
 import com.pet.home.sell.ReservationDTO;
+import com.pet.home.sell.SellItemDTO;
 import com.pet.home.sell.SellItemService;
 import com.pet.home.sell.purchase.PurchaseDTO;
 import com.pet.home.util.CommentPager;
 import com.pet.home.util.Pager;
+import com.pet.home.util.SellPager;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -42,11 +47,13 @@ public class AdminController {
 	private QnaDAO qnaDAO;
 	@Autowired
 	private SellItemService sellItemService;
+	@Autowired
+	private EventService eventService;
 
 	@GetMapping("mypage")
 	public ModelAndView getMyPage(ModelAndView mv) throws Exception {
 		Pager bizPager = new Pager();
-		List<MemberDTO> bizMembers = adminService.getBizmenList(bizPager);
+		List<BizmemDTO> bizMembers = adminService.getBizmenList(bizPager);
 		Pager guestPager = new Pager();
 		List<MemberDTO> guestMembers = adminService.getGuestList(guestPager);
 		Pager couponPager = new Pager();
@@ -75,7 +82,7 @@ public class AdminController {
 	@PostMapping("bizlist")
 	@ResponseBody
 	public Map<String, Object> getBizList(Pager pager) throws Exception{
-		List<MemberDTO> list = adminService.getBizmenList(pager);
+		List<BizmemDTO> list = adminService.getBizmenList(pager);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		map.put("pager", pager);
@@ -113,9 +120,19 @@ public class AdminController {
 	@PostMapping("deletemember")
 	@ResponseBody
 	public int setMemberDelete(MemberDTO memberDTO) throws Exception{
-		int result = memberDAO.setMemDelete(memberDTO);
+		int result = memberDAO.setBlock(memberDTO);
 		return result;
 	}
+	
+	@PostMapping("unblockmember")
+	@ResponseBody
+	public int setMemberUnblock(MemberDTO memberDTO) throws Exception{
+		int result = memberDAO.setUnBlock(memberDTO);
+		return result;
+	}
+	
+	
+	
 	//멤버 등급부여
 	public void setUpdateMember() throws Exception{
 		
@@ -135,6 +152,17 @@ public class AdminController {
 		
 		return map;
 		
+	}
+	
+	//사업자 이벤트 쓴글 불러오기
+	@GetMapping("eventlist")
+	@ResponseBody
+	public Map<String, Object> getBizEventList(MemberDTO memberDTO, Pager pager) throws Exception{
+		List<BoardDTO> ar = eventService.getList(pager);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("event", ar);
+		map.put("pager",pager);
+		return map;
 	}
 	
 	// 같이해요 삭제
@@ -186,6 +214,15 @@ public class AdminController {
 		purchaseDTO.setPurchaseStatus(Long.parseLong(purchaseStatus));
 		List<PurchaseDTO> list =  sellItemService.getPurchaseList(purchaseDTO);
 		return list;
+	}
+	
+	//사업자 판매상품 리스트 불러오기
+	@PostMapping("sellerlist")
+	@ResponseBody
+	public List<SellItemDTO> getSellerList(SellPager sellPager) throws Exception{
+		List<SellItemDTO> ar = sellItemService.getSellerList(sellPager);
+		return ar;
+		
 	}
 	
 	//1:1 문의 리스트 불러오기

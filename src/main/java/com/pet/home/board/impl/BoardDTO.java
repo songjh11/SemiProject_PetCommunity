@@ -14,7 +14,16 @@ public class BoardDTO {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date regDate;
 	private Long hit;
+	private Long count;
 	
+	
+	
+	public Long getCount() {
+		return count;
+	}
+	public void setCount(Long count) {
+		this.count = count;
+	}
 	private List<BoardFileDTO> boardFileDTOs;
 	
 	

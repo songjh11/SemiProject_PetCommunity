@@ -7,6 +7,11 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 
   <title>${category.categoryName}</title>
   <meta content="" name="description">
@@ -58,9 +63,11 @@
 
 <body>
 
-  <!-- header start -->
-  <c:import url="/WEB-INF/views/template/header.jsp"></c:import>
-  <!-- header end -->
+  <div class="headerWrapper" style="position: relative;">
+    <!-- header start -->
+    <c:import url="/WEB-INF/views/template/header.jsp"></c:import>
+    <!-- header end -->
+  </div>
 
   
     <!-- ======= List Section ======= -->
@@ -76,12 +83,12 @@
                    <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
                         <li class="nav-item">
                           <a class="nav-link" href="/sell/Sellerlist?itemCatg=1">
-                            <h4>Hoteling</h4>
+                            <h4>Hotelling</h4>
                           </a>
                         </li><!-- End tab nav item -->
                         <li class="nav-item">
                           <a class="nav-link" href="/sell/Sellerlist?itemCatg=2">
-                            <h4>Ondday</h4>
+                            <h4>Oneday Class</h4>
                           </a>
                         </li><!-- End tab nav item -->
                         <li class="nav-item">
@@ -102,13 +109,6 @@
                   <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 15px;">
                     <div class="member-img" style="width: 100%;">
                       <img src="/resources/upload/sellfile/${ar.fileDTOs[0].fileName}" class="img-fluid" alt="">
-                      <div class="social d-flex">
-                        <button type="button" class="btnsocial" id="btnPick">
-                          <i class="bi bi-balloon-heart btnPick" style="cursor: pointer;" data-item-num="${ar.itemNum}"></i>
-                        </button>
-                          <i class="bi bi-facebook" style="cursor: pointer;" id="btnShopCart"></i></a>
-                        </p>
-                      </div>
                     </div>
                     <div class="member-info" style="width: 100%; height: 115px;">
                       <h4><a href="./detail?itemNum=${ar.itemNum}">${ar.itemName}</a></h4>
@@ -154,15 +154,10 @@
    <!-- footer end -->
 
   <script src="/resources/JS/pick&shopcart.js"></script>
+  <script src="/resources/assets/js/main.js"></script>
+  <script>history.scrollRestoration = "manual"</script>
 
   <script>
-    const btnPick = document.getElementById("btnPick");
-    
-    btnPick.addEventListener("click", function(){
-      선택자.classList.remove('삭제할 클래스명')
-      선택자.classList.add('추가할클래스명')  
-
-    })
   </script>
 </body>
 

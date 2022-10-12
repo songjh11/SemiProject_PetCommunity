@@ -84,7 +84,7 @@
                 </a>
               </li><!-- End tab nav item -->
               <li class="nav-item">
-                <a class="nav-link" href="/sell/Sellerlist?itemCatg=3">
+                <a class="nav-link" href="/sell/Sellerlist?itemCatg=1">
                   <h4>상품목록</h4>
                 </a>
               </li><!-- End tab nav item -->

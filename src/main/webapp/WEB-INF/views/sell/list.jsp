@@ -73,6 +73,7 @@
                     <section id="menu" class="menu">
                       <div class="section-header">
                         <p><span>${category.categoryName}</span><p>
+                          <input type="hidden" id="itemCatg" value="${pager.itemCatg}">
                        </div>
                    <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
                         <li class="nav-item">
@@ -94,36 +95,81 @@
               
                         </ul>
                         </section>
-                      </section>
                         </div>
-                   
-					<div class="row gy-1">	
+                      </section>
+			<div class="row gy-1">	
               <c:forEach items="${list}" var="ar">
                 <div class="col-lg-3 col-md-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                   <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 15px;">
                     <div class="member-img" style="width: 100%;">
                       <img src="/resources/upload/sellfile/${ar.fileDTOs[0].fileName}" class="img-fluid" alt="">
-                      <div class="social d-flex">
-                        <button type="button" class="btnsocial" id="btnPick">
-                          <i class="bi bi-balloon-heart btnPick" style="cursor: pointer;" data-item-num="${ar.itemNum}"></i>
-                        </button>
-                          <i class="bi bi-facebook" style="cursor: pointer;" id="btnShopCart"></i></a>
-                        </p>
-                      </div>
+                      	<div class="social d-flex">
+          				<c:choose>
+           					<c:when test="${empty member.userId }">
+                        		<button type="button" class="btnsocial" id="btnPickFalse">
+                            		<img src="/resources/images/love.png" class="btnPickFalse" style="cursor: pointer; width: 20%; " data-item-num="${ar.itemNum}">
+                        		</button>
+                        		<button type="button" class="btnsocial" id="btnShopCartFalse">
+                            		<img src="/resources/images/shopping-cart.png" class="btnShopCartFalse" style="cursor: pointer; width: 20%; " data-item-num="${ar.itemNum}">
+                        		</button>
+           					</c:when>
+           					<c:when test="${not empty member.userId }">
+           						<c:set var="doneLoop" value="false"/>
+            					<c:set var="doneLoop2" value="false"/>
+            					<c:forEach items="${pick }" var="pick" varStatus="vs">
+            						<c:choose>
+             							<c:when test="${member.userId eq pick.pickDTOs[0].userId and ar.itemNum eq pick.pickDTOs[0].itemNum}">
+             								<button type="button" class="btnsocial" id="btnPick">
+                    							<img src="/resources/images/heart.png" class="btnPickDelete" style="cursor: pointer; width: 20%;" data-item-num="${ar.itemNum}" data-id="${pick.pickDTOs[0].userId}">
+                        					</button>
+                        					<c:set var="doneLoop" value="true"/>
+             							</c:when>
+             							<c:when test="${vs.last and not doneLoop }">
+             								<button type="button" class="btnsocial" id="btnPick">
+                                  				<img src="/resources/images/love.png" class="btnPickAdd" style="cursor: pointer; width: 20%;" data-item-num="${ar.itemNum}">
+                        					</button>
+             							</c:when>
+            						</c:choose>
+            					</c:forEach>
+            					<c:forEach items="${shopcart }" var="shopcart" varStatus="scs">
+            						<c:choose>
+            							<c:when test="${member.userId eq shopcart.shopCartDTOs[0].userId and ar.itemNum eq shopcart.shopCartDTOs[0].itemNum }">
+	            							<button type="button" class="btnsocial" id="btnShopCart">
+	                                  			<img src="/resources/images/trolley.png" class="btnShopCartDelete" style="cursor: pointer; width: 20%;" data-item-num="${ar.itemNum}" data-id="${shopcart.shopCartDTOs[0].userId}"> 
+	                        				</button>
+	                        				<c:set var="doneLoop2" value="true"/>
+            							</c:when>
+            							<c:when test="${scs.last and not doneLoop2 }">
+            								<button type="button" class="btnsocial" id="btnShopCart">
+                                  				<img src="/resources/images/shopping-cart.png" class="btnShopCartAdd" style="cursor: pointer; width: 20%;" data-item-num="${ar.itemNum}" data-item-price="${ar.itemPrice }">
+                        					</button>
+            							</c:when>
+            						</c:choose>
+            					</c:forEach>
+            				</c:when>        
+            			</c:choose>
+                      	</div>
                     </div>
                     <div class="member-info" style="width: 100%; height: 115px;">
                       <h4><a href="./detail?itemNum=${ar.itemNum}">${ar.itemName}</a></h4>
-                      <!-- <p>${ar.itemAddress}</p> -->
                       <span>₩ ${ar.itemPrice}</span>
                     </div>
                   </div>
                 </div>
               </c:forEach>
-        </div>
+          </div>
         <!-- End grid1div -->
-
       </div>
     </section> 
+           					
+                        	
+                        		
+                        		
+                        		
+                        		
+           
+                        			
+                    
     
     <!-- pagination start -->
     <div class="chefs section-bg" style="padding-bottom: 10px;">

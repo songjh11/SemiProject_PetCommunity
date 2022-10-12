@@ -199,6 +199,14 @@ public class SellItemService {
 		return itemDAO.getItems(map);
 	}
 	
+	public List<SellItemDTO> getPickStatus(MemberDTO memberDTO) throws Exception{
+		return itemDAO.getPickStatus(memberDTO);
+	}
+	
+	public List<SellItemDTO> getShopCartStatus(MemberDTO memberDTO) throws Exception{
+		return itemDAO.getShopCartStatus(memberDTO);
+	}
+	
 	public int setPickAdd(PickDTO pickDTO) throws Exception{
 		return pickDAO.setPickAdd(pickDTO);
 	}

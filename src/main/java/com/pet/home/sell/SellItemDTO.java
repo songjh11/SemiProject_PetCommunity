@@ -17,6 +17,18 @@ public class SellItemDTO {
 	private String itemAddress;
 	private String itemDeAddress;
 	private Long itemCatg;
+	
+	
+
+	private List<PickDTO> pickDTOs;
+
+	public List<PickDTO> getPickDTOs() {
+		return pickDTOs;
+	}
+
+	public void setPickDTOs(List<PickDTO> pickDTOs) {
+		this.pickDTOs = pickDTOs;
+	}
 
 	private List<SellFileDTO> fileDTOs;
 	private List<ShopCartDTO> shopCartDTOs;

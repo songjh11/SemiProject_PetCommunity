@@ -13,7 +13,7 @@ const more = document.getElementById("more");
 const moreqna = document.getElementById("moreqna");
 let page=1;
 function reviewList(){
-    
+    console.log(page);
     const xHttp = new XMLHttpRequest();
     xHttp.open("GET","./reviewList?page="+page+"&itemNum="+itemNum);
     xHttp.send();
@@ -455,8 +455,11 @@ function reviewList(){
                     type = document.createAttribute("type");
                     type.value = "button";
                     button.setAttributeNode(type);
+                    let attr6 = document.createAttribute("id");
+                    attr6.value = "reviewcommentadd"+ar[i].rvNum;
+                    button.setAttributeNode(attr6);
                     let attr3 = document.createAttribute("class");
-                    attr3.value = "reviewcommentadd btn btn-outline-success";
+                    attr3.value = "btn btn-outline-success";
                     button.setAttributeNode(attr3);
                     attr3 = document.createAttribute("data-review-num");
                     attr3.value = ar[i].rvNum;
@@ -512,8 +515,11 @@ function reviewList(){
                     type = document.createAttribute("type");
                     type.value = "button";
                     button.setAttributeNode(type);
+                    let attr5 = document.createAttribute("id");
+                    attr5.value = "reviewdelete"+ar[i].rvNum;
+                    button.setAttributeNode(attr5);
                     let attr2 = document.createAttribute("class");
-                    attr2.value = "reviewdelete btn btn-outline-danger";
+                    attr2.value = "btn btn-outline-danger";
                     button.setAttributeNode(attr2); 
                     attr2 = document.createAttribute("data-review-num");
                     attr2.value = ar[i].rvNum;
@@ -961,8 +967,11 @@ function reviewList(){
                     type = document.createAttribute("type");
                     type.value = "button";
                     button.setAttributeNode(type);
+                    let attr6 = document.createAttribute("id");
+                    attr6.value = "reviewcommentadd"+ar[i].rvNum;
+                    button.setAttributeNode(attr6);
                     let attr3 = document.createAttribute("class");
-                    attr3.value = "reviewcommentadd btn btn-outline-success";
+                    attr3.value = "btn btn-outline-success";
                     button.setAttributeNode(attr3);
                     attr3 = document.createAttribute("data-review-num");
                     attr3.value = ar[i].rvNum;
@@ -1017,8 +1026,11 @@ function reviewList(){
                     type = document.createAttribute("type");
                     type.value = "button";
                     button.setAttributeNode(type);
+                    let attr5 = document.createAttribute("id");
+                    attr5.value = "reviewdelete"+ar[i].rvNum;
+                    button.setAttributeNode(attr5);
                     let attr2 = document.createAttribute("class");
-                    attr2.value = "reviewdelete btn btn-outline-danger";
+                    attr2.value = "btn btn-outline-danger";
                     button.setAttributeNode(attr2); 
                     attr2 = document.createAttribute("data-review-num");
                     attr2.value = ar[i].rvNum;
@@ -1058,13 +1070,13 @@ function reviewList(){
                 
              
 
-                const reviewdelete = document.getElementsByClassName("reviewdelete");
-                reviewdelete[i].addEventListener("click",function(){
+                let reviewdelete = document.getElementById("reviewdelete"+ar[i].rvNum)
+                reviewdelete.addEventListener("click",function(){
                         let result = window.confirm("리뷰를 삭제하시겠습니까?");
                         if(!result){
                             return;
                         }
-                        let photoNum = reviewdelete[i].getAttribute("data-reviewfile-num");
+                        let photoNum = reviewdelete.getAttribute("data-reviewfile-num");
                         const xhttp = new XMLHttpRequest();
                         xhttp.open("POST","./fileDelete");
                         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1074,7 +1086,7 @@ function reviewList(){
                                 let result = xhttp.responseText.trim();
                                 if(result == 1){
                                     if(!ar[i].rvCommentDTOs[0].rvcNum){
-                                        let rvNum = reviewdelete[i].getAttribute("data-review-num");
+                                        let rvNum = reviewdelete.getAttribute("data-review-num");
                                         const xHttp = new XMLHttpRequest();
                                         xHttp.open("POST","./reviewdelete");
                                         xHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1094,7 +1106,7 @@ function reviewList(){
                                         }
                                     }
                                     else{
-                                        let rvNum = reviewdelete[i].getAttribute("data-review-num");
+                                        let rvNum = reviewdelete.getAttribute("data-review-num");
                                         const xHttp = new XMLHttpRequest();
                                         xHttp.open("POST","./reviewcommentalldelete");
                                         xHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1135,8 +1147,8 @@ function reviewList(){
                             }
                         }
                     });
-                    const reviewcommentadd = document.getElementsByClassName("reviewcommentadd");
-                    reviewcommentadd[i].addEventListener("click",function(){
+                    let reviewcommentadd = document.getElementById("reviewcommentadd"+ar[i].rvNum);
+                    reviewcommentadd.addEventListener("click",function(){
                         exampleModalLabel2.innerText = "댓글쓰기";
                         btnCheck.innerText = "작성";
                         let rvNum = ar[i].rvNum;
@@ -1350,7 +1362,7 @@ function reviewList(){
 
 more.addEventListener("click",function(){
     page++;
-    reviewList();
+    reviewList(page);
 });
 
 btnCheck.addEventListener("click",function(){
@@ -1405,9 +1417,10 @@ btnCheck.addEventListener("click",function(){
 const qna = document.getElementById("qna");
 const qnaCheck = document.getElementById("qnaCheck");
 const th2 = document.getElementsByClassName("th2");
+let page2 = 1;
 function qnaList(){
     const xHttp = new XMLHttpRequest();
-    xHttp.open("GET","./qnaList?page="+page+"&itemNum="+itemNum);
+    xHttp.open("GET","./qnaList?page="+page2+"&itemNum="+itemNum);
     xHttp.send();
     xHttp.addEventListener("readystatechange",function(){
         if(this.readyState == 4 && this.status == 200){
@@ -1421,7 +1434,7 @@ function qnaList(){
                 th2[c].setAttribute("style","");
             }
 
-            if(page<pager.totalPage){
+            if(page2<pager.totalPage){
                 moreqna.setAttribute("style","");
             }
     
@@ -1482,8 +1495,11 @@ function qnaList(){
                     type = document.createAttribute("type");
                     type.value = "button";
                     button.setAttributeNode(type);
+                    let attr5 = document.createAttribute("id");
+                    attr5.value = "qnacommentadd"+ar[i].qnaNum;
+                    button.setAttributeNode(attr5);
                     let attr3 = document.createAttribute("class");
-                    attr3.value = "qnacommentadd btn btn-outline-success";
+                    attr3.value = "btn btn-outline-success";
                     button.setAttributeNode(attr3); 
                     attr3 = document.createAttribute("data-qna-num");
                     attr3.value = ar[i].qnaNum;
@@ -1539,8 +1555,11 @@ function qnaList(){
                     type = document.createAttribute("type");
                     type.value = "button";
                     button.setAttributeNode(type);
+                    let attr6 = document.createAttribute("id");
+                    attr6.value = "qnadelete"+ar[i].qnaNum;
+                    button.setAttributeNode(attr6);
                     let attr2 = document.createAttribute("class");
-                    attr2.value = "qnadelete btn btn-outline-danger";
+                    attr2.value = "btn btn-outline-danger";
                     button.setAttributeNode(attr2); 
                     attr2 = document.createAttribute("data-qna-num");
                     attr2.value = ar[i].qnaNum;
@@ -1617,8 +1636,11 @@ function qnaList(){
                     type = document.createAttribute("type");
                     type.value = "button";
                     button.setAttributeNode(type);
+                    let attr5 = document.createAttribute("id");
+                    attr5.value = "qnacommentadd"+ar[i].qnaNum;
+                    button.setAttributeNode(attr5);
                     let attr3 = document.createAttribute("class");
-                    attr3.value = "qnacommentadd btn btn-outline-success";
+                    attr3.value = "btn btn-outline-success";
                     button.setAttributeNode(attr3); 
                     attr3 = document.createAttribute("data-qna-num");
                     attr3.value = ar[i].qnaNum;
@@ -1673,8 +1695,11 @@ function qnaList(){
                     type = document.createAttribute("type");
                     type.value = "button";
                     button.setAttributeNode(type);
+                    let attr6 = document.createAttribute("id");
+                    attr6.value = "qnadelete"+ar[i].qnaNum;
+                    button.setAttributeNode(attr6);
                     let attr2 = document.createAttribute("class");
-                    attr2.value = "qnadelete btn btn-outline-danger";
+                    attr2.value = "btn btn-outline-danger";
                     button.setAttributeNode(attr2); 
                     attr2 = document.createAttribute("data-qna-num");
                     attr2.value = ar[i].qnaNum;
@@ -1688,7 +1713,7 @@ function qnaList(){
                     qna.append(tr);
                 }
 
-                if(page >= pager.totalPage){
+                if(page2 >= pager.totalPage){
                     moreqna.setAttribute("style","display: none;");
                     moreqna.classList.add("disabled");
                 }
@@ -1696,14 +1721,14 @@ function qnaList(){
                     moreqna.classList.remove("disabled");
                 }
 
-                const qnadelete = document.getElementsByClassName("qnadelete");
-                qnadelete[i].addEventListener("click",function(){
+                const qnadelete = document.getElementById("qnadelete"+ar[i].qnaNum);
+                qnadelete.addEventListener("click",function(){
                         let result = window.confirm("QNA를 삭제하시겠습니까?");
                         if(!result){
                             return;
                         }
                         if(!ar[i].sellQnaCommentDTOs[0].sqNum){
-                            let qnaNum = qnadelete[i].getAttribute("data-qna-num");
+                            let qnaNum = qnadelete.getAttribute("data-qna-num");
                             const xHttp = new XMLHttpRequest();
                             xHttp.open("POST","./qnadelete");
                             xHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1723,7 +1748,7 @@ function qnaList(){
                             }
                         }
                         else{
-                            let qnaNum = qnadelete[i].getAttribute("data-qna-num");
+                            let qnaNum = qnadelete.getAttribute("data-qna-num");
                             const xHttp = new XMLHttpRequest();
                             xHttp.open("POST","./qnacommentalldelete");
                             xHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1758,8 +1783,8 @@ function qnaList(){
                             }
                         }
                 })
-                const qnacommentadd = document.getElementsByClassName("qnacommentadd");
-                qnacommentadd[i].addEventListener("click",function(){
+                const qnacommentadd = document.getElementById("qnacommentadd"+ar[i].qnaNum);
+                qnacommentadd.addEventListener("click",function(){
                     exampleModalLabel2.innerText = "댓글쓰기";
                     btnCheck.innerText = "작성";
                     let qnaNum = ar[i].qnaNum;
@@ -1946,8 +1971,8 @@ function qnaList(){
 }
 
 moreqna.addEventListener("click",function(){
-    page++;
-    qnaList();
+    page2++;
+    qnaList(page2);
 });
 
 btnCheck.addEventListener("click",function(){

@@ -277,7 +277,7 @@
           <c:forEach items="${purchaseList}" var="check">
             <div class="col-lg-3 col-md-4 d-flex align-items-stretch justify-content-center" data-aos="fade-up" data-aos-delay="100">
               <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 15px;">
-                <div class="member-img" style="width: 100%;">
+                <div class="member-img" style="width: 160%;">
                         <img src="/resources/upload/sellfile/${check.fileDTOs[0].fileName}" class="img-fluid" alt="">
                     </div>
                     <div class="member-info" style="width: 100%; height: 115px;">

@@ -5,18 +5,11 @@
 <mapper namespace="com.pet.home.sell.SellItemDAO">
 	
 	<sql id="search">
-		(SELECT ROWNUM R, SITEM.* FROM 
-			(SELECT SII.* 
-			FROM 
-				(SELECT SI.ITEMNUM, SI.ITEMPRICE, SI.ITEMNAME, SI.ITEMCATG, SI.ITEMADDRESS, SI.ITEMDEADDRESS, SF.FILENAME
-					FROM SELLITEM SI
-					LEFT JOIN
-					SELLFILE SF
-					ON SI.ITEMNUM = SF.ITEMNUM
-					WHERE SI.ITEMCATG= #{itemCatg}					
-					ORDER BY SI.ITEMNUM DESC,SF.PHOTONUM ASC) SII 
-			WHERE SII.ITEMNAME LIKE '%'||#{search}||'%' 
-		ORDER BY SII.ITEMNUM DESC) SITEM)
+	(SELECT ROWNUM R FROM
+             (SELECT * FROM SELLITEM 
+               WHERE ITEMCATG=#{itemCatg} AND ITEMNAME LIKE '%'||#{search}||'%'
+               ORDER BY ITEMNUM DESC
+              ))
 	</sql>
 	
 	<!-- 지도 매핑용 -->

@@ -104,7 +104,7 @@
               <c:forEach items="${list}" var="ar">
                 <div class="col-lg-3 col-md-4 d-flex align-items-stretch justify-content-center" data-aos="fade-up" data-aos-delay="100">
                   <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 15px;">
-                    <div class="member-img" style="width: 100%;">
+                    <div class="member-img" style="width: 160%;">
                       <img src="/resources/upload/sellfile/${ar.fileDTOs[0].fileName}" class="img-fluid" alt="">
                       	<div class="social d-flex">
           				<c:choose>
@@ -178,16 +178,16 @@
     <div class="chefs section-bg" style="padding-bottom: 10px;">
       <nav aria-label="Page navigation example">
         <ul class="pagination">
-          <li class="page-item ${sellPager.pre?'':'disabled'}">
-            <a class="page-link" href="./list?page=${sellPager.startNum-1}&itemCatg=${sellPager.itemCatg}&search=${sellPager.search}" aria-label="Previous">
+          <li class="page-item ${pager.pre?'':'disabled'}">
+            <a class="page-link" href="./list?page=${pager.startNum-1}&itemCatg=${pager.itemCatg}&search=${pager.search}" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <c:forEach begin="${sellPager.startNum}" end="${sellPager.lastNum}" var="i">
-            <li class="page-item"><a class="page-link" href="./list?page=${i}&itemCatg=${sellPager.itemCatg}&search=${sellPager.search}"> ${i}</a> </li>
+          <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+            <li class="page-item"><a class="page-link" href="./list?page=${i}&itemCatg=${pager.itemCatg}&search=${pager.search}"> ${i}</a> </li>
           </c:forEach>
           <li class="page-item ${pager.next?'':'disabled'}">
-            <a class="page-link" href="./list.do?page=${sellPager.lastNum+1}&itemCatg=${sellPager.itemCatg}&search=${sellPager.search}" aria-label="Next">
+            <a class="page-link" href="./list.do?page=${pager.lastNum+1}&itemCatg=${pager.itemCatg}&search=${pager.search}" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>

@@ -111,6 +111,8 @@
                 </a>
               </li>
             </c:when>
+
+            
             <c:when test="${member.roleNum eq 0}">
               <li class="nav-item">
                 <a class="nav-link" href="./memlist">

@@ -1,9 +1,6 @@
 const btnPickFalse = document.getElementsByClassName("btnPickFalse");
 const btnPickAdd = document.getElementsByClassName("btnPickAdd");
 const btnPickDelete = document.getElementsByClassName("btnPickDelete");
-const btnShopCartFalse = document.getElementsByClassName("btnShopCartFalse");
-const btnShopCartAdd = document.getElementsByClassName("btnShopCartAdd");
-const btnShopCartDelete = document.getElementsByClassName("btnShopCartDelete");
 const itemCatg = document.getElementById("itemCatg");
 const count = document.getElementsByClassName("count");
 

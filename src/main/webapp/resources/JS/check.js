@@ -34,6 +34,79 @@ let date = new Date();
 let merchant_uid = date.getTime();
 const rvBtnFrm = document.getElementById("rvBtnFrm");
 let msg = "";
+const btnShopCartFalse = document.getElementById("btnShopCartFalse");
+if(btnShopCartFalse == null){
+  const btnShopCartAdd = document.getElementById("btnShopCartAdd");
+  if(btnShopCartAdd == null){
+    const btnShopCartDelete = document.getElementById("btnShopCartDelete");
+    btnShopCartDelete.addEventListener("click",function(){
+      let result = window.confirm("이미 장바구니에 담긴 상품입니다. \n 장바구니에서 빼고 다시 넣겠습니까?");
+      if(!result){
+          return;
+      }
+      else{ 
+          let itemNum = btnShopCartDelete.getAttribute("data-item-num");
+          const xHttp = new XMLHttpRequest();
+          xHttp.open("POST","../sell/shopcartdelete");
+          xHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          xHttp.send("itemNum="+itemNum);
+          xHttp.onreadystatechange = function(){
+              if(xHttp.readyState == 4 && xHttp.status == 200){
+                  let result = xHttp.responseText.trim();
+                  if(result == 1){
+                      alert("장바구니에서 빼기 성공");
+                      return window.location.href='/sell/list?itemCatg='+itemCatg.value;
+                  }
+                  else{
+                      alert("장바구니에서 빼기 실패");
+                      return;
+                  }
+              }
+          }
+      }
+    });
+  }
+  else{
+    btnShopCartAdd.addEventListener("click",function(){
+      let tpv = totalPrice.value;
+      if(tpv<=0){
+          alert("예상 금액 확인을 먼저 체크하신후 \n 이용해주세요.");
+      }
+      else if(tpv>0){
+          let itemNum = btnShopCartAdd.getAttribute("data-item-num");
+          let itemPrice = tpv;
+          const xHttp = new XMLHttpRequest();
+          xHttp.open("POST","./shopcartadd");
+          xHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          xHttp.send("itemNum="+itemNum+"&itemPrice="+itemPrice);
+          xHttp.onreadystatechange = function(){
+              if(xHttp.readyState == 4 && xHttp.status == 200){
+                  let result = xHttp.responseText.trim();
+                  if(result == 1){
+                      alert("장바구니 담기 성공");
+                      return window.location.href='/sell/list?itemCatg='+itemCatg.getAttribute("value");
+                  }
+                  else{
+                      alert("장바구니에 담기 실패");
+                      return;
+                  }
+              }
+          }
+      }
+    });
+  }
+}
+else{
+  btnShopCartFalse.addEventListener("click",function(){
+    let result = window.confirm("장바구니 담기는 로그인후 사용가능합니다. \n 로그인 화면으로 가시겠습니까?");
+    if(!result){
+        return;
+    }
+    else{
+        return window.location.href='/member/login';
+    }
+  })
+}
 
 revStartDate.addEventListener("change", function(){
   totalPrice.value="0";
@@ -205,3 +278,5 @@ rvBtnFrm.addEventListener("click", function(){
         }
       })
   };
+
+

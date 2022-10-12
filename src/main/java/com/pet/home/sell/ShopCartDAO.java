@@ -14,16 +14,16 @@ public class ShopCartDAO {
 		return session.insert(NAMESPACE+"setShopCartAdd", shopCartDTO);
 	}
 	
-	public ShopCartDTO getShopCartCheck(ShopCartDTO shopCartDTO) throws Exception{
-		return session.selectOne(NAMESPACE+"getShopCartCheck", shopCartDTO);
-	}
-	
 	public int setShopCartDelete(ShopCartDTO shopCartDTO) throws Exception{
 		return session.delete(NAMESPACE+"setShopCartDelete", shopCartDTO);
 	}
 	
 	public int setShopCartUpdate(ShopCartDTO shopCartDTO) throws Exception{
 		return session.update(NAMESPACE+"setShopCartUpdate", shopCartDTO);
+	}
+	
+	public String getShopCartCheck(ShopCartDTO shopCartDTO) throws Exception{
+		return session.selectOne(NAMESPACE+"getShopCartCheck", shopCartDTO);
 	}
 	
 }

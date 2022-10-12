@@ -17,7 +17,7 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
     <style>
-      .pagination{
+   .pagination{
         justify-content: center;
       }
 
@@ -72,79 +72,78 @@
   
     <!-- ======= List Section ======= -->
 
-    <setion id="chefs" class="chefs section-bg">
+    <section id="chefs" class="chefs section-bg">
       <div class="container" data-aos="fade-up">
                    <section id="book-a-table" class="book-a-table">
                     <div class="container" data-aos="fade-up">
-                    <section id="menu" class="menu">
-                      <div class="section-header">
-                        <p><span>${category.categoryName}</span><p>
-                       </div>
-                   <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
-                        <li class="nav-item">
-                          <a class="nav-link" href="/sell/Sellerlist?itemCatg=1">
-                            <h4>Hotelling</h4>
-                          </a>
-                        </li><!-- End tab nav item -->
-                        <li class="nav-item">
-                          <a class="nav-link" href="/sell/Sellerlist?itemCatg=2">
-                            <h4>Oneday Class</h4>
-                          </a>
-                        </li><!-- End tab nav item -->
-                        <li class="nav-item">
-                          <a class="nav-link" href="/sell/Sellerlist?itemCatg=3">
-                            <h4>Traning</h4>
-                          </a>
-                        </li><!-- End tab nav item -->
-    
-              
-                        </ul>
-                        </section>
-                      </section>
+                      <section id="menu" class="menu">
+                        <div class="section-header">
+                          <p><span>${category.categoryName}</span><p>
+                            <input type="hidden" id="itemCatg" value="${pager.itemCatg}">
                         </div>
-                   
-					<div class="row gy-1">	
+                            <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
+                              <li class="nav-item">
+                                <a class="nav-link" href="/sell/Sellerlist?itemCatg=1">
+                                  <h4>Hotelling</h4>
+                                </a>
+                              </li><!-- End tab nav item -->
+                              <li class="nav-item">
+                                <a class="nav-link" href="/sell/Sellerlist?itemCatg=2">
+                                  <h4>One day Class</h4>
+                                </a>
+                              </li><!-- End tab nav item -->
+                              <li class="nav-item">
+                                <a class="nav-link" href="/sell/Sellerlist?itemCatg=3">
+                                  <h4>Training</h4>
+                                </a>
+                              </li><!-- End tab nav item -->
+                              </ul>
+                          </section>
+                        </div> 
+                      </section>   
+
+			<div class="row gy-1">	
               <c:forEach items="${list}" var="ar">
-                <div class="col-lg-3 col-md-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-                  <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 15px;">
-                    <div class="member-img" style="width: 100%;">
-                      <img src="/resources/upload/sellfile/${ar.fileDTOs[0].fileName}" class="img-fluid" alt="">
-                    </div>
-                    <div class="member-info" style="width: 100%; height: 115px;">
-                      <h4><a href="./detail?itemNum=${ar.itemNum}">${ar.itemName}</a></h4>
-                      <!-- <p>${ar.itemAddress}</p> -->
-                      <span>₩ ${ar.itemPrice}</span>
-                    </div>
+                <div class="col-lg-3 col-md-4 d-flex align-items-stretch justify-content-center" data-aos="fade-up" data-aos-delay="100">
+                  <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 15px; display: flex; flex-direction: column; align-items: center;">
+                      <div class="member-img" style="width: 160%;">
+                        <img src="/resources/upload/sellfile/${ar.fileDTOs[0].fileName}" class="img-fluid" alt="">
+                      </div>  
+                      <div class="member-info" style="width: 100%; height: 115px;">
+                          <h4><a href="./detail?itemNum=${ar.itemNum}">${ar.itemName}</a></h4>
+                          <span>₩ ${ar.itemPrice}</span>
+                      </div>
                   </div>
                 </div>
               </c:forEach>
-        </div>
-        <!-- End grid1div -->
-
-      </div>
-    </section> 
-    
-    <!-- pagination start -->
-    <div class="chefs section-bg" style="padding-bottom: 10px;">
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item ${sellPager.pre?'':'disabled'}">
-            <a class="page-link" href="./list?page=${sellPager.startNum-1}&itemCatg=${sellPager.itemCatg}&search=${sellPager.search}" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <c:forEach begin="${sellPager.startNum}" end="${sellPager.lastNum}" var="i">
-            <li class="page-item"><a class="page-link" href="./list?page=${i}&itemCatg=${sellPager.itemCatg}&search=${sellPager.search}"> ${i}</a> </li>
-          </c:forEach>
-          <li class="page-item ${pager.next?'':'disabled'}">
-            <a class="page-link" href="./list.do?page=${sellPager.lastNum+1}&itemCatg=${sellPager.itemCatg}&search=${sellPager.search}" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      </div>  
+      <!-- End grid1div -->
     </div>
-    <!-- pagination end -->        
+    </section> 
+
+    <!-- pagination start -->
+    <c:if test="${pager.totalPage ne 0}">
+      <div class="chefs section-bg" style="padding-bottom: 10px;">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item ${pager.pre?'':'disabled'}">
+              <a class="page-link" href="./Sellerlist?page=${pager.startNum-1}&itemCatg=${pager.itemCatg}&search=${pager.search}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+              <li class="page-item"><a class="page-link" href="./Sellerlist?page=${i}&itemCatg=${pager.itemCatg}&search=${pager.search}"> ${i}</a> </li>
+            </c:forEach>
+            <li class="page-item ${pager.next?'':'disabled'}">
+              <a class="page-link" href="./Sellerlist.do?page=${pager.lastNum+1}&itemCatg=${pager.itemCatg}&search=${pager.search}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </c:if>  
+    <!-- pagination end -->     
 
 
        

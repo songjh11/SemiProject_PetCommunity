@@ -234,7 +234,7 @@
                       <strong>메일수신동의여부:</strong> 동의<br>
                     </c:when>
                     <c:when test="${dto.agMail  eq 0}">
-                      <strong>메일수신동의여부:</strong> 동의<br>
+                      <strong>메일수신동의여부:</strong> 비동의<br>
                     </c:when>
                 </c:choose>
                 <c:choose>
@@ -242,7 +242,7 @@
                       <strong>문자수신동의여부:</strong> 동의<br>
                     </c:when>
                     <c:when test="${dto.agMes  eq 0}">
-                      <strong>문자수신동의여부:</strong> 동의<br>
+                      <strong>문자수신동의여부:</strong> 비동의<br>
                     </c:when>
                  </c:choose>
                 </div>

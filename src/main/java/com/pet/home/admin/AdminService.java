@@ -11,8 +11,10 @@ import com.pet.home.board.qna.QnaDTO;
 import com.pet.home.board.sharing.SharingDTO;
 import com.pet.home.member.BizmemDTO;
 import com.pet.home.member.MemberDTO;
+import com.pet.home.sell.SellItemDTO;
 import com.pet.home.util.CommentPager;
 import com.pet.home.util.Pager;
+import com.pet.home.util.SellPager;
 
 @Service
 public class AdminService {
@@ -56,7 +58,7 @@ public class AdminService {
 	
 	public List<MemberDTO> getGuestList(Pager pager) throws Exception{
 		pager.getRowNum();
-		Long totalCount = adminDAO.getAllGuestCount();
+		Long totalCount = adminDAO.getAllGuestCount(pager);
 		pager.getNum(totalCount);
 		
 		return adminDAO.getAllGuset(pager);
@@ -64,10 +66,14 @@ public class AdminService {
 	
 	public List<BizmemDTO> getBizmenList(Pager pager) throws Exception{
 		pager.getRowNum();
-		Long totalCount = adminDAO.getAllBizmenCount();
+		Long totalCount = adminDAO.getAllBizmenCount(pager);
 		pager.getNum(totalCount);
 		
 		return adminDAO.getAllBizmen(pager);
+	}
+	
+	public List<SellItemDTO> getSellerList(SellPager sellPager) throws Exception{
+		return adminDAO.getSellerList(sellPager);
 	}
 	
 }

@@ -9,7 +9,7 @@
 <style type="text/css">
 
 .side-menu {
-            top: 0px;
+            top: 89px;
             width: 45px;
             z-index: 10;
             background: #ff5858;
@@ -72,7 +72,7 @@
 
         .left_sub_menu {
             position: fixed;
-            top: 0px;
+            top: 89px;
             width: 200px;
             z-index: 10;
             left: 45px;
@@ -183,18 +183,12 @@
 <body>
   <!-- 지도영역 -->
         
+<c:import url="/WEB-INF/views/template/header.jsp"></c:import>
 
   <div class="map_wrap" style="position: relative;">
       <div id="map" style="width:100%; height:100vh; position:relative; overflow:hidden; z-index: 1;">
           
-        <div id="wrapper">
-          <div class="topbar" style="position: absolute; top:0;">
-            <div id="menu_wrap" class="bg_white" style="z-index: 2; color: crimson; position:absolute">
-            <span id="latitude" style="display: none;"></span><br>
-            <span id="longitude"style="display: none;"></span><br>
-            현재 날씨 : <img id="wicon" src=""><br>
-            기온 : <span id="tempr"></span>
-          </div>
+        
               <!-- 왼쪽 메뉴 -->
               <div class="left side-menu">
                   <div class="sidebar-inner">
@@ -210,7 +204,14 @@
               <!-- 왼쪽 서브 메뉴 -->
               <div class="left_sub_menu">
                   <div class="sub_menu">
-                      <input type="search" name="SEARCH" placeholder="SEARCH">
+                    <div>
+                        <div class="topbar" style="position: absolute; top:0;">
+                          <div id="menu_wrap" class="bg_white" style="z-index: 2; color: black; position:absolute">
+                          <span id="latitude" style="display: none;"></span><br>
+                          <span id="longitude"style="display: none;"></span><br>
+                          현재 날씨 : <img id="wicon" src=""><br>
+                          기온 : <span id="tempr"></span>
+                    </div>
                       <h2>TITLE</h2>
                       <ul class="big_menu">
                           <li>MENU 1 <i class="arrow fas fa-angle-right"></i></li>
@@ -233,13 +234,13 @@
                       </ul>
                   </div>
               </div>
-              <div class="overlay"></div>
+              
           </div>
       
       </div>
       <hr>
   </div>
-
+  
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c8a091a525c100bb59fb876c4c7b6bf9&libraries=services"></script>
   <script src="http://code.jquery.com/jquery-latest.js"></script> 
   <script>
@@ -250,7 +251,6 @@
         userId: "${dto.userId}",
         itemName : "${dto.itemName}",
         itemPrice : "${dto.itemPrice}",
-        itemContents : "${dto.itemContents}",
         itemZipCode : "${dto.itemZipCode}",
         itemAddress : "${dto.itemAddress}",
         itemDeAdress : "${dto.itemDeAddress}",

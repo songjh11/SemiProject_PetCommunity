@@ -36,8 +36,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.google.gson.JsonObject;
-
+import com.pet.home.admin.AdminDAO;
+import com.pet.home.board.event.coupon.CouponDTO;
 import com.pet.home.member.MemberDTO;
+import com.pet.home.member.MemberService;
 import com.pet.home.sell.file.RvFileDTO;
 import com.pet.home.sell.file.SellFileDTO;
 import com.pet.home.sell.purchase.PurchaseDTO;
@@ -56,7 +58,10 @@ public class SellItemController {
 
 	@Autowired
 	private SellItemService itemService;
-	
+	@Autowired
+	private MemberService memberService;
+	@Autowired
+	private AdminDAO adminDAO;
 	
 	@GetMapping("Test")
 	public void detailTest() {
@@ -106,7 +111,12 @@ public class SellItemController {
 	}
 
 	@GetMapping("detail")
-	public ModelAndView getDetailOne(SellItemDTO sellItemDTO, ModelAndView model) throws Exception {
+	public ModelAndView getDetailOne(SellItemDTO sellItemDTO, ModelAndView model, HttpSession session) throws Exception {
+		if(session.getAttribute("member") != null) {
+			MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+			List<CouponDTO> couponList = memberService.getCouponList(memberDTO);
+			model.addObject("couponList", couponList);
+		}
 		sellItemDTO = itemService.getDetailOne(sellItemDTO);
 		CategoryDTO categoryDTO = itemService.getCategory(sellItemDTO.getItemCatg());
 		model.addObject("sellItemDTO", sellItemDTO);
@@ -437,8 +447,10 @@ public class SellItemController {
 			@RequestParam String revEndDate,
 			@RequestParam String adultsCount,
 			@RequestParam String dogCount,
+			@RequestParam String couponNum,
 			HttpSession session) throws Exception {
-					
+			
+
 			//토큰 발급
 			IamportResponse<AccessToken> token = itemService.getToken();
 			
@@ -469,6 +481,33 @@ public class SellItemController {
 			Long totalPrice = (itemPrice * revDays)+(10000*Long.parseLong(adultsCount))+(10000*Long.parseLong(dogCount));
 			System.out.println("totalPrice: "+totalPrice);
 			
+			//쿠폰 여부
+			CouponDTO couponDTO = new CouponDTO();
+			System.out.println("couponNum : "+couponNum);
+			if(couponNum != "") {
+				couponDTO.setCouponNum(Long.parseLong(couponNum));
+				couponDTO.setUserId(userId);
+				couponDTO = adminDAO.getCouponByNum(couponDTO);
+				if(couponDTO.getDiscountMethod() == "0") {
+					try {
+						totalPrice = totalPrice * (100 - couponDTO.getDiscountRate()) / 100;
+						adminDAO.setDeleteCoupon(couponDTO);
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+				}else {
+					try {
+						totalPrice = totalPrice - couponDTO.getDiscountPrice();
+						adminDAO.setDeleteCoupon(couponDTO);
+						
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+				}
+			}
+			
+			System.out.println("마지막 비교전 amount:"+amount);
+			System.out.println("마지막 비교전 totalPrice:"+totalPrice);
 			//실제 결제 금액과 DB상 결제되어야 하는 금액 비교
 			if(amount.equals(totalPrice.toString())) {
 				//실결제 여부 검증

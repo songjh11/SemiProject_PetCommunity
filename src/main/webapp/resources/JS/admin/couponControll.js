@@ -77,7 +77,7 @@ next2.addEventListener("click",function(){
                 button = document.createElement("button");
                 button.setAttribute("class","btn btn-outline-secondary");
                 button.setAttribute("data-userId", list[i].userId);
-                button.setAttribute("onclick", getItemList('1',list[i].userId));
+                button.setAttribute("onclick", "getItemList('1',"+'"'+userId+'"'+")");
                 text = document.createTextNode("구매목록");
                 button.appendChild(text);
                 td.appendChild(button);
@@ -87,7 +87,7 @@ next2.addEventListener("click",function(){
                 button = document.createElement("button");
                 button.setAttribute("class","btn btn-outline-secondary");
                 button.setAttribute("data-userId", list[i].userId);
-                button.setAttribute("onclick", getDetail(list[i].userId));
+                button.setAttribute("onclick", "getDetail("+'"'+userId+'"'+")");
                 text = document.createTextNode("회원 상세 프로필");
                 button.appendChild(text);
                 td.appendChild(button);
@@ -180,7 +180,7 @@ try {
                         button = document.createElement("button");
                         button.setAttribute("class","btn btn-outline-secondary");
                         button.setAttribute("data-userId", list[i].userId);
-                        button.setAttribute("onclick", getItemList('1',list[i].userId));
+                        button.setAttribute("onclick", "getItemList('1',"+'"'+userId+'"'+")");
                         text = document.createTextNode("구매목록");
                         button.appendChild(text);
                         td.appendChild(button);
@@ -190,7 +190,7 @@ try {
                         button = document.createElement("button");
                         button.setAttribute("class","btn btn-outline-secondary");
                         button.setAttribute("data-userId", list[i].userId);
-                        button.setAttribute("onclick", getDetail(list[i].userId));
+                        button.setAttribute("onclick", "getDetail("+'"'+userId+'"'+")");
                         text = document.createTextNode("회원 상세 프로필");
                         button.appendChild(text);
                         td.appendChild(button);
@@ -281,7 +281,7 @@ previous2.addEventListener("click",function(){
                 button = document.createElement("button");
                 button.setAttribute("class","btn btn-outline-secondary");
                 button.setAttribute("data-userId", list[i].userId);
-                button.setAttribute("onclick", getItemList('1',list[i].userId));
+                button.setAttribute("onclick", "getItemList('1',"+'"'+userId+'"'+")");
                 text = document.createTextNode("구매목록");
                 button.appendChild(text);
                 td.appendChild(button);
@@ -291,7 +291,7 @@ previous2.addEventListener("click",function(){
                 button = document.createElement("button");
                 button.setAttribute("class","btn btn-outline-secondary");
                 button.setAttribute("data-userId", list[i].userId);
-                button.setAttribute("onclick", getDetail(list[i].userId));
+                button.setAttribute("onclick", "getDetail("+'"'+userId+'"'+")");
                 text = document.createTextNode("회원 상세 프로필");
                 button.appendChild(text);
                 td.appendChild(button);
@@ -599,7 +599,7 @@ next2.addEventListener("click",function(){
                 button = document.createElement("button");
                 button.setAttribute("class","btn btn-outline-secondary");
                 button.setAttribute("data-userId", list[i].userId);
-                button.setAttribute("onclick", getSellItem(list[i].userId));
+                button.setAttribute("onclick", "getSellItem("+'"'+userId+'"'+")");
                 text = document.createTextNode("판매상품목록");
                 button.appendChild(text);
                 td.appendChild(button);
@@ -633,7 +633,7 @@ try {
                     console.log(list);
                     console.log(tbody4);
 
-                    tbody2.innerHTML = "";
+                    tbody4.innerHTML = "";
                     console.log(tbody4);
         
                     for(let i=0; i<list.length; i++){
@@ -670,10 +670,10 @@ try {
         
                         td = document.createElement("td");
                         let button = document.createElement("button");
-                        button.setAttribute("class","btn btn-outline-secondaryt");
+                        button.setAttribute("class","btn btn-outline-secondary");
                         button.setAttribute("data-userId", list[i].userId);
                         button.setAttribute("onclick", "getEventList('1',"+'"'+userId+'"'+")");
-                        text = document.createTextNode("같이해요 작성한글");
+                        text = document.createTextNode("이벤트 작성한 글");
                         button.appendChild(text);
                         td.appendChild(button);
                         tr2.appendChild(td);
@@ -683,7 +683,7 @@ try {
                         button = document.createElement("button");
                         button.setAttribute("class","btn btn-outline-secondary");
                         button.setAttribute("data-userId", list[i].userId);
-                        button.setAttribute("onclick", getSellItem(list[i].userId));
+                        button.setAttribute("onclick", "getSellItem("+'"'+userId+'"'+")");
                         text = document.createTextNode("판매상품목록");
                         button.appendChild(text);
                         td.appendChild(button);
@@ -765,7 +765,7 @@ previous3.addEventListener("click",function(){
                 button = document.createElement("button");
                 button.setAttribute("class","btn btn-outline-secondary");
                 button.setAttribute("data-userId", list[i].userId);
-                button.setAttribute("onclick", getSellItem(list[i].userId));
+                button.setAttribute("onclick", "getSellItem("+'"'+userId+'"'+")");
                 text = document.createTextNode("판매상품목록");
                 button.appendChild(text);
                 td.appendChild(button);
@@ -1710,11 +1710,11 @@ boardlist.addEventListener("click", function(event){
 })
 
 
-function getSellItem(ui,cat){
+function getSellItem(ui){
     const xhttp = new XMLHttpRequest();
     xhttp.open("POST","./sellerlist");
     xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-    xhttp.send("userId="+ui+"&itemCatg="+cat);
+    xhttp.send("userId="+ui);
     xhttp.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
             let result = JSON.parse(xhttp.responseText.trim());
@@ -1732,6 +1732,7 @@ function getSellItem(ui,cat){
                 div.setAttribute("class","col-lg-4 col-md-6 d-flex align-items-stretch");
                 div.setAttribute("data-aos","fade-up");
                 div.setAttribute("data-aos-delay",'100');
+                div.setAttribute("style","border: 1px solid black;")
 
                 let div1 = document.createElement("div");
                 div1.setAttribute("class","chef-member");
@@ -1751,7 +1752,7 @@ function getSellItem(ui,cat){
                 div4.setAttribute("class","member-info");
                 // div4.setAttribute("style","border: 1px solid gold; float: right; width: 50%;")
                 let h4 = document.createElement("h4");
-                let text = document.createTextNode("상품이름 : "+ result[i].itemName);
+                let text = document.createTextNode(result[i].itemName);
 
                 h4.appendChild(text);
                 div4.appendChild(h4);

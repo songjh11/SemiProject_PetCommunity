@@ -176,10 +176,10 @@
 					<td>${gue.userName}</td>
 					<c:choose>
 						<c:when test="${gue.block eq '1'}">
-							<td class="unblockMember" data-userId="${gue.userId}" onclick="unblockMember(event)"><button>차단 해제</button></td>
+							<td class="unblockMember" data-userId="${gue.userId}" onclick="unblockMember(event)">차단해제</td>
 						</c:when>
 						<c:otherwise>
-							<td class="deleteMember" data-userId="${gue.userId}" onclick="deleteMember(event)"><button>차단</button></td>
+							<td class="deleteMember" data-userId="${gue.userId}" onclick="deleteMember(event)">차단</td>
 						</c:otherwise>
 					</c:choose>
 					<td><button class="btn btn-outline-secondary" onclick="getSharingList('1','${gue.userId}')" data-userId="${gue.userId}">같이해요 작성한 글</button></td>
@@ -256,7 +256,7 @@
 						</c:otherwise>
 					</c:choose>
 					<td><button class="btn btn-outline-secondary" onclick="getEventList('1','${bizmen.userId}')" data-userId="${bizmen.userId}">이벤트 작성한 글</button></td>
-					<td><button class="btn btn-outline-secondary" data-userId="${bizmen.userId}" onclick="getSellItem('${bizmen.userId}','${bizmen.itemCatg}')">판매 상품 목록</button></td>
+					<td><button class="btn btn-outline-secondary" data-userId="${bizmen.userId}" onclick="getSellItem('${bizmen.userId}')">판매 상품 목록</button></td>
 				</tr>
 				</c:forEach>
 			</tbody>

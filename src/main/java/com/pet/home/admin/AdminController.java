@@ -51,12 +51,16 @@ public class AdminController {
 	private EventService eventService;
 
 	@GetMapping("mypage")
-	public ModelAndView getMyPage(ModelAndView mv) throws Exception {
+	public ModelAndView getMyPage(ModelAndView mv, Pager pager) throws Exception {
 		Pager bizPager = new Pager();
+		bizPager.setSearch(pager.getSearch());
+		System.out.println("서치:"+bizPager.getSearch());
 		List<BizmemDTO> bizMembers = adminService.getBizmenList(bizPager);
 		Pager guestPager = new Pager();
+		guestPager.setSearch(pager.getSearch());
 		List<MemberDTO> guestMembers = adminService.getGuestList(guestPager);
 		Pager couponPager = new Pager();
+		couponPager.setSearch(pager.getSearch());
 		List<CouponDTO> list = adminService.getCouponList(couponPager);
 		mv.addObject("bizPager", bizPager);
 		mv.addObject("guestPager", guestPager);
@@ -221,7 +225,7 @@ public class AdminController {
 	@PostMapping("sellerlist")
 	@ResponseBody
 	public List<SellItemDTO> getSellerList(SellPager sellPager) throws Exception{
-		List<SellItemDTO> ar = sellItemService.getSellerList(sellPager);
+		List<SellItemDTO> ar = adminService.getSellerList(sellPager);
 		return ar;
 		
 	}

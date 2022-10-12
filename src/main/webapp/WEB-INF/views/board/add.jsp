@@ -43,7 +43,7 @@
 			<form action="add" method="post" enctype="multipart/form-data" id="frm">
 				 
 			<div class="mb-3">
-		  		<input type="text" class="form-control" id="writer" name="writer" style="display: none;" value="${sessionScope.member.userName}">
+		  		<input type="text" class="form-control" id="writer" name="writer" style="display: none;" value="${sessionScope.member.userId}">
 			</div>
 			<div class="mb-3">
 		  		<label for="title" class="form-label">제목</label>

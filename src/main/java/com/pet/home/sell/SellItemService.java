@@ -114,15 +114,21 @@ public class SellItemService {
 	
 	public List<SellItemDTO> getItemList(SellPager sellPager) throws Exception {
 		sellPager.getRowNum();
-		System.out.println("start : "+sellPager.getStartRow());
-		System.out.println("last : "+sellPager.getLastRow());
+		System.out.println("startRow : "+sellPager.getStartRow());
+		System.out.println("lastRow : "+sellPager.getLastRow());
+		System.out.println("totalCount: "+itemDAO.getItemCount(sellPager));
 		sellPager.getNum(itemDAO.getItemCount(sellPager));
+		System.out.println("startNum : "+sellPager.getStartNum());
+		System.out.println("lastNum : "+sellPager.getLastNum());
+		System.out.println("totalPage: "+sellPager.getTotalPage());
 		return itemDAO.getItemList(sellPager);
 	}
 	
 	public List<SellItemDTO> getSellerList(SellPager sellPager) throws Exception {
 		sellPager.getRowNum();
-		sellPager.getNum(itemDAO.getItemCount(sellPager));
+		System.out.println("Seller totalCount: "+itemDAO.getSellerItemCount(sellPager));
+		sellPager.getNum(itemDAO.getSellerItemCount(sellPager));
+		System.out.println("totalPage :"+sellPager.getTotalPage());
 		return itemDAO.getSellerList(sellPager);
 	}
 	
@@ -223,7 +229,7 @@ public class SellItemService {
 		return shopCartDAO.setShopCartAdd(shopCartDTO);
 	}
 	
-	public ShopCartDTO getShopCartCheck(ShopCartDTO shopCartDTO) throws Exception{
+	public String getShopCartCheck(ShopCartDTO shopCartDTO) throws Exception{
 		return shopCartDAO.getShopCartCheck(shopCartDTO);
 	}
 	

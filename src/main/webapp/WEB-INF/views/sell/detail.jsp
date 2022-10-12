@@ -681,6 +681,21 @@
               </c:catch>
             </div>
             <div>
+            	<button type="button" style="width: 10%; height: 5%; border: 1px solid black; background-color:white; border-radius: 10px; margin-right: 300px;">
+            		<c:choose>
+            			<c:when test="${ not empty shopcart }">
+            				<img src="/resources/images/trolley.png" id="btnShopCartDelete" style="cursor: pointer; width: 70%;" data-item-num="${sellItemDTO.itemNum}" data-id="${member.userId}">
+            			</c:when>
+            			<c:when test="${empty shopcart and not empty member }">
+            				<img src="/resources/images/shopping-cart.png" id="btnShopCartAdd" style="cursor: pointer; width: 70%;" data-item-num="${sellItemDTO.itemNum}">
+            			</c:when>
+            			<c:when test="${empty member }">
+            				<img src="/resources/images/shopping-cart.png" id="btnShopCartFalse" style="cursor: pointer; width: 70%;" data-item-num="${sellItemDTO.itemNum}">
+            			</c:when>
+            		</c:choose>
+            	</button>
+            </div>
+            <div>
                 <!-- Button trigger modal -->
                   <button type="button" class="btn btn-outline-danger" id="rvBtnFrm">
                     예약/결제
@@ -1027,8 +1042,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
   <!-- 리뷰 리스트 js -->
   <script src="/resources/JS/review.js"></script>
-<!-- 결제 api -->
-<script src="/resources/JS/check.js"></script>
+  <!-- 결제 api -->
+  <script src="/resources/JS/check.js"></script>
 
 
  </body>

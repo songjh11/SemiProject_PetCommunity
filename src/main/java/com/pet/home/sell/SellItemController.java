@@ -102,7 +102,7 @@ public class SellItemController {
 
 		List<SellItemDTO> ar = itemService.getSellerList(sellPager);
 		CategoryDTO categoryDTO = itemService.getCategory(sellPager.getItemCatg());
-
+		
 		mv.addObject("list", ar);
 		mv.addObject("pager", sellPager);
 		mv.addObject("category", categoryDTO);
@@ -119,6 +119,14 @@ public class SellItemController {
 		}
 		sellItemDTO = itemService.getDetailOne(sellItemDTO);
 		CategoryDTO categoryDTO = itemService.getCategory(sellItemDTO.getItemCatg());
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		if(memberDTO != null) {
+			ShopCartDTO shopCartDTO = new ShopCartDTO();
+			shopCartDTO.setItemNum(sellItemDTO.getItemNum());
+			shopCartDTO.setUserId(memberDTO.getUserId());
+			String result = itemService.getShopCartCheck(shopCartDTO);
+			model.addObject("shopcart", result);			
+		}
 		model.addObject("sellItemDTO", sellItemDTO);
 		model.addObject("category", categoryDTO);
 		return model;

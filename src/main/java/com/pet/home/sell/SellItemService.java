@@ -223,7 +223,7 @@ public class SellItemService {
 		return shopCartDAO.setShopCartAdd(shopCartDTO);
 	}
 	
-	public ShopCartDTO getShopCartCheck(ShopCartDTO shopCartDTO) throws Exception{
+	public String getShopCartCheck(ShopCartDTO shopCartDTO) throws Exception{
 		return shopCartDAO.getShopCartCheck(shopCartDTO);
 	}
 	

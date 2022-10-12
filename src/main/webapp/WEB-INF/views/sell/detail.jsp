@@ -729,7 +729,7 @@
           <br>
           <button style="display: none;"></button>
           
-          <div style="white-space:pre;">
+          <div style="white-space: pre-line;">
             <c:out value="${sellItemDTO.itemContents}"/>
           </div>
 

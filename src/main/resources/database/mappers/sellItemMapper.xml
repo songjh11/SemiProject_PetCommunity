@@ -38,7 +38,7 @@
 					ON SI.ITEMNUM = SF.ITEMNUM
 					WHERE SI.ITEMCATG= #{itemCatg}					
 					ORDER BY SI.ITEMNUM DESC,SF.PHOTONUM ASC) SII 
-			WHERE SII.ITEMNAME LIKE '%'||#{search}||'%' AND USERID=#{userId}
+			WHERE SII.ITEMNAME LIKE '%'||#{search}||'%' AND SII.USERID=#{userId}
 		ORDER BY SII.ITEMNUM DESC) SITEM)
 		WHERE R BETWEEN #{startRow} and #{lastRow}
 	</select>

@@ -155,7 +155,7 @@ public class SellItemController {
 		System.out.println("updatepost");
 		int result = itemService.setItemUpdate(itemDTO, files, session.getServletContext());
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/sell/selllist?itemCatg=" + itemDTO.getItemCatg());
+		mv.setViewName("redirect:/sell/list?itemCatg=" + itemDTO.getItemCatg());
 		return mv;
 	}
 
@@ -174,6 +174,13 @@ public class SellItemController {
 
 		return mv;
 	}
+	
+	@GetMapping("pettx")
+	public void setPettx () {
+		
+	}
+	
+	
 
 	@PostMapping("pickadd")
 	@ResponseBody

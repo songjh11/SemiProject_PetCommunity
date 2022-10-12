@@ -7,9 +7,6 @@
 		    		INSERT INTO SHOPCART VALUES(SELLITEM_SEQ.NEXTVAL,#{itemNum},#{userId},#{itemPrice},1,'1')
 		    	</insert>
 		    	
-		  		<select id="getShopCartCheck" parameterType="ShopCartDTO" resultType="ShopCartDTO">
-		  			SELECT ITEMNUM FROM SHOPCART WHERE ITEMNUM=#{itemNum}
-		  		</select>
 		  		
 		  		<delete id="setShopCartDelete" parameterType="ShopCartDTO">
 		  			DELETE SHOPCART WHERE ITEMNUM=#{itemNum} AND USERID=#{userId}
@@ -18,5 +15,9 @@
 		  		<update id="setShopCartUpdate" parameterType="ShopCartDTO">
 		  			UPDATE SHOPCART SET TOTALCOUNT=#{totalCount} WHERE ITEMNUM=#{itemNum}
 		  		</update>
+		  		
+		  		<select id="getShopCartCheck" parameterType="ShopCartDTO" resultType="String">
+		  			SELECT SHOPSTATUS FROM SHOPCART WHERE ITEMNUM=#{itemNum} AND USERID=#{userId}
+		  		</select>
 		    
 		    </mapper>

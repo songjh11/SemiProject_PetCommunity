@@ -230,7 +230,7 @@
                 <div class="member-info">
                   <h5>${itemDTO.itemNum}</h5>
                   <h4>${itemDTO.itemName}</h4>
-                  <span>${itemDTO.itemPrice}</span>
+                  <span>${itemDTO.shopCartDTOs[0].totalPrice}</span>
                   <p>${itemDTO.itemContents}</p>
                   <div class="social">
                     <button class="cartdel" type="button"><i class="bi bi-trash3"></i></button>

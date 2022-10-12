@@ -106,9 +106,17 @@ public class SellItemController {
 	}
 
 	@GetMapping("detail")
-	public ModelAndView getDetailOne(SellItemDTO sellItemDTO, ModelAndView model) throws Exception {
+	public ModelAndView getDetailOne(SellItemDTO sellItemDTO, ModelAndView model,HttpSession session) throws Exception {
 		sellItemDTO = itemService.getDetailOne(sellItemDTO);
 		CategoryDTO categoryDTO = itemService.getCategory(sellItemDTO.getItemCatg());
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		if(memberDTO != null) {
+			ShopCartDTO shopCartDTO = new ShopCartDTO();
+			shopCartDTO.setItemNum(sellItemDTO.getItemNum());
+			shopCartDTO.setUserId(memberDTO.getUserId());
+			String result = itemService.getShopCartCheck(shopCartDTO);
+			model.addObject("shopcart", result);			
+		}
 		model.addObject("sellItemDTO", sellItemDTO);
 		model.addObject("category", categoryDTO);
 		return model;

@@ -134,7 +134,7 @@
              							</c:when>
             						</c:choose>
             					</c:forEach>
-            					<c:forEach items="${shopcart }" var="shopcart" varStatus="scs">
+            					<!--<c:forEach items="${shopcart }" var="shopcart" varStatus="scs">
             						<c:choose>
             							<c:when test="${member.userId eq shopcart.shopCartDTOs[0].userId and ar.itemNum eq shopcart.shopCartDTOs[0].itemNum }">
 	            							<button type="button" class="btnsocial" id="btnShopCart">
@@ -148,7 +148,7 @@
                         					</button>
             							</c:when>
             						</c:choose>
-            					</c:forEach>
+            					</c:forEach>-->
             				</c:when>        
             			</c:choose>
                       	</div>

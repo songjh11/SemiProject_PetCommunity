@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.pet.home.member.MemberDTO;
+
 @Repository
 public class PickDAO {
 	@Autowired
@@ -24,4 +26,6 @@ public class PickDAO {
 	public int setPickDelete(PickDTO pickDTO) throws Exception{
 		return session.delete(NAMESPACE+"setPickDelete", pickDTO);
 	}
+	
+	
 }

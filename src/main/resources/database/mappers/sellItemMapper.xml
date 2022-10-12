@@ -132,6 +132,40 @@
 		DELETE SELLCATEGORY WHERE ITEMNUM = #{itemNum}
 	</delete>
 	
+	<select id="getPickStatus" parameterType="MemberDTO" resultMap="getPickStatusResult">
+		SELECT SI.ITEMNUM AS SIITEMNUM,P.ITEMNUM AS ITEMNUM,P.USERID,NVL(P.PICKVALUE,0) AS PICKVALUE
+		FROM SELLITEM SI
+     		 LEFT OUTER JOIN
+     		 PICK P
+     		 ON SI.ITEMNUM = P.ITEMNUM
+     	ORDER BY SI.ITEMNUM DESC
+    </select>
+    <resultMap type="SellItemDTO" id="getPickStatusResult">
+    	<id column="ITEMNUM" property="itemNum"></id>
+    		<collection property="pickDTOs" javaType="List" ofType="PickDTO">
+    			<result column="ITEMNUM" property="itemNum"/>
+    			<result column="USERID" property="userId"/>
+    			<result column="PICKVALUE" property="pickValue"/>
+    		</collection>
+    </resultMap>
+    
+    <select id="getShopCartStatus" parameterType="MemberDTO" resultMap="getShopCartStatusResult">
+		SELECT SI.ITEMNUM AS SIITEMNUM,SC.ITEMNUM AS ITEMNUM,SC.USERID,NVL(SC.SHOPSTATUS,0) AS SHOPSTATUS
+		FROM SELLITEM SI
+     		 LEFT OUTER JOIN
+     		 SHOPCART SC
+     		 ON SI.ITEMNUM = SC.ITEMNUM
+     	ORDER BY SI.ITEMNUM DESC
+    </select>
+    <resultMap type="SellItemDTO" id="getShopCartStatusResult">
+    	<id column="ITEMNUM" property="itemNum"></id>
+    		<collection property="shopCartDTOs" javaType="List" ofType="ShopCartDTO">
+    			<result column="ITEMNUM" property="itemNum"/>
+    			<result column="USERID" property="userId"/>
+    			<result column="SHOPSTATUS" property="shopStatus"/>
+    		</collection>
+    </resultMap>
+	
 	<select id="getMap" resultType="SellItemDTO">
 		SELECT ITEMADDRESS FROM SELLITEM WHERE ITEMNUM = #{itemNum}
 	</select>

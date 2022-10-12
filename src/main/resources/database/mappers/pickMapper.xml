@@ -4,7 +4,7 @@
 		    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		    <mapper namespace="com.pet.home.sell.PickDAO">
 		    	<insert id="setPickAdd" parameterType="PickDTO">
-		    		INSERT INTO PICK VALUES(SELLITEM_SEQ.NEXTVAL,#{itemNum},'guest',SYSDATE,1)
+		    		INSERT INTO PICK VALUES(SELLITEM_SEQ.NEXTVAL,#{itemNum},#{userId},SYSDATE,1)
 		    	</insert>
 		    	
 		  		<select id="getPickCheck" parameterType="PickDTO" resultType="PickDTO">
@@ -12,7 +12,9 @@
 		  		</select>
 		  		
 		  		<delete id="setPickDelete" parameterType="PickDTO">
-		  			DELETE PICK WHERE ITEMNUM=#{itemNum}
+		  			DELETE PICK WHERE ITEMNUM=#{itemNum} AND USERID=#{userId}
 		  		</delete>
+		  		
+		  		
 		    
 		    </mapper>

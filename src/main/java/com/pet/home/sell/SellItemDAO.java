@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pet.home.member.MemberDTO;
 import com.pet.home.sell.file.SellFileDTO;
 import com.pet.home.sell.sellcategory.CategoryDTO;
 import com.pet.home.sell.sellcategory.SellCategoryDTO;
@@ -82,6 +83,14 @@ public class SellItemDAO {
 	
 	public SellItemDTO getMap() throws Exception{
 		return session.selectOne(NAMESPACE+"getMap");
+	}
+	
+	public List<SellItemDTO> getPickStatus(MemberDTO memberDTO) throws Exception{
+		return session.selectList(NAMESPACE+"getPickStatus",memberDTO);
+	}
+	
+	public List<SellItemDTO> getShopCartStatus(MemberDTO memberDTO) throws Exception{
+		return session.selectList(NAMESPACE+"getShopCartStatus",memberDTO);
 	}
 	
 	//지도 매핑용 전체 상품 리스트

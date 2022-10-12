@@ -63,13 +63,24 @@ public class SellItemController {
 	}
 
 	@GetMapping("list")
-	public ModelAndView getItemList(SellPager sellPager) throws Exception {
+	public ModelAndView getItemList(SellPager sellPager, HttpSession session) throws Exception {
 		System.out.println(sellPager.getItemCatg());
 		ModelAndView mv = new ModelAndView();
 
 		List<SellItemDTO> ar = itemService.getItemList(sellPager);
 		CategoryDTO categoryDTO = itemService.getCategory(sellPager.getItemCatg());
-
+		
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		if(memberDTO != null) {
+			
+			List<SellItemDTO> sellItemDTOs = itemService.getPickStatus(memberDTO);
+			mv.addObject("pick", sellItemDTOs);
+			System.out.println(sellItemDTOs);
+			List<SellItemDTO> sellItemDTOs2 = itemService.getShopCartStatus(memberDTO);
+			mv.addObject("shopcart", sellItemDTOs2);
+		}
+		
+	
 		mv.addObject("list", ar);
 		mv.addObject("pager", sellPager);
 		mv.addObject("category", categoryDTO);
@@ -166,36 +177,36 @@ public class SellItemController {
 
 	@PostMapping("pickadd")
 	@ResponseBody
-	public int setPickAdd(PickDTO pickDTO) throws Exception {
-		PickDTO pickDTO2 = itemService.getPickCheck(pickDTO);
-		if (pickDTO2 == null) {
-			int result = itemService.setPickAdd(pickDTO);
-			return result;
-		}
-		return 0;
+	public int setPickAdd(PickDTO pickDTO,HttpSession session) throws Exception {
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		pickDTO.setUserId(memberDTO.getUserId());
+		int result = itemService.setPickAdd(pickDTO);
+		return result;
 	}
 
 	@PostMapping("pickdelete")
 	@ResponseBody
-	public int setPickDelete(PickDTO pickDTO) throws Exception {
+	public int setPickDelete(PickDTO pickDTO,HttpSession session) throws Exception {
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		pickDTO.setUserId(memberDTO.getUserId());
 		int result = itemService.setPickDelete(pickDTO);
 		return result;
 	}
 
 	@PostMapping("shopcartadd")
 	@ResponseBody
-	public int setShopCartAdd(ShopCartDTO shopCartDTO) throws Exception {
-		ShopCartDTO shopCartDTO2 = itemService.getShopCartCheck(shopCartDTO);
-		if (shopCartDTO2 == null) {
-			int result = itemService.setShopCartAdd(shopCartDTO);
-			return result;
-		}
-		return 0;
+	public int setShopCartAdd(ShopCartDTO shopCartDTO, HttpSession session) throws Exception {
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		shopCartDTO.setUserId(memberDTO.getUserId());
+		int result = itemService.setShopCartAdd(shopCartDTO);
+		return result;
 	}
 
 	@PostMapping("shopcartdelete")
 	@ResponseBody
-	public int setShopCartDelete(ShopCartDTO shopCartDTO) throws Exception {
+	public int setShopCartDelete(ShopCartDTO shopCartDTO, HttpSession session) throws Exception {
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		shopCartDTO.setUserId(memberDTO.getUserId());
 		int result = itemService.setShopCartDelete(shopCartDTO);
 		return result;
 	}

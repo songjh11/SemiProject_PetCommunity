@@ -4,7 +4,7 @@
 		    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		    <mapper namespace="com.pet.home.sell.ShopCartDAO">
 		    	<insert id="setShopCartAdd" parameterType="ShopCartDTO">
-		    		INSERT INTO SHOPCART VALUES(SELLITEM_SEQ.NEXTVAL,#{itemNum},'guest',#{itemPrice},1,'1')
+		    		INSERT INTO SHOPCART VALUES(SELLITEM_SEQ.NEXTVAL,#{itemNum},#{userId},#{itemPrice},1,'1')
 		    	</insert>
 		    	
 		  		<select id="getShopCartCheck" parameterType="ShopCartDTO" resultType="ShopCartDTO">
@@ -12,7 +12,7 @@
 		  		</select>
 		  		
 		  		<delete id="setShopCartDelete" parameterType="ShopCartDTO">
-		  			DELETE SHOPCART WHERE ITEMNUM=#{itemNum}
+		  			DELETE SHOPCART WHERE ITEMNUM=#{itemNum} AND USERID=#{userId}
 		  		</delete>
 		  		
 		  		<update id="setShopCartUpdate" parameterType="ShopCartDTO">

@@ -8,8 +8,6 @@
         console.log("수정하기;")
     if(radiomes.checked){
         radiomes.value='1'
-    }else{
-        radiomes.value='0'
     }
 
     updatefrm.submit();

@@ -35,6 +35,40 @@
 	<beans:bean id="echoHandler" class="com.pet.home.chat.room.EchoHandler"></beans:bean>
 	
 	
+
+	<beans:bean class="com.pet.home.interceptor.AdminCheckInterceptor" id="adminCheckInterceptor"></beans:bean>
+	<beans:bean class="com.pet.home.interceptor.MemberInterceptor" id="memberInterceptor"></beans:bean>
+	<beans:bean class="com.pet.home.interceptor.WriterCheckInterceptor" id="writerCheckInterceptor"></beans:bean>
+	
+
+	<interceptors>
+	<interceptor>
+	
+	<mapping path="/member/**"/>
+	<mapping path="/sell/**"/>
+	<mapping path="/event/**"/>
+	<mapping path="/notice/**"/>
+	<mapping path="/qna/**"/>
+	<mapping path="/admin/**"/>
+	<exclude-mapping path="/member/login"/>
+	<exclude-mapping path="/member/join"/>
+	<exclude-mapping path="/member/findlogin"/>
+	<exclude-mapping path="/member/role"/>
+	<exclude-mapping path="/sell/list"/>
+	<exclude-mapping path="/sell/detail"/>
+	<exclude-mapping path="/sell/pettx"/>
+	<exclude-mapping path="/sell/map"/>
+	<exclude-mapping path="/event/list"/>
+	<exclude-mapping path="/notice/list"/>
+	<exclude-mapping path="/notice/detail"/>
+	<exclude-mapping path="/qna/list"/>
+	<exclude-mapping path="/qna/detail"/>
+	<beans:ref bean="memberInterceptor"/>
+	
+	 </interceptor>
+	 
+	</interceptors> 
+	
 	<context:component-scan base-package="com.pet.home" />
 	
 	

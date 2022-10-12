@@ -10,6 +10,18 @@
   <title>Join page</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
+
+  <style>
+
+    .ag{
+    
+      background-color:cornsilk;
+      overflow: scroll;
+      width: 600px;
+      height: 100px;
+   
+    }
+  </style>
   
 </head>
 <body>

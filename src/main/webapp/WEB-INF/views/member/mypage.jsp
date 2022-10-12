@@ -208,7 +208,7 @@
               <i class="icon bi bi-telephone flex-shrink-0"></i>
               <div>
                 <h3>Phone</h3>
-                <p><input type="text" value="${dto.email}" name="email" readonly></p>
+                <p><input type="text" value="${dto.phone}" name="phone" readonly></p>
               </div>
             </div>
           </div><!-- End Info Item -->

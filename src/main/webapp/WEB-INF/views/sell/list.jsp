@@ -104,14 +104,11 @@
                   <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 15px; display: flex; flex-direction: column; align-items: center;">
                     <div class="member-img" style="width: 160%;">
                       <img src="/resources/upload/sellfile/${ar.fileDTOs[0].fileName}" class="img-fluid" alt="">
-                      	<div class="social d-flex">
+                      	<div class="social d-flex" style="text-align: center;">
           				<c:choose>
            					<c:when test="${empty member.userId}">
                         		<button type="button" class="btnsocial" id="btnPickFalse">
-                            		<img src="/resources/images/love.png" class="btnPickFalse" style="cursor: pointer; width: 20%; " data-item-num="${ar.itemNum}">
-                        		</button>
-                        		<button type="button" class="btnsocial" id="btnShopCartFalse">
-                            		<img src="/resources/images/shopping-cart.png" class="btnShopCartFalse" style="cursor: pointer; width: 20%; " data-item-num="${ar.itemNum}">
+                            		<img src="/resources/images/love.png" class="btnPickFalse" style="cursor: pointer; width: 20%; margin-right: 130px;" data-item-num="${ar.itemNum}">
                         		</button>
            					</c:when>
            					<c:when test="${not empty member.userId }">
@@ -121,14 +118,14 @@
             						<c:choose>
              							<c:when test="${member.userId eq pick.pickDTOs[0].userId and ar.itemNum eq pick.pickDTOs[0].itemNum}">
              								<button type="button" class="btnsocial" id="btnPick">
-                    							<img src="/resources/images/heart.png" class="btnPickDelete" style="cursor: pointer; width: 20%;" data-item-num="${ar.itemNum}" data-id="${pick.pickDTOs[0].userId}">
-                        					</button>
+                    							<img src="/resources/images/heart.png" class="btnPickDelete" style="cursor: pointer; width: 20%; margin-right: 130px;" data-item-num="${ar.itemNum}" data-id="${pick.pickDTOs[0].userId}">
+                        		</button>
                         					<c:set var="doneLoop" value="true"/>
              							</c:when>
              							<c:when test="${vs.last and not doneLoop }">
              								<button type="button" class="btnsocial" id="btnPick">
-                                  				<img src="/resources/images/love.png" class="btnPickAdd" style="cursor: pointer; width: 20%;" data-item-num="${ar.itemNum}">
-                        					</button>
+                                  				<img src="/resources/images/love.png" class="btnPickAdd" style="cursor: pointer; width: 20%; margin-right: 130px;" data-item-num="${ar.itemNum}">
+                        		</button>
              							</c:when>
             						</c:choose>
             					</c:forEach>

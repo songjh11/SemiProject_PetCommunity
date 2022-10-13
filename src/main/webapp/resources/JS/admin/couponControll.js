@@ -4,6 +4,19 @@ const next2 = document.getElementById("next2");
 const present2 = document.querySelectorAll(".page-link");
 const tbody2 = document.getElementById("tbody2");
 
+// 게스트 찾기 kind/search
+const kind = document.getElementById("kind");
+const search = document.getElementById("search");
+const searchGu = document.getElementById("searchGu");
+
+// 비즈 찾기 kind1/search1
+const kind1 = document.getElementById("kind1");
+const search1 = document.getElementById("search1");
+const searchBiz = document.getElementById("searchBiz");
+
+
+
+
 next2.addEventListener("click",function(){
     let page = next2.getAttribute("data-page");
     
@@ -38,7 +51,7 @@ next2.addEventListener("click",function(){
                 if(list[i].block == '0'){
                     td = document.createElement("td");
                     td.setAttribute("class","deleteMember");
-                    td.setAttribute("onclick","deleteMember()");
+                    td.setAttribute("onclick","deleteMember(event)");
                     td.setAttribute("data-userId", list[i].userId);
                     text = document.createTextNode("차단");
                     td.appendChild(text);
@@ -46,7 +59,7 @@ next2.addEventListener("click",function(){
                 }else{
                     td = document.createElement("td");
                     td.setAttribute("class","unblockMember");
-                    td.setAttribute("onclick","unblockMember()");
+                    td.setAttribute("onclick","unblockMember(event)");
                     td.setAttribute("data-userId", list[i].userId);
                     text = document.createTextNode("차단 해제");
                     td.appendChild(text);
@@ -141,7 +154,7 @@ try {
                         if(list[i].block == '0'){
                             td = document.createElement("td");
                             td.setAttribute("class","deleteMember");
-                            td.setAttribute("onclick","deleteMember()");
+                            td.setAttribute("onclick","deleteMember(event)");
                             td.setAttribute("data-userId", list[i].userId);
                             text = document.createTextNode("차단");
                             td.appendChild(text);
@@ -149,7 +162,7 @@ try {
                         }else{
                             td = document.createElement("td");
                             td.setAttribute("class","unblockMember");
-                            td.setAttribute("onclick","unblockMember()");
+                            td.setAttribute("onclick","unblockMember(event)");
                             td.setAttribute("data-userId", list[i].userId);
                             text = document.createTextNode("차단 해제");
                             td.appendChild(text);
@@ -242,7 +255,7 @@ previous2.addEventListener("click",function(){
                 if(list[i].block == '0'){
                     td = document.createElement("td");
                     td.setAttribute("class","deleteMember");
-                    td.setAttribute("onclick","deleteMember()");
+                    td.setAttribute("onclick","deleteMember(event)");
                     td.setAttribute("data-userId", list[i].userId);
                     text = document.createTextNode("차단");
                     td.appendChild(text);
@@ -250,7 +263,7 @@ previous2.addEventListener("click",function(){
                 }else{
                     td = document.createElement("td");
                     td.setAttribute("class","unblockMember");
-                    td.setAttribute("onclick","unblockMember()");
+                    td.setAttribute("onclick","unblockMember(event)");
                     td.setAttribute("data-userId", list[i].userId);
                     text = document.createTextNode("차단 해제");
                     td.appendChild(text);
@@ -570,7 +583,7 @@ next2.addEventListener("click",function(){
                 if(list[i].block == '0'){
                     td = document.createElement("td");
                     td.setAttribute("class","deleteMember1");
-                    td.setAttribute("onclick","deleteMember1()");
+                    td.setAttribute("onclick","deleteMember1(event)");
                     td.setAttribute("data-userId", list[i].userId);
                     text = document.createTextNode("차단");
                     td.appendChild(text);
@@ -578,7 +591,7 @@ next2.addEventListener("click",function(){
                 }else{
                     td = document.createElement("td");
                     td.setAttribute("class","unblockMember1");
-                    td.setAttribute("onclick","unblockMember1()");
+                    td.setAttribute("onclick","unblockMember1(event)");
                     td.setAttribute("data-userId", list[i].userId);
                     text = document.createTextNode("차단 해제");
                     td.appendChild(text);
@@ -653,7 +666,7 @@ try {
                         if(list[i].block == '0'){
                             td = document.createElement("td");
                             td.setAttribute("class","deleteMember1");
-                            td.setAttribute("onclick","deleteMember1()");
+                            td.setAttribute("onclick","deleteMember1(event)");
                             td.setAttribute("data-userId", list[i].userId);
                             text = document.createTextNode("차단");
                             td.appendChild(text);
@@ -661,7 +674,7 @@ try {
                         }else{
                             td = document.createElement("td");
                             td.setAttribute("class","unblockMember1");
-                            td.setAttribute("onclick","unblockMember1()");
+                            td.setAttribute("onclick","unblockMember1(event)");
                             td.setAttribute("data-userId", list[i].userId);
                             text = document.createTextNode("차단 해제");
                             td.appendChild(text);
@@ -735,7 +748,7 @@ previous3.addEventListener("click",function(){
                 if(list[i].block == '0'){
                     td = document.createElement("td");
                     td.setAttribute("class","deleteMember1");
-                    td.setAttribute("onclick","deleteMember1()");
+                    td.setAttribute("onclick","deleteMember1(event)");
                     td.setAttribute("data-userId", list[i].userId);
                     text = document.createTextNode("차단");
                     td.appendChild(text);
@@ -743,7 +756,7 @@ previous3.addEventListener("click",function(){
                 }else{
                     td = document.createElement("td");
                     td.setAttribute("class","unblockMember1");
-                    td.setAttribute("onclick","unblockMember1()");
+                    td.setAttribute("onclick","unblockMember1(event)");
                     td.setAttribute("data-userId", list[i].userId);
                     text = document.createTextNode("차단 해제");
                     td.appendChild(text);

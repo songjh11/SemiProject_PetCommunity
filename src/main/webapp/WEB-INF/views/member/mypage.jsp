@@ -193,7 +193,14 @@
 
         <form action="./delete" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data" id="updatefrm">
         <c:if test="${dto.roleNum eq 2}">
+          <c:choose>
+          <c:when test="${empty dto.memberFileDTO.fileName}">
+            <br>
+          </c:when>
+          <c:otherwise>
             <img src="../resources/upload/member/${dto.memberFileDTO.fileName}" class="testimonial-img" alt="" style="border-radius: 50%; border: 4px solid #fff; margin: 0 auto; width: 300px; height: 300px; display: block;">
+          </c:otherwise>
+        </c:choose>
           </c:if>
         <div class="row gy-4">
           <div class="col-md-6">

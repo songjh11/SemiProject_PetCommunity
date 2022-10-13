@@ -566,14 +566,14 @@ function reviewList(){
                     td.appendChild(tdText);
                     tr.appendChild(td);
     
-                    
-                    if(ar[i].rvRate == "0.5"){
+                    console.log(ar[i].rvRate);
+                    if(ar[i].rvRate == 0.5){
                         td = document.createElement("td");
                         tdstyle = document.createAttribute("style");
                         tdstyle.value = "width:14%;";
                         td.setAttributeNode(tdstyle);
-                        star = document.createElement("span");
-                        starclass = document.createAttribute("class");
+                        let star = document.createElement("span");
+                        let starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star-half-full checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
@@ -581,13 +581,13 @@ function reviewList(){
                         td.appendChild(tdText);
                         tr.appendChild(td);
                     }
-                    else if(ar[i].rvRate == "1"){
+                    else if(ar[i].rvRate == 1){
                         td = document.createElement("td");
                         tdstyle = document.createAttribute("style");
                         tdstyle.value = "width:14%;";
                         td.setAttributeNode(tdstyle);
-                        star = document.createElement("span");
-                        starclass = document.createAttribute("class");
+                        let star = document.createElement("span");
+                        let starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
@@ -595,56 +595,13 @@ function reviewList(){
                         td.appendChild(tdText);
                         tr.appendChild(td);
                     }
-                    else if(ar[i].rvRate == "1.5"){
+                    else if(ar[i].rvRate == 1.5){
                         td = document.createElement("td");
                         tdstyle = document.createAttribute("style");
                         tdstyle.value = "width:14%;";
                         td.setAttributeNode(tdstyle);
-                        star = document.createElement("span");
-                        starclass = document.createAttribute("class");
-                        starclass.value = "fa fa-star checked";
-                        star.setAttributeNode(starclass);
-                        td.appendChild(star);
-                        star = document.createElement("span");
-                        starclass = document.createAttribute("class");
-                        starclass.value = "fa fa-star-half-full checked";
-                        star.setAttributeNode(starclass);
-                        td.appendChild(star);
-                        tdText = document.createTextNode(ar[i].rvRate);
-                        td.appendChild(tdText);
-                        tr.appendChild(td);
-                    }
-                    else if(ar[i].rvRate == "2"){
-                        td = document.createElement("td");
-                        tdstyle = document.createAttribute("style");
-                        tdstyle.value = "width:14%;";
-                        td.setAttributeNode(tdstyle);
-                        star = document.createElement("span");
-                        starclass = document.createAttribute("class");
-                        starclass.value = "fa fa-star checked";
-                        star.setAttributeNode(starclass);
-                        td.appendChild(star);
-                        star = document.createElement("span");
-                        starclass = document.createAttribute("class");
-                        starclass.value = "fa fa-star checked";
-                        star.setAttributeNode(starclass);
-                        td.appendChild(star);
-                        tdText = document.createTextNode(ar[i].rvRate);
-                        td.appendChild(tdText);
-                        tr.appendChild(td);
-                    }
-                    else if(ar[i].rvRate == "2.5"){
-                        td = document.createElement("td");
-                        tdstyle = document.createAttribute("style");
-                        tdstyle.value = "width:14%;";
-                        td.setAttributeNode(tdstyle);
-                        star = document.createElement("span");
-                        starclass = document.createAttribute("class");
-                        starclass.value = "fa fa-star checked";
-                        star.setAttributeNode(starclass);
-                        td.appendChild(star);
-                        star = document.createElement("span");
-                        starclass = document.createAttribute("class");
+                        let star = document.createElement("span");
+                        let starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
@@ -657,18 +614,13 @@ function reviewList(){
                         td.appendChild(tdText);
                         tr.appendChild(td);
                     }
-                    else if(ar[i].rvRate == "3"){
+                    else if(ar[i].rvRate == 2){
                         td = document.createElement("td");
                         tdstyle = document.createAttribute("style");
                         tdstyle.value = "width:14%;";
                         td.setAttributeNode(tdstyle);
-                        star = document.createElement("span");
-                        starclass = document.createAttribute("class");
-                        starclass.value = "fa fa-star checked";
-                        star.setAttributeNode(starclass);
-                        td.appendChild(star);
-                        star = document.createElement("span");
-                        starclass = document.createAttribute("class");
+                        let star = document.createElement("span");
+                        let starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
@@ -681,18 +633,13 @@ function reviewList(){
                         td.appendChild(tdText);
                         tr.appendChild(td);
                     }
-                    else if(ar[i].rvRate == "3.5"){
+                    else if(ar[i].rvRate == 2.5){
                         td = document.createElement("td");
                         tdstyle = document.createAttribute("style");
                         tdstyle.value = "width:14%;";
                         td.setAttributeNode(tdstyle);
-                        star = document.createElement("span");
-                        starclass = document.createAttribute("class");
-                        starclass.value = "fa fa-star checked";
-                        star.setAttributeNode(starclass);
-                        td.appendChild(star);
-                        star = document.createElement("span");
-                        starclass = document.createAttribute("class");
+                        let star = document.createElement("span");
+                        let starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
                         td.appendChild(star);
@@ -710,99 +657,152 @@ function reviewList(){
                         td.appendChild(tdText);
                         tr.appendChild(td);
                     }
-                    else if(ar[i].rvRate == "4"){
+                    else if(ar[i].rvRate == 3){
                         td = document.createElement("td");
                         tdstyle = document.createAttribute("style");
                         tdstyle.value = "width:14%;";
                         td.setAttributeNode(tdstyle);
+                        let star = document.createElement("span");
+                        let starclass = document.createAttribute("class");
+                        starclass.value = "fa fa-star checked";
+                        star.setAttributeNode(starclass);
+                        td.appendChild(star);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild;
+                        td.appendChild(star);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild;
-                        star = document.createElement("span");
-                        starclass = document.createAttribute("class");
-                        starclass.value = "fa fa-star checked";
-                        star.setAttributeNode(starclass);
-                        td.appendChild;
-                        star = document.createElement("span");
-                        starclass = document.createAttribute("class");
-                        starclass.value = "fa fa-star checked";
-                        star.setAttributeNode(starclass);
-                        td.appendChild;
+                        td.appendChild(star);
                         tdText = document.createTextNode(ar[i].rvRate);
                         td.appendChild(tdText);
                         tr.appendChild(td);
                     }
-                    else if(ar[i].rvRate == "4.5"){
+                    else if(ar[i].rvRate == 3.5){
                         td = document.createElement("td");
                         tdstyle = document.createAttribute("style");
                         tdstyle.value = "width:14%;";
                         td.setAttributeNode(tdstyle);
+                        let star = document.createElement("span");
+                        let starclass = document.createAttribute("class");
+                        starclass.value = "fa fa-star checked";
+                        star.setAttributeNode(starclass);
+                        td.appendChild(star);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild;
+                        td.appendChild(star);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild;
-                        star = document.createElement("span");
-                        starclass = document.createAttribute("class");
-                        starclass.value = "fa fa-star checked";
-                        star.setAttributeNode(starclass);
-                        td.appendChild;
-                        star = document.createElement("span");
-                        starclass = document.createAttribute("class");
-                        starclass.value = "fa fa-star checked";
-                        star.setAttributeNode(starclass);
-                        td.appendChild;
+                        td.appendChild(star);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star-half-full checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild;
+                        td.appendChild(star);
                         tdText = document.createTextNode(ar[i].rvRate);
                         td.appendChild(tdText);
                         tr.appendChild(td);
                     }
-                    else if(ar[i].rvRate == "5"){
+                    else if(ar[i].rvRate == 4){
                         td = document.createElement("td");
                         tdstyle = document.createAttribute("style");
                         tdstyle.value = "width:14%;";
                         td.setAttributeNode(tdstyle);
+                        let star = document.createElement("span");
+                        let starclass = document.createAttribute("class");
+                        starclass.value = "fa fa-star checked";
+                        star.setAttributeNode(starclass);
+                        td.appendChild(star);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild;
+                        td.appendChild(star);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild;
+                        td.appendChild(star);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild;
+                        td.appendChild(star);
+                        tdText = document.createTextNode(ar[i].rvRate);
+                        td.appendChild(tdText);
+                        tr.appendChild(td);
+                    }
+                    else if(ar[i].rvRate == 4.5){
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "width:14%;";
+                        td.setAttributeNode(tdstyle);
+                        let star = document.createElement("span");
+                        let starclass = document.createAttribute("class");
+                        starclass.value = "fa fa-star checked";
+                        star.setAttributeNode(starclass);
+                        td.appendChild(star);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild;
+                        td.appendChild(star);
                         star = document.createElement("span");
                         starclass = document.createAttribute("class");
                         starclass.value = "fa fa-star checked";
                         star.setAttributeNode(starclass);
-                        td.appendChild;
+                        td.appendChild(star);
+                        star = document.createElement("span");
+                        starclass = document.createAttribute("class");
+                        starclass.value = "fa fa-star checked";
+                        star.setAttributeNode(starclass);
+                        td.appendChild(star);
+                        star = document.createElement("span");
+                        starclass = document.createAttribute("class");
+                        starclass.value = "fa fa-star-half-full checked";
+                        star.setAttributeNode(starclass);
+                        td.appendChild(star);
+                        tdText = document.createTextNode(ar[i].rvRate);
+                        td.appendChild(tdText);
+                        tr.appendChild(td);
+                    }
+                    else if(ar[i].rvRate == 5){
+                        td = document.createElement("td");
+                        tdstyle = document.createAttribute("style");
+                        tdstyle.value = "width:14%;";
+                        td.setAttributeNode(tdstyle);
+                        let star = document.createElement("span");
+                        let starclass = document.createAttribute("class");
+                        starclass.value = "fa fa-star checked";
+                        star.setAttributeNode(starclass);
+                        td.appendChild(star);
+                        star = document.createElement("span");
+                        starclass = document.createAttribute("class");
+                        starclass.value = "fa fa-star checked";
+                        star.setAttributeNode(starclass);
+                        td.appendChild(star);
+                        star = document.createElement("span");
+                        starclass = document.createAttribute("class");
+                        starclass.value = "fa fa-star checked";
+                        star.setAttributeNode(starclass);
+                        td.appendChild(star);
+                        star = document.createElement("span");
+                        starclass = document.createAttribute("class");
+                        starclass.value = "fa fa-star checked";
+                        star.setAttributeNode(starclass);
+                        td.appendChild(star);
+                        star = document.createElement("span");
+                        starclass = document.createAttribute("class");
+                        starclass.value = "fa fa-star checked";
+                        star.setAttributeNode(starclass);
+                        td.appendChild(star);
                         tdText = document.createTextNode(ar[i].rvRate);
                         td.appendChild(tdText);
                         tr.appendChild(td);

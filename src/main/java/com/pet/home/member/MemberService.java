@@ -41,8 +41,8 @@ public class MemberService {
 		return memberDAO.setKakao(memberDTO);
 	}
 	
-	public int getKakaoCount(MemberDTO memberDTO)throws Exception{
-		return memberDAO.getKakaoCount(memberDTO);
+	public int getIdCount(MemberDTO memberDTO)throws Exception{
+		return memberDAO.getIdCount(memberDTO);
 	}
 	
 	public int setJoin(MemberDTO memberDTO, MultipartFile photo, ServletContext servletContext)throws Exception{
@@ -203,7 +203,7 @@ public class MemberService {
 		String charSet = "utf-8";
 		String hostSMTP= "smtp.naver.com";
 		String hostSMTPid ="g1room";
-		String hostSMTPpwd = "wldnjs1111";
+		String hostSMTPpwd = "wldnjs1234";
 		
 		String fromEmail ="g1room@naver.com";
 		String fromName ="이지원";

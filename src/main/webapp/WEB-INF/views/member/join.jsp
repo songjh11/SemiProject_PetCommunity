@@ -19,7 +19,11 @@
       overflow: scroll;
       width: 600px;
       height: 100px;
-   
+    }
+
+    .warning{
+      color: red;
+      font-size: smaller;
     }
   </style>
   
@@ -40,12 +44,16 @@
           <div class="col-lg-8 align-items-center">
             <form action="join" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data" id="joinfrm">
               <div class="row gy-4">
-                <div class="col-lg-8 col-md-12">
+                <div class="col-lg-6 col-md-6">
                   <input type="hidden" name="roleNum" value="${param.roleNum}">
                   <input type="text" name="userId" id="userId" class="form-control" placeholder="User ID">
                   <div class="validate"></div>
                   <div id="d1" class="warning"></div>
                 </div>
+                  <div class="col-lg-6 col-md-6">
+                    <button type="button" id="idUsed" class="btn-book-a-table">중복체크</button>
+                  </div>
+               
                 <div class="col-lg-8 col-md-12">
                   <input type="text" name="password" id="password" class="form-control" placeholder="password">
                   <div class="validate"></div>

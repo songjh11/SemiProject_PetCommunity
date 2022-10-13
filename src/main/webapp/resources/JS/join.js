@@ -21,6 +21,7 @@
     const petCatg = document.getElementById("petCatg");
     const petName = document.getElementById("petName");
     const files = document.getElementById("files");
+    const idUsed = document.getElementById("idUsed");
 
     const d1 = document.getElementById("d1");
     const d2 = document.getElementById("d2");
@@ -50,6 +51,8 @@
     let petCatgCheck=false;
     let petNameCheck=false;
     let filesCheck=false;
+    let idUsedCheck=false;
+
 
     //============전체동의 체크하면 모두 체크하기==================
     all.addEventListener("click", function(){
@@ -106,6 +109,7 @@ join.addEventListener("click", function(){
         console.log(petCatgCheck);
         console.log(petNameCheck);
         console.log(filesCheck);
+        console.log(idUsedCheck);
 
         if(itemZipCode.value != null){
             itemZipCodeCheck=true;
@@ -117,7 +121,7 @@ join.addEventListener("click", function(){
          //============회원가입 조건 제출 시 확인========================
 
          if(roleNum==1){if( 
-            userIdCheck==true && pwCheck==true && pw2Check==true && userNameCheck==true 
+            userIdCheck==true &&idUsedCheck==true && pwCheck==true && pw2Check==true && userNameCheck==true 
             && emailCheck==true && phoneCheck==true 
             && itemZipCodeCheck==true && addressCheck==true && deAddressCheck==true){
             joinfrm.submit();
@@ -125,7 +129,7 @@ join.addEventListener("click", function(){
             alert("필수 항목을 다시 확인하세요.")}
          }else if(roleNum==2){
             if(
-                userIdCheck==true && pwCheck==true && pw2Check==true && userNameCheck==true && emailCheck==true
+                userIdCheck==true && idUsedCheck==true && pwCheck==true && pw2Check==true && userNameCheck==true && emailCheck==true
                 && phoneCheck==true && itemZipCodeCheck==true && addressCheck==true && deAddressCheck==true 
                 && petCatgCheck==true &&  petNameCheck==true && filesCheck==true){
               joinfrm.submit();
@@ -133,7 +137,7 @@ join.addEventListener("click", function(){
                 alert("필수 항목을 다시 확인하세요.")}
 
          }else if(roleNum==0){if(
-            userIdCheck==true && pwCheck==true && pw2Check==true && userNameCheck==true && emailCheck==true
+            userIdCheck==true && idUsedCheck==true && pwCheck==true && pw2Check==true && userNameCheck==true && emailCheck==true
              && phoneCheck==true && itemZipCodeCheck==true && addressCheck==true && deAddressCheck==true){
            joinfrm.submit();
           }else{
@@ -164,6 +168,36 @@ join.addEventListener("click", function(){
         }
     
         });
+
+        idUsed.addEventListener("click", function(){
+            console.log(userId.value);
+            const xHttp = new XMLHttpRequest();
+            xHttp.open("GET","./idUsed?userId="+userId.value);
+            xHttp.send();
+            xHttp.onreadystatechange = function(){
+                if(xHttp.readyState == 4 && xHttp.status == 200){
+                    let result = xHttp.responseText.trim();
+    
+                    console.log(result);
+                    if(result == 1){
+                        console.log("1");
+                        userId.focus();
+                        idUsedCheck=false;
+                        d1.innerHTML='사용중인 아이디입니다.';
+                        return;
+                    }
+                    else{
+                        console.log("0");
+                        idUsedCheck=true;
+                        d1.innerHTML='';
+                        alert("사용가능한 아이디입니다.")
+                        return;
+                    }
+                }
+            }
+        
+            });
+
     
         password.addEventListener("change", function(){
     

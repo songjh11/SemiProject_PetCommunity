@@ -1,4 +1,3 @@
-
 const password = document.getElementById("password");
 const userName = document.getElementById("userName");
 const email = document.getElementById("email");
@@ -18,11 +17,13 @@ let phoneCheck=true;
     
     password.addEventListener("change", function(){
 
-    if(0<password.value.length<5){
+    if(0<password.value.length && password.value.length<6){
+        console.log(password.value.length);
         pwCheck=false;
         d2.innerHTML='비밀번호는 6글자 이상이어야합니다.';
         
     }else {
+        console.log("???");
         pwCheck=true;
         d2.innerHTML='';
     }
@@ -30,7 +31,7 @@ let phoneCheck=true;
 
     userName.addEventListener("change", function(){
 
-    if(0<password.value.length<2){
+    if(userName.value.length==1){
         userNameCheck=false;
         d3.innerHTML='이름은 2글자 이상입력해주세요.';
     }else {
@@ -44,10 +45,10 @@ let phoneCheck=true;
 
     phone.addEventListener("change", function(){
 
-    if(0<phone.value.length && 12<phone.value.length){
+    if(0<phone.value.length && phone.value.length<12){
         phoneCheck=false;
         d4.innerHTML='번호 형식에 맞게 입력해주세요.';
-    }else{ phoneCheck=true;
+    }else { phoneCheck=true;
         d4.innerHTML='';}
 
     });

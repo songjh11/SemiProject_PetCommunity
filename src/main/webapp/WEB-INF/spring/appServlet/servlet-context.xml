@@ -55,6 +55,7 @@
 	<exclude-mapping path="/member/kakao"/>
 	<exclude-mapping path="/member/findlogin"/>
 	<exclude-mapping path="/member/role"/>
+	<exclude-mapping path="/member/idUsed"/>
 	<exclude-mapping path="/sell/list"/>
 	<exclude-mapping path="/sell/detail"/>
 	<exclude-mapping path="/sell/pettx"/>

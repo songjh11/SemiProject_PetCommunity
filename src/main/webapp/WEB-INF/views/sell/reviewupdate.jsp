@@ -67,7 +67,7 @@
 						<div class="validate"></div>
                 	</div>
                 	<div class="form-group mt-3" style="margin-top: 5px;">
-						<textarea class="form-control" rows="5" name="rvContents" value="${reviewDTO.rvContents }">내용</textarea>
+						<textarea class="form-control" rows="5" name="rvContents" value="${reviewDTO.rvContents }">${reviewDTO.rvContents}</textarea>
 					<div class="validate"></div>
                 	</div>
 				<c:if test="${reviewDTO.rvRate == 0.5}">

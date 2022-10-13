@@ -121,13 +121,13 @@
              							<c:when test="${member.userId eq pick.pickDTOs[0].userId and ar.itemNum eq pick.pickDTOs[0].itemNum}">
              								<button type="button" class="btnsocial" id="btnPick">
                     							<img src="/resources/images/heart.png" class="btnPickDelete" style="cursor: pointer; width: 20%; margin-right: 130px;" data-item-num="${ar.itemNum}" data-id="${pick.pickDTOs[0].userId}">
-                        					</button>
+                        		</button>
                         					<c:set var="doneLoop" value="true"/>
              							</c:when>
              							<c:when test="${vs.last and not doneLoop }">
              								<button type="button" class="btnsocial" id="btnPick">
                                   				<img src="/resources/images/love.png" class="btnPickAdd" style="cursor: pointer; width: 20%; margin-right: 130px;" data-item-num="${ar.itemNum}">
-                        					</button>
+                        		</button>
              							</c:when>
             						</c:choose>
             					</c:forEach>

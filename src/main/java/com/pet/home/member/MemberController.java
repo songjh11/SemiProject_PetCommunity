@@ -125,6 +125,13 @@ public class MemberController {
 		return "redirect:../"; 
 	}
 	
+	@GetMapping("idUsed")
+	@ResponseBody
+	public int idUsed(MemberDTO memberDTO) throws Exception{
+		int result = memberService.getIdCount(memberDTO);
+		return result;
+	}
+	
 	@GetMapping("join")
 	public String join(HttpServletRequest request) throws Exception{
 	
@@ -612,7 +619,7 @@ public class MemberController {
 				memberDTO.setAgMes(1);
 				memberDTO.setBlock(0);
 	
-					int mem = memberService.getKakaoCount(memberDTO);
+					int mem = memberService.getIdCount(memberDTO);
 					if(mem ==0) {
 						memberService.setKakao(memberDTO);
 						System.out.println(mem);

@@ -41,8 +41,8 @@ public class MemberService {
 		return memberDAO.setKakao(memberDTO);
 	}
 	
-	public int getKakaoCount(MemberDTO memberDTO)throws Exception{
-		return memberDAO.getKakaoCount(memberDTO);
+	public int getIdCount(MemberDTO memberDTO)throws Exception{
+		return memberDAO.getIdCount(memberDTO);
 	}
 	
 	public int setJoin(MemberDTO memberDTO, MultipartFile photo, ServletContext servletContext)throws Exception{

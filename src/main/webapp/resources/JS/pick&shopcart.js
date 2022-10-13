@@ -16,18 +16,6 @@ for(let i=0;i<btnPickFalse.length; i++){
     })
 }
 
-for(let i=0;i<btnShopCartFalse.length; i++){
-    btnShopCartFalse[i].addEventListener("click",function(){
-        let result = window.confirm("장바구니 담기는 로그인후 사용가능합니다. \n 로그인 화면으로 가시겠습니까?");
-        if(!result){
-            return;
-        }
-        else{
-            return window.location.href='/member/login';
-        }
-    })
-}
-
 for(let i=0;i<btnPickAdd.length; i++){
 
     btnPickAdd[i].addEventListener("click",function(){
@@ -52,30 +40,7 @@ for(let i=0;i<btnPickAdd.length; i++){
         });
 }
 
-for(let i=0;i<btnShopCartAdd.length; i++){
 
-    btnShopCartAdd[i].addEventListener("click",function(){
-            let itemNum = btnShopCartAdd[i].getAttribute("data-item-num");
-            let itemPrice = btnShopCartAdd[i].getAttribute("data-item-price");
-            const xHttp = new XMLHttpRequest();
-            xHttp.open("POST","./shopcartadd");
-            xHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xHttp.send("itemNum="+itemNum+"&itemPrice="+itemPrice);
-            xHttp.onreadystatechange = function(){
-                if(xHttp.readyState == 4 && xHttp.status == 200){
-                    let result = xHttp.responseText.trim();
-                    if(result == 1){
-                        alert("장바구니 담기 성공");
-                        return window.location.href='/sell/list?itemCatg='+itemCatg.getAttribute("value");
-                    }
-                    else{
-                        alert("장바구니에 담기 실패");
-                        return;
-                    }
-                }
-            }
-        });
-} 
 
 for(let i=0;i<count.length; i++){
     count[i].addEventListener("click",function(){
@@ -126,27 +91,3 @@ for(let i=0;i<btnPickDelete.length; i++){
         });
 }
 
-for(let i=0;i<btnShopCartDelete.length; i++){
-
-    btnShopCartDelete[i].addEventListener("click",function(){
-            let itemNum = btnShopCartDelete[i].getAttribute("data-item-num");
-            let userId = btnShopCartDelete[i].getAttribute("data-id");
-            const xHttp = new XMLHttpRequest();
-            xHttp.open("POST","../sell/shopcartdelete");
-            xHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xHttp.send("itemNum="+itemNum+"&userId="+userId);
-            xHttp.onreadystatechange = function(){
-                if(xHttp.readyState == 4 && xHttp.status == 200){
-                    let result = xHttp.responseText.trim();
-                    if(result == 1){
-                        alert("장바구니에서 빼기 성공");
-                        return window.location.href='/sell/list?itemCatg='+itemCatg.getAttribute("value");
-                    }
-                    else{
-                        alert("장바구니에서 빼기 실패");
-                        return;
-                    }
-                }
-            }
-        });
-}

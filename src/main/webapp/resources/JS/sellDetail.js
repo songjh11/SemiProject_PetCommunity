@@ -16,51 +16,6 @@ function setCount(c){
 }
 
 
-
-
-//------------------------------------------------
-// add page: 파일 추가 및 썸네일 이미지 생성 시작
-sellFileImages.addEventListener("change", function(event){
-    console.log("e",event.target);
-    const reader = new FileReader();
-
-    reader.onload = function(event) {
-
-        const newImg = document.createElement("img");
-        newImg.setAttribute("src", event.target.result);
-        newImg.setAttribute("class", "thumnail");
-
-        const newButton = document.createElement("button");
-        const buttonStyle = document.createAttribute("type");
-        buttonStyle.value = "button";
-
-        const buttonClass = document.createAttribute("class");
-        buttonClass.value="imgDeleteBtn";
-        const buttonText = document.createTextNode("X");
-
-        const buttonId = document.createAttribute("id");
-        buttonId.value = idx;
-
-        newButton.setAttributeNode(buttonStyle);
-        newButton.setAttributeNode(buttonClass);
-        newButton.setAttributeNode(buttonId);
-        newButton.appendChild(buttonText);
-
-        const newDiv = document.createElement("div");
-        newDiv.setAttribute("class","newDiv");
-        
-        newDiv.appendChild(newImg);
-        newDiv.appendChild(newButton);
-
-        imgDiv.appendChild(newDiv);
-        idx++;
-        count++;
-        };
-        reader.readAsDataURL(event.target.files[0]);
-});
-//파일 추가 및 썸네일 이미지 생성 끝
-//===================================================
-
 // add page: 파일 삭제=======================================================
 imgDiv.addEventListener("click", function(event){
     console.log(event.target);

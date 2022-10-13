@@ -34,9 +34,8 @@
 	
 	<beans:bean id="echoHandler" class="com.pet.home.chat.room.EchoHandler"></beans:bean>
 	
-	<!-- Interceptor 객체 생성 -->
+	 <!-- Interceptor 객체 생성 -->
 	<beans:bean class="com.pet.home.interceptor.SellitemInterceptor" id="sellitemInterceptor"></beans:bean>
-	<beans:bean class="com.pet.home.interceptor.SellAddInterceptor" id="SellAddInterceptor"></beans:bean>
 	
 	<beans:bean class="com.pet.home.interceptor.AdminCheckInterceptor" id="adminCheckInterceptor"></beans:bean>
 	<beans:bean class="com.pet.home.interceptor.MemberInterceptor" id="memberInterceptor"></beans:bean>
@@ -67,9 +66,6 @@
 	<beans:ref bean="memberInterceptor"/>
 	</interceptor>
 	 
-	 <!-- Interceptor 객체 생성 -->
-	<beans:bean class="com.pet.home.interceptor.SellitemInterceptor" id="sellitemInterceptor"></beans:bean>
-	<beans:bean class="com.pet.home.interceptor.SellAddInterceptor" id="SellAddInterceptor"></beans:bean>
 	
 		<!-- URL, Interceptor 매핑 -->
 		<interceptor>
@@ -81,11 +77,6 @@
  			<exclude-mapping path="/sell/Sellerlist"/>
  			<exclude-mapping path="/sell/add"/>
 			<beans:ref bean="sellitemInterceptor"/>		
-		</interceptor>
-		
-		<interceptor>
-			<mapping path="/sell/add"/>
-			<beans:ref bean="SellAddInterceptor"/>		
 		</interceptor>
 	 
 	</interceptors> 

@@ -105,4 +105,5 @@ public class SellItemDAO {
 	public Long getSellerItemCount(SellPager pager) {
 		return session.selectOne(NAMESPACE+"getSellerItemCount", pager);
 	}
+	
 }

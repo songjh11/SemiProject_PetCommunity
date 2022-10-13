@@ -784,5 +784,43 @@ public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 			mv.addObject("msg", msg);
 			return mv;
 	}
+	
+	//셀러 결제 내역 리스트	
+		@GetMapping("purchaseSellerList")
+		public ModelAndView getSellerPurchaseList(HttpSession httpSession) throws Exception {
+			System.out.println("SellerpurchaseList");
+			MemberDTO memberDTO = (MemberDTO)httpSession.getAttribute("member");
+			System.out.println(memberDTO.getUserId());
+			PurchaseDTO purchaseDTO = new PurchaseDTO();
+			purchaseDTO.setUserId(memberDTO.getUserId());
+			List<PurchaseDTO> purchaseSellerList = sellItemService.getSellerPurchaseList(memberDTO.getUserId());
+			ModelAndView mv = new ModelAndView();
+			mv.addObject("purchaseList", purchaseSellerList);
+			mv.addObject("what","Seller List");
+			mv.setViewName("member/list");
+			for(PurchaseDTO c: purchaseSellerList) {
+				System.out.println(c.getImp_uid());
+			}
+			return mv;
+		}
+		
+		//셀러 구매 취소 내역 리스트	
+			@GetMapping("purchaseCancelSellerlList")
+			public ModelAndView getSellerPurchaseCancelList(HttpSession httpSession) throws Exception {
+				System.out.println("purchaseCanceSellerlList");
+				MemberDTO memberDTO = (MemberDTO)httpSession.getAttribute("member");
+				System.out.println(memberDTO.getUserId());
+				List<PurchaseDTO> purchaseCancel = sellItemService.getSellerPurchaseCancleList(memberDTO.getUserId());
+				ModelAndView mv = new ModelAndView();
+				mv.addObject("purchaseList", purchaseCancel);
+				mv.addObject("what","Seller Cancel List");
+				mv.setViewName("member/list");
+				for(PurchaseDTO c: purchaseCancel) {
+					System.out.println(c.getImp_uid());
+					System.out.println(c.getItemDTO().getItemName());
+					System.out.println(c.getFileDTOs().get(0).getFileName());
+				}
+				return mv;
+			}	
 }
 	

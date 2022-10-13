@@ -22,13 +22,20 @@ public class SellitemInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+
 		
+		boolean check = false;
+
+		
+		if(request.getMethod().equals("GET")) {
+		System.out.println(request.getMethod());
 		HttpSession session = request.getSession();
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
-		
-		String query = request.getQueryString();
-		int idx = query.indexOf("="); 
-		String itemNum = query.substring(idx+1);
+		System.out.println("Parameter : "+request.getParameter("itemNum"));
+//		String query = request.getQueryString();
+//		int idx = query.indexOf("="); 
+//		String itemNum = query.substring(idx+1);
+		String itemNum = request.getParameter("itemNum");
 		System.out.println(itemNum);
 		
 		SellItemDTO itemDTO = new SellItemDTO();
@@ -38,15 +45,20 @@ public class SellitemInterceptor extends HandlerInterceptorAdapter{
 		
 		System.out.println(memberDTO.getUserId());
 				
-		boolean check = false;
 		
-		if(memberDTO.getRoleNum().equals("1")) {
+		if(memberDTO.getRoleNum().equals(1)) {
+			System.out.println("멤버번호: "+check);
 			if(memberDTO.getUserId().equals(itemDTO.getUserId())) {
+				System.out.println("아이디 동일: "+check);
 				check = true;
+				return check;
+				
 			}
 
-		} else if(memberDTO.getRoleNum().equals("0")) {
+		} else if(memberDTO.getRoleNum().equals(0)) {
+			System.out.println("관리자 아이디: "+check);
 			check = true;
+			return check;
 		
 		} else {
 			check = false;
@@ -60,14 +72,17 @@ public class SellitemInterceptor extends HandlerInterceptorAdapter{
 			view.forward(request, response);
 		}
 		
+		System.out.println(check);
 		return check;
+		
+		} else {
+			check = true;
+			return check;
+		}
+		
 	}
 
-	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
 
-	}
 	
 	
 	

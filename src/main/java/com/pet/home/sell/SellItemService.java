@@ -480,5 +480,15 @@ public class SellItemService {
 	public List<SellItemDTO> getPurchaseListtoMain() throws Exception {
 		return itemDAO.getPurchaseListtoMain();
 	}
+	
+	//셀러페이지 상품구매내역 출력
+	public List<PurchaseDTO> getSellerPurchaseList(String userId) throws Exception{
+		return purchaseDAO.getSellerPurchaseList(userId);
+	}
+	
+	//셀러페이지 상품취소내역 출력
+	public List<PurchaseDTO> getSellerPurchaseCancleList(String userId) throws Exception{
+		return cancelDAO.getSellerPurchaseCancleList(userId);
+	}
 }
 	

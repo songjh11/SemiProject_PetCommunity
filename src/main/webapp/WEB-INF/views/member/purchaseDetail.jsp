@@ -177,12 +177,12 @@
                       <tr>
                         <td>
                           <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>예약 인원 수</strong></span>
-                          <p style="margin-top: 3px;"><span><h5>${check.adultsCount}</h5></span></p>
+                          <p style="margin-top: 3px;"><span><h5>${check.adultsCount+1}</h5></span></p>
                         </td>
                         </td> 
                         <td>
                           <span style="font-size: 15px; color: rgb(0, 0, 0);"><strong>예약 반려견 수</strong></span>
-                          <p style="margin-top: 3px;"><span><h5>${check.dogCount}</h5></span></p>
+                          <p style="margin-top: 3px;"><span><h5>${check.dogCount+1}</h5></span></p>
                         </td>
                         </td> 
                     </tr>

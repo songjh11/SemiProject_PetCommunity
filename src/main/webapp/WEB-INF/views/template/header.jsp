@@ -148,7 +148,10 @@
     </c:if>        
 <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
 <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+<div id="msgStack"></div>
 </header><!-- End Header -->
+
+
 
 <!--모달 부트스트랩-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
@@ -156,7 +159,57 @@
 <script>
 searchClose();
 </script>
+<!-- Sock Js 전역 알림기능-->
+<script>
 
+  //알림기능
+  let socket = null;
+  $(document).ready(function(){
+    //웹 소켓 연결
+    let name = "${sessionScope.member.userName}";
+    if(name != null){
+      console.log("웹소켓 접속")
+      console.log(name);
+      connectWs(name);
+    }
+  });
+    
+    function connectWs(name){
+      sock = new SockJS("/echo");
+      sock.onopen = onOpen;
+      sock.onmessage = onMessage;
+      sock.onclose = onClose;
+
+      function onOpen(evt){
+      }
+
+
+      // 버튼 클릭(접속) 하면 서버에서 데이터 파싱해서 보내고 알림
+      function onMessage(msg){
+        let data = msg.data;
+          console.log(data);
+
+          let toast = "<div class='toast' id='toast' role='alert' aria-live='assertive' aria-atomic='true'>";
+          toast += "<div class='toast-header'><i class='fas fa-bell mr-2'></i><strong class='mr-auto'>알림</strong>";
+          toast += "<small class='text-muted'>just now</small><button type='button' onclick= 'alarmClose()' class='ml-2 mb-1 close' data-dismiss='toast' aria-label='Close'>";
+          toast += "<span aria-hidden='true'>&times;</span></button>";
+          toast += "</div> <div class='toast-body'>" + data + "</div></div>";
+          $("#msgStack").append(toast);   // msgStack div에 생성한 toast 추가
+          $(".toast").toast({"animation": true, "autohide": false});
+          $('.toast').toast('show');
+        
+      }
+
+      function onClose(evt){}
+
+    }
+
+    function alarmClose(){
+        let toast = document.getElementById("toast");
+        toast.remove();
+    }
+
+</script>
 
 </body>
 </html>

@@ -210,7 +210,7 @@
               <i class="icon bi bi-telephone flex-shrink-0"></i>
               <div>
                 <h3>Phone</h3>
-                <p><input type="text" value="${dto.email}" name="email" readonly></p>
+                <p><input type="text" value="${dto.phone}" name="phone" readonly></p>
               </div>
             </div>
           </div><!-- End Info Item -->
@@ -234,7 +234,7 @@
                       <strong>메일수신동의여부:</strong> 동의<br>
                     </c:when>
                     <c:when test="${dto.agMail  eq 0}">
-                      <strong>메일수신동의여부:</strong> 동의<br>
+                      <strong>메일수신동의여부:</strong> 비동의<br>
                     </c:when>
                 </c:choose>
                 <c:choose>
@@ -242,7 +242,7 @@
                       <strong>문자수신동의여부:</strong> 동의<br>
                     </c:when>
                     <c:when test="${dto.agMes  eq 0}">
-                      <strong>문자수신동의여부:</strong> 동의<br>
+                      <strong>문자수신동의여부:</strong> 비동의<br>
                     </c:when>
                  </c:choose>
                 </div>

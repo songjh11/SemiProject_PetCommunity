@@ -84,4 +84,8 @@ public class AdminDAO {
 	public int setDeleteMemberCoupon(CouponDTO couponDTO) throws Exception{
 		return sqlSession.delete(NAMESPACE+"setDeleteMemberCoupon", couponDTO);
 	}
+	
+	public MemberDTO getMemberByUserName(MemberDTO memberDTO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getMemberByUserName",memberDTO);
+	}
 }

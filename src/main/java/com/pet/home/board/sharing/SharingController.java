@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pet.home.admin.AdminDAO;
 import com.pet.home.board.impl.BoardDTO;
 import com.pet.home.board.impl.BoardFileDTO;
 import com.pet.home.member.FollowDTO;
@@ -38,6 +39,8 @@ public class SharingController {
 	private MemberService memberService;
 	@Autowired
 	private SharingDAO sharingDAO;
+	@Autowired
+	private AdminDAO adminDAO;
 	
 	@ModelAttribute("board")
 	public String getBoard() {
@@ -83,8 +86,7 @@ public class SharingController {
 	
 	
 	@GetMapping("list")
-	public ModelAndView getList(ModelAndView mv) throws Exception{
-		Pager pager = new Pager(10L, 5L);
+	public ModelAndView getList(ModelAndView mv, Pager pager) throws Exception{
 		List<BoardDTO> ar = sharingService.getList(pager);
 		
 
@@ -121,10 +123,10 @@ public class SharingController {
 	public ModelAndView getDetail(ModelAndView mv, BoardDTO boardDTO, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		boardDTO = sharingService.getDetail(boardDTO);
 		
-		String userId = boardDTO.getWriter();
+		String userName= boardDTO.getWriter();
 		MemberDTO memberDTO = new MemberDTO();
-		memberDTO.setUserId(userId);
-		memberDTO = memberService.getGuestPage(memberDTO);
+		memberDTO.setUserName(userName);
+		memberDTO = adminDAO.getMemberByUserName(memberDTO);
 		
 		Cookie[] cookies = request.getCookies();
 		

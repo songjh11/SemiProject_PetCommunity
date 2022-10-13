@@ -256,6 +256,7 @@ try {
                         let result = xhttp.responseText.trim();
                         result = JSON.parse(result);
                         if(result == '1'){
+                            sock.send(userName+","+window.location.href+","+userName2+","+"님이 팔로우 하셨습니다.");
                             alert("팔로우 성공");
                         }else{
                             alert("팔로우 실패");

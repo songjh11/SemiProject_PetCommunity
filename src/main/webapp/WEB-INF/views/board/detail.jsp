@@ -178,7 +178,7 @@
    </c:if>
 
     </section>
-
+	
   </main><!-- End #main -->
 
   <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
@@ -186,7 +186,8 @@
   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
   	<script type="text/javascript">
-		let userName = "${requestScope.member.userName}";
+		let userName = '${requestScope.member.userName}';
+		let userName2 = '${sessionScope.member.userName}';
 	</script>
 	<script type="text/javascript" src="/resources/JS/board/boardComment.js"></script>
   	<script type="text/javascript">

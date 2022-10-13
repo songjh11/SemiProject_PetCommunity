@@ -4,6 +4,19 @@ const next2 = document.getElementById("next2");
 const present2 = document.querySelectorAll(".page-link");
 const tbody2 = document.getElementById("tbody2");
 
+// 게스트 찾기 kind/search
+const kind = document.getElementById("kind");
+const search = document.getElementById("search");
+const searchGu = document.getElementById("searchGu");
+
+// 비즈 찾기 kind1/search1
+const kind1 = document.getElementById("kind1");
+const search1 = document.getElementById("search1");
+const searchBiz = document.getElementById("searchBiz");
+
+
+
+
 next2.addEventListener("click",function(){
     let page = next2.getAttribute("data-page");
     

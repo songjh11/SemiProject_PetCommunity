@@ -494,11 +494,11 @@ public class SellItemController {
 			
 			//쿠폰 여부
 			CouponDTO couponDTO = new CouponDTO();
-			
+			System.out.println("userId:"+userId);
 			if(!couponNum.equals("")) {
 				couponDTO.setCouponNum(Long.parseLong(couponNum));
-				couponDTO.setUserId(userId);
 				couponDTO = adminDAO.getCouponByNum(couponDTO);
+				couponDTO.setUserId(userId);
 				if(couponDTO.getDiscountMethod().equals("0")) {
 					totalPrice = totalPrice * (100 - couponDTO.getDiscountRate())/100;
 					adminDAO.setDeleteMemberCoupon(couponDTO);

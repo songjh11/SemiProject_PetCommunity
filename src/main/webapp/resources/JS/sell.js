@@ -146,40 +146,55 @@ uFileDelete.forEach(function(f){
 });
 //파일 삭제 끝=================================================
 
-//detail page: 파일 폴더에서 삭제=============================================================
-deleteItem.addEventListener("click", function(){
-    let result = window.confirm("삭제하시겠습니까?");
-    if(!result){
+//update 조건 설정
+
+const updateItemBtn = document.getElementById("updateItemBtn");
+
+updateItemBtn.addEventListener("click", function(){
+    const itemName = document.getElementById("itemName");
+    const itemPrice = document.getElementById("itemPrice");
+    const itemContents = document.getElementById("itemContents");
+    const updateItemFrm = document.getElementById("updateItemFrm");
+
+    let inResult = false;
+    let ipResult = false;
+    let flResult = false;
+    let icResult = false;
+
+    if(itemName.value.length<1){
+        alert("상품명을 입력하세요");
+        itemName.focus();
+    } else{
+        inResult = true;
+    }
+
+    if(itemPrice.value.length<1){
+        alert("상품가격을 입력하세요");
+        itemPrice.focus();
+    } else{
+        ipResult = true;
+    }
+
+    if(uFileDelete.length<1){
+        alert("사진은 최소 1장 이상 등록해야합니다");
+    } else{
+        flResult = true;
+    }
+
+    if(itemContents.value.length<1){
+        alert("상세 설명을 입력하세요");
+        itemContents.focus();
+    } else{
+        icResult = true;
+    }
+
+    if(inResult&&ipResult&&flResult&&icResult){
+        updateItemFrm.submit();
+
+    } else{
         return;
     }
-
-    let photoNum = deleteItem.getAttribute("data-photo-num");
-    console.log(photoNum);
-
-    const xhttp = new XMLHttpRequest();
-    xhttp.open("post","./filedelete");
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("photoNum="+photoNum);
-
-    xhttp.onreadystatechange=function(){
-        if(xhttp.readyState==4&&xhttp.status==200){
-            let result = xhttp.responseText.trim();
-            if(result>0){
-                console.log("삭제완");
-                f.parentNode.remove();
-            } else{
-                console.log("삭제 실패");
-            }
-        }
-    }
-
 });
-
-
-
-
-
-
 
 
 

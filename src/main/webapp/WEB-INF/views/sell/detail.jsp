@@ -1012,6 +1012,6 @@
 <!-- 결제 api -->
 <script src="/resources/JS/check.js"></script>
 
-
+<script src="/resources/JS/sellDetail.js"></script>
  </body>
 </html>

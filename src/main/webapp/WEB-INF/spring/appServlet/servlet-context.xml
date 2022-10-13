@@ -33,10 +33,29 @@
 	
 	
 	<beans:bean id="echoHandler" class="com.pet.home.chat.room.EchoHandler"></beans:bean>
+		<context:component-scan base-package="com.pet.home" />
 	
+	<!-- Interceptor 객체 생성 -->
+	<beans:bean class="com.pet.home.interceptor.SellitemInterceptor" id="sellitemInterceptor"></beans:bean>
+	<beans:bean class="com.pet.home.interceptor.SellAddInterceptor" id="SellAddInterceptor"></beans:bean>
 	
-	<context:component-scan base-package="com.pet.home" />
-	
-	
-	
-</beans:beans>
+		<!-- URL, Interceptor 매핑 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/sell/*"/>
+			<exclude-mapping path="/sell/list"/>
+ 			<exclude-mapping path="/sell/detail"/>
+ 			<exclude-mapping path="/sell/pettx"/>
+ 			<exclude-mapping path="/sell/search"/>
+ 			<exclude-mapping path="/sell/Sellerlist"/>
+ 			<exclude-mapping path="/sell/add"/>
+			<beans:ref bean="sellitemInterceptor"/>		
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/sell/add"/>
+			<beans:ref bean="SellAddInterceptor"/>		
+		</interceptor>
+	</interceptors>
+
+	</beans:beans>

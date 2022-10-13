@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <!-- jQuery -->
@@ -62,12 +62,10 @@
 
 </head>
 
-<body>
-  <div class="headerWrapper" style="position: relative;">
-    <!-- header start -->
-    <c:import url="/WEB-INF/views/template/header.jsp"></c:import>
-    <!-- header end -->
-  </div>
+  <body>
+<!-- header start -->
+<c:import url="/WEB-INF/views/template/header.jsp"></c:import>
+<!-- header end -->
 
     <!-- ======= List Section ======= -->
 
@@ -103,12 +101,12 @@
 			<div class="row gy-1">	
               <c:forEach items="${list}" var="ar">
                 <div class="col-lg-3 col-md-4 d-flex align-items-stretch justify-content-center" data-aos="fade-up" data-aos-delay="100">
-                  <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 15px;">
+                  <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 15px; display: flex; flex-direction: column; align-items: center;">
                     <div class="member-img" style="width: 160%;">
                       <img src="/resources/upload/sellfile/${ar.fileDTOs[0].fileName}" class="img-fluid" alt="">
                       	<div class="social d-flex">
           				<c:choose>
-           					<c:when test="${empty member.userId }">
+           					<c:when test="${empty member.userId}">
                         		<button type="button" class="btnsocial" id="btnPickFalse">
                             		<img src="/resources/images/love.png" class="btnPickFalse" style="cursor: pointer; width: 20%; " data-item-num="${ar.itemNum}">
                         		</button>
@@ -195,8 +193,6 @@
 </section>
 <!-- footer end -->
 
-  <!-- Template Main JS File -->
-  <script src="/resources/assets/js/main.js"></script>
   <script src="/resources/JS/pick&shopcart.js"></script>
 </body>
 

@@ -75,7 +75,6 @@ public class SellItemController {
 			
 			List<SellItemDTO> sellItemDTOs = itemService.getPickStatus(memberDTO);
 			mv.addObject("pick", sellItemDTOs);
-			System.out.println(sellItemDTOs);
 			List<SellItemDTO> sellItemDTOs2 = itemService.getShopCartStatus(memberDTO);
 			mv.addObject("shopcart", sellItemDTOs2);
 		}

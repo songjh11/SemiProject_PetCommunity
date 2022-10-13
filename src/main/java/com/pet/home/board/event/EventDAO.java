@@ -93,6 +93,9 @@ public class EventDAO implements BoardDAO {
 		return sqlSession.update(NAMESPACE+"setUpdateHit", boardDTO);
 	}
 	
+	public List<EventDTO> getListOnMain() throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getListOnMain");
+	}
 	
 	
 }

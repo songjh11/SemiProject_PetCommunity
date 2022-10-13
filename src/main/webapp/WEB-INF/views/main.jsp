@@ -55,12 +55,12 @@
 
           <div class="col-lg-8 d-flex align-items-center">
             <div class="row gy-4">
-              <c:forEach items="${sharingList}" var="sharing">
+              <c:forEach items="${eventList}" var="event">
               <div class="col-xl-4" data-aos="fade-up" data-aos-delay="200">
                 <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                  <i class="bi bi-clipboard-data"></i>
-                  <h4>${sharing.title}</h4>
-                  <p>BY ${sharing.writer}</p>
+                  <i><img src="/resources/upload/event/${event.boardFileDTOs[0].fileName}" class="menu-img img-fluid" alt=""></i>
+                  <h4>${evnet.title}</h4>
+                  <p>BY ${event.writer}</p>
                 </div>
               </div><!-- End Icon Box -->
               </c:forEach>

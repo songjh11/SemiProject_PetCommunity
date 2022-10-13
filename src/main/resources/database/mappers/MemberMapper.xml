@@ -27,7 +27,7 @@ INSERT INTO member (USERID,ROLENUM,USERNAME)
 VALUES (#{userId},#{roleNum},#{userName})
 </insert>
 
-<select id="getKakaoCount" parameterType="MemberDTO" resultType="Integer">
+<select id="getIdCount" parameterType="MemberDTO" resultType="Integer">
         SELECT COUNT(USERID) FROM MEMBER WHERE USERID=#{userId}
 </select>
 

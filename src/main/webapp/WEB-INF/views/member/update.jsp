@@ -50,6 +50,11 @@
     #inputDiv{
       display: none;
     }
+
+    .warning{
+      color: red;
+      font-size: smaller;
+    }
 	</style>
   
 </head>

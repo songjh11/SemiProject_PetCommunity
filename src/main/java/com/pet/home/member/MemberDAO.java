@@ -31,8 +31,8 @@ public class MemberDAO {
 		return sqlSession.selectOne(NAMESPACE+"getKakaoLogin", memberDTO);
 		}
 		
-	public int getKakaoCount(MemberDTO memberDTO)throws Exception{
-		return sqlSession.selectOne(NAMESPACE+"getKakaoCount", memberDTO);
+	public int getIdCount(MemberDTO memberDTO)throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getIdCount", memberDTO);
 	}
 	
 	public int getKakaoFileCount(MemberDTO memberDTO)throws Exception{

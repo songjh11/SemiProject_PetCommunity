@@ -42,6 +42,16 @@
 	
 
 	<interceptors>
+	
+	<!--  관리자 인터셉터 -->
+	<interceptor>
+		<mapping path="/notice/**"/>
+		<mapping path="/admin/**"/>
+		<exclude-mapping path="/notice/list"/>
+		<exclude-mapping path="/notice/detail.iu"/>
+		<beans:ref bean="adminCheckInterceptor"/>
+	</interceptor>
+	
 	<interceptor>
 	
 	<mapping path="/member/**"/>
@@ -55,6 +65,7 @@
 	<exclude-mapping path="/member/kakao"/>
 	<exclude-mapping path="/member/findlogin"/>
 	<exclude-mapping path="/member/role"/>
+	<exclude-mapping path="/member/idUsed"/>
 	<exclude-mapping path="/sell/list"/>
 	<exclude-mapping path="/sell/detail"/>
 	<exclude-mapping path="/sell/pettx"/>

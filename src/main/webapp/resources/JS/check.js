@@ -242,7 +242,8 @@ rvBtnFrm.addEventListener("click", function(){
     inv = itemName.value;
     cpn = couponNum;
 
-  
+    console.log(tpv);
+    console.log(uiv);
   
     if(tpv<=0){
     alert("예상 결제 금액을 다시 확인해주세요")
@@ -258,6 +259,11 @@ rvBtnFrm.addEventListener("click", function(){
 
 //=====================================================================결제 api
   function requestPay() {
+    
+    console.log(uiv);
+    console.log(tpv);
+    console.log(cpn);
+    
     // IMP.request_pay(param, callback) 결제창 호출
     IMP.request_pay({ // param
         pg: "html5_inicis",

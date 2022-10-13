@@ -36,10 +36,6 @@ public class SellItemDTO {
 	private List<PurchaseDTO> purchaseDTO;
 	
 	
-	
-	
-	
-
 	public List<PurchaseDTO> getPurchaseDTO() {
 		return purchaseDTO;
 	}
@@ -131,7 +127,7 @@ public class SellItemDTO {
 	}
 
 	public Long getItemCatg() {
-		if (this.itemCatg == null) {
+		if (this.itemCatg == null||this.itemCatg>3L) {
 			itemCatg = 1L;
 		}
 		return itemCatg;

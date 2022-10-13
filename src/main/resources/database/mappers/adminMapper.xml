@@ -167,7 +167,7 @@
 	</select>
 	
 	<delete id="setDeleteMemberCoupon" parameterType="CouponDTO">
-		DELETE USERCOUPON WHERE USERID = #{userId} AND COPONNUM = #{couponNum}
+		DELETE USERCOUPON WHERE USERID = #{userId} AND COUPONNUM = #{couponNum}
 	</delete>
 	
 	<select id="getMemberByUserName" parameterType="MemberDTO" resultType="MemberDTO">

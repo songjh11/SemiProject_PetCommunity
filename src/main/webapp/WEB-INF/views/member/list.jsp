@@ -308,7 +308,43 @@
           </div>
         </c:forEach>
       </c:when>
-        
+      
+      
+      <c:when test="${what eq 'Seller List'}">
+        <c:forEach items="${purchaseList}" var="check">
+          <div class="col-lg-3 col-md-4 d-flex align-items-stretch justify-content-center" data-aos="fade-up" data-aos-delay="100">
+            <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 15px;">
+              <div class="member-img" style="width: 160%;">
+                      <img src="/resources/upload/sellfile/${check.fileDTOs[0].fileName}" class="img-fluid" alt="">
+                  </div>
+                  <div class="member-info" style="width: 100%; height: 115px;">
+                      <h4>${check.itemDTO.itemName}</h4>
+                      <a href="./purchaseDetail?merchant_uid=${check.merchant_uid}">주문번호: ${check.merchant_uid}</a>
+                      <span>결제 금액: ${check.amount}</span>
+                      <p>${itemDTOs.itemContents}</p>
+                  </div>
+              </div>
+          </div>
+        </c:forEach>
+      </c:when>
+     
+    <c:when test="${what eq 'Seller Cancel List'}">
+      <c:forEach items="${purchaseList}" var="check">
+        <div class="col-lg-3 col-md-4 d-flex align-items-stretch justify-content-center" data-aos="fade-up" data-aos-delay="100">
+          <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 15px;">
+            <div class="member-img" style="width: 100%;">
+                    <img src="/resources/upload/sellfile/${check.fileDTOs[0].fileName}" class="img-fluid" alt="">
+                </div>
+                <div class="member-info">
+                    <h4>${check.itemDTO.itemName}</h4>
+                    <a href="./purchaseDetail?merchant_uid=${check.merchant_uid}">주문번호: ${check.merchant_uid}</a>
+                    <span>환불 금액: ${check.amount}</span>
+                    <p>${itemDTOs.itemContents}</p>
+                </div>
+            </div>
+        </div>
+      </c:forEach>
+    </c:when>
      
 
             </c:choose>

@@ -160,13 +160,13 @@
 		  </div>
 	
 		  <div class="col-md-3">
-		    <button type="button" class="btn btn-primary">검색</button>
+		    <button type="button" class="btn btn-primary" id="searchGu">검색</button>
 		  </div>
 
 		<table class="table">
 			<thead>
 				<tr>
-					<th>UserId</th><th>UserName</th>
+					<th>UserId</th><th>UserName</th><th></th><th></th><th></th><th></th><th></th>
 				</tr>
 			</thead>
 			<tbody id="tbody2">
@@ -215,25 +215,26 @@
 		<div class="d-flex justify-content-center">
 			<h3>Biz</h3>
 		</div>
-
+		
+	
 		<div class="col-md-3">
 			<label class="visually-hidden" for="kind">Preference</label>
-			<select name="kind" class="form-select" id="kind">
+			<select name="kind" class="form-select" id="kind1">
 			<option class="kinds" value="userId">User Id</option>
 			<option class="kinds" value="userName">User Name</option>
 			</select>
 		</div>
 
-
 	  <div class="col-md-3">
 		<label class="visually-hidden" for="search">검색어 입력</label>
 		<div class="input-group">
-		  <input type="text" name="search" value="${pager.search}" class="form-control" id="search" placeholder="검색어 입력">
+		  <input type="text" name="search" value="${pager.search}" class="form-control" id="search1" placeholder="검색어 입력">
 		</div>
 	  </div>
+	
 
 	  <div class="col-md-3">
-		<button type="button" class="btn btn-primary">검색</button>
+		<button type="button" class="btn btn-primary" id="searchBiz">검색</button>
 	  </div>
 	  
 		<table class="table">

@@ -4,6 +4,107 @@ const next2 = document.getElementById("next2");
 const present2 = document.querySelectorAll(".page-link");
 const tbody2 = document.getElementById("tbody2");
 
+// 게스트 찾기 kind/search
+const kind = document.getElementById("kind");
+const search = document.getElementById("search");
+const searchGu = document.getElementById("searchGu");
+
+// 비즈 찾기 kind1/search1
+const kind1 = document.getElementById("kind1");
+const search1 = document.getElementById("search1");
+const searchBiz = document.getElementById("searchBiz");
+
+searchGu.addEventListener("click",function(){
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST","./guestlist");
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("kind="+kind.value+"&search="+search.value);
+    xhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status ==200){
+            let result = JSON.parse(xhttp.responseText.trim());
+
+            let list = result.list;
+
+            tbody2.innerHTML = "";
+
+            for(let i=0; i<list.length; i++){
+                let tr2 = document.createElement("tr");
+                let userId = list[i].userId
+                
+                let td = document.createElement("td");
+                let text =document.createTextNode(list[i].userId);
+                td.appendChild(text);
+                tr2.appendChild(td);
+                
+                td = document.createElement("td");
+                text = document.createTextNode(list[i].userName);
+                td.appendChild(text);
+                tr2.appendChild(td);
+
+                if(list[i].block == '0'){
+                    td = document.createElement("td");
+                    td.setAttribute("class","deleteMember");
+                    td.setAttribute("onclick","deleteMember(event)");
+                    td.setAttribute("data-userId", list[i].userId);
+                    text = document.createTextNode("차단");
+                    td.appendChild(text);
+                    tr2.appendChild(td);
+                }else{
+                    td = document.createElement("td");
+                    td.setAttribute("class","unblockMember");
+                    td.setAttribute("onclick","unblockMember(event)");
+                    td.setAttribute("data-userId", list[i].userId);
+                    text = document.createTextNode("차단 해제");
+                    td.appendChild(text);
+                    tr2.appendChild(td);
+                }
+
+                td = document.createElement("td");
+                let button = document.createElement("button");
+                button.setAttribute("class","btn btn-outline-secondary");
+                button.setAttribute("data-userId", list[i].userId);
+                button.setAttribute("onclick", "getSharingList('1',"+'"'+userId+'"'+")");
+                text = document.createTextNode("같이해요 작성한글");
+                button.appendChild(text);
+                td.appendChild(button);
+                tr2.appendChild(td);
+
+                td = document.createElement("td");
+                button = document.createElement("button");
+                button.setAttribute("class","btn btn-outline-secondary");
+                button.setAttribute("data-userId", list[i].userId);
+                button.setAttribute("onclick", "getQnaList('1',"+'"'+userId+'"'+")");
+                text = document.createTextNode("QnA작성한 글");
+                button.appendChild(text);
+                td.appendChild(button);
+                tr2.appendChild(td);
+
+                td = document.createElement("td");
+                button = document.createElement("button");
+                button.setAttribute("class","btn btn-outline-secondary");
+                button.setAttribute("data-userId", list[i].userId);
+                button.setAttribute("onclick", "getItemList('1',"+'"'+userId+'"'+")");
+                text = document.createTextNode("구매목록");
+                button.appendChild(text);
+                td.appendChild(button);
+                tr2.appendChild(td);
+
+                td = document.createElement("td");
+                button = document.createElement("button");
+                button.setAttribute("class","btn btn-outline-secondary");
+                button.setAttribute("data-userId", list[i].userId);
+                button.setAttribute("onclick", "getDetail("+'"'+userId+'"'+")");
+                text = document.createTextNode("회원 상세 프로필");
+                button.appendChild(text);
+                td.appendChild(button);
+                tr2.appendChild(td);
+
+                tbody2.appendChild(tr2);
+            }
+        }
+    }
+})
+
 next2.addEventListener("click",function(){
     let page = next2.getAttribute("data-page");
     
@@ -22,7 +123,7 @@ next2.addEventListener("click",function(){
             tbody2.innerHTML = "";
 
             for(let i=0; i<list.length; i++){
-                let tr2 = document.createElement("tr2");
+                let tr2 = document.createElement("tr");
                 let userId = list[i].userId
                 
                 let td = document.createElement("td");
@@ -333,7 +434,7 @@ next1.addEventListener("click",function(){
             tbody3.innerHTML = "";
 
             for(let i=0; i<list.length; i++){
-                let tr2 = document.createElement("tr2");
+                let tr2 = document.createElement("tr");
                 
                 let td = document.createElement("td");
                 let text =document.createTextNode(list[i].couponNum);
@@ -383,10 +484,10 @@ next1.addEventListener("click",function(){
 })
 
 try {
-    for(let i=0; present1.length; i++){
+    for(let i=0; present2.length; i++){
         present2[i].addEventListener("click",function(){
             console.log("asdf");
-            let page = present1[i].getAttribute("data-page");
+            let page = present2[i].getAttribute("data-page");
             console.log(page);
             
             const xhttp = new XMLHttpRequest();
@@ -406,7 +507,7 @@ try {
                     console.log(tbody3);
         
                     for(let i=0; i<list.length; i++){
-                        let tr2 = document.createElement("tr2");
+                        let tr2 = document.createElement("tr");
                 
                         let td = document.createElement("td");
                         let text =document.createTextNode(list[i].couponNum);
@@ -478,7 +579,7 @@ previous1.addEventListener("click",function(){
             tbody3.innerHTML = "";
 
             for(let i=0; i<list.length; i++){
-                let tr2 = document.createElement("tr2");
+                let tr2 = document.createElement("tr");
                 
                 let td = document.createElement("td");
                 let text =document.createTextNode(list[i].couponNum);
@@ -536,6 +637,78 @@ const present3 = document.getElementsByClassName("page-link 3");
 const tbody4 = document.getElementById("tbody4");
 console.log(tbody4);
 
+searchBiz.addEventListener("click",function(){
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST","./bizlist");
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("kind="+kind1.value+"&search="+search1.value);
+    xhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            let result = JSON.parse(xhttp.responseText.trim());
+
+            let list = result.list;
+
+            tbody4.innerHTML = "";
+
+            for(let i=0; i<list.length; i++){
+                let tr2 = document.createElement("tr");
+                let userId = list[i].userId
+                
+                let td = document.createElement("td");
+                let text =document.createTextNode(list[i].userId);
+                td.appendChild(text);
+                tr2.appendChild(td);
+                
+                td = document.createElement("td");
+                text = document.createTextNode(list[i].userName);
+                td.appendChild(text);
+                tr2.appendChild(td);
+
+                if(list[i].block == '0'){
+                    td = document.createElement("td");
+                    td.setAttribute("class","deleteMember1");
+                    td.setAttribute("onclick","deleteMember1(event)");
+                    td.setAttribute("data-userId", list[i].userId);
+                    text = document.createTextNode("차단");
+                    td.appendChild(text);
+                    tr2.appendChild(td);
+                }else{
+                    td = document.createElement("td");
+                    td.setAttribute("class","unblockMember1");
+                    td.setAttribute("onclick","unblockMember1(event)");
+                    td.setAttribute("data-userId", list[i].userId);
+                    text = document.createTextNode("차단 해제");
+                    td.appendChild(text);
+                    tr2.appendChild(td);
+                }
+
+                td = document.createElement("td");
+                let button = document.createElement("button");
+                button.setAttribute("class","btn btn-outline-secondary");
+                button.setAttribute("data-userId", list[i].userId);
+                button.setAttribute("onclick", "getEventList('1',"+'"'+userId+'"'+")");
+                text = document.createTextNode("이벤트 작성한 글");
+                button.appendChild(text);
+                td.appendChild(button);
+                tr2.appendChild(td);
+
+                td = document.createElement("td");
+                button = document.createElement("button");
+                button.setAttribute("class","btn btn-outline-secondary");
+                button.setAttribute("data-userId", list[i].userId);
+                button.setAttribute("onclick", "getSellItem("+'"'+userId+'"'+")");
+                text = document.createTextNode("판매상품목록");
+                button.appendChild(text);
+                td.appendChild(button);
+                tr2.appendChild(td);
+
+                tbody4.appendChild(tr2);
+            }
+        }
+    }
+
+})
+
 next2.addEventListener("click",function(){
     let page = next3.getAttribute("data-page");
     
@@ -554,7 +727,7 @@ next2.addEventListener("click",function(){
             tbody4.innerHTML = "";
 
             for(let i=0; i<list.length; i++){
-                let tr2 = document.createElement("tr2");
+                let tr2 = document.createElement("tr");
                 let userId = list[i].userId
                 
                 let td = document.createElement("td");

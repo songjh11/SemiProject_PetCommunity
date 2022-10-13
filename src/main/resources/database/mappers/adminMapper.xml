@@ -29,7 +29,7 @@
 			LIKE '%'||#{search}||'%')GU)
 	      WHERE R BETWEEN #{startRow} AND #{lastRow}
 	</select>
-	<select id="getAllGuestCount" resultType="Long">
+	<select id="getAllGuestCount" parameterType="Pager" resultType="Long">
 		SELECT COUNT(M.USERID)
 			FROM MEMBER M
 		      INNER JOIN
@@ -58,16 +58,25 @@
 	      INNER JOIN
 	       ROLE R
 	      ON M.ROLENUM =R.ROLENUM
-          WHERE M.ROLENUM = 1)BI)
+          WHERE M.ROLENUM = 1)BI
+          WHERE <choose>
+					<when test="kind == 'userName'">BI.USERNAME</when>
+					<otherwise>BI.USERID</otherwise>
+				</choose>
+			LIKE '%'||#{search}||'%')
 	      WHERE R BETWEEN #{startRow} AND #{lastRow}
 	</select>
-	<select id="getAllBizmenCount" resultType="Long">
+	<select id="getAllBizmenCount" parameterType="Pager" resultType="Long">
 		SELECT COUNT(M.USERID)
 			FROM MEMBER M
 		      INNER JOIN
 		       ROLE R
 		      ON M.ROLENUM =R.ROLENUM
-			WHERE M.ROLENUM = '1'
+			WHERE M.ROLENUM = '1' AND <choose>
+					<when test="kind == 'userName'">M.USERNAME</when>
+					<otherwise>M.USERID</otherwise>
+				</choose>
+			LIKE '%'||#{search}||'%'
 	</select>
 	
 	
@@ -138,7 +147,46 @@
 	</select>
 	
 	
+	<select id="getSellerList" parameterType="SellPager" resultMap="getItemResult">
+		SELECT * FROM
+			(SELECT ROWNUM R, SITEM.* FROM 
+			(SELECT SII.* 
+			FROM 
+				(SELECT SI.ITEMNUM, SI.ITEMPRICE, SI.USERID, SI.ITEMNAME, SI.ITEMCATG, SI.ITEMADDRESS, SI.ITEMDEADDRESS, SF.FILENAME
+					FROM SELLITEM SI
+					INNER JOIN
+					SELLFILE SF
+					ON SI.ITEMNUM = SF.ITEMNUM				
+					ORDER BY SI.ITEMNUM DESC,SF.PHOTONUM ASC) SII 
+			WHERE SII.USERID=#{userId}
+		ORDER BY SII.ITEMNUM DESC) SITEM)
+	</select>
 	
+	<select id="getCouponByNum" parameterType="CouponDTO" resultType="CouponDTO">
+		SELECT * FROM COUPON WHERE COUPONNUM = #{couponNum}
+	</select>
+	
+	<delete id="setDeleteMemberCoupon" parameterType="CouponDTO">
+		DELETE USERCOUPON WHERE USERID = #{userId} AND COPONNUM = #{couponNum}
+	</delete>
+	
+	<resultMap type="SellItemDTO" id="getItemResult">
+		<id column="ITEMNUM" property="itemNum"/>
+		<result column="USERID" property="userId"/>
+		<result column="ITEMNAME" property="itemName"/>
+		<result column="ITEMPRICE" property="itemPrice"/>
+		<result column="ITEMCONTENTS" property="itemContents"/>
+		<result column="ITEMSELLDATE" property="itemSellDate"/>
+		<result column="ITEMZIPCODE" property="itemZipCode"/>
+		<result column="ITEMADDRESS" property="itemAddress"/>
+		<result column="ITEMDEADDRESS" property="itemDeAddress"/>
+		<result column="ITEMCATG" property="itemCatg"/>
+			<collection property="fileDTOs" javaType="List" ofType="sellFileDTO">
+				<id column="PHOTONUM" property="photoNum"></id>
+				<result column="FILENAME" property="fileName"/>
+				<result column="ORINAME" property="oriName"/>
+			</collection>
+	</resultMap>
 	
 	
 </mapper>

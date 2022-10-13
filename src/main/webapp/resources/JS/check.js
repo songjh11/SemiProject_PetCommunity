@@ -108,6 +108,14 @@ else{
   })
 }
 
+const coupon = document.getElementById("coupon");
+let arr = [];
+let rp = "";
+let couponNum = "";
+let method = "";
+let cpn = "";
+
+
 revStartDate.addEventListener("change", function(){
   totalPrice.value="0";
 });
@@ -124,6 +132,10 @@ adultsCount.addEventListener("change", function(){
 dogCount.addEventListener("change", function(){
   totalPrice.value="0";
 });
+
+coupon.addEventListener("change",function(){
+  totalPrice.value = "0";
+})
 
 //===================================================날짜 계산
 priceCount.addEventListener("click", function (){
@@ -142,7 +154,8 @@ priceCount.addEventListener("click", function (){
   uiv = userId.value;
   inv = itemName.value;
   console.log(itg);
-  
+
+
   if(rsv.length<=0||rev.length<=0){
     alert("날짜를 입력하세요")
     return;
@@ -183,6 +196,31 @@ if(dateResult){
     }
     
 }
+   
+    // ------ 쿠폰 계산
+    if(coupon.value != ""){
+      arr = coupon.value.split("|");
+
+      rp = arr[0];
+      couponNum = arr[1];
+      method = arr[2];
+      
+
+      rp = Number(rp);
+
+      if(method == '0'){
+        totalPrice.value = totalPrice.value*(100-rp)/ 100;
+        tpv = totalPrice.value; 
+      }else{
+        totalPrice.value = totalPrice.value - rp;
+        tpv = totalPrice.value;
+      }
+      
+      coupon.value = couponNum;
+      cpn = couponNum;
+    }
+    //----------------------
+    
 
 });
 
@@ -202,8 +240,9 @@ rvBtnFrm.addEventListener("click", function(){
     btv = buyer_tel.value;
     uiv = userId.value;
     inv = itemName.value;
+    cpn = couponNum;
 
-
+  
   
     if(tpv<=0){
     alert("예상 결제 금액을 다시 확인해주세요")
@@ -247,7 +286,8 @@ rvBtnFrm.addEventListener("click", function(){
                   'revEndDate': rev,
                   'adultsCount': ac,
                   'dogCount': dc,
-                  'userId': uiv
+                  'userId': uiv,
+                  'couponNum' : cpn
               },
               error : function(xhr,status,error){
                 console.log(xhr.responseText);

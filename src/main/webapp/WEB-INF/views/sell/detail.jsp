@@ -661,6 +661,24 @@
               <div class="field-icon-wrap">
                 <input type="text" id="totalPrice" readonly class="form-control" value="0">
               </div>
+              <c:catch>
+              <c:if test="${sessionScope.member ne null}">
+              <label for="contents" class="form-label">적용할 쿠폰</label>
+              <select class="form-select" id="coupon" name ="couponNum">
+                <option value="">선택</option>
+                <c:forEach items="${couponList}" var="coupon">
+                  <c:choose>
+                    <c:when test="${coupon.discountMethod eq '0'}">
+                      <option value="${coupon.discountRate}|${coupon.couponNum}|${coupon.discountMethod}"> 쿠폰명 : ${coupon.couponName} ( 할인율 : ${coupon.discountRate} % )</option>
+                    </c:when>
+                    <c:otherwise>
+                      <option value="${coupon.discountPrice}|${coupon.couponNum}|${coupon.discountMethod}"> 쿠폰명 : ${coupon.couponName} ( 할인금액 : ${coupon.discountPrice} 원 )</option>
+                    </c:otherwise>
+                  </c:choose>
+                </c:forEach>
+              </select>
+              </c:if>
+              </c:catch>
             </div>
             <div>
             	<button type="button" style="width: 10%; height: 5%; border: 1px solid black; background-color:white; border-radius: 10px; margin-right: 300px;">

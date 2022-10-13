@@ -194,16 +194,16 @@ xhttp.onreadystatechange = function(){
 
   const sfrm = document.getElementById("sfrm");
   const whatrn = document.getElementById("whatrn");
-  const sbtn = document.getElementById("sbtn");
+  // const sbtn = document.getElementById("sbtn");
 
-  sbtn.addEventListener("click",function(){
-    console.log("dddd ");
+  // sbtn.addEventListener("click",function(){
+  //   console.log("dddd ");
 
-    if(whatrn.value<1){
-        alert("카테고리를 입력해주세요");
-        return;
-    }else{
-        sfrm.submit();
-    }
-  })
+  //   if(whatrn.value<1){
+  //       alert("카테고리를 입력해주세요");
+  //       return;
+  //   }else{
+  //       sfrm.submit();
+  //   }
+  // })
 

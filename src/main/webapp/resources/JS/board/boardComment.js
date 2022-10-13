@@ -18,7 +18,16 @@ try {
     getCommentList(page,num);
     
     commentAdd.addEventListener("click", function(){
-    
+        
+        if(writer.value == ""){
+            alert("로그인이 필요합니다.");
+            location.replace('../member/login');
+            // return;
+        }else if(contents.value == ""){
+            alert("내용을 입력해주세요.");
+            return;
+        }
+
         const xhttp = new XMLHttpRequest();
         xhttp.open("POST", "./commentAdd");
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

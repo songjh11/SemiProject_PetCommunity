@@ -37,18 +37,18 @@
     </div><!-- End Breadcrumbs -->
 
 	<c:if test="${board eq 'sharing'}">
-	<section id="hero" class="hero d-flex align-items-center section-bg">
+	<section id="hero" class="hero d-flex align-items-center section-bg" style="padding-top: 20px; padding-left: 130px; padding-right: 130px; padding-bottom: 20px;">
 		<div class="container">
 		  <div class="row justify-content-between gy-5">
 			<div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
-			  <h2 data-aos="fade-up">${requestScope.member.userId}님 프로필</h2>
-			  <p data-aos="fade-up" data-aos-delay="100">Pet 이름 : ${requestScope.member.petName}<br> Pet Category : ${requestScope.member.petCatg}</p>
+			  <h2 data-aos="fade-up">${requestScope.member.userName} 님</h2>
+			  <p data-aos="fade-up" data-aos-delay="100">Pet 이름 : ${requestScope.member.petName}</p>
 			  <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
 				<a class="btn-book-a-table" id="follow">팔로우</a>
 				
-				<c:if test="${not empty sessionScope.member}">
-					<a href="#" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>1:1 채팅</span></a>
-				</c:if>
+				<!-- <c:if test="${not empty sessionScope.member}">
+					<a href="#" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i></a>
+				</c:if> -->
 				
 			  </div>
 			</div>
@@ -92,7 +92,7 @@
 		<div class="row">
 			<c:forEach items="${dto.boardFileDTOs}" var="fileDTO">
 				<p>
-				<a href="../resources/upload/notice/${fileDTO.fileName}">${fileDTO.oriName}</a>
+					<img src="../resources/upload/sharing/${fileDTO.fileName}" class="testimonial-img" alt="" style="border-radius: 50%; border: 4px solid #fff; margin: 0 auto; width: 300px; height: 300px; display: block;">
 				</p>
 			</c:forEach>
 		</div> 
@@ -117,13 +117,13 @@
 
     <c:if test="${board eq 'sharing'}">
     <!--------COMMENT---------->
-			<div class="row">
+			<div class="row" style="padding-left: 120px; padding-right: 120px;">
 				<div class="mb-3">
-					<label for="writer" class="form-label">Username</label>
-					<input type="text" class="form-control" id="writer">
+					<label for="writer" class="form-label">작성자</label>
+					<input type="text" class="form-control" id="writer" readonly value="${sessionScope.member.userId}">
 				  </div>
 				  <div class="mb-3">
-					<label for="contents" class="form-label">Contents</label>
+					<label for="contents" class="form-label">내용</label>
 					<textarea class="form-control" id="contents" rows="3"></textarea>
 				  </div>
 				  <div class="mb-3">
@@ -131,7 +131,7 @@
 
 				  </div>
 			</div>
-			<div>
+			<div class="row" style="padding-left: 120px; padding-right: 120px;">
 				<table id="commentList" class="table table-light table-hover">
 
 				</table>

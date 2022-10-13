@@ -44,11 +44,11 @@
 			<div class="mb-3">
 				<label for="title" class="form-label">작성자</label>
         <input type="text" class="form-control" value="${dto.num}" name="num" style="display: none;">
-		  		<input type="text" class="form-control" id="writer" name="writer"  value="${dto.writer}">
+		  		<input type="text" class="form-control" id="writer" name="writer"  readonly value="${dto.writer}">
 			</div>
 			<div class="mb-3">
 		  		<label for="title" class="form-label">제목</label>
-		  		<input type="text" class="form-control" id="title" name="title" readonly value="${dto.title}">
+		  		<input type="text" class="form-control" id="title" name="title" value="${dto.title}">
 			</div>
 			
 			

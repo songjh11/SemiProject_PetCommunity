@@ -12,8 +12,10 @@ import com.pet.home.board.qna.QnaDTO;
 import com.pet.home.board.sharing.SharingDTO;
 import com.pet.home.member.BizmemDTO;
 import com.pet.home.member.MemberDTO;
+import com.pet.home.sell.SellItemDTO;
 import com.pet.home.util.CommentPager;
 import com.pet.home.util.Pager;
+import com.pet.home.util.SellPager;
 
 @Repository
 public class AdminDAO {
@@ -59,17 +61,27 @@ public class AdminDAO {
 		return sqlSession.selectList(NAMESPACE+"getAllGuest", pager);
 	}
 	
-	public Long getAllGuestCount() throws Exception{
-		return sqlSession.selectOne(NAMESPACE+"getAllGuestCount");
+	public Long getAllGuestCount(Pager pager) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getAllGuestCount",pager);
 	}
 	
 	public List<BizmemDTO> getAllBizmen(Pager pager) throws Exception{
 		return sqlSession.selectList(NAMESPACE+"getAllBizmen", pager);
 	}
 	
-	public Long getAllBizmenCount() throws Exception{
-		return sqlSession.selectOne(NAMESPACE+"getAllBizmenCount");
+	public Long getAllBizmenCount(Pager pager) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getAllBizmenCount",pager);
 	}
 	
-
+	public List<SellItemDTO> getSellerList(SellPager sellPager) throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getSellerList",sellPager);
+	}
+	
+	public CouponDTO getCouponByNum(CouponDTO couponDTO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getCouponByNum", couponDTO);
+	}
+	
+	public int setDeleteMemberCoupon(CouponDTO couponDTO) throws Exception{
+		return sqlSession.delete(NAMESPACE+"setDeleteMemberCoupon", couponDTO);
+	}
 }

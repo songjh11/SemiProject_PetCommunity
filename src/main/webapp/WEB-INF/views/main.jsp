@@ -55,31 +55,15 @@
 
           <div class="col-lg-8 d-flex align-items-center">
             <div class="row gy-4">
-
+              <c:forEach items="${sharingList}" var="sharing">
               <div class="col-xl-4" data-aos="fade-up" data-aos-delay="200">
                 <div class="icon-box d-flex flex-column justify-content-center align-items-center">
                   <i class="bi bi-clipboard-data"></i>
-                  <h4>Corporis voluptates officia eiusmod</h4>
-                  <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
+                  <h4>${sharing.title}</h4>
+                  <p>BY ${sharing.writer}</p>
                 </div>
               </div><!-- End Icon Box -->
-
-              <div class="col-xl-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                  <i class="bi bi-gem"></i>
-                  <h4>Ullamco laboris ladore pan</h4>
-                  <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
-                </div>
-              </div><!-- End Icon Box -->
-
-              <div class="col-xl-4" data-aos="fade-up" data-aos-delay="400">
-                <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                  <i class="bi bi-inboxes"></i>
-                  <h4>Labore consequatur incidid dolore</h4>
-                  <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
-                </div>
-              </div><!-- End Icon Box -->
-
+              </c:forEach>
             </div>
           </div>
 

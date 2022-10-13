@@ -170,6 +170,21 @@
 		DELETE USERCOUPON WHERE USERID = #{userId} AND COPONNUM = #{couponNum}
 	</delete>
 	
+	<select id="getMemberByUserName" parameterType="MemberDTO" resultType="MemberDTO">
+		SELECT M.USERID, M.PASSWORD, M.ROLENUM, R.ROLENAME, M.USERNAME, M.EMAIL, M.PHONE, M.ADDRESS, M.DEADDRESS, M.ITEMZIPCODE,M.BLOCK, M.AGMAIL, M.AGVALUE, M.AGMES, G.PETCATG, G.PETNAME, MF.FILENAME, MF.ORINAME
+      FROM MEMBER M
+      LEFT JOIN
+      GUEST G
+      ON M.USERID = G.USERID
+      LEFT JOIN 
+      ROLE R
+      ON M.ROLENUM =R.ROLENUM
+      LEFT JOIN
+           MEMFILE MF
+      ON M.USERID = MF.USERID
+	WHERE M.USERNAME=#{userName}
+	</select>
+	
 	<resultMap type="SellItemDTO" id="getItemResult">
 		<id column="ITEMNUM" property="itemNum"/>
 		<result column="USERID" property="userId"/>

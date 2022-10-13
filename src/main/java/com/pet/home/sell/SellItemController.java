@@ -33,11 +33,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.socket.WebSocketSession;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.google.gson.JsonObject;
 import com.pet.home.admin.AdminDAO;
 import com.pet.home.board.event.coupon.CouponDTO;
+import com.pet.home.chat.room.EchoHandler;
 import com.pet.home.member.MemberDTO;
 import com.pet.home.member.MemberService;
 import com.pet.home.sell.file.RvFileDTO;
@@ -348,8 +350,9 @@ public class SellItemController {
 	}
 
 	@PostMapping("sellqnaadd")
-	public ModelAndView setSellQnaAddResult(SellQnaDTO sellQnaDTO) throws Exception {
+	public ModelAndView setSellQnaAddResult(SellQnaDTO sellQnaDTO, WebSocketSession session) throws Exception {
 		System.out.println("sellqnaadd Post");
+		
 		ModelAndView view = new ModelAndView();
 		int result = itemService.setSellQnaAdd(sellQnaDTO);
 		if (result > 0) {

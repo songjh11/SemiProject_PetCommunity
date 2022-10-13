@@ -77,10 +77,10 @@ fileAdd.addEventListener("click", function(){
     let fileAdd_div = document.createElement("div");
     fileAdd_div.setAttribute("class", "mb-3");
 
-    let fileImage = document.createElement("img");
-    fileImage.setAttribute("class","preview");
-    fileImage.setAttribute("width","200");
-    fileImage.setAttribute("height","200");
+    // let fileImage = document.createElement("img");
+    // fileImage.setAttribute("class","preview");
+    // fileImage.setAttribute("width","200");
+    // fileImage.setAttribute("height","200");
 
     let fileAdd_input = document.createElement("input");
     fileAdd_input.setAttribute("class", "form-control");
@@ -97,7 +97,7 @@ fileAdd.addEventListener("click", function(){
     filedelete.setAttribute("type","button");
     filedelete.setAttribute("title",idx);
 
-    fileAdd_div.append(fileImage);
+    // fileAdd_div.append(fileImage);
     fileAdd_div.append(fileAdd_input)
     fileAdd_div.append(filedelete);
 
@@ -111,26 +111,27 @@ addFiles.addEventListener("click", function(event){
     if(event.target.className == 'del'){
         let delete_fileAdd = document.getElementById("file"+event.target.title);
         delete_fileAdd.parentNode.remove();
-
+        addFiles.lastChild.remove();
+       
         count--;
     }
 })
 
 function readURL(input){
     
-   for(let i = 0; i<count ; i++) {
     if(input.files && input.files[0]){
         let reader = new FileReader();
         reader.onload = function(e){
-            let preview = document.getElementsByClassName("preview");
-            preview[i].src = e.target.result;
+            let fileImage = document.createElement("img");
+            fileImage.setAttribute("class","preview");
+            fileImage.setAttribute("width","200");
+            fileImage.setAttribute("height","200");
+            fileImage.setAttribute("src",e.target.result);
+            addFiles.appendChild(fileImage);
         };
-        reader.readAsDataURL(input.files[i]);
-  } else {
-    let preview = document.getElementsByClassName("preview");
-    preview[i].src = "";
-  }
-}
+        reader.readAsDataURL(input.files[0]);
+  } 
+
 }
 
 

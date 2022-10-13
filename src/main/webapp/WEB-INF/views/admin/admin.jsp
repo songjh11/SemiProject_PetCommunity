@@ -166,7 +166,7 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th>UserId</th><th>UserName</th>
+					<th>UserId</th><th>UserName</th><th></th><th></th><th></th><th></th><th></th>
 				</tr>
 			</thead>
 			<tbody id="tbody2">

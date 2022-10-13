@@ -10,6 +10,18 @@
   <title>Join page</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
+
+  <style>
+
+    .ag{
+    
+      background-color:cornsilk;
+      overflow: scroll;
+      width: 600px;
+      height: 100px;
+   
+    }
+  </style>
   
 </head>
 <body>
@@ -164,7 +176,7 @@
 	                <div class="validate"></div>
                 </div>
 
-                메시지 동의 약관(선택) <input type="checkbox" class="cb" name="agMes" value=""> 
+                메시지 동의 약관(선택) <input type="checkbox" class="cb" name="agMes" value="1"> 
 
                   <div class="form-group mt-3">
 	                <div class="form-control ag" name="itemContents" rows="5">

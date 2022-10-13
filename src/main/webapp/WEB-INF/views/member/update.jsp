@@ -70,24 +70,28 @@
             <form action="update" method="post" data-aos="fade-up" data-aos-delay="100" enctype="multipart/form-data" id="updatefrm">
               <div class="row gy-4">
                 <div class="col-lg-8 col-md-12">
-                  <input type="hidden" name="roleNum" value="${member.roleNum}">
-                  <input type="text" name="userId" class="form-control" value="${member.userId}" readonly>
+                  <input type="hidden" name="roleNum" value="${dto.roleNum}">
+                  <input type="text" name="userId" class="form-control" value="${dto.userId}" readonly>
                   <div class="validate"></div>
                 </div>
                 <div class="col-lg-8 col-md-12">
-                  <input type="text" name="password" class="form-control" value="${dto.password}" placeholder="password">
+                  <input type="password" name="password" class="form-control" value="${dto.password}" placeholder="password" id="password">
+                  <div id="d2" class="warning"></div>
                   <div class="validate"></div>
                 </div>
                 <div class="col-lg-8 col-md-12">
-                  <input type="text" name="userName" class="form-control" value="${dto.userName}" placeholder="User Name">
+                  <input type="text" name="userName" class="form-control" value="${dto.userName}" placeholder="User Name" id="userName">
+                  <div id="d3" class="warning"></div>
                   <div class="validate"></div>
                 </div>
                 <div class="col-lg-8 col-md-12">
-                  <input type="number" name="phone" class="form-control" value="${dto.phone}" placeholder="Phone">
+                  <input type="number" name="phone" class="form-control" value="${dto.phone}" placeholder="Phone" id="phone">
+                  <div id="d4" class="warning"></div>
                   <div class="validate"></div>
                 </div>
                 <div class="col-lg-8 col-md-12">
-                  <input type="email" name="email" class="form-control" value="${member.email}">
+                  <input type="email" name="email" class="form-control" value="${dto.email}" placeholder="Email" id="email">
+                  <div id="d5" class="warning"></div>
                   <div class="validate"></div>
                 </div>
 
@@ -110,25 +114,25 @@
                 
                
              
-                <c:if test="${member.roleNum == '2'}">
+                <c:if test="${dto.roleNum == '2'}">
 
-                  <div class="col-lg-8 col-md-6">
+                  <div class="col-lg-8 col-md-12">
                     <input type="text" class="form-control" name="petCatg" value="${dto.petCatg}" placeholder="Pet Categori">
                     <div class="validate"></div>
                   </div>
 
-                  <div class="col-lg-8 col-md-6">
+                  <div class="col-lg-8 col-md-12">
                     <input type="text" class="form-control" name="petName" value="${dto.petName}" placeholder="Pet Name">
                     <div class="validate"></div>
                   </div>
 
-                  <div class="col-lg-8 col-md-6">
+                  <div class="col-lg-8 col-md-12">
                     <input type="file" class="form-control" name="photo" id="files" value="${dto.memberFileDTO.oriName}">
                     <div class="validate"></div>
                   </div>
 
                 </c:if>
-                메시지 동의 약관(선택) <input type="radio" class="cb" name="agMes" value="${dto.agMes}" id="radiomes"> 
+                메시지 동의 약관(선택) <input type="radio" class="cb" name="agMes" id="radiomes" value="1"> 
 
 
               

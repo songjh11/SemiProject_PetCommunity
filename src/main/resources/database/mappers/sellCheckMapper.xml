@@ -41,6 +41,27 @@
 		ORDER BY P.PURCHASEDATE DESC) CHECKLIST	
 	</select>
 	
+	<select id="getSellerPurchaseList" parameterType="String" resultMap="getPurchaseListResult">
+		SELECT ROWNUM R, CHECKLIST.* FROM        
+		(SELECT  P.*, M.USERNAME, M.EMAIL, M.PHONE, SITEM.USERID as BIZID, SITEM.ITEMNAME, SITEM.FILENAME FROM 
+			PURCHASE P
+				RIGHT JOIN
+				MEMBER M
+				ON P.USERID = M.USERID
+					RIGHT JOIN
+					(SELECT SII.* 
+	                    FROM 
+	                    (SELECT SI.ITEMNUM, SI.ITEMPRICE, SI.ITEMNAME, SI.ITEMCATG, SI.USERID, SI.ITEMADDRESS, SF.FILENAME
+	                        FROM SELLITEM SI
+	                        INNER JOIN
+	                        SELLFILE SF
+	                        ON SI.ITEMNUM = SF.ITEMNUM
+	                        ORDER BY SI.ITEMNUM DESC,SF.PHOTONUM ASC) SII) SITEM
+					ON P.ITEMNUM = SITEM.ITEMNUM
+		WHERE (SITEM.USERID = #{userId} AND P.PURCHASESTATUS=1)  
+		ORDER BY P.PURCHASEDATE DESC) CHECKLIST	
+	</select>
+	
 	<select id="getPurchaseCancleList" parameterType="String" resultMap="getPurchaseCancelListResult">
 		SELECT ROWNUM R, CHECKLIST.* FROM        
 		(SELECT  P.*, M.USERNAME, M.EMAIL, M.PHONE, SITEM.USERID as BIZID, SITEM.ITEMNAME, SITEM.FILENAME, PC.CANCELDATE, PC.REASON FROM 
@@ -59,13 +80,58 @@
 		                        INNER JOIN
 		                        SELLFILE SF
 		                        ON SI.ITEMNUM = SF.ITEMNUM
-		                        ORDER BY SI.ITEMNUM DESC,SF.PHOTONUM ASC) SII) SITEM
+		                        ORDER BY SI.ITEMNUM DESC, SF.PHOTONUM ASC) SII) SITEM
 						ON P.ITEMNUM = SITEM.ITEMNUM
 		WHERE P.USERID = #{userId}
 		ORDER BY PC.CANCELDATE DESC) CHECKLIST	
 	</select>
 	
+	<select id="getSellerPurchaseCancleList" parameterType="PurchaseDTO" resultMap="getPurchaseCancelListResult">
+		SELECT ROWNUM R, CHECKLIST.* FROM        
+		(SELECT  P.*, M.USERNAME, M.EMAIL, M.PHONE, SITEM.USERID as BIZID, SITEM.ITEMNAME, SITEM.FILENAME FROM 
+			PURCHASE P
+				RIGHT JOIN
+				MEMBER M
+				ON P.USERID = M.USERID
+					RIGHT JOIN
+					(SELECT SII.* 
+	                    FROM 
+	                    (SELECT SI.ITEMNUM, SI.ITEMPRICE, SI.ITEMNAME, SI.ITEMCATG, SI.USERID, SI.ITEMADDRESS, SF.FILENAME
+	                        FROM SELLITEM SI
+	                        INNER JOIN
+	                        SELLFILE SF
+	                        ON SI.ITEMNUM = SF.ITEMNUM
+	                        ORDER BY SI.ITEMNUM DESC,SF.PHOTONUM ASC) SII) SITEM
+					ON P.ITEMNUM = SITEM.ITEMNUM
+		WHERE (SITEM.USERID = #{userId} AND P.PURCHASESTATUS=0)  
+		ORDER BY P.PURCHASEDATE DESC) CHECKLIST	
+	</select>
+	
 	<select id="getPurchaseDetail" parameterType="PurchaseDTO" resultMap="getPurchaseListResult">
+		SELECT ROWNUM R, CHECKLIST.* FROM        
+		(SELECT  P.*, M.USERNAME, M.EMAIL, M.PHONE, SITEM.USERID as BIZID, SITEM.ITEMNAME, SITEM.FILENAME, PC.CANCELDATE, PC.REASON FROM 
+		PURCHASE P
+		LEFT JOIN
+		PURCHASECANCEL PC
+		ON P.MERCHANT_UID = PC.MERCHANT_UID		
+			RIGHT JOIN
+			MEMBER M
+			ON P.USERID = M.USERID
+				RIGHT JOIN
+				(SELECT SII.* 
+                    FROM 
+                    (SELECT SI.ITEMNUM, SI.ITEMPRICE, SI.ITEMNAME, SI.ITEMCATG, SI.USERID, SI.ITEMADDRESS, SF.FILENAME
+                        FROM SELLITEM SI
+                        INNER JOIN
+                        SELLFILE SF
+                        ON SI.ITEMNUM = SF.ITEMNUM
+                        ORDER BY SI.ITEMNUM DESC,SF.PHOTONUM ASC) SII) SITEM
+				ON P.ITEMNUM = SITEM.ITEMNUM
+		WHERE P.MERCHANT_UID = #{merchant_uid}
+		ORDER BY P.PURCHASEDATE DESC) CHECKLIST
+	</select>
+	
+		<select id="getSellerPurchaseDetail" parameterType="PurchaseDTO" resultMap="getPurchaseListResult">
 		SELECT ROWNUM R, CHECKLIST.* FROM        
 		(SELECT  P.*, M.USERNAME, M.EMAIL, M.PHONE, SITEM.USERID as BIZID, SITEM.ITEMNAME, SITEM.FILENAME, PC.CANCELDATE, PC.REASON FROM 
 		PURCHASE P

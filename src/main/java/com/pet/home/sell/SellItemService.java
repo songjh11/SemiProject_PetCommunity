@@ -114,13 +114,7 @@ public class SellItemService {
 	
 	public List<SellItemDTO> getItemList(SellPager sellPager) throws Exception {
 		sellPager.getRowNum();
-		System.out.println("startRow : "+sellPager.getStartRow());
-		System.out.println("lastRow : "+sellPager.getLastRow());
-		System.out.println("totalCount: "+itemDAO.getItemCount(sellPager));
 		sellPager.getNum(itemDAO.getItemCount(sellPager));
-		System.out.println("startNum : "+sellPager.getStartNum());
-		System.out.println("lastNum : "+sellPager.getLastNum());
-		System.out.println("totalPage: "+sellPager.getTotalPage());
 		return itemDAO.getItemList(sellPager);
 	}
 	
@@ -485,6 +479,16 @@ public class SellItemService {
 	//메인 리스트 출력
 	public List<SellItemDTO> getPurchaseListtoMain() throws Exception {
 		return itemDAO.getPurchaseListtoMain();
+	}
+	
+	//셀러페이지 상품구매내역 출력
+	public List<PurchaseDTO> getSellerPurchaseList(String userId) throws Exception{
+		return purchaseDAO.getSellerPurchaseList(userId);
+	}
+	
+	//셀러페이지 상품취소내역 출력
+	public List<PurchaseDTO> getSellerPurchaseCancleList(String userId) throws Exception{
+		return cancelDAO.getSellerPurchaseCancleList(userId);
 	}
 }
 	

@@ -181,7 +181,6 @@
 	        (SELECT ROWNUM R, ITEM.*
 			        FROM (SELECT ITEMNUM, COUNT(ITEMNUM) mycount 
 			        FROM PURCHASE 
-			        WHERE PURCHASESTATUS = 1
 			        GROUP BY ITEMNUM
 			        ORDER BY mycount DESC) ITEM
 			    <![CDATA[WHERE ROWNUM <4]]>) CI

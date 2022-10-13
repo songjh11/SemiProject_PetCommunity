@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pet.home.member.MemberDTO;
+import com.pet.home.sell.SellItemDTO;
+import com.pet.home.util.SellPager;
 
 @Repository
 public class PurchaseDAO {
@@ -35,4 +37,10 @@ public class PurchaseDAO {
 	public int setPurchaseStatus(String merchant_uid) throws Exception{
 		return session.update(NAMESPACE+"setPurchaseStatus", merchant_uid);
 	}
+	
+	public List<PurchaseDTO> getSellerPurchaseList(String userId) throws Exception{
+		return session.selectList(NAMESPACE+"getSellerPurchaseList", userId);
+	}
+	
+	
 }

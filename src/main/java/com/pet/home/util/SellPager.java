@@ -28,6 +28,9 @@ public class SellPager {
 		this.userId = userId;
 	}
 		public Long getItemCatg() {
+			if (this.itemCatg == null||this.itemCatg>3L) {
+				itemCatg = 1L;
+			}
 			return itemCatg;
 		}
 

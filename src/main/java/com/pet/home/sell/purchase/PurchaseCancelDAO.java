@@ -20,4 +20,8 @@ public class PurchaseCancelDAO {
 	public List<PurchaseDTO> getPurchaseCancleList (String userId) {
 		return session.selectList(NAMESPACE+"getPurchaseCancleList", userId);
 	}
+	
+	public List<PurchaseDTO> getSellerPurchaseCancleList(String userId) throws Exception{
+		return session.selectList(NAMESPACE+"getSellerPurchaseCancleList", userId);
+	}
 }

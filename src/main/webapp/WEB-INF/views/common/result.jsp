@@ -15,5 +15,6 @@
 	alert(message);
 	location.href= "${url}";
 </script>
+
 </body>
 </html>

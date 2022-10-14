@@ -18,12 +18,12 @@
   <meta content="" name="keywords">
 
 
-  <!-- jQuery -->
-  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-  <!-- iamport.payment.js -->
+  <!-- jQuery 
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script> 
+   iamport.payment.js 
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-  <!-- kakao Map -->
-  <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=e46b315f965ac58fabe9c3e350d385de&libraries=services"></script>
+   kakao Map 
+  <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=e46b315f965ac58fabe9c3e350d385de&libraries=services"></script> -->
 
   <style>
     .crq{
@@ -1033,6 +1033,7 @@
 
    <!-- script start -->
 
+   <script src="/resources/JS/review.js"></script>
 <!-- kakao 길 찾기 -->
 <script src="/resources/JS/map/map.js"></script>
 <script>
@@ -1041,7 +1042,6 @@
   <!--모달 부트스트랩-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
   <!-- 리뷰 리스트 js -->
-  <script src="/resources/JS/review.js"></script>
   <!-- 결제 api -->
   <script src="/resources/JS/check.js"></script>
 

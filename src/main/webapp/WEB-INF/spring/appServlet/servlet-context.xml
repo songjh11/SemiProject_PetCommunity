@@ -52,7 +52,7 @@
 		<beans:ref bean="adminCheckInterceptor"/>
 	</interceptor>
 	
-	<interceptor>
+	<!-- <interceptor>
 		<mapping path="/qna/update"/>
 		<mapping path="/qna/delete"/>
 		<mapping path="/sharing/update"/>
@@ -60,7 +60,8 @@
 		<mapping path="/event/update"/>
 		<mapping path="/event/delete"/>
 		<beans:ref bean="writerCheckInterceptor"/>
-	</interceptor>
+	</interceptor> -->
+	
 	<interceptor>
 	<mapping path="/member/**"/>
 	<mapping path="/sell/**"/>

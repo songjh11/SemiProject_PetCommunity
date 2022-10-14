@@ -92,7 +92,7 @@
 		<interceptor>
 			<mapping path="/sell/*"/>
 			<exclude-mapping path="/sell/list"/>
- 			<exclude-mapping path="/sell/detail"/>
+ 			<exclude-mapping path="/sell/detail/"/>
  			<exclude-mapping path="/sell/pettx"/>
  			<exclude-mapping path="/sell/search"/>
  			<exclude-mapping path="/sell/Sellerlist"/>

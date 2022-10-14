@@ -48,11 +48,20 @@
 		<mapping path="/notice/**"/>
 		<mapping path="/admin/**"/>
 		<exclude-mapping path="/notice/list"/>
-		<exclude-mapping path="/notice/detail.iu"/>
+		<exclude-mapping path="/notice/detail"/>
 		<beans:ref bean="adminCheckInterceptor"/>
 	</interceptor>
 	
-	  <interceptor>
+	<interceptor>
+		<mapping path="/qna/update"/>
+		<mapping path="/qna/delete"/>
+		<mapping path="/sharing/update"/>
+		<mapping path="/sharing/delete"/>
+		<mapping path="/event/update"/>
+		<mapping path="/event/delete"/>
+		<beans:ref bean="writerCheckInterceptor"/>
+	</interceptor>
+	<interceptor>
 	<mapping path="/member/**"/>
 	<mapping path="/sell/**"/>
 	<mapping path="/event/**"/>

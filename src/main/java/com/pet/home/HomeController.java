@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pet.home.board.event.EventDTO;
+import com.pet.home.board.event.EventService;
 import com.pet.home.board.impl.BoardDTO;
 import com.pet.home.board.sharing.SharingService;
 import com.pet.home.sell.SellItemDTO;
@@ -32,7 +34,7 @@ public class HomeController {
 	@Autowired
 	private SellItemService itemService;
 	@Autowired
-	private SharingService sharingService;
+	private EventService eventService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -50,8 +52,8 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		List<BoardDTO> sharingList = sharingService.getListByHit();
-		model.addAttribute("sharingList",sharingList);
+		List<EventDTO> eventList = eventService.getListOnMain();
+		model.addAttribute("eventList",eventList);
 		
 		List<SellItemDTO> purchaseList = itemService.getPurchaseListtoMain();
 		model.addAttribute("purchaseList", purchaseList );

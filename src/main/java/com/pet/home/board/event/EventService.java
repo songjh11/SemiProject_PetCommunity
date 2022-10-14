@@ -111,6 +111,9 @@ public class EventService implements BoardService {
 		return eventDAO.setUpdateHit(boardDTO);
 	}
 	
+	public List<EventDTO> getListOnMain() throws Exception{
+		return eventDAO.getListOnMain();
+	}
 	
 	
 }

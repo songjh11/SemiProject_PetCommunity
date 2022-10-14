@@ -104,4 +104,14 @@
 		UPDATE USERCOUPON SET USERID = #{userId} WHERE NUM = #{num} AND COUPONNUM = #{couponNum}
 	</update>
 	
+	
+	<select id="getListOnMain" resultMap="getDetailResult">
+		SELECT *
+		FROM EVENT E 
+		INNER JOIN EVENTFILE EF
+		ON E.NUM = EF.NUM
+		INNER JOIN USERCOUPON UC
+		ON E.NUM = UC.NUM
+		ORDER BY E.NUM DESC
+	</select>
 </mapper>

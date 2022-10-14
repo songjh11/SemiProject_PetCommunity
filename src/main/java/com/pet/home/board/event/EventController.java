@@ -92,6 +92,7 @@ public class EventController {
 	public ModelAndView getDetail(ModelAndView mv, BoardDTO boardDTO, HttpServletResponse response, HttpServletRequest request) throws Exception{
 		EventDTO eventDTO = (EventDTO) eventService.getDetail(boardDTO);
 		System.out.println(eventDTO.getContents());
+		System.out.println(eventDTO.getCouponDTO().getCouponNum());
 		CouponDTO couponDTO = eventDTO.getCouponDTO();
 		System.out.println(couponDTO.getCouponNum());
 		couponDTO = eventService.getCouponDetail(couponDTO);

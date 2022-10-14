@@ -27,7 +27,7 @@
           <p data-aos="fade-up" data-aos-delay="100">메인을 꾸며주세오</p>
         </div>
         <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
-          <img src="/resources/assets/img/hero-img.jpg" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="300">
+          <img src="/resources/images/KakaoTalk_20221014_094015890_03.jpg" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="300">
         </div>
       </div>
     </div>

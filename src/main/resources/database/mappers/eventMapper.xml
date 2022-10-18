@@ -59,7 +59,7 @@
 		<result column="HIT" property="hit"/>
 		
 		<association property="couponDTO" javaType="CouponDTO">
-			<result column="COUPONNUM" property="couponNum"/>
+			<id column="COUPONNUM" property="couponNum"/>
 		</association>
 		
 		<collection property="boardFileDTOs" javaType="List" ofType="BoardFileDTO">

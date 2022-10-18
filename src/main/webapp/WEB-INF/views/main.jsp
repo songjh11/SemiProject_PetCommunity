@@ -65,9 +65,9 @@
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
             <div class="why-box">
-              <h3>최근 이벤트&공지사항</h3>
+              <h3>최근 이벤트</h3>
               <p>
-                이벤트나 공지사항 최신글의 타이틀과 컨텐츠를 불러오면 좋을듯합니다.
+                할인 쿠폰을 지급합니다!
               </p>
               <div class="text-center">
                 <a href="#" class="more-btn">Learn More <i class="bx bx-chevron-right"></i></a>
@@ -80,8 +80,8 @@
               <c:forEach items="${eventList}" var="event">
               <div class="col-xl-4" data-aos="fade-up" data-aos-delay="200">
                 <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                  <i><img src="/resources/upload/event/${event.boardFileDTOs[0].fileName}" class="menu-img img-fluid" alt=""></i>
-                  <h4>${evnet.title}</h4>
+                  <i><img src="/resources/upload/event/${event.boardFileDTOs[0].fileName}" class="menu-img img-fluid" alt="" ></i>
+                  <h4>${event.title}</h4>
                   <p>BY ${event.writer}</p>
                 </div>
               </div><!-- End Icon Box -->

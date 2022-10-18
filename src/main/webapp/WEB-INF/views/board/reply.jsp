@@ -25,10 +25,10 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>${board} 작성</h2>
+          <h2>${board}</h2>
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li>${board} 작성</li>
+            <li>${board}</li>
           </ol>
         </div>
 
@@ -42,7 +42,7 @@
 			<form action="reply" method="post" enctype="multipart/form-data" id="frm">
 				 <input type="text" class="form-control" name="num" value="${requestScope.dto.num}" style="display: none;">
 			<div class="mb-3">
-		  		<input type="text" class="form-control" id="writer" name="writer" style="display: none;" value="${sessionScope.member.userName}">
+		  		<input type="text" class="form-control" id="writer" name="writer" style="display: none;" value="admin">
 			</div>
 			<div class="mb-3">
 		  		<label for="title" class="form-label">제목</label>
@@ -77,7 +77,7 @@
 			</div>
 			
 			<div style="text-align: right;">
-			  <button class="btn btn-outline-danger btn-lg btn-block" type="button" id="btn">작성하기</button>
+			  <button class="btn btn-outline-danger btn-lg btn-block" type="submit" id="btn">작성하기</button>
       </div>
 			</form>
 		</div>

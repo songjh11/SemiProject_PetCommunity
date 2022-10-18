@@ -113,6 +113,7 @@
                     <li><a href="/qna/list">QnA</a></li>
                   </ul>
                 </li>
+                <li><a href="/admin/mypage">관리자 페이지</a></li>
               </ul>
         </nav>
     </div>

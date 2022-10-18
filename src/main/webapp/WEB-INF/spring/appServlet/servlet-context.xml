@@ -96,6 +96,8 @@
  			<exclude-mapping path="/sell/search"/>
  			<exclude-mapping path="/sell/Sellerlist"/>
  			<exclude-mapping path="/sell/add"/>
+ 			<exclude-mapping path="/sell/reviewadd"/>
+ 			<exclude-mapping path="/sell/reviewList"/>
 			<beans:ref bean="sellitemInterceptor"/>		
 		</interceptor>
 	 

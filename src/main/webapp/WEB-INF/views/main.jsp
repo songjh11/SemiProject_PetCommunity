@@ -22,12 +22,34 @@
   <section id="hero" class="hero d-flex align-items-center section-bg">
     <div class="container">
       <div class="row justify-content-between gy-5">
-        <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
-          <h2 data-aos="fade-up">반려견 커뮤니티<br>Wal Wal</h2>
-          <p data-aos="fade-up" data-aos-delay="100">메인을 꾸며주세오</p>
-        </div>
-        <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
-          <img src="/resources/assets/img/hero-img.jpg" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="300">
+        <div class="col-lg-5 order-2 order-lg-1" style="display: flex; width: 100%; justify-content: space-evenly;">
+          <div>
+            <h2 data-aos="fade-up">반려견 커뮤니티<br>Wal Wal</h2>
+          </div>
+          <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="height: 300px; width: 700px; overflow: hidden; display: flex; align-items: center;">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="/resources/images/puppy (1).jpg" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="/resources/images/puppy (2).jpg" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="/resources/images/puppy (3).jpg" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="/resources/images/puppy (4).jpg" class="d-block w-100" alt="...">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

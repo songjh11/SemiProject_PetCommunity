@@ -133,9 +133,6 @@ dogCount.addEventListener("change", function(){
   totalPrice.value="0";
 });
 
-coupon.addEventListener("change",function(){
-  totalPrice.value = "0";
-})
 
 //===================================================날짜 계산
 priceCount.addEventListener("click", function (){

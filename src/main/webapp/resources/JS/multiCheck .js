@@ -35,18 +35,6 @@ let merchant_uid = date.getTime();
 const rvBtnFrm = document.getElementById("rvBtnFrm");
 let msg = "";
 
-const needID = document.getElementById("needID");
-
-needID.addEventListener("click", function(){
-  let result = window.confirm("금액 계산은 로그인 후 이용 가능합니다. \n로그인 화면으로 가시겠습니까?");
-  if(!result){
-      return;
-  }
-  else{
-      return window.location.href='/member/login';
-  }
-})
-
 const btnShopCartFalse = document.getElementById("btnShopCartFalse");
 if(btnShopCartFalse == null){
   const btnShopCartAdd = document.getElementById("btnShopCartAdd");
@@ -146,67 +134,6 @@ dogCount.addEventListener("change", function(){
   totalPrice.value="0";
 });
 
-
-//===================================================날짜 계산
-priceCount.addEventListener("click", function (){
-  let dateResult = false;
-  ipv = itemPrice.value;
-  rsv = revStartDate.value;
-  rev = revEndDate.value;
-  ac = adultsCount.value;
-  dc = dogCount.value;
-  itg = itemCatg.value;
-  itn = itemNum2.value;
-  tpv = totalPrice.value;
-  bev = buyer_email.value;
-  bnv = buyer_name.value;
-  btv = buyer_tel.value;
-  uiv = userId.value;
-  inv = itemName.value;
-  console.log(itg);
-
-
-  if(rsv.length<=0||rev.length<=0){
-    alert("날짜를 입력하세요")
-    return;
-    } else{
-      if(itg==2 && rev!=rsv){
-      alert("원데이 클래스는 하루 단위로 예약이 가능합니다");
-      return;
-    } else{
-        dateResult = true;
-      }
-    }
-    
-
-if(ac.length<=0||dc.length<=0){
-  alert("인원수 또는 반려견 수를 입력하세요")
-  return;
-} else{
-  dateResult = true;
-}
-
-if(dateResult){
-    const redate = new Date(revEndDate.value);
-    const rsdate = new Date(revStartDate.value);
-    let redateC = redate.getTime();
-    let rsdateC = rsdate.getTime();
-    if(redateC<rsdateC){
-      alert("날짜를 다시 입력하세요")
-      return;
-    } else{
-      let tdate = "";
-      if(redateC == rsdateC){
-        tdate = 1;
-      } else{
-        tdate = (redateC - rsdateC) / (1000*60*60*24);
-      }
-      let priceC = tdate*ipv+ac*10000+dc*10000;
-      totalPrice.value = priceC;
-    }
-    
-}
-   
     // ------ 쿠폰 계산
     if(coupon.value != ""){
       arr = coupon.value.split("|");
@@ -231,8 +158,6 @@ if(dateResult){
     }
     //----------------------
     
-
-});
 
 
 //==================================================================결제창 실행

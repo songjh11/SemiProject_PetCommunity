@@ -8,7 +8,9 @@ import com.pet.home.sell.SellItemDTO;
 import com.pet.home.sell.file.SellFileDTO;
 
 public class PurchaseDTO {
-
+	
+	private Long purchaseNum;
+	//구매번호(PK)
 	private String imp_uid;
 	//가맹점번호
     private String merchant_uid;
@@ -37,6 +39,12 @@ public class PurchaseDTO {
     
     
     
+	public Long getPurchaseNum() {
+		return purchaseNum;
+	}
+	public void setPurchaseNum(Long purchaseNum) {
+		this.purchaseNum = purchaseNum;
+	}
 	public PurchaseCancelDTO getCancelDTO() {
 		return cancelDTO;
 	}

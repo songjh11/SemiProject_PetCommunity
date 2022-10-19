@@ -62,7 +62,7 @@
 		<beans:ref bean="writerCheckInterceptor"/>
 	</interceptor>
 	
-	<interceptor>
+<!-- 	<interceptor>
 	<mapping path="/member/**"/>
 	<mapping path="/sell/**"/>
 	<mapping path="/event/**"/>
@@ -85,18 +85,22 @@
 	<exclude-mapping path="/qna/list"/>
 	<exclude-mapping path="/qna/detail"/>
 	<beans:ref bean="memberInterceptor"/>
-	</interceptor>
+	</interceptor> -->
 	 
 	
-		URL, Interceptor 매핑
-		<interceptor>
+
+		<!-- URL, Interceptor 매핑 -->
+ 		<interceptor>
+
 			<mapping path="/sell/*"/>
 			<exclude-mapping path="/sell/list"/>
- 			<exclude-mapping path="/sell/detail/"/>
+ 			<exclude-mapping path="/sell/detail*"/>
  			<exclude-mapping path="/sell/pettx"/>
  			<exclude-mapping path="/sell/search"/>
  			<exclude-mapping path="/sell/Sellerlist"/>
  			<exclude-mapping path="/sell/add"/>
+ 			<exclude-mapping path="/sell/reviewadd"/>
+ 			<exclude-mapping path="/sell/reviewList"/>
 			<beans:ref bean="sellitemInterceptor"/>		
 		</interceptor>
 	 

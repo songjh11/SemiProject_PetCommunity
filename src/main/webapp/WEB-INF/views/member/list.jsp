@@ -274,6 +274,11 @@
         </c:when>
   
         <c:when test="${what eq 'Purchase List'}">
+        <c:if test="${empty purchaseList}">
+        	<div class="section-header">
+         		<p>구매 상품이 없습니다</p>
+        	</div>
+        </c:if>
           <c:forEach items="${purchaseList}" var="check">
             <div class="col-lg-3 col-md-4 d-flex align-items-stretch justify-content-center" data-aos="fade-up" data-aos-delay="100">
               <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 15px;">
@@ -292,6 +297,11 @@
         </c:when>
 
       <c:when test="${what eq 'Purchase Cancel List'}">
+       <c:if test="${empty purchaseList}">
+        	<div class="section-header">
+         		<p>취소 상품이 없습니다</p>
+        	</div>
+        </c:if>
         <c:forEach items="${purchaseList}" var="check">
           <div class="col-lg-3 col-md-4 d-flex align-items-stretch justify-content-center" data-aos="fade-up" data-aos-delay="100">
             <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 15px;">
@@ -311,6 +321,12 @@
       
       
       <c:when test="${what eq 'Seller List'}">
+       <c:if test="${empty purchaseList}">
+        	<div class="section-header">
+         		<p>판매된 상품이 아직 없습니다</p>
+         		<p>홍보 게시판에서 사업장을 홍보해보세요!</p>
+        	</div>
+        </c:if>
         <c:forEach items="${purchaseList}" var="check">
           <div class="col-lg-3 col-md-4 d-flex align-items-stretch justify-content-center" data-aos="fade-up" data-aos-delay="100">
             <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 15px;">
@@ -329,6 +345,11 @@
       </c:when>
      
     <c:when test="${what eq 'Seller Cancel List'}">
+     <c:if test="${empty purchaseList}">
+        	<div class="section-header">
+         		<p>구매 취소된 상품이 없습니다</p>
+        	</div>
+        </c:if>
       <c:forEach items="${purchaseList}" var="check">
         <div class="col-lg-3 col-md-4 d-flex align-items-stretch justify-content-center" data-aos="fade-up" data-aos-delay="100">
           <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 15px;">

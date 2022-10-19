@@ -81,7 +81,7 @@
 			</div>
 			
 			<div style="text-align: right;">
-			  <button class="btn btn-outline-danger btn-lg btn-block" type="button" id="btn">작성하기</button>
+			  <button class="btn btn-outline-danger btn-lg btn-block" type="submit" id="btn">작성하기</button>
       </div>
 			</form>
 		</div>

@@ -3,7 +3,9 @@ package com.pet.home.sell;
 import java.io.File;
 
 import java.nio.file.Files;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -489,6 +491,28 @@ public class SellItemService {
 	//셀러페이지 상품취소내역 출력
 	public List<PurchaseDTO> getSellerPurchaseCancleList(String userId) throws Exception{
 		return cancelDAO.getSellerPurchaseCancleList(userId);
+	}
+	
+	//결제되어야 할 금액 계산
+	public Long setPrice
+	(String itemNum, String revStartDate, String revEndDate, String adultsCount, String dogCount) throws Exception {
+		SellItemDTO itemDTO = new SellItemDTO();
+		itemDTO.setItemNum(Long.parseLong(itemNum));
+		itemDTO = itemDAO.getDetailOne(itemDTO);
+		Long itemPrice = itemDTO.getItemPrice();
+		System.out.println("itemPrice: "+itemPrice);
+		
+		Date start = new SimpleDateFormat("yyyy-MM-dd").parse(revStartDate);
+		Date end = new SimpleDateFormat("yyyy-MM-dd").parse(revEndDate);
+		Long diffSec = (end.getTime() - start.getTime()) / 1000; //초 차이
+		Long revDays = diffSec / (24*60*60); //일자수 차이
+		if(end.getTime() == start.getTime()) {
+			revDays = 1L;
+		}
+		System.out.println("revDays: "+revDays);
+		Long totalPrice = (itemPrice * revDays)+(10000*Long.parseLong(adultsCount))+(10000*Long.parseLong(dogCount));
+		System.out.println("totalPrice: "+totalPrice);
+		return totalPrice;
 	}
 }
 	

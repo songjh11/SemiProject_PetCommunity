@@ -8,9 +8,6 @@ import com.pet.home.board.impl.BoardDTO;
 public class EventDTO extends BoardDTO {
 
 
-	private List<CouponDTO> couponDTOs;
-
-	
 	private CouponDTO couponDTO;
 
 

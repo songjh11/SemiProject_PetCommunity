@@ -17,10 +17,6 @@ function setCount(c){
 
 
 
-
-//삭제 끝------------------------------------------------
-
-
 //detail page: 파일 폴더에서 삭제=============================================================
 deleteItem.addEventListener("click", function(){
     let result = window.confirm("삭제하시겠습니까?");

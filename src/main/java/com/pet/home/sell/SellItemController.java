@@ -474,22 +474,8 @@ public class SellItemController {
 			System.out.println("token: "+token.getResponse().getToken());
 			
 			//결제되어야 할 금액 계산
-			SellItemDTO itemDTO = new SellItemDTO();
-			itemDTO.setItemNum(Long.parseLong(itemNum));
-			itemDTO = itemService.getDetailOne(itemDTO);
-			Long itemPrice = itemDTO.getItemPrice();
-			System.out.println("itemPrice: "+itemPrice);
+			Long totalPrice = itemService.setPrice(itemNum, revStartDate, revEndDate, adultsCount, dogCount); 
 			
-			Date start = new SimpleDateFormat("yyyy-MM-dd").parse(revStartDate);
-	        Date end = new SimpleDateFormat("yyyy-MM-dd").parse(revEndDate);
-	        Long diffSec = (end.getTime() - start.getTime()) / 1000; //초 차이
-	        Long revDays = diffSec / (24*60*60); //일자수 차이
-	        if(end.getTime() == start.getTime()) {
-	        	revDays = 1L;
-	        }
-	        System.out.println("revDays: "+revDays);
-			Long totalPrice = (itemPrice * revDays)+(10000*Long.parseLong(adultsCount))+(10000*Long.parseLong(dogCount));
-			System.out.println("totalPrice: "+totalPrice);
 			
 			//쿠폰 여부
 			CouponDTO couponDTO = new CouponDTO();

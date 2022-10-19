@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.pet.home.board.event.EventDTO;
 import com.pet.home.board.impl.BoardDTO;
 import com.pet.home.member.MemberDTO;
 
@@ -29,6 +30,8 @@ public class WriterCheckInterceptor extends HandlerInterceptorAdapter{
 		Map<String, Object> map = modelAndView.getModel();
 		
 		BoardDTO boardDTO = (BoardDTO)map.get("dto");
+		
+		System.out.println(boardDTO.getWriter());
 		
 		if(!memberDTO.getUserName().equals(boardDTO.getWriter())) {
 			modelAndView.setViewName("common/result");

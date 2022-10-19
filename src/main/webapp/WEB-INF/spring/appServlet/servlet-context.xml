@@ -41,9 +41,9 @@
 	<beans:bean class="com.pet.home.interceptor.MemberInterceptor" id="memberInterceptor"></beans:bean>
 	<beans:bean class="com.pet.home.interceptor.WriterCheckInterceptor" id="writerCheckInterceptor"></beans:bean>
 	
-	<interceptors>
+	<!-- <interceptors>
 	
-	<!--  관리자 인터셉터 -->
+	 관리자 인터셉터
 	<interceptor>
 		<mapping path="/notice/**"/>
 		<mapping path="/admin/**"/>
@@ -61,7 +61,8 @@
 		<mapping path="/event/delete"/>
 		<beans:ref bean="writerCheckInterceptor"/>
 	</interceptor>
-	<interceptor>
+	
+<!-- 	<interceptor>
 	<mapping path="/member/**"/>
 	<mapping path="/sell/**"/>
 	<mapping path="/event/**"/>
@@ -84,22 +85,26 @@
 	<exclude-mapping path="/qna/list"/>
 	<exclude-mapping path="/qna/detail"/>
 	<beans:ref bean="memberInterceptor"/>
-	</interceptor>
+	</interceptor> -->
 	 
 	
+
 		<!-- URL, Interceptor 매핑 -->
-		<interceptor>
+ 		<interceptor>
+
 			<mapping path="/sell/*"/>
 			<exclude-mapping path="/sell/list"/>
- 			<exclude-mapping path="/sell/detail"/>
+ 			<exclude-mapping path="/sell/detail*"/>
  			<exclude-mapping path="/sell/pettx"/>
  			<exclude-mapping path="/sell/search"/>
  			<exclude-mapping path="/sell/Sellerlist"/>
  			<exclude-mapping path="/sell/add"/>
+ 			<exclude-mapping path="/sell/reviewadd"/>
+ 			<exclude-mapping path="/sell/reviewList"/>
 			<beans:ref bean="sellitemInterceptor"/>		
 		</interceptor>
 	 
-	</interceptors> 
+	</interceptors>  -->
 	
 	<context:component-scan base-package="com.pet.home" />
 	

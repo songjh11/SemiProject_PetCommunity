@@ -644,12 +644,24 @@
                           </div>
                         </div>
                     </div>
-                    <div>
-                      <label for="priceCount" class="font-weight-bold text-black"></label>
-                      <div class="field-icon-wrap">
-                        <input type="button" id="priceCount" class="btn btn-outline-danger" value="예상 금액 계산">
-                      </div>
-                    </div>
+                    <c:choose>
+	                    <c:when test="${empty member.userId}">
+	                    	<div>
+		                      <label for="priceCount" class="font-weight-bold text-black"></label>
+			                      <div class="field-icon-wrap">
+			                        <input type="button" id="needID" class="btn btn-outline-danger" value="예상 금액 계산">
+			                      </div>
+		                    </div>
+	                    </c:when>
+                    	<c:when test="${not empty member.userId}">
+		                    <div>
+		                      <label for="priceCount" class="font-weight-bold text-black"></label>
+			                      <div class="field-icon-wrap">
+			                        <input type="button" id="priceCount" class="btn btn-outline-danger" value="예상 금액 계산">
+			                      </div>
+		                    </div>
+					     </c:when>
+                    </c:choose>
                 </div>
           </div>
         </div>

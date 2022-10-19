@@ -40,11 +40,7 @@ public class SellitemInterceptor extends HandlerInterceptorAdapter{
 		
 		SellItemDTO itemDTO = new SellItemDTO();
 		itemDTO.setItemNum(Long.parseLong(itemNum));
-		itemDTO = itemService.getDetailOne(itemDTO);
-		System.out.println(itemDTO.getUserId());
-		
-		System.out.println(memberDTO.getUserId());
-				
+		itemDTO = itemService.getDetailOne(itemDTO);				
 		
 		if(memberDTO.getRoleNum().equals(1)) {
 			System.out.println("멤버번호: "+check);

@@ -41,12 +41,12 @@
 	</insert>
 	
 	<select id="getDetail" parameterType="BoardDTO" resultMap="getDetailResult">
-		SELECT E.*, EF.*, UC.*
+		SELECT E.*, EF.*, CU.*
 		FROM EVENT E 
 		LEFT JOIN EVENTFILE EF
 		ON E.NUM = EF.NUM
-		LEFT JOIN USERCOUPON UC
-		ON E.NUM = UC.NUM
+		LEFT JOIN COUPON CU
+		ON 1 = 1
 		WHERE E.NUM = #{num}
 	</select>
 	
@@ -60,6 +60,12 @@
 		
 		<association property="couponDTO" javaType="CouponDTO">
 			<id column="COUPONNUM" property="couponNum"/>
+			<result column="COUPONNAME" property="couponName"/>
+			<result column="EXPDATE" property="expDate"/>
+			<result column="REGDATE" property="regDate"/>
+			<result column="DISCOUNTMETHOD" property="discountMethod"/>
+			<result column="DISCOUNTRATE" property="discountRate"/>
+			<result column="DISCOUNTPRICE" property="discountPrice"/>
 		</association>
 		
 		<collection property="boardFileDTOs" javaType="List" ofType="BoardFileDTO">

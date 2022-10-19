@@ -41,9 +41,9 @@
 	<beans:bean class="com.pet.home.interceptor.MemberInterceptor" id="memberInterceptor"></beans:bean>
 	<beans:bean class="com.pet.home.interceptor.WriterCheckInterceptor" id="writerCheckInterceptor"></beans:bean>
 	
-	<interceptors>
+	<!-- <interceptors>
 	
-	<!--  관리자 인터셉터 -->
+	 관리자 인터셉터
 	<interceptor>
 		<mapping path="/notice/**"/>
 		<mapping path="/admin/**"/>
@@ -52,7 +52,7 @@
 		<beans:ref bean="adminCheckInterceptor"/>
 	</interceptor>
 	
-	<!-- <interceptor>
+	<interceptor>
 		<mapping path="/qna/update"/>
 		<mapping path="/qna/delete"/>
 		<mapping path="/sharing/update"/>
@@ -60,7 +60,7 @@
 		<mapping path="/event/update"/>
 		<mapping path="/event/delete"/>
 		<beans:ref bean="writerCheckInterceptor"/>
-	</interceptor> -->
+	</interceptor>
 	
 <!-- 	<interceptor>
 	<mapping path="/member/**"/>
@@ -88,8 +88,10 @@
 	</interceptor> -->
 	 
 	
+
 		<!-- URL, Interceptor 매핑 -->
  		<interceptor>
+
 			<mapping path="/sell/*"/>
 			<exclude-mapping path="/sell/list"/>
  			<exclude-mapping path="/sell/detail*"/>
@@ -102,7 +104,7 @@
 			<beans:ref bean="sellitemInterceptor"/>		
 		</interceptor>
 	 
-	</interceptors> 
+	</interceptors>  -->
 	
 	<context:component-scan base-package="com.pet.home" />
 	

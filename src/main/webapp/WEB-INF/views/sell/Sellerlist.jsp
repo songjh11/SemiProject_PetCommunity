@@ -103,6 +103,13 @@
                       </section>   
 
 			<div class="row gy-1">	
+			 <c:if test="${empty list}">
+	        	<div class="section-header">
+	         		<p>판매 중인 상품이 없습니다</p>
+	         		<p>다양한 상품을 등록하고 고객의 눈길을 사로잡으세요!</p>
+	        	</div>
+	       	 </c:if>
+			
               <c:forEach items="${list}" var="ar">
                 <div class="col-lg-3 col-md-4 d-flex align-items-stretch justify-content-center" data-aos="fade-up" data-aos-delay="100">
                   <div class="chef-member" style="width: 250px; height: 350px; margin-bottom: 15px; display: flex; flex-direction: column; align-items: center;">

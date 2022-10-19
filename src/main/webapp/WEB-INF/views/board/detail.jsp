@@ -26,10 +26,10 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Sample Inner Page</h2>
+          <h2>${board} Detail</h2>
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li>Sample Inner Page</li>
+            <li>${board} Detail</li>
           </ol>
         </div>
 

@@ -95,15 +95,11 @@ public class SellItemController {
 	
 	@GetMapping("Sellerlist")
 	public ModelAndView getSellerList(SellPager sellPager, HttpSession session) throws Exception {
-		System.out.println(sellPager.getItemCatg());
 		ModelAndView mv = new ModelAndView();
-		
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
 		sellPager.setUserId(memberDTO.getUserId());
-
 		List<SellItemDTO> ar = itemService.getSellerList(sellPager);
 		CategoryDTO categoryDTO = itemService.getCategory(sellPager.getItemCatg());
-		
 		mv.addObject("list", ar);
 		mv.addObject("pager", sellPager);
 		mv.addObject("category", categoryDTO);
@@ -146,7 +142,6 @@ public class SellItemController {
 	@PostMapping("add")
 	public ModelAndView setItemAddResult(SellItemDTO itemDTO, MultipartFile[] files, HttpSession session)
 			throws Exception {
-		System.out.println("add Post");
 		ModelAndView view = new ModelAndView();
 		session.getAttribute("member");
 		int result = itemService.setItemAdd(itemDTO, files, session.getServletContext());
@@ -178,20 +173,21 @@ public class SellItemController {
 		return mv;
 	}
 
-	@PostMapping("filedelete")
-	@ResponseBody
-	public int setFileDelete(SellFileDTO fileDTO, HttpSession session) throws Exception {
-		int result = itemService.setUpdateFileDelete(fileDTO, session.getServletContext());
-		return result;
-	}
+//	@PostMapping("filedelete")
+//	@ResponseBody
+//	public int setFileDelete(SellFileDTO fileDTO, HttpSession session) throws Exception {
+//		int result = itemService.setUpdateFileDelete(fileDTO, session.getServletContext());
+//		return result;
+//	}
 
-	@GetMapping("delete")
-	public ModelAndView setItemDelete(SellItemDTO itemDTO, HttpSession session) throws Exception {
+	@PostMapping("delete")
+	@ResponseBody
+	public int setItemDelete(SellItemDTO itemDTO, HttpSession session) throws Exception {
+		System.out.println("delete");
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/sell/list?itemCatg=" + itemDTO.getItemCatg());
 		int result = itemService.setItemDelete(itemDTO, session.getServletContext());
-
-		return mv;
+		return result;
 	}
 	
 	@GetMapping("pettx")
@@ -436,8 +432,6 @@ public class SellItemController {
 
 	@GetMapping("search")
 	public ModelAndView getItemOne(SellPager sellPager) throws Exception {
-		System.out.println(sellPager.getItemCatg());
-		System.out.println(sellPager.getSearch());
 		List<SellItemDTO> ar = itemService.getItemList(sellPager);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("list", ar);

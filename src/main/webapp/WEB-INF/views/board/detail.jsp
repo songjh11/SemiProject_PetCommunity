@@ -53,7 +53,7 @@
 			  </div>
 			</div>
 				<div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
-			  		<img src="../resources/upload/member/${requestScope.member.memberFileDTO.fileName}" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="300">
+			  		<img src="../../resources/upload/member/${requestScope.member.memberFileDTO.fileName}" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="300">
 				</div>
 		  </div>
 		</div>

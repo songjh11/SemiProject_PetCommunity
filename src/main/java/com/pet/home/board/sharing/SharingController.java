@@ -132,6 +132,7 @@ public class SharingController {
 		memberDTO.setUserName(userName);
 		memberDTO = adminDAO.getMemberByUserName(memberDTO);
 		
+		
 		Cookie[] cookies = request.getCookies();
 		
 		Cookie viewCookie = null;

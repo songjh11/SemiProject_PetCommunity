@@ -43,7 +43,7 @@
 	
 	<!-- <interceptors>
 	
-	 관리자 인터셉터
+	
 	<interceptor>
 		<mapping path="/notice/**"/>
 		<mapping path="/admin/**"/>
@@ -62,7 +62,7 @@
 		<beans:ref bean="writerCheckInterceptor"/>
 	</interceptor>
 	
-<!-- 	<interceptor>
+ 	<interceptor>
 	<mapping path="/member/**"/>
 	<mapping path="/sell/**"/>
 	<mapping path="/event/**"/>
@@ -85,11 +85,11 @@
 	<exclude-mapping path="/qna/list"/>
 	<exclude-mapping path="/qna/detail"/>
 	<beans:ref bean="memberInterceptor"/>
-	</interceptor> -->
+	</interceptor> 
 	 
 	
 
-		<!-- URL, Interceptor 매핑 -->
+		URL, Interceptor 매핑
  		<interceptor>
 
 			<mapping path="/sell/*"/>

@@ -456,10 +456,6 @@ public class SellItemController {
 			
 			Payment payment = client.paymentByImpUid(imp_uid).getResponse();
 			String paymentResult = payment.getStatus();
-			System.out.println("결제 객체: "+payment);
-			System.out.println("결제 상태: "+paymentResult);
-			System.out.println("Code: "+token.getCode());
-			System.out.println("token: "+token.getResponse().getToken());
 			
 			//결제되어야 할 금액 계산
 			Long totalPrice = itemService.setPrice(itemNum, revStartDate, revEndDate, adultsCount, dogCount); 
@@ -508,23 +504,23 @@ public class SellItemController {
 							return paymentResult;
 						}
 					
-				} else {
-					paymentResult = "결제 진행에 오류가 있습니다. 카드사에 문의해주세요.";
-					return paymentResult;
-				}
-			} else {//실결제 금액이 DB상 결제 금액과 다른 경우 DB에 인서트 되지 않고 결제 취소 진행
-					String reason = "결제 금액 상이함";
-					String code = itemService.setPurchaseCancel(token, reason, imp_uid);
-					if(code.equals("0")) {
-						paymentResult = "결제 금액 오류로 결제가 취소됩니다.";
-						return paymentResult;
-					} else {
-						paymentResult = "결제가 정상적으로 이루어지지 않았습니다. 카드사에 문의해주세요.";
-						return paymentResult;
-					}
-				}
-
-                          	            
+						} else {
+							paymentResult = "결제 진행에 오류가 있습니다. 카드사에 문의해주세요.";
+							return paymentResult;
+						}
+						} else {//실결제 금액이 DB상 결제 금액과 다른 경우 DB에 인서트 되지 않고 결제 취소 진행
+								String reason = "결제 금액 상이함";
+								String code = itemService.setPurchaseCancel(token, reason, imp_uid);
+								if(code.equals("0")) {
+									paymentResult = "결제 금액 오류로 결제가 취소됩니다.";
+									return paymentResult;
+								} else {
+									paymentResult = "결제가 정상적으로 이루어지지 않았습니다. 카드사에 문의해주세요.";
+									return paymentResult;
+								}
+						}
+		
+		                          	            
             }
 
 	

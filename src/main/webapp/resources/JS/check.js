@@ -273,10 +273,6 @@ rvBtnFrm.addEventListener("click", function(){
 //=====================================================================결제 api
   function requestPay() {
     
-    console.log(uiv);
-    console.log(tpv);
-    console.log(cpn);
-    
     // IMP.request_pay(param, callback) 결제창 호출
     IMP.request_pay({ // param
         pg: "html5_inicis",

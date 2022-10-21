@@ -26,4 +26,8 @@ public class ShopCartDAO {
 		return session.selectOne(NAMESPACE+"getShopCartCheck", shopCartDTO);
 	}
 	
+	public ShopCartDTO getCartOne(ShopCartDTO shopCartDTO) throws Exception {
+		return session.selectOne(NAMESPACE+"getCartOne", shopCartDTO);
+	}
+	
 }

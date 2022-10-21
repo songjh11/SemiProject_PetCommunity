@@ -2,7 +2,6 @@ package com.pet.home.sell;
 
 import java.io.File;
 
-import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -71,6 +70,10 @@ public class SellItemService {
 	public IamportClient getClient() {
 		this.client = new IamportClient("7768266328715148", "uETnhxe3MbNMjFN4Gs6U5PuiYYR6TWf9SFcGncxj9SWEcDAysad8JZmNnOYpChUkXzIdw7Ld9uTaSWuP");
 		return client;
+	}
+	
+	public ShopCartDTO getCartOne (ShopCartDTO shopCartDTO) throws Exception {
+		return shopCartDAO.getCartOne(shopCartDTO);
 	}
 	
 	

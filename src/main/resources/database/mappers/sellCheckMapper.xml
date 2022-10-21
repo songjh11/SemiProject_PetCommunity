@@ -160,7 +160,8 @@
 	</delete>
 	
 	<resultMap type="PurchaseDTO" id="getPurchaseListResult">
-		<id column="IMP_UID" property="imp_uid"/>
+		<id column="PURCHASENUM" property="purchaseNum"/>
+				<result column="IMP_UID" property="imp_uid"/>
 				<result column="MERCHANT_UID" property="merchant_uid"/>
 				<result column="ITEMNUM" property="itemNum"/>
 				<result column="AMOUNT" property="amount"/>

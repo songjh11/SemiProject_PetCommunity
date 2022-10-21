@@ -31,13 +31,13 @@
                 <img src="/resources/upload/sellfile/${itemDTO.fileDTOs['0'].fileName}" class="img-fluid" alt="">
               </div>
                 <div class="member-info">
-                  <h5>${itemDTO.itemNum}</h5>
+                  <h5 value = ${itemDTO.itemNum}>${itemDTO.itemNum}</h5>
                   <h4>${itemDTO.itemName}</h4>
                   <span>${itemDTO.shopCartDTOs[0].totalPrice}</span>
                   <p>${itemDTO.itemContents}</p>
                   <div class="social">
                     <button class="cartdel" type="button"><i class="bi bi-trash3"></i></button>
-                    <button class="cartCount" type="button" data-item-num="${itemDTO.itemNum}" data-item-name="${itemDTO.itemName}"><i class="bi bi-heart"></i></button>
+                    <button class="cartCount" type="button" data-item-num="${itemDTO.itemNum}" data-user-id="${itemDTO.userId}"><i class="bi bi-heart"></i></button>
                     <a href=""><i class="bi bi-instagram"></i></a>
                     <a href=""><i class="bi bi-linkedin"></i></a>
                   </div>
@@ -47,6 +47,8 @@
 
           </div>
         </c:forEach>
+
+        <button id="btnbtn">계산</button>
 
 
 

@@ -94,21 +94,28 @@ public class MemberController {
 		System.out.println("DB로그인 접속 (POST)");
 		
 		memberDTO = memberService.getLogin(memberDTO);
-
+		
+		System.out.println("차단여부 : "+memberDTO.getBlock());
+		
 		// request에 있는 파라미터를 session에 넣음
 		HttpSession session = request.getSession();
 		
 		// DB에서 가져온 DTO데이터를 JSP로 속성만들어서 보내기
 		//M.USERNAME, M.USERID, M.EMAIL, M.PHONE, R.ROLENUM, R.ROLENAME 내용물
-		session.setAttribute("member", memberDTO);
 		
-		if (memberDTO!=null) {
+		if (memberDTO!=null && memberDTO.getBlock() == 0) {
+			session.setAttribute("member", memberDTO);
 			System.out.println("로그인 성공");
+		}else if(memberDTO != null && memberDTO.getBlock() == 1){
+			mv.addObject("msg", "차단된 아이디 입니다. 고객센터로 문의해주세요.");
+			mv.addObject("url","login");
+			mv.setViewName("member/alert");
+			return mv;
 		}else {System.out.println("로그인 실패");
-		mv.addObject("msg", "아이디/비밀번호가 틀렸습니다.");
-		mv.addObject("url", "login");
-		mv.setViewName("member/alert");
-		return mv;
+			mv.addObject("msg", "아이디/비밀번호가 틀렸습니다.");
+			mv.addObject("url", "login");
+			mv.setViewName("member/alert");
+			return mv;
 		}
 		
 		mv.addObject("dto", memberDTO);

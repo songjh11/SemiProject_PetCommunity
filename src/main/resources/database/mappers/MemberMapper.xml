@@ -8,7 +8,7 @@
  <!-- =============LOGIN & JOIN =====================-->
  
  <select id="getLogin" parameterType="MemberDTO" resultMap="getLoginResult">
-SELECT M.USERNAME, M.USERID, M.EMAIL, M.PHONE, M.ROLENUM, R.ROLENAME
+SELECT M.USERNAME, M.USERID, M.EMAIL, M.PHONE, M.ROLENUM, R.ROLENAME, M.BLOCK
 		FROM MEMBER M
     		INNER JOIN
     		ROLE R
@@ -253,6 +253,7 @@ WHERE M.USERID = 'guest'
 		<result column="PHONE" property="phone"/>
 		<result column="EMAIL" property="email"/>
 		<result column="ROLENUM" property="roleNum" />
+		<result column="BLOCK" property="block"/>
 		<collection property="roleDTO" javaType="RoleDTO" ofType="RoleDTO">
 			<result column="ROLENAME" property="roleName" />
 		</collection>

@@ -154,7 +154,7 @@
   <c:choose>
     <c:when test="${sessionScope.member.userId eq sellItemDTO.userId}">
      <a href="./update?itemNum=${sellItemDTO.itemNum}"><button class="btn btn-danger">수정</button></a>
-     <a href="./delete?itemNum=${sellItemDTO.itemNum}"><button class="btn btn-danger" id="deleteItem">삭제</button></a>
+     <button type="button" class="btn btn-danger" id="deleteItem">삭제</button>
      </c:when>
      <c:when test="${sessionScope.dto.roleNum =='0'}">
        <a href="./update?itemNum=${sellItemDTO.itemNum}"><button class="btn btn-danger">수정</button></a>
@@ -226,12 +226,14 @@
       <input type="hidden" id="itemCatg" name="itemCatg" value="${sellItemDTO.itemCatg}">
       <input type="hidden" id="itemPrice" name="itemPrice" value="${sellItemDTO.itemPrice}">
       <input type="hidden" id="itemName" name="itemName" value="${sellItemDTO.itemName}">
+      <input type="hidden" id="bizId" name="bizId" value="${sellItemDTO.userId}">
       <input type="hidden" id="itemAddress" name="itemAddress" value="${sellItemDTO.itemAddress}">
       <input type="hidden" id="itemDeAddress" name="itemDeAddress" value="${sellItemDTO.itemDeAddress}">
       <input type="hidden" id="buyer_email" value="${sessionScope.member.email}">
       <input type="hidden" id="buyer_name" value="${sessionScope.member.userName}">
       <input type="hidden" id="buyer_tel" value="${sessionScope.member.phone}">
       <input type="hidden" id="userId" value="${sessionScope.member.userId}">
+      <input type="hidden" id="roleNum" value="${sessionScope.member.roleNum}">
 
       <div>
         <table class="table table-striped">

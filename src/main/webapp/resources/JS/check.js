@@ -308,12 +308,8 @@ rvBtnFrm.addEventListener("click", function(){
                   'userId': uiv,
                   'couponNum' : cpn
               },
-              error : function(xhr,status,error){
-                console.log(xhr.responseText);
-                console.log(status);
+              error : function(error){
                 console.log(error);
-                let data = xhr.responseText;
-                console.log(data);
               },
               success : function(paymentResult){
                 console.log(paymentResult);

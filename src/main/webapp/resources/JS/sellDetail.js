@@ -18,18 +18,13 @@ if(bizId.value == userId2.value){
     deleteItem.addEventListener("click", function(){
         let result = window.confirm("삭제하시겠습니까?");
         if(result == false){
-            console.log(result);
             return;
         } else {
             let itemNum = document.getElementById("itemNum");
-            console.log(itemNum.value);
-
-        
             const xhttp = new XMLHttpRequest();
             xhttp.open("post","./delete");
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("itemNum="+itemNum.value);
-        
             xhttp.onreadystatechange=function(){
                 if(xhttp.readyState==4&&xhttp.status==200){
                     let result = xhttp.responseText.trim();

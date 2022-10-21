@@ -408,18 +408,31 @@ public class MemberController {
 		return mv;
 	}
 	
-		@GetMapping("cart")
-		public ModelAndView getShopCartList(MemberDTO memberDTO, HttpSession session)throws Exception{
-			ModelAndView mv = new ModelAndView();
-			memberDTO = (MemberDTO)session.getAttribute("member");
-			memberDTO = memberService.getShopCartList(memberDTO);
-			
-			mv.addObject("list", memberDTO);
-			mv.addObject("what","cart");
-			mv.setViewName("member/list");
-			return mv;
-		}
+//		@GetMapping("cart")
+//		public ModelAndView getShopCartList(MemberDTO memberDTO, HttpSession session)throws Exception{
+//			ModelAndView mv = new ModelAndView();
+//			memberDTO = (MemberDTO)session.getAttribute("member");
+//			memberDTO = memberService.getShopCartList(memberDTO);
+//			
+//			mv.addObject("list", memberDTO);
+//			mv.addObject("what","cart");
+//			mv.setViewName("member/list");
+//			return mv;
+//		}
+	
+	@GetMapping("carttest")
+	public ModelAndView getShopCartList(MemberDTO memberDTO, HttpSession session)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		memberDTO = (MemberDTO)session.getAttribute("member");
+		memberDTO = memberService.getShopCartList(memberDTO);
 		
+		mv.addObject("list", memberDTO);
+		mv.addObject("what","cart");
+		mv.setViewName("member/carttest");
+		return mv;
+	}
+	
+	
 		@PostMapping("cart")
 		public ModelAndView setCartDelete(ShopCartDTO shopCartDTO, HttpSession session)throws Exception{
 			ModelAndView mv = new ModelAndView();

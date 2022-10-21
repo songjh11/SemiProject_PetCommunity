@@ -1,7 +1,7 @@
 var IMP = window.IMP; // 생략 가능
 IMP.init("imp12326472"); // 예: imp00000000
 
-var sellItemDTO = '${sellItemDTO}';
+const cartCount = document.querySelectorAll(".cartCount");
 
 let totalPrice = document.getElementById("totalPrice");
 const priceCount = document.getElementById("priceCount");
@@ -34,6 +34,20 @@ let date = new Date();
 let merchant_uid = date.getTime();
 const rvBtnFrm = document.getElementById("rvBtnFrm");
 let msg = "";
+
+cartCount.forEach(function(c){
+  c.addEventListener("click", function(){
+    let item_num = c.getAttribute("data-item-num");
+    let item_name = c.getAttribute("data-item-name");
+    console.log(item_num);
+    console.log(item_name);
+    for(let i=0; i<cartCount.length; i++){
+      console.log(i);
+    }
+  })
+});
+
+
 
 const btnShopCartFalse = document.getElementById("btnShopCartFalse");
 if(btnShopCartFalse == null){
@@ -134,30 +148,31 @@ dogCount.addEventListener("change", function(){
   totalPrice.value="0";
 });
 
-    // ------ 쿠폰 계산
-    if(coupon.value != ""){
-      arr = coupon.value.split("|");
 
-      rp = arr[0];
-      couponNum = arr[1];
-      method = arr[2];
-      
+          // ------ 쿠폰 계산
+          if(coupon.value != ""){
+            arr = coupon.value.split("|");
 
-      rp = Number(rp);
+            rp = arr[0];
+            couponNum = arr[1];
+            method = arr[2];
+            
 
-      if(method == '0'){
-        totalPrice.value = totalPrice.value*(100-rp)/ 100;
-        tpv = totalPrice.value; 
-      }else{
-        totalPrice.value = totalPrice.value - rp;
-        tpv = totalPrice.value;
-      }
-      
-      coupon.value = couponNum;
-      cpn = couponNum;
-    }
-    //----------------------
-    
+            rp = Number(rp);
+
+            if(method == '0'){
+              totalPrice.value = totalPrice.value*(100-rp)/ 100;
+              tpv = totalPrice.value; 
+            }else{
+              totalPrice.value = totalPrice.value - rp;
+              tpv = totalPrice.value;
+            }
+            
+            coupon.value = couponNum;
+            cpn = couponNum;
+          }
+          //----------------------
+          
 
 
 //==================================================================결제창 실행
@@ -181,7 +196,7 @@ rvBtnFrm.addEventListener("click", function(){
     console.log(uiv);
   
     if(tpv<=0){
-    alert("예상 결제 금액을 다시 확인해주세요")
+    alert("합계 금액 오류로 결제 진행이 어렵습니다")
     return;
     } else{
       dateResult = true;
@@ -194,10 +209,6 @@ rvBtnFrm.addEventListener("click", function(){
 
 //=====================================================================결제 api
   function requestPay() {
-    
-    console.log(uiv);
-    console.log(tpv);
-    console.log(cpn);
     
     // IMP.request_pay(param, callback) 결제창 호출
     IMP.request_pay({ // param

@@ -71,22 +71,16 @@ public class SellItemController {
 
 	@GetMapping("list")
 	public ModelAndView getItemList(SellPager sellPager, HttpSession session) throws Exception {
-		System.out.println(sellPager.getItemCatg());
 		ModelAndView mv = new ModelAndView();
-
 		List<SellItemDTO> ar = itemService.getItemList(sellPager);
 		CategoryDTO categoryDTO = itemService.getCategory(sellPager.getItemCatg());
-		
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
 		if(memberDTO != null) {
-			
 			List<SellItemDTO> sellItemDTOs = itemService.getPickStatus(memberDTO);
 			mv.addObject("pick", sellItemDTOs);
 			List<SellItemDTO> sellItemDTOs2 = itemService.getShopCartStatus(memberDTO);
 			mv.addObject("shopcart", sellItemDTOs2);
 		}
-		
-	
 		mv.addObject("list", ar);
 		mv.addObject("pager", sellPager);
 		mv.addObject("category", categoryDTO);
@@ -173,12 +167,12 @@ public class SellItemController {
 		return mv;
 	}
 
-//	@PostMapping("filedelete")
-//	@ResponseBody
-//	public int setFileDelete(SellFileDTO fileDTO, HttpSession session) throws Exception {
-//		int result = itemService.setUpdateFileDelete(fileDTO, session.getServletContext());
-//		return result;
-//	}
+	@PostMapping("filedelete")
+	@ResponseBody
+	public int setFileDelete(SellFileDTO fileDTO, HttpSession session) throws Exception {
+		int result = itemService.setUpdateFileDelete(fileDTO, session.getServletContext());
+		return result;
+	}
 
 	@PostMapping("delete")
 	@ResponseBody
@@ -532,17 +526,7 @@ public class SellItemController {
 
                           	            
             }
-	
-	//결제 리스트 출력
-	public ModelAndView getPurchaseList(String userId) throws Exception{
-		PurchaseDTO checkDTO = new PurchaseDTO();
-		checkDTO.setUserId(userId);
-		System.out.println(checkDTO.getUserId());
-//		List<CheckDTO> checkList = itemService.getPurchaseList(checkDTO);
-		ModelAndView mv = new ModelAndView();
-//		mv.addObject("checkList", checkList);
-		return mv;		
-	}
+
 	
 
 	

@@ -413,8 +413,9 @@ public class MemberController {
 			ModelAndView mv = new ModelAndView();
 			memberDTO = (MemberDTO)session.getAttribute("member");
 			memberDTO = memberService.getShopCartList(memberDTO);
-			
+			MemberDTO memberDTO2 = memberService.getTotalPrice(memberDTO);
 			mv.addObject("list", memberDTO);
+			mv.addObject("total", memberDTO2);
 			mv.addObject("what","cart");
 			mv.setViewName("member/list");
 			return mv;

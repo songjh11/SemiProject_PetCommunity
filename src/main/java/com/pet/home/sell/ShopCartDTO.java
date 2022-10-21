@@ -8,7 +8,35 @@ public class ShopCartDTO {
 	private Long totalCount;
 	private String shopStatus;
 	private Long itemPrice;
+	private String revStartDay;
+	private String revEndDay;
+	private Long adultsNum;
+	private Long dogNum;
 	
+	public String getRevStartDay() {
+		return revStartDay;
+	}
+	public void setRevStartDay(String revStartDay) {
+		this.revStartDay = revStartDay;
+	}
+	public String getRevEndDay() {
+		return revEndDay;
+	}
+	public void setRevEndDay(String revEndDay) {
+		this.revEndDay = revEndDay;
+	}
+	public Long getAdultsNum() {
+		return adultsNum;
+	}
+	public void setAdultsNum(Long adultsNum) {
+		this.adultsNum = adultsNum;
+	}
+	public Long getDogNum() {
+		return dogNum;
+	}
+	public void setDogNum(Long dogNum) {
+		this.dogNum = dogNum;
+	}
 	public Long getItemPrice() {
 		return itemPrice;
 	}

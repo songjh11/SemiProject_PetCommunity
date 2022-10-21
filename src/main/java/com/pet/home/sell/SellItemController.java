@@ -223,6 +223,8 @@ public class SellItemController {
 	@ResponseBody
 	public int setShopCartAdd(ShopCartDTO shopCartDTO, HttpSession session) throws Exception {
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		
+		System.out.println("dognum : "+shopCartDTO.getDogNum());
 		shopCartDTO.setUserId(memberDTO.getUserId());
 		int result = itemService.setShopCartAdd(shopCartDTO);
 		return result;

@@ -248,7 +248,7 @@
         		</tbody>
         	</table>
         	<div>
-        		총금액:<input type="text" readonly="readonly" value="${total.totalPrice }">
+        		총금액:<input type="text" readonly="readonly" value="${total.totalPrice }" id="coupontotal">
         		<button type="button" class="btn btn-danger">결제하기</button>
         	</div>
           <div>

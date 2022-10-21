@@ -83,7 +83,7 @@ let cpn = "";
 
 
 
-        
+coupon.addEventListener("change", function(){     
           // ------ 쿠폰 계산
           if(coupon.value != ""){
             arr = coupon.value.split("|");
@@ -92,20 +92,23 @@ let cpn = "";
             couponNum = arr[1];
             method = arr[2];
             
-
+           
             rp = Number(rp);
 
             if(method == '0'){
               totalPrice.value = totalPrice.value*(100-rp)/ 100;
               tpv = totalPrice.value; 
+              coupontotal.value=totalPrice.value;
             }else{
               totalPrice.value = totalPrice.value - rp;
               tpv = totalPrice.value;
+              coupontotal.value = totalPrice.value;
             }
             
             coupon.value = couponNum;
             cpn = couponNum;
           }
+})
 function cart(cartArr){
 
     for(let i=0; i<cartArr.length; i=i+7){

@@ -244,7 +244,7 @@ FROM MEMBER M
      INNER JOIN
      SHOPCART S
      ON M.USERID = S.USERID
-WHERE M.USERID = 'guest'
+WHERE M.USERID = #{userId}
 </select>
 		
 	<resultMap type="MemberDTO" id="getLoginResult">

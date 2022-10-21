@@ -92,12 +92,13 @@ if(btnShopCartFalse == null){
       }
       else if(tpv>0){
           let itemNum = btnShopCartAdd.getAttribute("data-item-num");
+          let itemPrice = 0;
           if(rp == null){
-            let itemPrice = tpv;
+            itemPrice = tpv;
           }
           else{
             tpv = totalPrice.value*100/(100-rp)
-            let itemPrice = tpv;
+            itemPrice = tpv;
           }
           let revStartDay = rsv;
           let revEndDay = rev;
@@ -352,4 +353,3 @@ rvBtnFrm.addEventListener("click", function(){
         }
       })
   };
-

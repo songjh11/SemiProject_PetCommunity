@@ -419,6 +419,12 @@ public class MemberController {
 		public ModelAndView getShopCartList(MemberDTO memberDTO, HttpSession session)throws Exception{
 			ModelAndView mv = new ModelAndView();
 			memberDTO = (MemberDTO)session.getAttribute("member");
+			try {
+				List<CouponDTO> couponList = memberService.getCouponList(memberDTO);
+				mv.addObject("couponList", couponList);				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 			memberDTO = memberService.getShopCartList(memberDTO);
 			MemberDTO memberDTO2 = memberService.getTotalPrice(memberDTO);
 			mv.addObject("list", memberDTO);

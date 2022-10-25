@@ -38,9 +38,9 @@ function reviewList(){
                 console.log(ar[i].rvFileDTOs[0].fileName);
                 if(!ar[i].rvCommentDTOs[0].rvcNum){
                     
-                    let tr = document.createElement("tr"); // <tr></tr>
-                    let tr2 = document.createElement("tr"); // <tr></tr>
-                    let td = document.createElement("td"); // <td></td>
+                    let tr = document.createElement("tr"); 
+                    let tr2 = document.createElement("tr"); 
+                    let td = document.createElement("td"); 
                     tdstyle = document.createAttribute("style");
                     tdstyle.value = "width:10%;";
                     td.setAttributeNode(tdstyle);
@@ -537,12 +537,12 @@ function reviewList(){
                 }
 
                 else{
-                    let tr = document.createElement("tr"); // <tr></tr>
-                    let tr2 = document.createElement("tr"); // <tr></tr>
+                    let tr = document.createElement("tr"); 
+                    let tr2 = document.createElement("tr"); 
                     let trid = document.createAttribute("id");
                     trid.value = "id"+ar[i].rvNum;
                     tr.setAttributeNode(trid);
-                    let td = document.createElement("td"); // <td></td>
+                    let td = document.createElement("td"); 
                     tdstyle = document.createAttribute("style");
                     tdstyle.value = "width:10%;";
                     td.setAttributeNode(tdstyle);
@@ -1440,8 +1440,8 @@ function qnaList(){
     
             for(let i=0; i<ar.length; i++){
                 if(!ar[i].sellQnaCommentDTOs[0].sqNum){
-                    let tr = document.createElement("tr"); // <tr></tr>
-                    let td = document.createElement("td"); // <td></td>
+                    let tr = document.createElement("tr"); 
+                    let td = document.createElement("td"); 
                     let tdText = document.createTextNode(ar[i].userId);
                     td.appendChild(tdText);           
                     tr.appendChild(td);
@@ -1573,11 +1573,11 @@ function qnaList(){
                     qna.append(tr);
                 }
                 else{
-                    let tr = document.createElement("tr"); // <tr></tr>
+                    let tr = document.createElement("tr"); 
                     let trid = document.createAttribute("id");
                     trid.value = "id"+ar[i].qnaNum;
                     tr.setAttributeNode(trid);
-                    let td = document.createElement("td"); // <td></td>
+                    let td = document.createElement("td"); 
                     let tdText = document.createTextNode(ar[i].userId);
                     td.appendChild(tdText);           
                     tr.appendChild(td);

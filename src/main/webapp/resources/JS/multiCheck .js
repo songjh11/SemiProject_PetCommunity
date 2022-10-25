@@ -1,3 +1,4 @@
+
 var IMP = window.IMP; // 생략 가능
 IMP.init("imp12326472"); // 예: imp00000000
 
@@ -35,79 +36,40 @@ let merchant_uid = date.getTime();
 const rvBtnFrm = document.getElementById("rvBtnFrm");
 let msg = "";
 
-const btnShopCartFalse = document.getElementById("btnShopCartFalse");
-if(btnShopCartFalse == null){
-  const btnShopCartAdd = document.getElementById("btnShopCartAdd");
-  if(btnShopCartAdd == null){
-    const btnShopCartDelete = document.getElementById("btnShopCartDelete");
-    btnShopCartDelete.addEventListener("click",function(){
-      let result = window.confirm("이미 장바구니에 담긴 상품입니다. \n 장바구니에서 빼고 다시 넣겠습니까?");
-      if(!result){
-          return;
-      }
-      else{ 
-          let itemNum = btnShopCartDelete.getAttribute("data-item-num");
-          const xHttp = new XMLHttpRequest();
-          xHttp.open("POST","../sell/shopcartdelete");
-          xHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-          xHttp.send("itemNum="+itemNum);
-          xHttp.onreadystatechange = function(){
-              if(xHttp.readyState == 4 && xHttp.status == 200){
-                  let result = xHttp.responseText.trim();
-                  if(result == 1){
-                      alert("장바구니에서 빼기 성공");
-                      return window.location.href='/sell/list?itemCatg='+itemCatg.value;
-                  }
-                  else{
-                      alert("장바구니에서 빼기 실패");
-                      return;
+
+
+const btnCartDelete = document.getElementsByClassName("btnCartDelete")
+for(let i=0; i<btnCartDelete.length; i++){
+
+    btnCartDelete[i].addEventListener("click",function(){
+          let result = window.confirm("장바구니에서 빼시겠습니까?");
+          if(!result){
+              return;
+          }
+          else{ 
+              let itemNum = btnCartDelete[i].getAttribute("data-item-num");
+              const xHttp = new XMLHttpRequest();
+              xHttp.open("POST","../../../sell/shopcartdelete");
+              xHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+              xHttp.send("itemNum="+itemNum);
+              xHttp.onreadystatechange = function(){
+                  if(xHttp.readyState == 4 && xHttp.status == 200){
+                      let result = xHttp.responseText.trim();
+                      if(result == 1){
+                          alert("장바구니에서 빼기 성공");
+                          return window.location.href="/member/cart";
+                      }
+                      else{
+                          alert("장바구니에서 빼기 실패");
+                          return;
+                      }
                   }
               }
           }
-      }
     });
-  }
-  else{
-    btnShopCartAdd.addEventListener("click",function(){
-      let tpv = totalPrice.value;
-      if(tpv<=0){
-          alert("예상 금액 확인을 먼저 체크하신후 \n 이용해주세요.");
-      }
-      else if(tpv>0){
-          let itemNum = btnShopCartAdd.getAttribute("data-item-num");
-          let itemPrice = tpv;
-          const xHttp = new XMLHttpRequest();
-          xHttp.open("POST","./shopcartadd");
-          xHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-          xHttp.send("itemNum="+itemNum+"&itemPrice="+itemPrice);
-          xHttp.onreadystatechange = function(){
-              if(xHttp.readyState == 4 && xHttp.status == 200){
-                  let result = xHttp.responseText.trim();
-                  if(result == 1){
-                      alert("장바구니 담기 성공");
-                      return window.location.href='/sell/list?itemCatg='+itemCatg.getAttribute("value");
-                  }
-                  else{
-                      alert("장바구니에 담기 실패");
-                      return;
-                  }
-              }
-          }
-      }
-    });
-  }
 }
-else{
-  btnShopCartFalse.addEventListener("click",function(){
-    let result = window.confirm("장바구니 담기는 로그인후 사용가능합니다. \n 로그인 화면으로 가시겠습니까?");
-    if(!result){
-        return;
-    }
-    else{
-        return window.location.href='/member/login';
-    }
-  })
-}
+
+
 
 const coupon = document.getElementById("coupon");
 let arr = [];
@@ -117,51 +79,62 @@ let method = "";
 let cpn = "";
 
 
-revStartDate.addEventListener("change", function(){
-  totalPrice.value="0";
-});
-
-revEndDate.addEventListener("change", function(){
-  totalPrice.value="0";
-});
 
 
-adultsCount.addEventListener("change", function(){
-  totalPrice.value="0";
-});
 
-dogCount.addEventListener("change", function(){
-  totalPrice.value="0";
-});
+let couponi = 0;
+coupon.addEventListener("change", function(){     
+  // ------ 쿠폰 계산
+         if(coupon.value != ""){
+                couponi++;
+              if(couponi > 1){
+                  return;
+              }
+            arr = coupon.value.split("|");
 
-    // ------ 쿠폰 계산
-    if(coupon.value != ""){
-      arr = coupon.value.split("|");
+            rp = arr[0];
+            couponNum = arr[1];
+            method = arr[2];
+            
+           
+            rp = Number(rp);
 
-      rp = arr[0];
-      couponNum = arr[1];
-      method = arr[2];
-      
+            if(method == '0'){
+              totalPrice.value = totalPrice.value*(100-rp)/ 100;
+              tpv = totalPrice.value; 
+              // coupontotal.value=totalPrice.value;
+              // abc = totalPrice.value;
+            }else{
+              totalPrice.value = totalPrice.value - rp;
+              tpv = totalPrice.value;
+              // coupontotal.value = totalPrice.value;
+              // abc = totalPrice.value;
+            }
+            
+            coupon.value = couponNum;
+            cpn = couponNum;
+          }else{
+            totalPrice.value = abc;
+            couponi--;
+          }
+})
+function cart(cartArr){
 
-      rp = Number(rp);
-
-      if(method == '0'){
-        totalPrice.value = totalPrice.value*(100-rp)/ 100;
-        tpv = totalPrice.value; 
-      }else{
-        totalPrice.value = totalPrice.value - rp;
-        tpv = totalPrice.value;
-      }
-      
-      coupon.value = couponNum;
-      cpn = couponNum;
+    for(let i=0; i<cartArr.length; i=i+7){
+      console.log(cartArr[i]);
+      console.log(cartArr[i+1]);
+      console.log(cartArr[i+2]);
+      console.log(cartArr[i+3]);
+      console.log(cartArr[i+4]);
+      console.log(cartArr[i+5]);
+      console.log(cartArr[i+6]);
     }
-    //----------------------
-    
-
-
+  }
 //==================================================================결제창 실행
-rvBtnFrm.addEventListener("click", function(){
+rvBtnFrm.addEventListener("click", function (){
+    
+   
+
     let dateResult = false;
     itn = itemNum2.value;
     itg = itemCatg.value;
@@ -259,5 +232,4 @@ rvBtnFrm.addEventListener("click", function(){
         }
       })
   };
-
 

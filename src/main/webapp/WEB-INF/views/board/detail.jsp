@@ -26,10 +26,10 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Sample Inner Page</h2>
+          <h2>${board} Detail</h2>
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li>Sample Inner Page</li>
+            <li>${board} Detail</li>
           </ol>
         </div>
 
@@ -53,7 +53,7 @@
 			  </div>
 			</div>
 				<div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
-			  		<img src="../resources/upload/member/${requestScope.member.memberFileDTO.fileName}" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="300">
+			  		<img src="../../resources/upload/member/${requestScope.member.memberFileDTO.fileName}" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="300">
 				</div>
 		  </div>
 		</div>

@@ -83,21 +83,37 @@ if(btnShopCartFalse == null){
   else{
     btnShopCartAdd.addEventListener("click",function(){
       let tpv = totalPrice.value;
+      let rsv = revStartDate.value;
+      let rev = revEndDate.value;
+      let ac = adultsCount.value;
+      let dc = dogCount.value;
       if(tpv<=0){
           alert("예상 금액 확인을 먼저 체크하신후 \n 이용해주세요.");
       }
       else if(tpv>0){
           let itemNum = btnShopCartAdd.getAttribute("data-item-num");
-          let itemPrice = tpv;
+          let itemPrice = 0;
+          if(rp == null){
+            itemPrice = tpv;
+          }
+          else{
+            tpv = totalPrice.value*100/(100-rp)
+            itemPrice = tpv;
+          }
+          let revStartDay = rsv;
+          let revEndDay = rev;
+          let adultsNum = ac;
+          let dogNUM = dc;
           const xHttp = new XMLHttpRequest();
           xHttp.open("POST","./shopcartadd");
           xHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-          xHttp.send("itemNum="+itemNum+"&itemPrice="+itemPrice);
+          xHttp.send("itemNum="+itemNum+"&itemPrice="+itemPrice+"&revStartDay="+revStartDay+"&revEndDay="+revEndDay+"&adultsNum="+adultsNum+"&dogNum="+dogNUM);
           xHttp.onreadystatechange = function(){
               if(xHttp.readyState == 4 && xHttp.status == 200){
                   let result = xHttp.responseText.trim();
                   if(result == 1){
                       alert("장바구니 담기 성공");
+                      alert("장바구니에 담길때는 쿠폰이 적용 안된 금액으로 표시되므로 \n 장바구니에서 결제시 다시 쿠폰을 적용시켜주세요");
                       return window.location.href='/sell/list?itemCatg='+itemCatg.getAttribute("value");
                   }
                   else{
@@ -337,5 +353,3 @@ rvBtnFrm.addEventListener("click", function(){
         }
       })
   };
-
-

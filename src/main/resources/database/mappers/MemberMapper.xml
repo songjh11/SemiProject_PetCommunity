@@ -8,7 +8,7 @@
  <!-- =============LOGIN & JOIN =====================-->
  
  <select id="getLogin" parameterType="MemberDTO" resultMap="getLoginResult">
-SELECT M.USERNAME, M.USERID, M.EMAIL, M.PHONE, M.ROLENUM, R.ROLENAME
+SELECT M.USERNAME, M.USERID, M.EMAIL, M.PHONE, M.ROLENUM, R.ROLENAME, M.BLOCK
 		FROM MEMBER M
     		INNER JOIN
     		ROLE R
@@ -224,7 +224,7 @@ WHERE M.USERID =#{userId} ORDER BY P.PICKNUM DESC
 </select>
 
 <select id="getShopCartList" parameterType="MemberDTO" resultMap="getShopCartListResult">
-SELECT M.USERID,S.SHOPNUM,S.TOTALPRICE,SI.ITEMNUM,SI.ITEMNAME,SI.ITEMPRICE,SI.ITEMCONTENTS,SF.FILENAME
+SELECT M.USERID,S.SHOPNUM,S.TOTALPRICE,SI.ITEMNUM,SI.ITEMNAME,SI.ITEMPRICE,SI.ITEMCONTENTS,SF.FILENAME,S.REVSTARTDAY,S.REVENDDAY,S.ADULTSNUM,S.DOGNUM
 FROM MEMBER M
      INNER JOIN
      SHOPCART S
@@ -239,12 +239,12 @@ WHERE M.USERID =#{userId} ORDER BY S.SHOPNUM DESC
 </select>
 
 <select id="getTotalPrice" parameterType="MemberDTO" resultType="MemberDTO">
-SELECT SUM(S.TOTALPRICE*S.TOTALCOUNT) AS TOTALPRICE
+SELECT SUM(S.TOTALPRICE) AS TOTALPRICE
 FROM MEMBER M
      INNER JOIN
      SHOPCART S
      ON M.USERID = S.USERID
-WHERE M.USERID = 'guest'
+WHERE M.USERID = #{userId}
 </select>
 		
 	<resultMap type="MemberDTO" id="getLoginResult">
@@ -253,6 +253,7 @@ WHERE M.USERID = 'guest'
 		<result column="PHONE" property="phone"/>
 		<result column="EMAIL" property="email"/>
 		<result column="ROLENUM" property="roleNum" />
+		<result column="BLOCK" property="block"/>
 		<collection property="roleDTO" javaType="RoleDTO" ofType="RoleDTO">
 			<result column="ROLENAME" property="roleName" />
 		</collection>
@@ -297,6 +298,10 @@ WHERE M.USERID = 'guest'
 		<result column="ITEMCONTENTS" property="itemContents"/>
 		<collection property="shopCartDTOs" javaType="List" ofType="ShopCartDTO">
 		<result column="TOTALPRICE" property="totalPrice"/>
+		<result column="REVSTARTDAY" property="revStartDay"/>
+		<result column="REVENDDAY" property="revEndDay"/>
+		<result column="ADULTSNUM" property="adultsNum"/>
+		<result column="DOGNUM" property="dogNum"/>
 		</collection>
 		<collection property="fileDTOs" javaType="List" ofType="SellFileDTO">
 			<result column="FILENAME" property="fileName"/>

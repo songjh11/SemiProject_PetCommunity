@@ -122,7 +122,7 @@ join.addEventListener("click", function(){
 
          if(roleNum==1){if( 
             userIdCheck==true &&idUsedCheck==true && pwCheck==true && pw2Check==true && userNameCheck==true 
-            && emailCheck==true && phoneCheck==true 
+            && emailCheck==true
             && itemZipCodeCheck==true && addressCheck==true && deAddressCheck==true){
             joinfrm.submit();
           }else{
@@ -130,7 +130,7 @@ join.addEventListener("click", function(){
          }else if(roleNum==2){
             if(
                 userIdCheck==true && idUsedCheck==true && pwCheck==true && pw2Check==true && userNameCheck==true && emailCheck==true
-                && phoneCheck==true && itemZipCodeCheck==true && addressCheck==true && deAddressCheck==true 
+                && itemZipCodeCheck==true && addressCheck==true && deAddressCheck==true 
                 && petCatgCheck==true &&  petNameCheck==true && filesCheck==true){
               joinfrm.submit();
               }else{
@@ -138,7 +138,7 @@ join.addEventListener("click", function(){
 
          }else if(roleNum==0){if(
             userIdCheck==true && idUsedCheck==true && pwCheck==true && pw2Check==true && userNameCheck==true && emailCheck==true
-             && phoneCheck==true && itemZipCodeCheck==true && addressCheck==true && deAddressCheck==true){
+             && itemZipCodeCheck==true && addressCheck==true && deAddressCheck==true){
            joinfrm.submit();
           }else{
             alert("필수 항목을 다시 확인하세요.")
@@ -246,16 +246,6 @@ join.addEventListener("click", function(){
         });
 
     
-        phone.addEventListener("change", function(){
- 
-        if(0<phone.value.length && phone.value.length<12){
-            phone.focus();
-            phoneCheck=false;
-            d4.innerHTML='올바른 번호를 입력해주세요.';
-        }else{ phoneCheck=true;
-            d4.innerHTML='';}
-    
-        });
            
         email.addEventListener("change", function(){
             const e = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;

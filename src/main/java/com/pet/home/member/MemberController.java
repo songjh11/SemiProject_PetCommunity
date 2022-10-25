@@ -773,9 +773,6 @@ public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 			@RequestParam String reason,
 			@RequestParam String amount
 			) throws Exception {
-		System.out.println("purchaseDelete");
-		System.out.println(merchant_uid);
-		System.out.println(imp_uid);
 		String msg = "";
 		ModelAndView mv = new ModelAndView("jsonView");
 		
@@ -784,7 +781,6 @@ public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 		token = sellItemService.getToken();
 		String code = sellItemService.setPurchaseCancel(token, reason, imp_uid);
 			if(code.equals("0")) {
-				System.out.println("코드 0 ㅇㅋ");
 				//구매 상태 변경
 				int result = sellItemService.setPurchaseStatus(merchant_uid);
 				PurchaseCancelDTO cancelDTO = new PurchaseCancelDTO();
@@ -792,21 +788,17 @@ public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 				cancelDTO.setMerchant_uid(merchant_uid);
 				cancelDTO.setReason(reason);
 				int cancelResult = sellItemService.setPurchaseCancelOne(cancelDTO);
-				System.out.println("cancelResult: "+cancelResult);
-				if(result>0) {
-					System.out.println("디비 변경 완");
-					msg = "success";
+					if(result>0) {
+						msg = "success";
+					} else {
+						msg = "error";
+					}
 				} else {
-					System.out.println("디비 변경 실패ㅠ");
-					msg = "error";
-				}
-			} else {
-					System.out.println("실패ㅠ");
-					msg = "error";
-				}
-			mv.addObject("msg", msg);
-			return mv;
-	}
+						msg = "error";
+					}
+				mv.addObject("msg", msg);
+				return mv;
+		}
 	
 	//셀러 결제 내역 리스트	
 		@GetMapping("purchaseSellerList")

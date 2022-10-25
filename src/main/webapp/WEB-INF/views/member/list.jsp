@@ -248,7 +248,7 @@
         		</tbody>
         	</table>
         	<div>
-        		총금액:<input type="text" readonly="readonly" value="${total.totalPrice }" id="coupontotal">
+        		총금액:<input type="text" readonly="readonly" value="${total.totalPrice}" id="totalPrice">
         		<button type="button" class="btn btn-danger">결제하기</button>
         	</div>
           <div>
@@ -406,6 +406,9 @@
   <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
   <!-- footer end -->
   
+  <script>
+    let abc = "${total.totalPrice}";
+  </script>
   <script src="/resources/JS/follow.js"></script>
   <script src="/resources/JS/multiCheck .js"></script>
   <script>

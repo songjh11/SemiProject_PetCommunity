@@ -82,10 +82,14 @@ let cpn = "";
 
 
 
-
+let couponi = 0;
 coupon.addEventListener("change", function(){     
-          // ------ 쿠폰 계산
-          if(coupon.value != ""){
+  // ------ 쿠폰 계산
+         if(coupon.value != ""){
+                couponi++;
+              if(couponi > 1){
+                  return;
+              }
             arr = coupon.value.split("|");
 
             rp = arr[0];
@@ -98,15 +102,20 @@ coupon.addEventListener("change", function(){
             if(method == '0'){
               totalPrice.value = totalPrice.value*(100-rp)/ 100;
               tpv = totalPrice.value; 
-              coupontotal.value=totalPrice.value;
+              // coupontotal.value=totalPrice.value;
+              // abc = totalPrice.value;
             }else{
               totalPrice.value = totalPrice.value - rp;
               tpv = totalPrice.value;
-              coupontotal.value = totalPrice.value;
+              // coupontotal.value = totalPrice.value;
+              // abc = totalPrice.value;
             }
             
             coupon.value = couponNum;
             cpn = couponNum;
+          }else{
+            totalPrice.value = abc;
+            couponi--;
           }
 })
 function cart(cartArr){

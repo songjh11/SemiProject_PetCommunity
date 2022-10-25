@@ -234,7 +234,7 @@
 				<tbody>
 					<c:forEach items="${list.itemDTOs}" var="itemDTO">
 					<tr>
-						<td>${itemDTO.itemNum }</td>
+						<td class="itnValue" data-item-num="${itemDTO.itemNum}">${itemDTO.itemNum }</td>
 						<td><img style="border: 0px; outline: 0px; width: 70px; height: 70px;" src="/resources/upload/sellfile/${itemDTO.fileDTOs['0'].fileName}" class="img-fluid" alt=""></td>
           				<td>${itemDTO.itemName }</td>
           				<td>${itemDTO.shopCartDTOs[0].totalPrice }</td>
@@ -249,7 +249,7 @@
         	</table>
         	<div>
         		총금액:<input type="text" readonly="readonly" value="${total.totalPrice}" id="totalPrice">
-        		<button type="button" class="btn btn-danger">결제하기</button>
+        		<button type="button" class="btn btn-danger" id="multiCheckBtn">결제하기</button>
         	</div>
           <div>
             <c:catch>
@@ -426,9 +426,6 @@
           cartArr.push("${itemDTO.shopCartDTOs[0].dogNum }");
         </c:forEach> 
 
-        cart(cartArr);
-
-      
   </script>
 
 <!-- <script>

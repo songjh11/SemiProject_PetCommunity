@@ -35,6 +35,8 @@ let date = new Date();
 let merchant_uid = date.getTime();
 const rvBtnFrm = document.getElementById("rvBtnFrm");
 let msg = "";
+const multiCheckBtn = document.getElementById("multiCheckBtn");
+const itnValue = document.getElementsByClassName("itnValue");
 
 
 
@@ -118,51 +120,33 @@ coupon.addEventListener("change", function(){
             couponi--;
           }
 })
-function cart(cartArr){
 
-    for(let i=0; i<cartArr.length; i=i+7){
-      console.log(cartArr[i]);
-      console.log(cartArr[i+1]);
-      console.log(cartArr[i+2]);
-      console.log(cartArr[i+3]);
-      console.log(cartArr[i+4]);
-      console.log(cartArr[i+5]);
-      console.log(cartArr[i+6]);
-    }
-  }
 //==================================================================결제창 실행
-rvBtnFrm.addEventListener("click", function (){
+multiCheckBtn.addEventListener("click", function (){
+  // let dateResult = false;
+ 
+  console.log(itnValue.length)
+  let itnArr = [];
     
-   
+  for(let i=0; i<itnValue.length; i=i++){
+    console.log(itnValue[i].getAttribute("data-item-num"));
+  }
 
-    let dateResult = false;
-    itn = itemNum2.value;
-    itg = itemCatg.value;
-    rsv = revStartDate.value;
-    rev = revEndDate.value;
-    ac = adultsCount.value;
-    dc = dogCount.value;
-    tpv = totalPrice.value;
-    bev = buyer_email.value;
-    bnv = buyer_name.value;
-    btv = buyer_tel.value;
-    uiv = userId.value;
-    inv = itemName.value;
-    cpn = couponNum;
+  //   cpn = couponNum;
 
-    console.log(tpv);
-    console.log(uiv);
+  //   console.log(tpv);
+  //   console.log(uiv);
   
-    if(tpv<=0){
-    alert("예상 결제 금액을 다시 확인해주세요")
-    return;
-    } else{
-      dateResult = true;
-    }
+  //   if(tpv<=0){
+  //   alert("예상 결제 금액을 다시 확인해주세요")
+  //   return;
+  //   } else{
+  //     dateResult = true;
+  //   }
   
-  if(dateResult){
-    requestPay();
-  } 
+  // if(dateResult){
+  //   requestPay();
+  // } 
 });
 
 //=====================================================================결제 api

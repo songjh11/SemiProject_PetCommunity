@@ -842,6 +842,9 @@ public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 					System.out.println(c.getFileDTOs().get(0).getFileName());
 				}
 				return mv;
-			}	
+			}
+			
+
+			
 }
 	

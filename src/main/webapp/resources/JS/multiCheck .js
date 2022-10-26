@@ -36,7 +36,7 @@ let merchant_uid = date.getTime();
 const rvBtnFrm = document.getElementById("rvBtnFrm");
 let msg = "";
 const multiCheckBtn = document.getElementById("multiCheckBtn");
-const itnValue = document.getElementsByClassName("itnValue");
+const itnValueA = document.getElementsByClassName("itnValueA");
 
 
 
@@ -123,39 +123,47 @@ coupon.addEventListener("change", function(){
 
 //==================================================================결제창 실행
 multiCheckBtn.addEventListener("click", function (){
-  // let dateResult = false;
+  let dateResult = false;
  
-  console.log(itnValue.length)
+  console.log(itnValueA.length)
   let itnArr = [];
     
-  for(let i=0; i<itnValue.length; i=i++){
-    console.log(itnValue[i].getAttribute("data-item-num"));
+  for(let i=0; i<itnValueA.length; i++){
+    itnArr.push(itnValueA[i].getAttribute("data-item-num"));
+    console.log(itnArr[i]);
   }
 
-  //   cpn = couponNum;
+    inv = itnValueA[0].getAttribute("data-item-name")+"외";
+    tpv = totalPrice.value;
+    bev = buyer_email.value;
+    bnv = buyer_name.value;
+    btv = buyer_tel.value;
+    uiv = userId.value;
+    cpn = couponNum;
 
-  //   console.log(tpv);
-  //   console.log(uiv);
+    console.log(tpv);
+    console.log(uiv);
+    console.log(inv);
+    console.log(bev);
+    console.log(bnv);
+    console.log(btv);
+    console.log(cpn);
   
-  //   if(tpv<=0){
-  //   alert("예상 결제 금액을 다시 확인해주세요")
-  //   return;
-  //   } else{
-  //     dateResult = true;
-  //   }
+    if(tpv<=0){
+    alert("예상 결제 금액을 다시 확인해주세요")
+    return;
+    } else{
+      dateResult = true;
+    }
   
-  // if(dateResult){
-  //   requestPay();
-  // } 
+  if(dateResult){
+    requestPay();
+  } 
 });
 
 //=====================================================================결제 api
   function requestPay() {
-    
-    console.log(uiv);
-    console.log(tpv);
-    console.log(cpn);
-    
+   
     // IMP.request_pay(param, callback) 결제창 호출
     IMP.request_pay({ // param
         pg: "html5_inicis",
@@ -166,24 +174,27 @@ multiCheckBtn.addEventListener("click", function (){
         buyer_email: bev,
         buyer_name: bnv,
         buyer_tel: btv,
-        revStartDate: rsv,
         notice_url : 'http://localhost/member/purchaseList'
     }, function (rsp) { // callback
         // 결제검증
         if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+          let itnArr = [];
+    
+          for(let i=0; i<itnValueA.length; i++){
+            itnArr.push(itnValueA[i].getAttribute("data-item-num"));
+            console.log(itnArr[i]);
+          }
+         
           // jQuery로 HTTP 요청
           $.ajax({
-              url: "./payments", // 예: https://www.myservice.com/payments/complete
+              url: "./cartPayments", // 예: https://www.myservice.com/payments/complete
               type: "POST",
+              traditional: true,
               data: {
                   'imp_uid': rsp.imp_uid,
                   'merchant_uid': rsp.merchant_uid,
                   'amount': tpv,
-                  'revStartDate': rsv,
-                  'itemNum': itn,
-                  'revEndDate': rev,
-                  'adultsCount': ac,
-                  'dogCount': dc,
+                  'itemNum': itnArr,
                   'userId': uiv,
                   'couponNum' : cpn
               },

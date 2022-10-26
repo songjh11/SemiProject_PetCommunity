@@ -224,7 +224,7 @@ WHERE M.USERID =#{userId} ORDER BY P.PICKNUM DESC
 </select>
 
 <select id="getShopCartList" parameterType="MemberDTO" resultMap="getShopCartListResult">
-SELECT M.USERID,S.SHOPNUM,S.TOTALPRICE,SI.ITEMNUM,SI.ITEMNAME,SI.ITEMPRICE,SI.ITEMCONTENTS,SF.FILENAME,S.REVSTARTDAY,S.REVENDDAY,S.ADULTSNUM,S.DOGNUM
+SELECT M.USERID,S.SHOPNUM,S.TOTALPRICE,SI.ITEMNUM,SI.ITEMNAME,SI.USERID AS BIZID,SI.ITEMPRICE,SI.ITEMCONTENTS,SF.FILENAME,S.REVSTARTDAY,S.REVENDDAY,S.ADULTSNUM,S.DOGNUM
 FROM MEMBER M
      INNER JOIN
      SHOPCART S
@@ -293,6 +293,7 @@ WHERE M.USERID = #{userId}
 	<id column="USERID" property="userId"/>
 	<collection property="itemDTOs" javaType="List" ofType="SellItemDTO">
 		<id column="ITEMNUM" property="itemNum"/>
+		<result column="BIZID" property="userId"/>
 		<result column="ITEMNAME" property="itemName"/>
 		<result column="ITEMPRICE" property="itemPrice"/>
 		<result column="ITEMCONTENTS" property="itemContents"/>

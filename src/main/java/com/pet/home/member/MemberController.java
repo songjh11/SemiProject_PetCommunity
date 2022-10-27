@@ -769,6 +769,14 @@ public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 		return mv;
 	}
 	
+	@GetMapping("PDTest")
+	public ModelAndView getPDTest(PurchaseDTO purchaseDTO) throws Exception{
+		List<PurchaseDTO> pList = sellItemService.getPDTest(purchaseDTO);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("pList", pList);
+		return modelAndView;		
+	}
+	
 //결제 취소
 	@PostMapping("purchaseDelete")
 	@ResponseBody

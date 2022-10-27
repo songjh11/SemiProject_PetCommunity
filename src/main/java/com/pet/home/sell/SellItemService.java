@@ -429,6 +429,10 @@ public class SellItemService {
 		return purchaseDAO.getPurchaseDetail(purchaseDTO); 
 	}
 	
+	public List<PurchaseDTO> getPDTest(PurchaseDTO purchaseDTO) throws Exception{
+		return purchaseDAO.getPDTest(purchaseDTO);
+	}
+	
 	//아임포트 서버에서 전액 환불 진행
 	public String setPurchaseCancel(IamportResponse<AccessToken> token, String reason, String imp_uid) throws Exception{
 		RestTemplate restTemplate = new RestTemplate();

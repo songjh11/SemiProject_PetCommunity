@@ -131,6 +131,30 @@
 		ORDER BY P.PURCHASEDATE DESC) CHECKLIST
 	</select>
 	
+	<select id="getPDTest" parameterType="PurchaseDTO" resultMap="getPurchaseListResult">
+		SELECT ROWNUM R, CHECKLIST.* FROM        
+		(SELECT  P.*, M.USERNAME, M.EMAIL, M.PHONE, SITEM.USERID as BIZID, SITEM.ITEMNAME, SITEM.FILENAME, PC.CANCELDATE, PC.REASON FROM 
+		PURCHASE P
+		LEFT JOIN
+		PURCHASECANCEL PC
+		ON P.MERCHANT_UID = PC.MERCHANT_UID		
+			RIGHT JOIN
+			MEMBER M
+			ON P.USERID = M.USERID
+				RIGHT JOIN
+				(SELECT SII.* 
+                    FROM 
+                    (SELECT SI.ITEMNUM, SI.ITEMPRICE, SI.ITEMNAME, SI.ITEMCATG, SI.USERID, SI.ITEMADDRESS, SF.FILENAME
+                        FROM SELLITEM SI
+                        INNER JOIN
+                        SELLFILE SF
+                        ON SI.ITEMNUM = SF.ITEMNUM
+                        ORDER BY SI.ITEMNUM DESC,SF.PHOTONUM ASC) SII) SITEM
+				ON P.ITEMNUM = SITEM.ITEMNUM
+		WHERE P.MERCHANT_UID = #{merchant_uid}
+		ORDER BY P.PURCHASEDATE DESC) CHECKLIST
+	</select>
+	
 		<select id="getSellerPurchaseDetail" parameterType="PurchaseDTO" resultMap="getPurchaseListResult">
 		SELECT ROWNUM R, CHECKLIST.* FROM        
 		(SELECT  P.*, M.USERNAME, M.EMAIL, M.PHONE, SITEM.USERID as BIZID, SITEM.ITEMNAME, SITEM.FILENAME, PC.CANCELDATE, PC.REASON FROM 

@@ -441,13 +441,6 @@ public class MemberController {
 			return mv;
 		}
 		
-		mv.addObject("list", memberDTO);
-		mv.addObject("what","cart");
-		mv.setViewName("member/carttest");
-		return mv;
-	}
-	
-	
 		@PostMapping("cart")
 		public ModelAndView setCartDelete(ShopCartDTO shopCartDTO, HttpSession session)throws Exception{
 			ModelAndView mv = new ModelAndView();

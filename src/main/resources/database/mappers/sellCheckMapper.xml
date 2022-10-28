@@ -6,9 +6,9 @@
 	
 		
 	<insert id="setPurchase" parameterType="PurchaseDTO">
-		INSERT INTO PURCHASE 
+		INSERT INTO PURCHASE (PURCHASENUM, IMP_UID, MERCHANT_UID, ITEMNUM, AMOUNT, ITEMPRICE, USERID, REVSTARTDATE, REVENDDATE, ADULTSCOUNT, DOGCOUNT, PURCHASEDATE, PURCHASESTATUS)
 		VALUES 
-		(PURCHASE_SEQ.NEXTVAL, #{imp_uid}, #{merchant_uid}, #{itemNum}, #{amount}, #{userId}, #{revStartDate}, #{revEndDate}, #{adultsCount}, #{dogCount}, sysdate, 1)
+		(PURCHASE_SEQ.NEXTVAL, #{imp_uid}, #{merchant_uid}, #{itemNum}, #{amount}, #{itemPrice}, #{userId}, #{revStartDate}, #{revEndDate}, #{adultsCount}, #{dogCount}, sysdate, 1)
 	</insert>
 	
 	<insert id="setPurchaseCancelOne" parameterType="PurchaseCancelDTO">

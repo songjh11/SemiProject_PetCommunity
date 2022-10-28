@@ -124,13 +124,10 @@ coupon.addEventListener("change", function(){
 //==================================================================결제창 실행
 multiCheckBtn.addEventListener("click", function (){
   let dateResult = false;
- 
-  console.log(itnValueA.length)
   let itnArr = [];
     
   for(let i=0; i<itnValueA.length; i++){
     itnArr.push(itnValueA[i].getAttribute("data-item-num"));
-    console.log(itnArr[i]);
   }
 
     inv = itnValueA[0].getAttribute("data-item-name")+"외";
@@ -140,14 +137,6 @@ multiCheckBtn.addEventListener("click", function (){
     btv = buyer_tel.value;
     uiv = userId.value;
     cpn = couponNum;
-
-    console.log(tpv);
-    console.log(uiv);
-    console.log(inv);
-    console.log(bev);
-    console.log(bnv);
-    console.log(btv);
-    console.log(cpn);
   
     if(tpv<=0){
     alert("예상 결제 금액을 다시 확인해주세요")
@@ -182,7 +171,6 @@ multiCheckBtn.addEventListener("click", function (){
     
           for(let i=0; i<itnValueA.length; i++){
             itnArr.push(itnValueA[i].getAttribute("data-item-num"));
-            console.log(itnArr[i]);
           }
          
           // jQuery로 HTTP 요청

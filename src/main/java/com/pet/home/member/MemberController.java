@@ -786,9 +786,6 @@ public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 			@RequestParam String reason,
 			@RequestParam String amount
 			) throws Exception {
-		System.out.println("purchaseDelete");
-		System.out.println(merchant_uid);
-		System.out.println(imp_uid);
 		String msg = "";
 		ModelAndView mv = new ModelAndView("jsonView");
 		
@@ -922,7 +919,7 @@ public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 			                     purchaseDTO.setMerchant_uid(merchant_uid);
 			                     purchaseDTO.setItemNum(s.getItemNum());
 			                     purchaseDTO.setAmount(Long.parseLong(amount));
-			                     purchaseDTO.setItemPrice(s.getItemPrice());
+			                     purchaseDTO.setItemPrice(s.getTotalPrice());
 			                     purchaseDTO.setRevStartDate(s.getRevStartDay());
 			                     purchaseDTO.setRevEndDate(s.getRevEndDay());
 			                     purchaseDTO.setAdultsCount(s.getAdultsNum());

@@ -316,10 +316,9 @@
                         <img src="/resources/upload/sellfile/${check.fileDTOs[0].fileName}" class="img-fluid" alt="">
                     </div>
                     <div class="member-info" style="width: 100%; height: 115px;">
-                        <h4>${check.itemDTO.itemName}</h4>
+                        <h4>${check.itemDTO[0].itemName}</h4>
                         <a href="./purchaseDetail?merchant_uid=${check.merchant_uid}">주문번호: ${check.merchant_uid}</a>
                         <span>결제 금액: ${check.amount}</span>
-                        <p>${itemDTOs.itemContents}</p>
                     </div>
                 </div>
             </div>

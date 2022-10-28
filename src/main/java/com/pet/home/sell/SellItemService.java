@@ -72,6 +72,7 @@ public class SellItemService {
 		return client;
 	}
 	
+	
 	public int setItemAdd(SellItemDTO itemDTO, MultipartFile [] files, ServletContext servletContext) throws Exception {
 		int result = itemDAO.setItemAdd(itemDTO);
 		SellCategoryDTO categoryDTO = new SellCategoryDTO();

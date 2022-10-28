@@ -297,6 +297,7 @@ WHERE M.USERID = 'guest'
 		<result column="ITEMPRICE" property="itemPrice"/>
 		<result column="ITEMCONTENTS" property="itemContents"/>
 		<collection property="shopCartDTOs" javaType="List" ofType="ShopCartDTO">
+		<id column="SHOPNUM" property="shopNum"></id>
 		<result column="TOTALPRICE" property="totalPrice"/>
 		<result column="REVSTARTDAY" property="revStartDay"/>
 		<result column="REVENDDAY" property="revEndDay"/>

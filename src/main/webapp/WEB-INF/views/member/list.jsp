@@ -234,7 +234,7 @@
 				<tbody>
 					<c:forEach items="${list.itemDTOs}" var="itemDTO">
 					<tr>
-						<td>${itemDTO.itemNum }</td>
+						<td>${itemDTO.shopCartDTOs[0].shopNum }</td>
 						<td><img style="border: 0px; outline: 0px; width: 70px; height: 70px;" src="/resources/upload/sellfile/${itemDTO.fileDTOs['0'].fileName}" class="img-fluid" alt=""></td>
           				<td>${itemDTO.itemName }</td>
           				<td>${itemDTO.shopCartDTOs[0].totalPrice }</td>
@@ -242,13 +242,14 @@
           				<td>${itemDTO.shopCartDTOs[0].revEndDay }</td>
           				<td>${itemDTO.shopCartDTOs[0].adultsNum }</td>
           				<td>${itemDTO.shopCartDTOs[0].dogNum }</td>
+                  <td><input type="checkbox" class="cartCheck" data-item-num="${itemDTO.shopCartDTOs[0].shopNum }" data-item-price="${itemDTO.shopCartDTOs[0].totalPrice }"></td>
           				<td><button type="button" id="rvBtnFrm" class="btnCartDelete" data-item-num="${itemDTO.itemNum }" style="border: 1px solid gray; border-radius: 10px; width: 70px; height: 70px;"><img src="/resources/images/close.png" class="img-fluid" alt=""></button></td>
           			</tr>
         			</c:forEach>
         		</tbody>
         	</table>
         	<div>
-        		총금액:<input type="text" readonly="readonly" value="${total.totalPrice }">
+        		총금액:<input type="text" id="totalPrice" readonly="readonly" value="0">
         		<button type="button" class="btn btn-danger">결제하기</button>
         	</div>
           <div>

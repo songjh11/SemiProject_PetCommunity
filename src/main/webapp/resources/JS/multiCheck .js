@@ -38,6 +38,16 @@ let msg = "";
 
 
 
+const cartCheck = document.getElementsByClassName("cartCheck");
+for(let i=0; i<cartCheck.length; i++){
+  cartCheck[i].addEventListener("click",function(){
+    console.log(cartCheck[i].checked);
+  })
+}
+
+
+
+
 const btnCartDelete = document.getElementsByClassName("btnCartDelete")
 for(let i=0; i<btnCartDelete.length; i++){
 

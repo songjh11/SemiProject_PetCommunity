@@ -434,6 +434,13 @@ public class SellItemController {
 		mv.addObject("pager", sellPager);
 		return mv;
 	}
+	
+	@PostMapping("allCartDelete")
+	@ResponseBody
+	public int setAllCartDelete(ShopCartDTO shopCartDTO) throws Exception{
+		int result = itemService.setAllCartDelete(shopCartDTO);
+		return result;
+	}
 
 	//결제 진행 후 DB 인서트
 	@ResponseBody
@@ -526,7 +533,7 @@ public class SellItemController {
             }
 
 	
-
+		
 	
 }
 

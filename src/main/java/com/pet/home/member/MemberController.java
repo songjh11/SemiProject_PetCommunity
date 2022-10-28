@@ -441,11 +441,6 @@ public class MemberController {
 			return mv;
 		}
 		
-		mv.addObject("list", memberDTO);
-		mv.addObject("what","cart");
-		mv.setViewName("member/carttest");
-		return mv;
-	}
 	
 	
 		@PostMapping("cart")

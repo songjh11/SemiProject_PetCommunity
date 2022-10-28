@@ -29,4 +29,8 @@ public class ShopCartDAO {
 	public ShopCartDTO getCartOne(ShopCartDTO shopCartDTO) throws Exception{
 		return session.selectOne(NAMESPACE+"getCartOne", shopCartDTO);
 	}
+	
+	public int setAllCartDelete(ShopCartDTO shopCartDTO) throws Exception{
+		return session.delete(NAMESPACE+"setAllCartDelete",shopCartDTO);
+	}
 }

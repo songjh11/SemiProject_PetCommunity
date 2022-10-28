@@ -41,6 +41,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
+import com.pet.home.admin.AdminDAO;
 import com.pet.home.board.event.coupon.CouponDTO;
 import com.pet.home.file.FileDTO;
 import com.pet.home.sell.PickDTO;
@@ -74,6 +75,9 @@ public class MemberController {
 	@Autowired 
 	private SellItemService sellItemService;
 	
+	@Autowired
+	private AdminDAO adminDAO;
+	
 	
 	// ============= login & Join =================
 	
@@ -97,21 +101,28 @@ public class MemberController {
 		System.out.println("DB로그인 접속 (POST)");
 		
 		memberDTO = memberService.getLogin(memberDTO);
-
+		
+		System.out.println("차단여부 : "+memberDTO.getBlock());
+		
 		// request에 있는 파라미터를 session에 넣음
 		HttpSession session = request.getSession();
 		
 		// DB에서 가져온 DTO데이터를 JSP로 속성만들어서 보내기
 		//M.USERNAME, M.USERID, M.EMAIL, M.PHONE, R.ROLENUM, R.ROLENAME 내용물
-		session.setAttribute("member", memberDTO);
 		
-		if (memberDTO!=null) {
+		if (memberDTO!=null && memberDTO.getBlock() == 0) {
+			session.setAttribute("member", memberDTO);
 			System.out.println("로그인 성공");
+		}else if(memberDTO != null && memberDTO.getBlock() == 1){
+			mv.addObject("msg", "차단된 아이디 입니다. 고객센터로 문의해주세요.");
+			mv.addObject("url","login");
+			mv.setViewName("member/alert");
+			return mv;
 		}else {System.out.println("로그인 실패");
-		mv.addObject("msg", "아이디/비밀번호가 틀렸습니다.");
-		mv.addObject("url", "login");
-		mv.setViewName("member/alert");
-		return mv;
+			mv.addObject("msg", "아이디/비밀번호가 틀렸습니다.");
+			mv.addObject("url", "login");
+			mv.setViewName("member/alert");
+			return mv;
 		}
 		
 		mv.addObject("dto", memberDTO);
@@ -411,23 +422,24 @@ public class MemberController {
 		return mv;
 	}
 	
-//		@GetMapping("cart")
-//		public ModelAndView getShopCartList(MemberDTO memberDTO, HttpSession session)throws Exception{
-//			ModelAndView mv = new ModelAndView();
-//			memberDTO = (MemberDTO)session.getAttribute("member");
-//			memberDTO = memberService.getShopCartList(memberDTO);
-//			
-//			mv.addObject("list", memberDTO);
-//			mv.addObject("what","cart");
-//			mv.setViewName("member/list");
-//			return mv;
-//		}
-	
-	@GetMapping("carttest")
-	public ModelAndView getShopCartList(MemberDTO memberDTO, HttpSession session)throws Exception{
-		ModelAndView mv = new ModelAndView();
-		memberDTO = (MemberDTO)session.getAttribute("member");
-		memberDTO = memberService.getShopCartList(memberDTO);
+		@GetMapping("cart")
+		public ModelAndView getShopCartList(MemberDTO memberDTO, HttpSession session)throws Exception{
+			ModelAndView mv = new ModelAndView();
+			memberDTO = (MemberDTO)session.getAttribute("member");
+			try {
+				List<CouponDTO> couponList = memberService.getCouponList(memberDTO);
+				mv.addObject("couponList", couponList);				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			memberDTO = memberService.getShopCartList(memberDTO);
+			MemberDTO memberDTO2 = memberService.getTotalPrice(memberDTO);
+			mv.addObject("list", memberDTO);
+			mv.addObject("total", memberDTO2);
+			mv.addObject("what","cart");
+			mv.setViewName("member/list");
+			return mv;
+		}
 		
 		mv.addObject("list", memberDTO);
 		mv.addObject("what","cart");
@@ -764,6 +776,14 @@ public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 		return mv;
 	}
 	
+	@GetMapping("PDTest")
+	public ModelAndView getPDTest(PurchaseDTO purchaseDTO) throws Exception{
+		List<PurchaseDTO> pList = sellItemService.getPDTest(purchaseDTO);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("pList", pList);
+		return modelAndView;		
+	}
+	
 //결제 취소
 	@PostMapping("purchaseDelete")
 	@ResponseBody
@@ -838,95 +858,102 @@ public ModelAndView getPickList(MemberDTO memberDTO) throws Exception{
 				return mv;
 			}
 			
-			//결제 진행 후 DB 인서트
-			@ResponseBody
-			@RequestMapping(value = "cartPayments", method = RequestMethod.POST, produces = "application/text; charset=utf8")
-			public String setPurchase(@RequestParam String imp_uid, 
-					@RequestParam String merchant_uid, 
-					@RequestParam String [] itemNum,
-					@RequestParam String amount,
-					@RequestParam String userId,
-					@RequestParam String couponNum,
-					HttpSession session) throws Exception {
-					
-
-					//토큰 발급
-					IamportResponse<AccessToken> token = sellItemService.getToken();
-					
-					IamportClient client = sellItemService.getClient();
-					
-					Payment payment = client.paymentByImpUid(imp_uid).getResponse();
-					String paymentResult = payment.getStatus();
-					
-					ShopCartDTO shopCartDTO = new ShopCartDTO();
-					shopCartDTO.setUserId(userId);
-					shopCartDTO.setItemNum(Long.parseLong(itemNum));
-					shopCartDTO = sellItemService.getCartOne(shopCartDTO);
-					
-					//결제되어야 할 금액 계산
-					Long totalPrice = sellItemService.setPrice(shopCartDTO.getItemNum(), shopCartDTO.getRevStartDate, shopCartDTO.getRevEndDate, shopCartDTO.getAdultsCount, shopCartDTO.getDogCount); 
-					
-					
-					//쿠폰 여부
-					CouponDTO couponDTO = new CouponDTO();
-					System.out.println("userId:"+userId);
-					if(!couponNum.equals("")) {
-						couponDTO.setCouponNum(Long.parseLong(couponNum));
-						couponDTO = adminDAO.getCouponByNum(couponDTO);
-						couponDTO.setUserId(userId);
-						if(couponDTO.getDiscountMethod().equals("0")) {
-							totalPrice = totalPrice * (100 - couponDTO.getDiscountRate())/100;
-							adminDAO.setDeleteMemberCoupon(couponDTO);
-						}else {
-
-							totalPrice = totalPrice - couponDTO.getDiscountPrice();
-							adminDAO.setDeleteMemberCoupon(couponDTO);
-								
-						}
-					}
-					
-					
-					//실제 결제 금액과 DB상 결제되어야 하는 금액 비교
-					if(amount.equals(totalPrice.toString())) {
-						//실결제 여부 검증
-						if(paymentResult.equals("paid")) {
-							PurchaseDTO purchaseDTO = new PurchaseDTO();
-							purchaseDTO.setImp_uid(imp_uid);
-							purchaseDTO.setMerchant_uid(merchant_uid);
-							purchaseDTO.setItemNum(Long.parseLong(itemNum));
-							purchaseDTO.setAmount(Long.parseLong(amount));
-							purchaseDTO.setRevStartDate(revStartDate);
-							purchaseDTO.setRevEndDate(revEndDate);
-							purchaseDTO.setAdultsCount(Long.parseLong(adultsCount));
-							purchaseDTO.setDogCount(Long.parseLong(dogCount));
-							purchaseDTO.setUserId(userId);
-							
-							int result = sellItemService.setPurchase(purchaseDTO);
-								//디비 반영 검증
-								if(result>0) {
-									return paymentResult;
-								} else {
-									paymentResult = "결제 기록 오류가 발생했습니다. 고객센터에 문의해주세요.";
-									return paymentResult;
-								}
-							
-								} else {
-									paymentResult = "결제 진행에 오류가 있습니다. 카드사에 문의해주세요.";
-									return paymentResult;
-								}
-								} else {//실결제 금액이 DB상 결제 금액과 다른 경우 DB에 인서트 되지 않고 결제 취소 진행
-										String reason = "결제 금액 상이함";
-										String code = sellItemService.setPurchaseCancel(token, reason, imp_uid);
-										if(code.equals("0")) {
-											paymentResult = "결제 금액 오류로 결제가 취소됩니다.";
-											return paymentResult;
-										} else {
-											paymentResult = "결제가 정상적으로 이루어지지 않았습니다. 카드사에 문의해주세요.";
-											return paymentResult;
-										}
-								}
-				
-				                          	            
-		            }		
+	         //결제 진행 후 DB 인서트
+	         @ResponseBody
+	         @RequestMapping(value = "cartPayments", method = RequestMethod.POST, produces = "application/text; charset=utf8")
+	         public String setPurchase(@RequestParam String imp_uid, 
+	               @RequestParam String merchant_uid, 
+	               @RequestParam String amount,
+	               @RequestParam String [] itemNum,
+	               @RequestParam String userId,
+	               @RequestParam String couponNum,
+	               HttpSession session) throws Exception {
+ 	               //토큰 발급
+	               IamportResponse<AccessToken> token = sellItemService.getToken();
+	               
+	               IamportClient client = sellItemService.getClient();
+	               List<ShopCartDTO> ar = new ArrayList<>();
+	               
+	               Payment payment = client.paymentByImpUid(imp_uid).getResponse();
+	               String paymentResult = payment.getStatus();
+	               for(int i=0; i<itemNum.length; i++) {
+	            	   ShopCartDTO shopCartDTO = new ShopCartDTO();
+	            	   shopCartDTO.setUserId(userId);
+	            	   shopCartDTO.setItemNum(Long.parseLong(itemNum[i]));
+	            	   shopCartDTO = sellItemService.getCartOne(shopCartDTO);
+	            	   ar.add(shopCartDTO);
+	            	   System.out.println("ar: "+ar.get(i));
+	               }
+	               
+	               //결제되어야 할 금액 계산
+	               Long totalPrice2 = 0L;
+	               Long totalPrice = 0L;
+	               
+	               for(ShopCartDTO s: ar) {
+	            	   totalPrice2 = sellItemService.setPrice(s.getItemNum().toString(), s.getRevStartDay(), s.getRevEndDay(), s.getAdultsNum().toString(), s.getDogNum().toString()); 
+	            	   totalPrice = totalPrice2+totalPrice;
+	               }
+	               
+	               //쿠폰 여부
+	               CouponDTO couponDTO = new CouponDTO();
+	               System.out.println("userId:"+userId);
+	               if(!couponNum.equals("")) {
+	                  couponDTO.setCouponNum(Long.parseLong(couponNum));
+	                  couponDTO = adminDAO.getCouponByNum(couponDTO);
+	                  couponDTO.setUserId(userId);
+	                  if(couponDTO.getDiscountMethod().equals("0")) {
+	                     totalPrice = totalPrice * (100 - couponDTO.getDiscountRate())/100;
+	                     adminDAO.setDeleteMemberCoupon(couponDTO);
+	                  }else {
+	                     totalPrice = totalPrice - couponDTO.getDiscountPrice();
+	                     adminDAO.setDeleteMemberCoupon(couponDTO);
+	                  }
+ 	               }
+	               
+	               //실제 결제 금액과 DB상 결제되어야 하는 금액 비교
+	               if(amount.equals(totalPrice.toString())) {
+	                  //실결제 여부 검증
+		                  if(paymentResult.equals("paid")) {
+		                	  int result = 0;
+		                	 for(ShopCartDTO s: ar) {
+			                     PurchaseDTO purchaseDTO = new PurchaseDTO();
+			                     purchaseDTO.setImp_uid(imp_uid);
+			                     purchaseDTO.setMerchant_uid(merchant_uid);
+			                     purchaseDTO.setItemNum(s.getItemNum());
+			                     purchaseDTO.setAmount(Long.parseLong(amount));
+			                     purchaseDTO.setItemPrice(s.getTotalPrice());
+			                     purchaseDTO.setRevStartDate(s.getRevStartDay());
+			                     purchaseDTO.setRevEndDate(s.getRevEndDay());
+			                     purchaseDTO.setAdultsCount(s.getAdultsNum());
+			                     purchaseDTO.setDogCount(s.getDogNum());
+			                     purchaseDTO.setUserId(userId);
+			                     result = sellItemService.setPurchase(purchaseDTO);
+		                	 }
+			                //디비 반영 검증
+				              if(result>0) {
+				                    	 return paymentResult;
+				                     } else {
+				                    	 paymentResult = "결제 기록 오류가 발생했습니다. 고객센터에 문의해주세요.";
+				                    	 return paymentResult;
+				                     }
+		                	 	} else {
+		                           paymentResult = "결제 진행에 오류가 있습니다. 카드사에 문의해주세요.";
+		                           return paymentResult;
+		                        }
+	                        } else {//실결제 금액이 DB상 결제 금액과 다른 경우 DB에 인서트 되지 않고 결제 취소 진행
+	                              String reason = "결제 금액 상이함";
+	                              String code = sellItemService.setPurchaseCancel(token, reason, imp_uid);
+	                              if(code.equals("0")) {
+	                                 paymentResult = "결제 금액 오류로 결제가 취소됩니다.";
+	                                 return paymentResult;
+	                              } else {
+	                                 paymentResult = "결제가 정상적으로 이루어지지 않았습니다. 카드사에 문의해주세요.";
+	                                 return paymentResult;
+	                              }
+	                        }
+	            
+	                                                     
+	                  }
+			
 }
 	

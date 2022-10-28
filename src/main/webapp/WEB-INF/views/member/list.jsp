@@ -11,6 +11,11 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
+  <!-- jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+  <!-- iamport.payment.js -->
+  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+
 	<style type="text/css">
     .ag{
       background-color:cornsilk;
@@ -220,30 +225,55 @@
               </c:when>
 
         <c:when test="${what eq 'cart'}">
-		<c:forEach items="${list.itemDTOs}" var="itemDTO">
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-            <div class="chef-member">
-              <div class="member-img">
-                <img src="/resources/upload/sellfile/${itemDTO.fileDTOs['0'].fileName}" class="img-fluid" alt="">
-              </div>
-                <div class="member-info">
-                  <h5>${itemDTO.itemNum}</h5>
-                  <h4>${itemDTO.itemName}</h4>
-                  <span>${itemDTO.shopCartDTOs[0].totalPrice}</span>
-                  <p>${itemDTO.itemContents}</p>
-                  <div class="social">
-                    <button class="cartdel" type="button"><i class="bi bi-trash3"></i></button>
-                    <a href=""><i class="bi bi-facebook"></i></a>
-                    <a href=""><i class="bi bi-instagram"></i></a>
-                    <a href=""><i class="bi bi-linkedin"></i></a>
-                  </div>
-              </div>
-       
-            </div>
-
+          <input type="hidden" id="buyer_email" value="${sessionScope.member.email}">
+          <input type="hidden" id="buyer_name" value="${sessionScope.member.userName}">
+          <input type="hidden" id="buyer_tel" value="${sessionScope.member.phone}">
+          <input type="hidden" id="userId" value="${sessionScope.member.userId}">
+        	<table class="table">
+				<thead>
+					<tr>
+						<th>번호</th><th>상품사진</th><th>상품명</th><th>가격</th><th>시작일자</th><th>종료일자</th><th>인원수</th><th>반려견수</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${list.itemDTOs}" var="itemDTO">
+					<tr>
+						<td class="itnValueA" data-item-num="${itemDTO.itemNum}" data-item-name="${itemDTO.itemName}">${itemDTO.itemNum }</td>
+						<td><img style="border: 0px; outline: 0px; width: 70px; height: 70px;" src="/resources/upload/sellfile/${itemDTO.fileDTOs['0'].fileName}" class="img-fluid" alt=""></td>
+          				<td>${itemDTO.itemName }</td>
+          				<td>${itemDTO.shopCartDTOs[0].totalPrice }</td>
+          				<td>${itemDTO.shopCartDTOs[0].revStartDay }</td>
+          				<td>${itemDTO.shopCartDTOs[0].revEndDay }</td>
+          				<td>${itemDTO.shopCartDTOs[0].adultsNum +1 }</td>
+          				<td>${itemDTO.shopCartDTOs[0].dogNum +1}</td>
+          				<td><button type="button" id="rvBtnFrm" class="btnCartDelete" data-item-num="${itemDTO.itemNum }" style="border: 1px solid gray; border-radius: 10px; width: 70px; height: 70px;"><img src="/resources/images/close.png" class="img-fluid" alt=""></button></td>
+          			</tr>
+        			</c:forEach>
+        		</tbody>
+        	</table>
+        	<div>
+        		총금액:<input type="text" readonly="readonly" value="${total.totalPrice}" id="totalPrice">
+        		<button type="button" class="btn btn-danger" id="multiCheckBtn">결제하기</button>
+        	</div>
+          <div>
+            <c:catch>
+                <label for="contents" class="form-label">적용할 쿠폰</label>
+                <select class="form-select" id="coupon" name ="couponNum">
+                <option value="">선택</option>
+                <c:forEach items="${couponList}" var="coupon">
+                  <c:choose>
+                    <c:when test="${coupon.discountMethod eq '0'}">
+                      <option value="${coupon.discountRate}|${coupon.couponNum}|${coupon.discountMethod}"> 쿠폰명 : ${coupon.couponName} ( 할인율 : ${coupon.discountRate} % )</option>
+                    </c:when>
+                    <c:otherwise>
+                      <option value="${coupon.discountPrice}|${coupon.couponNum}|${coupon.discountMethod}"> 쿠폰명 : ${coupon.couponName} ( 할인금액 : ${coupon.discountPrice} 원 )</option>
+                    </c:otherwise>
+                  </c:choose>
+                </c:forEach>
+                </select>
+            </c:catch>
           </div>
-        </c:forEach>
+         
         </c:when>
 
         <c:when test="${what eq 'coupon'}">
@@ -380,7 +410,11 @@
   <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
   <!-- footer end -->
   
-<script src="/resources/JS/follow.js"></script>
+  <script>
+    let abc = "${total.totalPrice}";
+  </script>
+  <script src="/resources/JS/follow.js"></script>
+  <script src="/resources/JS/multiCheck .js"></script>
 
 <!-- <script>
   function getParameter(name) {

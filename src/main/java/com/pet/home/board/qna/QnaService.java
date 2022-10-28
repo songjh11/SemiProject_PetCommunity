@@ -23,12 +23,12 @@ public class QnaService implements BoardService {
 	private FileManager fileManager;
 	
 	public int setReply(QnaDTO qnaDTO) throws Exception{
-		qnaDTO = (QnaDTO)qnaDAO.getDetail(qnaDTO);
-		QnaDTO parent = qnaDTO;
+		BoardDTO boardDTO = qnaDAO.getDetail(qnaDTO);
+		QnaDTO parent = (QnaDTO)boardDTO;
+		
 		qnaDTO.setRef(parent.getRef());
-		System.out.println(parent.getStep());
-		qnaDTO.setStep(parent.getStep()+1L);
-		qnaDTO.setDepth(parent.getDepth()+1L);
+		qnaDTO.setStep(parent.getStep()+1);
+		qnaDTO.setDepth(parent.getDepth()+1);
 		
 		qnaDAO.setStepUpdate(parent);
 		int result = qnaDAO.setReplyAdd(qnaDTO);

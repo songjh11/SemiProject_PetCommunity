@@ -15,7 +15,7 @@
 		<property name="password" value="${oracle.password}"></property>
 		<property name="url" value="${oracle.url}"></property>
 		<property name="driverClassName" value="${oracle.driver}"></property>
-	</bean>
+	</bean> 
 
 	<!-- Connection, sql문이 있는 xml 파일의 위치, config 파일의 위치를 알려줌 -->
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">

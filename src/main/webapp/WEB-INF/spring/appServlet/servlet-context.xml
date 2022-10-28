@@ -41,68 +41,68 @@
 	<beans:bean class="com.pet.home.interceptor.MemberInterceptor" id="memberInterceptor"></beans:bean>
 	<beans:bean class="com.pet.home.interceptor.WriterCheckInterceptor" id="writerCheckInterceptor"></beans:bean>
 	
-	<interceptors>
-	
-	<!--  관리자 인터셉터 -->
-	<interceptor>
-		<mapping path="/notice/**"/>
-		<mapping path="/admin/**"/>
-		<exclude-mapping path="/notice/list"/>
-		<exclude-mapping path="/notice/detail"/>
-		<beans:ref bean="adminCheckInterceptor"/>
-	</interceptor>
-	
-	<!-- <interceptor>
-		<mapping path="/qna/update"/>
-		<mapping path="/qna/delete"/>
-		<mapping path="/sharing/update"/>
-		<mapping path="/sharing/delete"/>
-		<mapping path="/event/update"/>
-		<mapping path="/event/delete"/>
-		<beans:ref bean="writerCheckInterceptor"/>
-	</interceptor> -->
-	
-<!-- 	<interceptor>
-	<mapping path="/member/**"/>
-	<mapping path="/sell/**"/>
-	<mapping path="/event/**"/>
-	<mapping path="/notice/**"/>
-	<mapping path="/qna/**"/>
-	<mapping path="/admin/**"/>
-	<exclude-mapping path="/member/login"/>
-	<exclude-mapping path="/member/join"/>
-	<exclude-mapping path="/member/kakao"/>
-	<exclude-mapping path="/member/findlogin"/>
-	<exclude-mapping path="/member/role"/>
-	<exclude-mapping path="/member/idUsed"/>
-	<exclude-mapping path="/sell/list"/>
-	<exclude-mapping path="/sell/detail"/>
-	<exclude-mapping path="/sell/pettx"/>
-	<exclude-mapping path="/sell/map"/>
-	<exclude-mapping path="/event/list"/>
-	<exclude-mapping path="/notice/list"/>
-	<exclude-mapping path="/notice/detail"/>
-	<exclude-mapping path="/qna/list"/>
-	<exclude-mapping path="/qna/detail"/>
-	<beans:ref bean="memberInterceptor"/>
-	</interceptor> -->
-	 
-	
-		<!-- URL, Interceptor 매핑 -->
- 		<interceptor>
-			<mapping path="/sell/*"/>
-			<exclude-mapping path="/sell/list"/>
- 			<exclude-mapping path="/sell/detail*"/>
- 			<exclude-mapping path="/sell/pettx"/>
- 			<exclude-mapping path="/sell/search"/>
- 			<exclude-mapping path="/sell/Sellerlist"/>
- 			<exclude-mapping path="/sell/add"/>
- 			<exclude-mapping path="/sell/reviewadd"/>
- 			<exclude-mapping path="/sell/reviewList"/>
-			<beans:ref bean="sellitemInterceptor"/>		
-		</interceptor>
-	 
-	</interceptors> 
+	   <interceptors>
+   
+   <!--  관리자 인터셉터 -->
+   <interceptor>
+      <mapping path="/notice/**"/>
+      <mapping path="/admin/**"/>
+      <exclude-mapping path="/notice/list"/>
+      <exclude-mapping path="/notice/detail"/>
+      <beans:ref bean="adminCheckInterceptor"/>
+   </interceptor>
+   
+   <!-- <interceptor>
+      <mapping path="/qna/update"/>
+      <mapping path="/qna/delete"/>
+      <mapping path="/sharing/update"/>
+      <mapping path="/sharing/delete"/>
+      <mapping path="/event/update"/>
+      <mapping path="/event/delete"/>
+      <beans:ref bean="writerCheckInterceptor"/>
+   </interceptor> -->
+   
+<!--    <interceptor>
+   <mapping path="/member/**"/>
+   <mapping path="/sell/**"/>
+   <mapping path="/event/**"/>
+   <mapping path="/notice/**"/>
+   <mapping path="/qna/**"/>
+   <mapping path="/admin/**"/>
+   <exclude-mapping path="/member/login"/>
+   <exclude-mapping path="/member/join"/>
+   <exclude-mapping path="/member/kakao"/>
+   <exclude-mapping path="/member/findlogin"/>
+   <exclude-mapping path="/member/role"/>
+   <exclude-mapping path="/member/idUsed"/>
+   <exclude-mapping path="/sell/list"/>
+   <exclude-mapping path="/sell/detail"/>
+   <exclude-mapping path="/sell/pettx"/>
+   <exclude-mapping path="/sell/map"/>
+   <exclude-mapping path="/event/list"/>
+   <exclude-mapping path="/notice/list"/>
+   <exclude-mapping path="/notice/detail"/>
+   <exclude-mapping path="/qna/list"/>
+   <exclude-mapping path="/qna/detail"/>
+   <beans:ref bean="memberInterceptor"/>
+   </interceptor> -->
+    
+   
+      <!-- URL, Interceptor 매핑 -->
+       <interceptor>
+         <mapping path="/sell/*"/>
+         <exclude-mapping path="/sell/list"/>
+          <exclude-mapping path="/sell/detail*"/>
+          <exclude-mapping path="/sell/pettx"/>
+          <exclude-mapping path="/sell/search"/>
+          <exclude-mapping path="/sell/Sellerlist"/>
+          <exclude-mapping path="/sell/add"/>
+          <exclude-mapping path="/sell/reviewadd"/>
+          <exclude-mapping path="/sell/reviewList"/>
+         <beans:ref bean="sellitemInterceptor"/>      
+      </interceptor>
+    
+   </interceptors> 
 	
 	<context:component-scan base-package="com.pet.home" />
 	

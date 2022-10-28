@@ -24,5 +24,9 @@
 		  			SELECT * FROM SHOPCART
   					 WHERE USERID = #{userId} AND ITEMNUM = #{itemNum}
 		  		</select>
+		  		
+		  		<delete id="setAllCartDelete" parameterType="ShopCartDTO">
+		  			DELETE SHOPCART WHERE USERID=#{userId}
+		  		</delete>
 		    
 		    </mapper>

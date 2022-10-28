@@ -40,6 +40,16 @@ const itnValueA = document.getElementsByClassName("itnValueA");
 
 
 
+const cartCheck = document.getElementsByClassName("cartCheck");
+for(let i=0; i<cartCheck.length; i++){
+  cartCheck[i].addEventListener("click",function(){
+    console.log(cartCheck[i].checked);
+  })
+}
+
+
+
+
 const btnCartDelete = document.getElementsByClassName("btnCartDelete")
 for(let i=0; i<btnCartDelete.length; i++){
 
@@ -197,7 +207,25 @@ multiCheckBtn.addEventListener("click", function (){
                 console.log(paymentResult);
                 if(paymentResult=="paid") {
                   alert("결제에 성공하였습니다!")
-                  window.location.href = 'http://localhost/member/purchaseList';
+                  $.ajax({
+                    url: "../sell/allCartDelete",
+                    type: "POST",
+                    data: {
+                      'userId': uiv
+                    },
+                    error : function(xhr,status,error){
+                      console.log(xhr.responseText);
+                      console.log(status);
+                      console.log(error);
+                      let data = xhr.responseText;
+                      console.log(data);
+                    },
+                    success : function(result){
+                      if(result == "1"){
+                        window.location.href = 'http://localhost/member/purchaseList';
+                      }
+                    }
+                  })
               } else{
                 alert("결제에 실패하였습니다. 결제 실패 사유: " + paymentResult);
                 location.reload();

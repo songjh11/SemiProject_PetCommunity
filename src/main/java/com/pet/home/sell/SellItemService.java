@@ -72,8 +72,9 @@ public class SellItemService {
 		return client;
 	}
 	
-	public ShopCartDTO getCartOne (ShopCartDTO shopCartDTO) throws Exception {
-		return shopCartDAO.getCartOne(shopCartDTO);
+	public int setAllCartDelete(ShopCartDTO shopCartDTO) throws Exception{
+		int result = shopCartDAO.setAllCartDelete(shopCartDTO);
+		return result;
 	}
 	
 	

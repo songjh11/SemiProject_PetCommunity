@@ -225,6 +225,10 @@
               </c:when>
 
         <c:when test="${what eq 'cart'}">
+          <input type="hidden" id="buyer_email" value="${sessionScope.member.email}">
+          <input type="hidden" id="buyer_name" value="${sessionScope.member.userName}">
+          <input type="hidden" id="buyer_tel" value="${sessionScope.member.phone}">
+          <input type="hidden" id="userId" value="${sessionScope.member.userId}">
         	<table class="table">
 				<thead>
 					<tr>
@@ -234,23 +238,22 @@
 				<tbody>
 					<c:forEach items="${list.itemDTOs}" var="itemDTO">
 					<tr>
-						<td>${itemDTO.shopCartDTOs[0].shopNum }</td>
+						<td class="itnValueA" data-item-num="${itemDTO.itemNum}" data-item-name="${itemDTO.itemName}">${itemDTO.itemNum }</td>
 						<td><img style="border: 0px; outline: 0px; width: 70px; height: 70px;" src="/resources/upload/sellfile/${itemDTO.fileDTOs['0'].fileName}" class="img-fluid" alt=""></td>
           				<td>${itemDTO.itemName }</td>
           				<td>${itemDTO.shopCartDTOs[0].totalPrice }</td>
           				<td>${itemDTO.shopCartDTOs[0].revStartDay }</td>
           				<td>${itemDTO.shopCartDTOs[0].revEndDay }</td>
-          				<td>${itemDTO.shopCartDTOs[0].adultsNum }</td>
-          				<td>${itemDTO.shopCartDTOs[0].dogNum }</td>
-                  <td><input type="checkbox" class="cartCheck" data-item-num="${itemDTO.shopCartDTOs[0].shopNum }" data-item-price="${itemDTO.shopCartDTOs[0].totalPrice }"></td>
+          				<td>${itemDTO.shopCartDTOs[0].adultsNum +1 }</td>
+          				<td>${itemDTO.shopCartDTOs[0].dogNum +1}</td>
           				<td><button type="button" id="rvBtnFrm" class="btnCartDelete" data-item-num="${itemDTO.itemNum }" style="border: 1px solid gray; border-radius: 10px; width: 70px; height: 70px;"><img src="/resources/images/close.png" class="img-fluid" alt=""></button></td>
           			</tr>
         			</c:forEach>
         		</tbody>
         	</table>
         	<div>
-        		총금액:<input type="text" id="totalPrice" readonly="readonly" value="0">
-        		<button type="button" class="btn btn-danger">결제하기</button>
+        		총금액:<input type="text" readonly="readonly" value="${total.totalPrice}" id="totalPrice">
+        		<button type="button" class="btn btn-danger" id="multiCheckBtn">결제하기</button>
         	</div>
           <div>
             <c:catch>
@@ -407,27 +410,11 @@
   <c:import url="/WEB-INF/views/template/footer.jsp"></c:import>
   <!-- footer end -->
   
+  <script>
+    let abc = "${total.totalPrice}";
+  </script>
   <script src="/resources/JS/follow.js"></script>
   <script src="/resources/JS/multiCheck .js"></script>
-  <script>
-        
-
-        var cartArr = new Array();
-  
-        <c:forEach items="${list.itemDTOs}" var="itemDTO">
-          cartArr.push("${itemDTO.itemNum}");
-          cartArr.push("${itemDTO.itemName}");
-          cartArr.push("${itemDTO.shopCartDTOs[0].totalPrice }");
-          cartArr.push("${itemDTO.shopCartDTOs[0].revStartDay }");
-          cartArr.push("${itemDTO.shopCartDTOs[0].revEndDay }");
-          cartArr.push("${itemDTO.shopCartDTOs[0].adultsNum }");
-          cartArr.push("${itemDTO.shopCartDTOs[0].dogNum }");
-        </c:forEach> 
-
-        cart(cartArr);
-
-      
-  </script>
 
 <!-- <script>
   function getParameter(name) {

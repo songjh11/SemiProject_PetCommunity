@@ -19,5 +19,10 @@
 		  		<select id="getShopCartCheck" parameterType="ShopCartDTO" resultType="String">
 		  			SELECT SHOPSTATUS FROM SHOPCART WHERE ITEMNUM=#{itemNum} AND USERID=#{userId}
 		  		</select>
+		  		
+		  		<select id="getCartOne" parameterType="ShopCartDTO" resultType="ShopCartDTO">
+		  			SELECT * FROM SHOPCART
+  					 WHERE USERID = #{userId} AND ITEMNUM = #{itemNum}
+		  		</select>
 		    
 		    </mapper>

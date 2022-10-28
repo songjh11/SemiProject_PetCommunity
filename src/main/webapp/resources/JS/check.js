@@ -107,7 +107,7 @@ if(btnShopCartFalse == null){
           const xHttp = new XMLHttpRequest();
           xHttp.open("POST","./shopcartadd");
           xHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-          xHttp.send("itemNum="+itemNum+"&itemPrice="+itemPrice+"&revStartDay="+revStartDay+"&revEndDay="+revEndDay+"&adultsNum="+adultsNum+"&dogNum="+dogNUM);
+          xHttp.send("itemNum="+itemNum+"&totalPrice="+itemPrice+"&revStartDay="+revStartDay+"&revEndDay="+revEndDay+"&adultsNum="+adultsNum+"&dogNum="+dogNUM);
           xHttp.onreadystatechange = function(){
               if(xHttp.readyState == 4 && xHttp.status == 200){
                   let result = xHttp.responseText.trim();

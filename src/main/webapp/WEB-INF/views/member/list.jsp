@@ -236,6 +236,7 @@
 					</tr>
 				</thead>
 				<tbody>
+					<c:if test="${not empty list }">
 					<c:forEach items="${list.itemDTOs}" var="itemDTO">
 					<tr>
 						<td class="itnValueA" data-item-num="${itemDTO.itemNum}" data-item-name="${itemDTO.itemName}">${itemDTO.itemNum }</td>
@@ -250,29 +251,35 @@
           			</tr>
         			</c:forEach>
         		</tbody>
+          </c:if>
         	</table>
-        	<div>
-        		총금액:<input type="text" readonly="readonly" value="${total.totalPrice}" id="totalPrice">
-        		<button type="button" class="btn btn-danger" id="multiCheckBtn">결제하기</button>
-        	</div>
-          <div>
-            <c:catch>
+          <c:if test="${not empty list }">
+            <div>
+              총금액:<input type="text" readonly="readonly" value="${total.totalPrice}" id="totalPrice">
+              <button type="button" class="btn btn-danger" id="multiCheckBtn">결제하기</button>
+            </div>
+          </c:if>
+          <c:if test="${not empty list }">
+
+            <div>
+              <c:catch>
                 <label for="contents" class="form-label">적용할 쿠폰</label>
-                <select class="form-select" id="coupon" name ="couponNum">
-                <option value="">선택</option>
-                <c:forEach items="${couponList}" var="coupon">
-                  <c:choose>
-                    <c:when test="${coupon.discountMethod eq '0'}">
-                      <option value="${coupon.discountRate}|${coupon.couponNum}|${coupon.discountMethod}"> 쿠폰명 : ${coupon.couponName} ( 할인율 : ${coupon.discountRate} % )</option>
-                    </c:when>
-                    <c:otherwise>
-                      <option value="${coupon.discountPrice}|${coupon.couponNum}|${coupon.discountMethod}"> 쿠폰명 : ${coupon.couponName} ( 할인금액 : ${coupon.discountPrice} 원 )</option>
-                    </c:otherwise>
-                  </c:choose>
-                </c:forEach>
+                  <select class="form-select" id="coupon" name ="couponNum">
+                    <option value="">선택</option>
+                  <c:forEach items="${couponList}" var="coupon">
+                    <c:choose>
+                      <c:when test="${coupon.discountMethod eq '0'}">
+                        <option value="${coupon.discountRate}|${coupon.couponNum}|${coupon.discountMethod}"> 쿠폰명 : ${coupon.couponName} ( 할인율 : ${coupon.discountRate} % )</option>
+                      </c:when>
+                      <c:otherwise>
+                        <option value="${coupon.discountPrice}|${coupon.couponNum}|${coupon.discountMethod}"> 쿠폰명 : ${coupon.couponName} ( 할인금액 : ${coupon.discountPrice} 원 )</option>
+                      </c:otherwise>
+                    </c:choose>
+                  </c:forEach>
                 </select>
-            </c:catch>
-          </div>
+              </c:catch>
+            </div>
+          </c:if>
          
         </c:when>
 

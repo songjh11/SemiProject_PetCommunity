@@ -11,21 +11,20 @@
 
 ## 팀원 역할 분담
 
-<img src="">
+<img src="https://user-images.githubusercontent.com/108776178/212002347-752abb72-9131-4424-aa25-37dff3df867d.png">
 
 ## ERD
 
 * ERDCloud: https://www.erdcloud.com/d/4K6SZWMFyiy9kqyaw
 
 ## 개발 환경 구축
-<img src="">
+<img src="https://user-images.githubusercontent.com/108776178/212002089-97c8c87b-4dd7-43d7-972a-828215bb9bf8.png">
 
 ## PPT
-* 
-https://docs.google.com/presentation/d/1gzu-Dz00YNSI9IEo4RzwomariNst8jkn/edit?usp=sharing&ouid=103528894120254139033&rtpof=true&sd=true
+* https://docs.google.com/presentation/d/1gzu-Dz00YNSI9IEo4RzwomariNst8jkn/edit?usp=sharing&ouid=103528894120254139033&rtpof=true&sd=true
 
 # WALWAL
-<img src="">
+<img src="https://user-images.githubusercontent.com/108776178/212001774-807d4e7c-5599-449d-834a-81baa3218e78.png">
 
 
 ## 1. 기능별 Package

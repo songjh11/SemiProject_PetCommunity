@@ -7,7 +7,7 @@
 * 사용 언어 : JAVA(JDK 1.7), oracle db, HTML, CSS, JavaScript, JSP & Servlet
 * 사용 기술 : Spring Framework, MyBatis, jQuery, Ajax, Open API(I'mport 결제, Kakao Map, Daum 주소)
 * 디자인 프레임워크 : Bootstrap
-* Notion: https://shore-number-80f.notion.site/WALWAL-48640a17e82242db943a9a3a865db8bc
+* Notion: https://shore-number-80f.notion.site/WALWAL-9f467659e13d46af838f4e5ed85a17f5
 
 ## 팀원 역할 분담
 
